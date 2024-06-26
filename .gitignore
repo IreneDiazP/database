@@ -1,0 +1,35 @@
+# Entorno virtual
+venv/
+env/
+cdpenv/
+
+# Archivos de configuración local
+*.sqlite3
+*.env
+
+# Archivos estáticos y medios generados
+# /staticfiles/
+# /media/
+
+# Dependencias instaladas con pip
+lib/
+bin/
+include/
+pip-selfcheck.json
+
+# Logs y archivos temporales
+*.log
+*.swp
+*.swo
+*.pyc
+__pycache__/
+tmp/
+
+# Otros archivos y directorios generados
+.DS_Store
+*.bak
+*.~
+
+# Configuración de IDE específica (opcional)
+.idea/
+.vscode/
