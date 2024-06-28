@@ -19,4 +19,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('', include('core.urls')),
+    
+    # Path del Admin
+    path('admin/', admin.site.urls),
 ]
