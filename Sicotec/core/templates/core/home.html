@@ -1,1 +1,47 @@
-<h1>hola desde home</h1>
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}
+  Inicio
+{% endblock title %}
+{% block head %} 
+
+{% endblock %}
+
+{% block contenido %}
+<section class="content h-100 d-flex align-items-center mt-md-0 mt-3">
+  <div
+    class="formulario d-md-flex gap-md-4 align-self-center py-0 col-7 m-auto bg-white rounded-4"
+  >
+    <div
+      class="col-md-5 col-12 py-md-5 d-flex flex-column align-items-center"
+    >
+      <h1 class="fw-bold fs-2 pt-4 pb-4 ms-md-4 text-center">
+        ¡BIENVENIDO
+        <br>
+        IRENDE DIAZ !
+      </h1>
+      <p class="ms-md-4 p-2 p-md-4 text-justify">
+        ¡Bienvenido a nuestro sistema de gestión de proyectos!
+        Simplificamos la planificación y colaboración para garantizar el
+        éxito. Descubre la excelencia en la gestión de proyectos con
+        nosotros.
+      </p>
+    </div>
+
+    <div
+      class="col-6 d-flex justify-content-center align-items-center p-3 m-5 d-md-block d-none"
+    >
+      <div
+        class="col-10 m-auto d-md-block d-none"
+        style="
+          background-image: url('{% static 'core/images/login.png' %}');
+          background-size: cover;
+          background-repeat: no-repeat;
+          height: 400px;
+          border-radius: 60px;
+        "
+      ></div>
+    </div>
+  </div>
+</section>
+{% endblock contenido %}
