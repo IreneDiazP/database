@@ -32,5 +32,7 @@ header {
   height: 66px;
 }
 main {
-  height: calc(100vh - 66px);
+  min-height: calc(100vh - 66px); /* Establece el tamaño mínimo */
+  height: auto; /* Permite que el tamaño crezca según el contenido */
+  background: #eaefe6;
 }

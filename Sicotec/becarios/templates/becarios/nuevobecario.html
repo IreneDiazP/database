@@ -1,8 +1,10 @@
-{% extends "core/base.html" %} {% load static %} {% block title %}NUevo
-Becario{% endblock title %}Nuevo Becario {% block contenido %}
-<div class="main-content d-flex flex-column py-0 mb-md-5 mb-3">
+{% extends "core/base.html" %} {% load static %} {% block title %}Nuevo
+Becario{% endblock title %} 
+
+{% block contenido %}
+<div class="main-content d-flex flex-column py-0 mb-md-5 ">
   <div
-    class="formulario d-flex flex-column gap-4 mt-4 align-self-center p-0 mb-md-0 mb-5"
+    class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-3 mb-md-0 mb-5"
   >
     {% if mensaje_error %}
     <p style="color: red">{{ mensaje_error }}</p>
@@ -43,7 +45,7 @@ Becario{% endblock title %}Nuevo Becario {% block contenido %}
               <span class="text-danger ms-2">* Campos obligatorios</span>
             </div>
             <span class="fw-bold fs-6">Datos generales del Becario</span>
-
+            <!--NOMBRES-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidBecario" />
@@ -60,7 +62,7 @@ Becario{% endblock title %}Nuevo Becario {% block contenido %}
                 >
               </div>
             </div>
-
+            <!--APELLIDO PATERNO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidApellidoPaterno" />
@@ -73,11 +75,13 @@ Becario{% endblock title %}Nuevo Becario {% block contenido %}
                   maxlength="150"
                 />
                 <label for="txtApellidoPaterno"
-                  >Apellido Paterno<span class="text-danger ms-2">*</span></label
+                  >Apellido Paterno<span class="text-danger ms-2"
+                    >*</span
+                  ></label
                 >
               </div>
             </div>
-            <!--sdsds-->
+            <!--APELLIDO MATERNO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidApellidoMaterno" />
@@ -90,11 +94,13 @@ Becario{% endblock title %}Nuevo Becario {% block contenido %}
                   maxlength="150"
                 />
                 <label for="txtApellidoMaterno"
-                  >Apellido Materno<span class="text-danger ms-2">*</span></label
+                  >Apellido Materno<span class="text-danger ms-2"
+                    >*</span
+                  ></label
                 >
               </div>
             </div>
-            <!--sdsds-->
+            <!--EMAIL-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidCorreo" />
@@ -107,14 +113,273 @@ Becario{% endblock title %}Nuevo Becario {% block contenido %}
                   maxlength="150"
                 />
                 <label for="txtCorreo"
-                  >Correo Electronico<span class="text-danger ms-2">*</span></label
+                  >Correo Electronico<span class="text-danger ms-2"
+                    >*</span
+                  ></label
                 >
               </div>
             </div>
+            <!------   ----------------------------- -->
+
+            <!--TIPO DOCUMENTO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoDocumento"
+                  name="cboTipoDocumento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="DNI">DNI</option>
+                </select>
+                <label for="cboTipoDocumento"
+                  >Tipo de documento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--DOCUMENTO -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtDocumento"
+                  name="txtDocumento"
+                  required
+                  maxlength="8"
+                  pattern="\d{8}"
+                  title="El DNI debe tener 8 dígitos numéricos"
+                />
+                <label for="txtDocumento"
+                  >Número de documento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+
+            <!--PAIS-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboPais"
+                  name="cboPais"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Pais">Pais</option>
+                </select>
+                <label for="cboPais"
+                  >Pais<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+
+            <!--DEPARTAMENTO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboDepartamento"
+                  name="cboDepartamento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Departamento">Departamento</option>
+                </select>
+                <label for="cboDepartamento"
+                  >Departamento<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--PROVINCIA-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboProvincia"
+                  name="cboProvincia"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Provincia">Provincia</option>
+                </select>
+                <label for="cboProvincia"
+                  >Provincia<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--DISTRITO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboDistrito"
+                  name="cboDistrito"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Distrito">Distrito</option>
+                </select>
+                <label for="cboDistrito"
+                  >Distrito<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--TIPO DE EVENTO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoEvento"
+                  name="cboTipoEvento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Tipo de Evento</option>
+                </select>
+                <label for="cboTipoEvento"
+                  >Tipo de Evento<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--CODIGO DE EVENTO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboCodigo"
+                  name="cboCodigo"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Codigo de Evento</option>
+                </select>
+                <label for="cboCodigo"
+                  >Codigo de Evento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--TIPO DE PARTICIPACION-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoParticipacion"
+                  name="cboTipoParticipacion"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Tipo de Participacion</option>
+                </select>
+                <label for="cboTipoParticipacion"
+                  >Tipo de Participacion<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--SEDE-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cdboSede"
+                  name="cdboSede"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Sede</option>
+                </select>
+                <label for="cdboSede"
+                  >Sede<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--INSTITUCION-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cdboInstitucion"
+                  name="cdboInstitucion"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Institucion</option>
+                </select>
+                <label for="cdboInstitucion"
+                  >Institucion<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--DOCUMENTO AUTORIZACION PARTICIPACION-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cdboAutorizacion"
+                  name="cdboAutorizacion"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Doc. Autorizacion</option>
+                </select>
+                <label for="cdboAutorizacion"
+                  >Doc. Autorizacion<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
           </div>
+
+          <!-- Botones -->
+          <div class="row g-3 px-3">
+            <hr />
+            <div class="col-12 d-flex justify-content-end mt-1">
+              <button class="btn btn-lg text-white fs-6 bg-danger " type="submit">
+                <i class="fas fa-save"></i> &nbsp;Guardar datos
+              </button>
+
+            </div>
+
+          </div>
+                      <!------   ----------------------------- -->
         </div>
       </form>
     </div>
   </div>
 </div>
 {% endblock contenido %}
+{% block script %} 
+          
+{% endblock %}

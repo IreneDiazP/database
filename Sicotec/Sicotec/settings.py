@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     'becarios',
     'proyectos',
+    'usuarios'
 ]
 
 MIDDLEWARE = [
