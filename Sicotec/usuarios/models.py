@@ -6,7 +6,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, verbose_name="Usuario")
     nombre = models.CharField(max_length=150, verbose_name='Nombre')
     apellido = models.CharField(max_length=150, verbose_name='Apellido')
-    cargo = models.CharField(max_length=100, verbose_name='Cargo')
+    area = models.CharField(max_length=100, verbose_name='area')
     correo_institucional = models.EmailField(max_length=254, unique=True, verbose_name='Correo Institucional')
     created_by = models.ForeignKey(User, related_name='userprofiles_created', on_delete=models.PROTECT, verbose_name="Creado por")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
