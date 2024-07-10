@@ -164,22 +164,74 @@
               <li class="nav-item">
                 <a
                   id="gesBecario"
-                  href="#collapseGesBecario"
+                  href="#collapseEvento"
                   class="submenu-controller nav-link text-white"
                   aria-current="page"
                   data-bs-toggle="collapse"
                   aria-expanded="false"
-                  aria-controls="collapseGesBecario"
+                  aria-controls="collapseEvento"
                 >
                   <i class="nav-link__icon bi bi-people-fill fs-5"></i>
-                  <span class="nav-link__title">Becarios</span>
+                  <span class="nav-link__title">Eventos</span>
                   <i class="bi bi-caret-down-fill"></i
                 ></a>
 
                 <!--desplegable-->
                 <div
                   class="collapse text-secondary w-100"
-                  id="collapseGesBecario"
+                  id="collapseEvento"
+                >
+                  <ul class="submenu-content list-group">
+                    <li
+                      class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+                    >
+                      <a
+                        id="nuevoEvento"
+                        class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                        href="{% url 'nuevoEvento' %}"
+                      >
+                        <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+                        Evento
+                      </a>
+                    </li>
+                    <li
+                      class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+                    >
+                      <a
+                        id="todosBecarios"
+                        class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                        href="#"
+                      >
+                        <i
+                          class="nav-link__icon bi bi-file-earmark-text fs-5"
+                        ></i>
+                        Mostrar Eventos
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <!--BECARIOS-->
+              <li class="nav-item">
+                <a
+                  id="gesParticipante"
+                  href="#collapseGesParticipante"
+                  class="submenu-controller nav-link text-white"
+                  aria-current="page"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  aria-controls="collapseGesParticipante"
+                >
+                  <i class="nav-link__icon bi bi-people-fill fs-5"></i>
+                  <span class="nav-link__title">Participantes</span>
+                  <i class="bi bi-caret-down-fill"></i
+                ></a>
+
+                <!--desplegable-->
+                <div
+                  class="collapse text-secondary w-100"
+                  id="collapseGesParticipante"
                 >
                   <ul class="submenu-content list-group">
                     <li
@@ -191,7 +243,7 @@
                         href="{% url 'nuevoBecario' %}"
                       >
                         <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
-                        becario
+                        Participantes
                       </a>
                     </li>
                     <li
@@ -205,23 +257,24 @@
                         <i
                           class="nav-link__icon bi bi-file-earmark-text fs-5"
                         ></i>
-                        Mostrar becarios
+                        Mostrar Participantes
                       </a>
                     </li>
                   </ul>
                 </div>
               </li>
 
+
               <!--USUARIOS-->
               <li class="nav-item">
                 <a
-                  id="gesBecario"
-                  href="#collapseGesBecario"
+                  id="gesUsuarios"
+                  href="#collapseGesUsuario"
                   class="submenu-controller nav-link text-white"
                   aria-current="page"
                   data-bs-toggle="collapse"
                   aria-expanded="false"
-                  aria-controls="collapseGesBecario"
+                  aria-controls="collapseGesUsuario"
                 >
                   <i class="nav-link__icon bi bi-people-fill fs-5"></i>
                   <span class="nav-link__title">Usuarios</span>
@@ -231,7 +284,7 @@
                 <!--desplegable-->
                 <div
                   class="collapse text-secondary w-100"
-                  id="collapseGesBecario"
+                  id="collapseGesUsuario"
                 >
                   <ul class="submenu-content list-group">
                     <li
@@ -243,7 +296,7 @@
                         href="{% url 'nuevoUsuario' %}"
                       >
                         <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
-                        Usuario
+                        Usuarios
                       </a>
                     </li>
                     <li
@@ -257,7 +310,7 @@
                         <i
                           class="nav-link__icon bi bi-file-earmark-text fs-5"
                         ></i>
-                        Mostrar Usuarios
+                        Mostrar Usuario
                       </a>
                     </li>
                   </ul>

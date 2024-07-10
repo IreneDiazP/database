@@ -1,5 +1,5 @@
 {% extends "core/base.html" %} {% load static %} {% block title %}Nuevo
-Proyecto{% endblock title %} {% block contenido %}
+Evento{% endblock title %} {% block contenido %}
 <div class="main-content d-flex flex-column py-0 mb-md-5">
   <div
     class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-3 mb-md-0 mb-5"
@@ -10,7 +10,7 @@ Proyecto{% endblock title %} {% block contenido %}
     <div>
       <form
         action="#"
-        id="formAgregarProyecto"
+        id="formAgregarEvento"
         class="shadow px-3 py-3 rounded"
         method="POST"
       >
@@ -18,10 +18,10 @@ Proyecto{% endblock title %} {% block contenido %}
         <div class="d-flex gap-3 flex-column">
           <div class="col-12">
             <span class="fs-2 fw-semibold d-md-block d-none"
-              >Registro del Proyecto</span
+              >Registro del Evento</span
             >
             <span class="fs-5 fw-semibold d-md-none d-block text-center"
-              >Registro del Proyecto</span
+              >Registro del Evento</span
             >
             <hr />
             <div class="row px-3">
@@ -42,24 +42,24 @@ Proyecto{% endblock title %} {% block contenido %}
             <div class="d-flex">
               <span class="text-danger ms-2">* Campos obligatorios</span>
             </div>
-            <span class="fw-bold fs-6">Datos generales del Proyecto</span>
+            <span class="fw-bold fs-6">Datos generales del Evento</span>
 
             <!------   ----------------------------- -->
-            <!--TIPO DE EVENTO-->
+            <!--TIPO DE Evento-->
             <div class="col-md-3">
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoProyecto"
-                  name="cboTipoProyecto"
+                  id="cboTipoEvento"
+                  name="cboTipoEvento"
                   required
                 >
                   <option selected></option>
 
-                  <option value="1">Tipo de Proyecto</option>
+                  <option value="1">Tipo de Evento</option>
                 </select>
-                <label for="cboTipoProyecto"
-                  >Tipo de Proyecto<span class="text-danger ms-2"
+                <label for="cboTipoEvento"
+                  >Tipo de Evento<span class="text-danger ms-2"
                     >*</span
                   ></label
                 >
@@ -71,16 +71,16 @@ Proyecto{% endblock title %} {% block contenido %}
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboCodigoProyecto"
-                  name="cboCodigoProyecto"
+                  id="cboCodigoEvento"
+                  name="cboCodigoEvento"
                   required
                 >
                   <option selected></option>
 
-                  <option value="1">Codigo de Proyecto</option>
+                  <option value="1">Codigo de Evento</option>
                 </select>
-                <label for="cboCodigoProyecto"
-                  >Codigo de Proyecto<span class="text-danger ms-2"
+                <label for="cboCodigoEvento"
+                  >Codigo de Evento<span class="text-danger ms-2"
                     >*</span
                   ></label
                 >
@@ -94,12 +94,12 @@ Proyecto{% endblock title %} {% block contenido %}
                 <input
                   type="text"
                   class="form-control"
-                  id="txtNombreProyecto"
-                  name="txtNombreProyecto"
+                  id="txtNombreEvento"
+                  name="txtNombreEvento"
                   required
                   maxlength="150"
                 />
-                <label for="txtNombreProyecto"
+                <label for="txtNombreEvento"
                   >Nombre<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -197,48 +197,6 @@ Proyecto{% endblock title %} {% block contenido %}
                 >
               </div>
             </div>
-            <!------   ----------------------------- -->
-            <!--MONTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidMonto" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtMonto"
-                  name="txtMonto"
-                  required
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
-                />
-                <label for="txtMonto"
-                  >Monto (S/)<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--DONACIONES - EQUIPAMIENTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidonaciones" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtDonaciones"
-                  name="txtDonaciones"
-                  required
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
-                />
-                <label for="txtDonaciones"
-                  >Donaciones<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-
             <!------   ----------------------------- -->
             <!--AREA TEMATICA-->
             <div class="col-md-3">

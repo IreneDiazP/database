@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     'becarios',
+    'core',
+    'eventos',
     'proyectos',
     'usuarios'
 ]
@@ -81,9 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'sicotec',
-        'USER':'root',
-        'PASSWORD':'root',
-        'HOST':'localhost',
+        'USER':'remote',
+        'PASSWORD':'1234',
+        'HOST':'192.168.18.5',
         'PORT':'3306'
     }
 }
