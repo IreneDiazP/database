@@ -300,7 +300,7 @@ Participante{% endblock title %} {% block contenido %}
             </div>
             <!------   ----------------------------- -->
             <!--CODIGO DE EVENTO-->
-            <div class="col-md-3">
+            <div class="col-md-6">
               <div class="form-floating">
                 <select
                   class="form-select"
@@ -339,25 +339,7 @@ Participante{% endblock title %} {% block contenido %}
                 >
               </div>
             </div>
-            <!------   ----------------------------- -->
-            <!--INSTITUCION-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cdboInstitucion"
-                  name="cdboInstitucion"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Institucion</option>
-                </select>
-                <label for="cdboInstitucion"
-                  >Institucion<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
+            
             <!------   ----------------------------- -->
 
             <!--Tipo de Proyecto-->
@@ -382,7 +364,7 @@ Participante{% endblock title %} {% block contenido %}
             </div>
             <!------   ----------------------------- -->
             <!--Codigo - Nombre de Proyecto-->
-            <div class="col-md-3">
+            <div class="col-md-6">
               <div class="form-floating">
                 <select
                   class="form-select"
@@ -402,6 +384,25 @@ Participante{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
+            <!------   ----------------------------- -->
+            <!--INSTITUCION-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cdboInstitucion"
+                  name="cdboInstitucion"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Institucion</option>
+                </select>
+                <label for="cdboInstitucion"
+                  >Institucion<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
             <!------   ----------------------------- -->
             <!--Codigo de Autorizacion-->
             <div class="col-md-3">
@@ -435,6 +436,42 @@ Participante{% endblock title %} {% block contenido %}
                 />
                 <label for="fileDocumento"
                   >Subir Documento<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--ACTA -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidCodigoAutorizacion" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtCodigoAutorizacion"
+                  name="txtCodigoAutorizacion"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtCodigoAutorizacion"
+                  >Acta<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!-- SUBIR ACTA  -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input
+                  type="file"
+                  class="form-control"
+                  id="fileDocumento"
+                  name="fileDocumento"
+                  required
+                />
+                <label for="fileDocumento"
+                  >Subir Acta<span class="text-danger ms-2">*</span></label
                 >
               </div>
             </div>
