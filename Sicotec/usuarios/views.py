@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from .models import UserProfile
 from.forms import  UserProfileForm
 
-# Create your views here.
 @login_required
 def nuevo_usuario(request):
     if request.method == 'POST':
@@ -18,17 +17,16 @@ def nuevo_usuario(request):
             area = form.cleaned_data['area']
             correo_institucional = form.cleaned_data['correo_institucional']
 
-            # Crear el usuario
             user = User.objects.create_user(username=username, password=password)
 
-            # Crear el perfil de usuario
+         
             profile = UserProfile(
                 user=user,
                 nombre=nombre,
                 apellido=apellido,
                 area=area,
                 correo_institucional=correo_institucional,
-                created_by=request.user  # Opcional: registrar quién creó el perfil
+                created_by=request.user  
             )
             profile.save()
 
