@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .models import UserProfile
 from.forms import  UserProfileForm
 
 # Create your views here.
@@ -9,12 +10,29 @@ def nuevo_usuario(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST)
         if form.is_valid():
+            # Obtener los datos del formulario
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            nombre = form.cleaned_data['nombre']
+            apellido = form.cleaned_data['apellido']
+            area = form.cleaned_data['area']
+            correo_institucional = form.cleaned_data['correo_institucional']
+
+            # Crear el usuario
             user = User.objects.create_user(username=username, password=password)
-            profile = form.save(commit=False)
-            profile.user = user
+
+            # Crear el perfil de usuario
+            profile = UserProfile(
+                user=user,
+                nombre=nombre,
+                apellido=apellido,
+                area=area,
+                correo_institucional=correo_institucional,
+                created_by=request.user  # Opcional: registrar quién creó el perfil
+            )
             profile.save()
+
+
     else:
         form = UserProfileForm()
     
