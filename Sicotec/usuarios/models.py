@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, verbose_name="Usuario")
-    nombre = models.CharField(max_length=150, verbose_name='Nombre')
+    nombre = models.CharField(max_length=100, verbose_name='Nombre')
     apellido = models.CharField(max_length=150, verbose_name='Apellido')
     area = models.CharField(max_length=100, verbose_name='area')
     correo_institucional = models.EmailField(max_length=254, unique=True, verbose_name='Correo Institucional')
