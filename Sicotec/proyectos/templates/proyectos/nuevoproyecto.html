@@ -45,7 +45,7 @@ Proyecto{% endblock title %} {% block contenido %}
             <span class="fw-bold fs-6">Datos generales del Proyecto</span>
 
             <!------   ----------------------------- -->
-            <!--TIPO DE EVENTO-->
+            <!--TIPO DE PROYECTO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <select
@@ -66,7 +66,7 @@ Proyecto{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--CODIGO DE EVENTO-->
+            <!--CODIGO DE PROYECTO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <select
@@ -87,7 +87,7 @@ Proyecto{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--NOMBRES-->
+            <!--NOMBRE PROYECTO-->
             <div class="col-md-6">
               <div class="form-floating">
                 <input type="hidden" id="txtidNombre" />
@@ -140,26 +140,6 @@ Proyecto{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
-
-            <!--CIUDAD-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboCiudad"
-                  name="cboCiudad"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Ciudad</option>
-                </select>
-                <label for="cboCiudad"
-                  >Ciudad<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
             <!--TIPO DE APOYO-->
             <div class="col-md-3">
               <div class="form-floating">
@@ -193,13 +173,53 @@ Proyecto{% endblock title %} {% block contenido %}
                   <option value="Distrito">Tipo FInanciemiento</option>
                 </select>
                 <label for="cboTipoFinanciamiento">
-                  FInanciemiento<span class="text-danger ms-2">*</span></label
+                  Financiamiento<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--ENTIDAD FINANCIAMIENTO FINANCIAMIENTO -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoFinanciamiento"
+                  name="cboTipoFinanciamiento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Distrito">ipen</option>
+                </select>
+                <label for="cboTipoFinanciamiento">
+                  Entidad Financinaniento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--TIPO DE MONEDA -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoFinanciamiento"
+                  name="cboTipoFinanciamiento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Distrito">soles</option>
+                </select>
+                <label for="cboTipoFinanciamiento">
+                  Tipo de Moneda<span class="text-danger ms-2">*</span></label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--MONTO-->
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-floating">
                 <input type="hidden" id="txtidMonto" />
                 <input
@@ -219,6 +239,50 @@ Proyecto{% endblock title %} {% block contenido %}
             </div>
 
             <!------   ----------------------------- -->
+            <!--TIPO DE CAMBIO-->
+            <div class="col-md-2">
+              <div class="form-floating">
+                <input type="hidden" id="txtidMonto" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtMonto"
+                  name="txtMonto"
+                  required
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtMonto"
+                  >Tipo de Cambio<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--MONTO SOLES-->
+            <div class="col-md-2">
+              <div class="form-floating">
+                <input type="hidden" id="txtidMonto" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtMonto"
+                  name="txtMonto"
+                  required
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtMonto"
+                  >Equivalente Soles (S/)<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
             <!--DONACIONES - EQUIPAMIENTO-->
             <div class="col-md-3">
               <div class="form-floating">
@@ -228,13 +292,54 @@ Proyecto{% endblock title %} {% block contenido %}
                   class="form-control"
                   id="txtDonaciones"
                   name="txtDonaciones"
-                  required
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtDonaciones">Donaciones</label>
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--REPONSABLE IPEN-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidonaciones" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtDonaciones"
+                  name="txtDonaciones"
                   maxlength="15"
                   pattern="^\d+(\.\d{1,2})?$"
                   title="Ingrese un monto válido con hasta dos decimales"
                 />
                 <label for="txtDonaciones"
-                  >Donaciones<span class="text-danger ms-2">*</span></label
+                  >Responsable IPEN<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--REPONSABLE ENTIDAD-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidonaciones" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtDonaciones"
+                  name="txtDonaciones"
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtDonaciones"
+                  >Responsable Entidad<span class="text-danger ms-2"
+                    >*</span
+                  ></label
                 >
               </div>
             </div>

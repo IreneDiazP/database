@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'becarios',
     'core',
     'eventos',
+    'mantenimiento',
     'proyectos',
     'usuarios'
 ]
@@ -82,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'sicotec',
-        'USER':'root',
-        'PASSWORD':'root',
-        'HOST':'localhost',
+        'USER':'remote',
+        'PASSWORD':'1234',
+        'HOST':'192.168.18.5',
         'PORT':'3306'
     }
 }

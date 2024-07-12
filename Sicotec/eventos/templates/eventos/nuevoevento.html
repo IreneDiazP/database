@@ -10,7 +10,7 @@ Evento{% endblock title %} {% block contenido %}
     <div>
       <form
         action="#"
-        id="formAgregarEvento"
+        id="formAgregarProyecto"
         class="shadow px-3 py-3 rounded"
         method="POST"
       >
@@ -45,61 +45,61 @@ Evento{% endblock title %} {% block contenido %}
             <span class="fw-bold fs-6">Datos generales del Evento</span>
 
             <!------   ----------------------------- -->
-            <!--TIPO DE Evento-->
+            <!--TIPO DE PROYECTO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoEvento"
-                  name="cboTipoEvento"
+                  id="cboTipoProyecto"
+                  name="cboTipoProyecto"
                   required
                 >
                   <option selected></option>
 
-                  <option value="1">Tipo de Evento</option>
+                  <option value="1">Tipo de Proyecto</option>
                 </select>
-                <label for="cboTipoEvento"
-                  >Tipo de Evento<span class="text-danger ms-2"
+                <label for="cboTipoProyecto"
+                  >Tipo de Proyecto<span class="text-danger ms-2"
                     >*</span
                   ></label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--CODIGO DE EVENTO-->
+            <!--CODIGO DE PROYECTO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboCodigoEvento"
-                  name="cboCodigoEvento"
+                  id="cboCodigoProyecto"
+                  name="cboCodigoProyecto"
                   required
                 >
                   <option selected></option>
 
-                  <option value="1">Codigo de Evento</option>
+                  <option value="1">Codigo de Proyecto</option>
                 </select>
-                <label for="cboCodigoEvento"
-                  >Codigo de Evento<span class="text-danger ms-2"
+                <label for="cboCodigoProyecto"
+                  >Codigo de Proyecto<span class="text-danger ms-2"
                     >*</span
                   ></label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--NOMBRES-->
+            <!--NOMBRE PROYECTO-->
             <div class="col-md-6">
               <div class="form-floating">
                 <input type="hidden" id="txtidNombre" />
                 <input
                   type="text"
                   class="form-control"
-                  id="txtNombreEvento"
-                  name="txtNombreEvento"
+                  id="txtNombreProyecto"
+                  name="txtNombreProyecto"
                   required
                   maxlength="150"
                 />
-                <label for="txtNombreEvento"
+                <label for="txtNombreProyecto"
                   >Nombre<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -140,26 +140,6 @@ Evento{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
-
-            <!--CIUDAD-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboCiudad"
-                  name="cboCiudad"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Ciudad</option>
-                </select>
-                <label for="cboCiudad"
-                  >Ciudad<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
             <!--TIPO DE APOYO-->
             <div class="col-md-3">
               <div class="form-floating">
@@ -193,11 +173,112 @@ Evento{% endblock title %} {% block contenido %}
                   <option value="Distrito">Tipo FInanciemiento</option>
                 </select>
                 <label for="cboTipoFinanciamiento">
-                  FInanciemiento<span class="text-danger ms-2">*</span></label
+                  Financiamiento<span class="text-danger ms-2">*</span></label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
+            <!--ENTIDAD FINANCIAMIENTO FINANCIAMIENTO -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoFinanciamiento"
+                  name="cboTipoFinanciamiento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Distrito">ipen</option>
+                </select>
+                <label for="cboTipoFinanciamiento">
+                  Entidad Financinaniento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--TIPO DE MONEDA -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoFinanciamiento"
+                  name="cboTipoFinanciamiento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="Distrito">soles</option>
+                </select>
+                <label for="cboTipoFinanciamiento">
+                  Tipo de Moneda<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--MONTO-->
+            <div class="col-md-2">
+              <div class="form-floating">
+                <input type="hidden" id="txtidMonto" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtMonto"
+                  name="txtMonto"
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtMonto"
+                  >Monto (S/)</label
+                >
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--TIPO DE CAMBIO-->
+            <div class="col-md-2">
+              <div class="form-floating">
+                <input type="hidden" id="txtidMonto" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtMonto"
+                  name="txtMonto"
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtMonto"
+                  >Tipo de Cambio</label
+                >
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--MONTO SOLES-->
+            <div class="col-md-2">
+              <div class="form-floating">
+                <input type="hidden" id="txtidMonto" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtMonto"
+                  name="txtMonto"
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
+                <label for="txtMonto"
+                  >Equivalente Soles (S/)</label
+                >
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+
             <!--AREA TEMATICA-->
             <div class="col-md-3">
               <div class="form-floating">

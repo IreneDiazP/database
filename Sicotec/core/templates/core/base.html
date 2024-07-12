@@ -177,10 +177,7 @@
                 ></a>
 
                 <!--desplegable-->
-                <div
-                  class="collapse text-secondary w-100"
-                  id="collapseEvento"
-                >
+                <div class="collapse text-secondary w-100" id="collapseEvento">
                   <ul class="submenu-content list-group">
                     <li
                       class="submenu-content__item list-group-item bg-black rounded-0 border-0"
@@ -264,7 +261,6 @@
                 </div>
               </li>
 
-
               <!--USUARIOS-->
               <li class="nav-item">
                 <a
@@ -313,6 +309,103 @@
                         Mostrar Usuario
                       </a>
                     </li>
+                  </ul>
+                </div>
+              </li>
+              <!--MANTENIMIENTO-->
+              <li class="nav-item">
+                <a
+                  id="gesMantinimiento"
+                  href="#collapseMantinimiento"
+                  class="submenu-controller nav-link text-white"
+                  aria-current="page"
+                  data-bs-toggle="collapse"
+                  aria-expanded="false"
+                  aria-controls="collapseMantinimiento"
+                >
+                  <i class="nav-link__icon bi bi-people-fill fs-5"></i>
+                  <span class="nav-link__title">Mantenimiento</span>
+                  <i class="bi bi-caret-down-fill"></i
+                ></a>
+
+                <!--desplegable-->
+                <div
+                  class="collapse text-secondary w-100"
+                  id="collapseMantinimiento"
+                >
+                  <ul class="submenu-content list-group">
+                    <li
+                      class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+                    >
+                      <a
+                        id="nuevoBecario"
+                        class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                        href="{% url 'nuevoUsuario' %}"
+                      >
+                        <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+                        Institucion
+                      </a>
+                    </li>
+                    <li
+                    class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+                  >
+                    <a
+                      id="nuevoBecario"
+                      class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                      href="{% url 'nuevoUsuario' %}"
+                    >
+                      <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+                      Sede
+                    </a>
+                  </li>
+                  <li
+                  class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+                >
+                  <a
+                    id="nuevoBecario"
+                    class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                    href="{% url 'nuevoUsuario' %}"
+                  >
+                    <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+                    Temática
+                  </a>
+                </li>
+                <li
+                class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+              >
+                <a
+                  id="nuevoBecario"
+                  class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                  href="{% url 'nuevoUsuario' %}"
+                >
+                  <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+                  Tipo de Apoyo
+                </a>
+              </li>
+              <li
+              class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+            >
+              <a
+                id="nuevoBecario"
+                class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+                href="{% url 'nuevoUsuario' %}"
+              >
+                <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+                Tipo Financiamiento
+              </a>
+            </li>
+            <li
+            class="submenu-content__item list-group-item bg-black rounded-0 border-0"
+          >
+            <a
+              id="nuevoBecario"
+              class="link-light link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0"
+              href="{% url 'nuevoUsuario' %}"
+            >
+              <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir
+              Tipo de Proyecto
+            </a>
+          </li>
                   </ul>
                 </div>
               </li>
