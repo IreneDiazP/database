@@ -83,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'sicotec',
-        'USER':'remote',
-        'PASSWORD':'1234',
-        'HOST':'192.168.18.5',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
         'PORT':'3306'
     }
 }

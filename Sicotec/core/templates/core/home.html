@@ -15,11 +15,11 @@
     <div
       class="col-md-5 col-12 py-md-5 d-flex flex-column align-items-center"
     >
-      <h1 class="fw-bold fs-2 pt-4 pb-4 ms-md-4 text-center">
-        ¡BIENVENIDO
-        <br>
-        IRENE DIAZ !
-      </h1>
+    <h1 class="fw-bold fs-2 pt-4 pb-4 ms-md-4 text-center">
+      ¡BIENVENIDO
+      <br>
+      {% if user.is_authenticated %} {{ user.userprofile.nombre }} {{user.userprofile.apellido }} {% else %} Invitado {% endif %}
+    </h1>
       <p class="ms-md-4 p-2 p-md-4 text-justify">
         ¡Bienvenido a nuestro sistema de gestión de proyectos!
         Simplificamos la planificación y colaboración para garantizar el

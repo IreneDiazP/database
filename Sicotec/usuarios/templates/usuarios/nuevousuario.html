@@ -73,9 +73,7 @@ Usuario{% endblock title %} {% block contenido %}
               <div class="col-md-3">
                 <div class="form-floating mb-3">
                   {{profile_form.correo_institucional}}
-                  <label for="txtEmail"
-                    >Email</label
-                  >
+                  <label for="txtEmail">Email</label>
                 </div>
               </div>
               <!------   ----------------------------- -->
@@ -124,4 +122,22 @@ Usuario{% endblock title %} {% block contenido %}
     </div>
   </div>
 </div>
-{% endblock contenido %} {% block script %} {% endblock %}
+{% endblock contenido %} 
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'core/js/notificacion-Swal.js' %}"></script>
+
+<script>
+  // Verificar si hay mensajes y mostrar con SweetAlert
+  {% if messages %}
+    {% for message in messages %}
+      NotificacionSwal(
+        "Éxito!",
+        "{{ message }}",
+        "success",
+        "ok"
+      );
+    {% endfor %}
+  {% endif %}
+</script>
+{% endblock %}
