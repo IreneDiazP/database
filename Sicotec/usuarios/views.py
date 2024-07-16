@@ -1,9 +1,10 @@
-from django.shortcuts import render,redirect
+from django.contrib import messages  # Importar framework de mensajes
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import UserProfile
-from.forms import  UserProfileForm
-from django.contrib import messages  # Importar framework de mensajes
+from .forms import UserProfileForm
+
 
 @login_required
 def nuevo_usuario(request):
@@ -18,23 +19,22 @@ def nuevo_usuario(request):
             area = form.cleaned_data['area']
             correo_institucional = form.cleaned_data['correo_institucional']
 
-            user = User.objects.create_user(username=username, password=password)
+            user = User.objects.create_user(
+                username=username, password=password)
 
-         
             profile = UserProfile(
                 user=user,
                 nombre=nombre,
                 apellido=apellido,
                 area=area,
                 correo_institucional=correo_institucional,
-                created_by=request.user  
+                created_by=request.user
             )
             profile.save()
-            messages.success(request, 'Usuario creado exitosamente') 
+            messages.success(request, 'Usuario creado exitosamente')
             return redirect('nuevoUsuario')
-
 
     else:
         form = UserProfileForm()
-    
+
     return render(request, 'usuarios/nuevousuario.html', {'profile_form': form})

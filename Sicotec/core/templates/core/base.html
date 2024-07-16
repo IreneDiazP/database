@@ -269,7 +269,7 @@
                   </ul>
                 </div>
               </li>
-
+              {% if request.user.is_staff or request.user.is_superuser %}
               <!--USUARIOS-->
               <li class="nav-item">
                 <a
@@ -321,7 +321,11 @@
                   </ul>
                 </div>
               </li>
+              {% endif %} 
+              
+              {% if request.user.is_staff or request.user.is_superuser %}
               <!--MANTENIMIENTO-->
+
               <li class="nav-item">
                 <a
                   id="gesMantinimiento"
@@ -418,6 +422,7 @@
                   </ul>
                 </div>
               </li>
+              {% endif %}
             </ul>
           </div>
         </div>
