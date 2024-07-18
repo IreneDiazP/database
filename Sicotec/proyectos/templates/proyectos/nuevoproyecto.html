@@ -55,8 +55,9 @@ Proyecto{% endblock title %} {% block contenido %}
                   required
                 >
                   <option selected></option>
-
-                  <option value="1">Tipo de Proyecto</option>
+                  {% for tp in tipoProyec %}
+                  <option value="{{tp.id}}">{{tp.cTipoProyecto}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboTipoProyecto"
                   >Tipo de Proyecto<span class="text-danger ms-2"
@@ -66,21 +67,20 @@ Proyecto{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--CODIGO DE PROYECTO-->
+            <!--CODIGO PROYECTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboCodigoProyecto"
-                  name="cboCodigoProyecto"
+                <input type="hidden" id="txtidCodProyecto" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtCodigoProyecto"
+                  name="txtCodigoProyecto"
                   required
-                >
-                  <option selected></option>
-
-                  <option value="1">Codigo de Proyecto</option>
-                </select>
-                <label for="cboCodigoProyecto"
-                  >Codigo de Proyecto<span class="text-danger ms-2"
+                  maxlength="20"
+                />
+                <label for="txtNombreProyecto"
+                  >Codigo del proyecto<span class="text-danger ms-2"
                     >*</span
                   ></label
                 >
@@ -97,7 +97,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   id="txtNombreProyecto"
                   name="txtNombreProyecto"
                   required
-                  maxlength="150"
+                  maxlength="100"
                 />
                 <label for="txtNombreProyecto"
                   >Nombre<span class="text-danger ms-2">*</span></label
@@ -131,8 +131,9 @@ Proyecto{% endblock title %} {% block contenido %}
                   required
                 >
                   <option selected></option>
-
-                  <option value="Pais">Pais</option>
+                  {% for P in pais %}
+                  <option value="{{P.id}}">{{P.cpais}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboPais"
                   >Pais<span class="text-danger ms-2">*</span></label
@@ -151,7 +152,9 @@ Proyecto{% endblock title %} {% block contenido %}
                 >
                   <option selected></option>
 
-                  <option value="Provincia">Tipo Apoyo</option>
+                  {% for Ta in TipoApoyo %}
+                  <option value="{{Ta.id}}">{{Ta.ctipo_apoyo}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboTipoApoyo"
                   >Tipo de Apoyo<span class="text-danger ms-2">*</span></label
@@ -164,35 +167,40 @@ Proyecto{% endblock title %} {% block contenido %}
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoFinanciamiento"
-                  name="cboTipoFinanciamiento"
+                  id="cboTipoEnFinanciamiento"
+                  name="cboTipoEnFinanciamiento"
                   required
                 >
                   <option selected></option>
-
-                  <option value="Distrito">Tipo FInanciemiento</option>
+                  {% for Ef in EntFinan %}
+                  <option value="{{Ef.id}}">{{Ef.cEntFinancia}}</option>
+                  {% endfor %}
                 </select>
-                <label for="cboTipoFinanciamiento">
-                  Financiamiento<span class="text-danger ms-2">*</span></label
+                <label for="cboTipoEnFinanciamiento">
+                  Entidad Financiamiento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--ENTIDAD FINANCIAMIENTO FINANCIAMIENTO -->
+            <!--INSTITUCION FINANCIAMIENTO  -->
             <div class="col-md-3">
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoFinanciamiento"
-                  name="cboTipoFinanciamiento"
+                  id="cboTipoInsFinanciamiento"
+                  name="cboTipoInsFinanciamiento"
                   required
                 >
                   <option selected></option>
 
-                  <option value="Distrito">ipen</option>
+                  {% for If in InsFinan %}
+                  <option value="{{If.id}}">{{If.cInstFinancia}}</option>
+                  {% endfor %}
                 </select>
-                <label for="cboTipoFinanciamiento">
-                  Entidad Financinaniento<span class="text-danger ms-2"
+                <label for="cboTipoInsFinanciamiento">
+                  Institucion Financinaniento<span class="text-danger ms-2"
                     >*</span
                   ></label
                 >
@@ -204,15 +212,17 @@ Proyecto{% endblock title %} {% block contenido %}
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoFinanciamiento"
-                  name="cboTipoFinanciamiento"
+                  id="cboTipoMOneda"
+                  name="cboTipoMOneda"
                   required
                 >
                   <option selected></option>
 
-                  <option value="Distrito">soles</option>
+                  {% for Tm in TipoMoneda %}
+                  <option value="{{Tm.id}}">{{Tm.cTipo_moneda}}</option>
+                  {% endfor %}
                 </select>
-                <label for="cboTipoFinanciamiento">
+                <label for="cboTipoMOneda">
                   Tipo de Moneda<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -228,9 +238,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   id="txtMonto"
                   name="txtMonto"
                   required
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
+                  pattern="^\d+(\.\d{1,4})?$"
                 />
                 <label for="txtMonto"
                   >Monto (S/)<span class="text-danger ms-2">*</span></label
@@ -242,18 +250,17 @@ Proyecto{% endblock title %} {% block contenido %}
             <!--TIPO DE CAMBIO-->
             <div class="col-md-2">
               <div class="form-floating">
-                <input type="hidden" id="txtidMonto" />
+                <input type="hidden" id="txtidtCambio" />
                 <input
                   type="text"
                   class="form-control"
-                  id="txtMonto"
-                  name="txtMonto"
+                  id="txttipoCambio"
+                  name="txttipoCambio"
                   required
                   maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
+                  pattern="^\d+(\.\d{1,4})?$"
                 />
-                <label for="txtMonto"
+                <label for="txttipoCambio"
                   >Tipo de Cambio<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -268,20 +275,17 @@ Proyecto{% endblock title %} {% block contenido %}
                   type="text"
                   class="form-control"
                   id="txtMonto"
+                  disabled
                   name="txtMonto"
-                  required
                   maxlength="15"
                   pattern="^\d+(\.\d{1,2})?$"
                   title="Ingrese un monto válido con hasta dos decimales"
                 />
-                <label for="txtMonto"
-                  >Equivalente Soles (S/)<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
+                <label for="txtMonto">Equivalente Soles (S/)</label>
               </div>
             </div>
 
+            {% comment %}
             <!------   ----------------------------- -->
             <!--DONACIONES - EQUIPAMIENTO-->
             <div class="col-md-3">
@@ -299,22 +303,21 @@ Proyecto{% endblock title %} {% block contenido %}
                 <label for="txtDonaciones">Donaciones</label>
               </div>
             </div>
+            {% endcomment %}
 
             <!------   ----------------------------- -->
             <!--REPONSABLE IPEN-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidonaciones" />
+                <input type="hidden" id="txtidResponsableIpen" />
                 <input
                   type="text"
                   class="form-control"
-                  id="txtDonaciones"
-                  name="txtDonaciones"
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
+                  id="txtRespIpen"
+                  name="txtRespIpen"
+                  maxlength="100"
                 />
-                <label for="txtDonaciones"
+                <label for="txtRespIpen"
                   >Responsable IPEN<span class="text-danger ms-2"
                     >*</span
                   ></label
@@ -326,17 +329,15 @@ Proyecto{% endblock title %} {% block contenido %}
             <!--REPONSABLE ENTIDAD-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidonaciones" />
+                <input type="hidden" id="txtidResponsableEnt" />
                 <input
                   type="text"
                   class="form-control"
-                  id="txtDonaciones"
-                  name="txtDonaciones"
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
+                  id="txtRespEnt"
+                  name="txtRespEnt"
+                  maxlength="100"
                 />
-                <label for="txtDonaciones"
+                <label for="txtRespEnt"
                   >Responsable Entidad<span class="text-danger ms-2"
                     >*</span
                   ></label
@@ -356,7 +357,9 @@ Proyecto{% endblock title %} {% block contenido %}
                 >
                   <option selected></option>
 
-                  <option value="1">Area Tematica</option>
+                  {% for At in AreaTem %}
+                  <option value="{{At.id}}">{{At.cArea_tematica}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboAreaTematica"
                   >Area Tematica<span class="text-danger ms-2">*</span></label
@@ -371,11 +374,11 @@ Proyecto{% endblock title %} {% block contenido %}
                 <input
                   type="date"
                   class="form-control"
-                  id="txtFecha"
-                  name="txtFecha"
+                  id="txtFechaInicio"
+                  name="txtFechaInicio"
                   required
                 />
-                <label for="txtFecha"
+                <label for="txtFechaInicio"
                   >Fecha Inicio<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -388,11 +391,11 @@ Proyecto{% endblock title %} {% block contenido %}
                 <input
                   type="date"
                   class="form-control"
-                  id="txtFecha"
-                  name="txtFecha"
+                  id="txtFechaFin"
+                  name="txtFechaFin"
                   required
                 />
-                <label for="txtFecha"
+                <label for="txtFechaFin"
                   >Fecha Fin<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -408,6 +411,7 @@ Proyecto{% endblock title %} {% block contenido %}
               <button
                 class="btn btn-lg text-white fs-6 bg-danger"
                 type="submit"
+                id='btnguardar'
               >
                 <i class="fas fa-save"></i> &nbsp;Guardar datos
               </button>
@@ -419,4 +423,9 @@ Proyecto{% endblock title %} {% block contenido %}
     </div>
   </div>
 </div>
-{% endblock contenido %} {% block script %} {% endblock %}
+{% endblock contenido %}
+ {% block script %} 
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script src="{% static 'core/js/notificacion-Swal.js' %}"></script>
+ <script src='{% static "core/js/proyectos/nuevoproyecto.js" %}'></script>
+ {% endblock %}
