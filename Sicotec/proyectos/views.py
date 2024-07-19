@@ -92,3 +92,10 @@ def registrarProyecto(request):
             return JsonResponse({'success': False, 'message': f'Error inesperado: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
+    
+
+    
+@login_required    
+def todosProyectos(request):
+    print('hola')
+    return render(request, 'proyectos/todosProyectos.html')
