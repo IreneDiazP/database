@@ -1,13 +1,15 @@
-{% extends "core/base.html" %} {% load static %} {% block title %} Proyectos
-{%endblock title %} {% block head %} {% endblock %} {% block contenido %}
-<div class="main-content d-flex flex-column">
-  <div class="tab-content shadow bg-white rounded px-4 py-5">
-    <div
-      class="tab-pane fade show active"
-      id="list-home"
-      role="tabpanel"
-      aria-labelledby="list-home-list"
-    >
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %} Proyectos {% endblock title %}
+{% block head %}
+    <!--CSS DATA TABLE-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.min.css" />
+{% endblock %}
+
+{% block contenido %}
+<div class="main-content d-flex flex-column mx-3 my-4 ">
+  <div class="tab-content shadow  rounded px-4 py-5">
+    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
       <div class="d-flex justify-content-between mb-3">
         <h2 class="fs-2 fw-semibold d-md-block d-none">Lista de Proyectos</h2>
         <h2 class="fs-5 fw-semibold d-md-none d-block">Lista de Proyectos</h2>
@@ -15,48 +17,107 @@
         <div class="custom-file-input">
           <input type="file" id="fileInput" name="fileInput" />
           <label for="fileInput" class="align-items-center d-flex text-center">
-            <i class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp; Importar
-            CSV</label
-          >
+            <i class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp; Importar CSV
+          </label>
           <span id="nombreArchivo"></span>
         </div>
       </div>
       <!--TABLA-->
       <div class="table-responsive">
         <hr />
-        <table
-          id="tblProyectos"
-          class="table table-hover display shadow rounded"
-        >
+        <table id="tblProyectos" class="table table-hover display shadow rounded"  style="width:100%;">
           <thead class="table-dark">
             <tr>
-              <th class="text-center">Tipo proyecto</th>
-              <th class="text-center">Codigo proyecto</th>
-              <th class="text-center">Nombre proyecto</th>
-              <th class="text-center">desc. proyecto</th>
+              <th class="text-center" style="width: 150px !important;">Tipo</th>
+              <th class="text-center">Codigo </th>
+              <th class="text-center">Nombre </th>
+              <th class="text-center">Descripción</th>
               <th class="text-center">Pais</th>
               <th class="text-center">Tipo Apoyo</th>
               <th class="text-center">Ent. Finan</th>
-              <th class="text-center">INs. Finan</th>
+              <th class="text-center">Ins. Finan</th>
               <th class="text-center">Tipo Moneda</th>
               <th class="text-center">Monto</th>
               <th class="text-center">Tipo de Cambio</th>
               <th class="text-center">Responsable</th>
-              <th class="text-center">Responsable Ent</th>
+              <th class="text-center">Responsable Entidad</th>
               <th class="text-center">Area tematica</th>
               <th class="text-center">Fecha inicio</th>
               <th class="text-center">Fecha Fin</th>
               <th class="text-center"></th>
             </tr>
           </thead>
+          <tbody class="text-rigth">
+            {% for  pr in tproyectos %}
+
+            <tr id="{{pr.id}}">
+              <th style="width: 150px !important;">{{pr.cTipo_proyecto}}</th>
+              <th class="md-1">{{pr.codigoProyecto}} </th>
+              <th >{{pr.nomProyecto}} </th>
+              <th >{{pr.DescProyecto}}</th>
+              <th >{{pr.cpais}}</th>
+              <th > {{pr.cTipoApoyo}}</th>
+              <th>{{pr.cEntFinan}}</th>
+              <th >{{pr.cInstFinanc}}</th>
+              <th >{{pr.cTipo_Moneda}}</th>
+              <th>{{pr.monto}}</th>
+              <th >{{pr.tipo_Cambio}}</th>
+              <th >{{pr.responsable}}</th>
+              <th >{{pr.responsableEnt}}</th>
+              <th >{{pr.cAreaTem}}</th>
+              <th >{{pr.fechaInicio}}</th>
+              <th >{{pr.fechaFin}}</th>
+              <th class="text-center"></th>
+            </tr>
+            {% endfor %}
+      
+          </tbody>
+          
+          <tfoot >
+            <tr>
+              <th class="text-center" style="width: 150px !important;">Tipo</th>
+              <th class="text-center">Codigo </th>
+              <th class="text-center">Nombre </th>
+              <th class="text-center">Descripción</th>
+              <th class="text-center">Pais</th>
+              <th class="text-center">Tipo Apoyo</th>
+              <th class="text-center">Ent. Finan</th>
+              <th class="text-center">Ins. Finan</th>
+              <th class="text-center">Tipo Moneda</th>
+              <th class="text-center">Monto</th>
+              <th class="text-center">Tipo de Cambio</th>
+              <th class="text-center">Responsable</th>
+              <th class="text-center">Responsable Entidad</th>
+              <th class="text-center">Area tematica</th>
+              <th class="text-center">Fecha inicio</th>
+              <th class="text-center">Fecha Fin</th>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>
   </div>
 </div>
+{% endblock contenido %}
 
-{% endblock contenido %} {% block script %}
+{% block script %}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static 'core/js/notificacion-Swal.js' %}"></script>
 
+<!-- Custom JS -->
+<script src="{% static 'core/js/proyectos/todoslosProyectos.js' %}"></script>
+<script>
+  
+</script>
 {% endblock %}

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Pais, Tipo_Proyecto, Entidad_Financiamiento, Institucion_Financiamiento, Tipo_Apoyo, Area_Tematica, Tipo_Moneda, Proyecto
 from django.core.exceptions import ObjectDoesNotExist
 
+
 @login_required
 def nuevoproyecto(request):
     tipoProyec = Tipo_Proyecto.objects.all().order_by('cTipoProyecto')
@@ -23,12 +24,14 @@ def nuevoproyecto(request):
         'TipoMoneda': TipoMoneda,
         'AreaTem': AreaTem
     })
+
+
 @login_required
 def registrarProyecto(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
-            
+
             x_tipo_proyec = data.get('cboTipoProyecto')
             x_cod_proyec = data.get('txtCodigoProyecto')
             x_nom_proyect = data.get('txtNombreProyecto')
@@ -46,7 +49,7 @@ def registrarProyecto(request):
             x_fechaIn = data.get('txtFechaInicio')
             x_fechaFin = data.get('txtFechaFin')
             x_created_by = request.user
-            
+
             print(f"Tipo Proyecto: {x_tipo_proyec}")
             print(f"Pais: {x_pais}")
             print(f"Tipo Apoyo: {x_tipo_apoyo}")
@@ -58,8 +61,10 @@ def registrarProyecto(request):
             tipo_proyec_instance = Tipo_Proyecto.objects.get(id=x_tipo_proyec)
             pais_instance = Pais.objects.get(id=x_pais)
             tipo_apoyo_instance = Tipo_Apoyo.objects.get(id=x_tipo_apoyo)
-            entfinan_instance = Entidad_Financiamiento.objects.get(id=x_entfinan)
-            instfinan_instance = Institucion_Financiamiento.objects.get(id=x_instfinan)
+            entfinan_instance = Entidad_Financiamiento.objects.get(
+                id=x_entfinan)
+            instfinan_instance = Institucion_Financiamiento.objects.get(
+                id=x_instfinan)
             tipo_moneda_instance = Tipo_Moneda.objects.get(id=x_tipo_moneda)
             area_tem_instance = Area_Tematica.objects.get(id=x_area_tem)
 
@@ -82,7 +87,7 @@ def registrarProyecto(request):
                 fechaFin=x_fechaFin,
                 created_by=x_created_by
             )
-            
+
             proyectonuevo.save()
             return JsonResponse({'success': True, 'message': 'Proyecto registrado correctamente'})
 
@@ -92,10 +97,11 @@ def registrarProyecto(request):
             return JsonResponse({'success': False, 'message': f'Error inesperado: {str(e)}'}, status=500)
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
-    
 
-    
-@login_required    
+
+@login_required
 def todosProyectos(request):
-    print('hola')
-    return render(request, 'proyectos/todosProyectos.html')
+    tproyectos = Proyecto.objects.all()
+    return render(request, 'proyectos/todosProyectos.html', {
+        'tproyectos': tproyectos
+    })
