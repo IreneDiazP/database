@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("#tblProyectos thead th").each(function (index) {
         if (index < $("#tblProyectos thead th").length - 1) {
-            var title = $("#tblProyectos tfoot th").eq(index).text();
+            var title = $("#tblProyectos thead th").eq(index).text();
             var inputHTML = '<input  type="text" placeholder="' + title + '"';
             if (index === 0 || index === 1 ||index === 4  ) {
                 inputHTML += ' style="max-width: 134px; text-align: center;"';

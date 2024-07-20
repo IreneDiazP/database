@@ -105,6 +105,8 @@ def todosProyectos(request):
     for pr in tproyectos:
         pr.fechaInicio = pr.fechaInicio.strftime('%d/%m/%Y')
         pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
+        
+        
     return render(request, 'proyectos/todosProyectos.html', {
         'tproyectos': tproyectos
     })

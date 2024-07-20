@@ -46,6 +46,3 @@ main {
 display: flex;
 justify-content: end;
 }
-#tblProyectos tfoot th input{
-  text-align: center;
-}
