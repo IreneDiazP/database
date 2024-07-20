@@ -31,30 +31,48 @@ $(document).ready(function () {
         }
     });
 
-    var table = $("#tblProyectos").DataTable({
-        scrollX: true,
-        dom: 'Bfrtip', 
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                text: 'Excel',
-                className: 'btn btn-success',
-                exportOptions: {
-                    columns: ':visible',
-                },
+ // Inicializar DataTable con scroll horizontal y botones de exportar
+ var table = $("#tblProyectos").DataTable({
+    scrollX: true,
+    dom: 'Bfrtip', // Necesario para que los botones se muestren
+    buttons: [
+        {
+            extend: 'excelHtml5',
+            text: 'Excel',
+            className: 'btn btn-success',
+            exportOptions: {
+                columns: ':visible',
+                format: {
+                    header: function (data, columnIdx) {
+                        // Devuelve el título de la columna
+                        return $('#tblProyectos tfoot th').eq(columnIdx).text();
+                    }
+                }
+            }
+        },
+        {
+            extend: 'pdfHtml5',
+            text: 'PDF',
+            className: 'btn btn-danger',
+            orientation: 'landscape', // Orientación horizontal
+            pageSize: 'A0', // Tamaño de página A4
+            exportOptions: {
+                columns: ':visible',
+                format: {
+                    header: function (data, columnIdx) {
+                        // Devuelve el título de la columna
+                        return $('#tblProyectos tfoot th').eq(columnIdx).text();
+                    }
+                }
             },
-            {
-                extend: 'pdfHtml5',
-                text: 'PDF',
-                className: 'btn btn-danger',
-                exportOptions: {
-                    columns: ':visible',
-                },
-                title: 'Reporte Proyectos - Soft - Cdp',
+            customize: function (doc) {
+                doc.content[1].table.widths = '*'.repeat(doc.content[1].table.body[0].length).split('');
+                doc.styles.tableHeader.alignment = 'center';
             },
-        ]
-    });
-
+            title: 'Reporte Proyectos - Soft - Sicotec',
+        }
+    ]
+});
     table.columns().eq(0).each(function (colIdx) {
         if (colIdx < table.columns().nodes().length - 1) {
             $("input", table.column(colIdx).header()).on("keyup change", function () {
