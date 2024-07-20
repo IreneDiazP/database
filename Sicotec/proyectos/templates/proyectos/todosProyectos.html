@@ -28,7 +28,7 @@
         <table id="tblProyectos" class="table table-hover display shadow rounded"  style="width:100%;">
           <thead class="table-dark">
             <tr>
-              <th class="text-center" style="width: 150px !important;">Tipo</th>
+              <th class="text-center">Tipo</th>
               <th class="text-center">Codigo </th>
               <th class="text-center">Nombre </th>
               <th class="text-center">Descripción</th>
@@ -51,23 +51,40 @@
             {% for  pr in tproyectos %}
 
             <tr id="{{pr.id}}">
-              <th style="width: 150px !important;">{{pr.cTipo_proyecto}}</th>
-              <th class="md-1">{{pr.codigoProyecto}} </th>
+              <th class="text-center" >{{pr.cTipo_proyecto}}</th>
+              <th class="text-center">{{pr.codigoProyecto}} </th>
               <th >{{pr.nomProyecto}} </th>
               <th >{{pr.DescProyecto}}</th>
-              <th >{{pr.cpais}}</th>
-              <th > {{pr.cTipoApoyo}}</th>
-              <th>{{pr.cEntFinan}}</th>
+              <th class="text-center" >{{pr.cpais}}</th>
+              <th class="text-center" > {{pr.cTipoApoyo}}</th>
+              <th >{{pr.cEntFinan}}</th>
               <th >{{pr.cInstFinanc}}</th>
-              <th >{{pr.cTipo_Moneda}}</th>
-              <th>{{pr.monto}}</th>
-              <th >{{pr.tipo_Cambio}}</th>
-              <th >{{pr.responsable}}</th>
-              <th >{{pr.responsableEnt}}</th>
-              <th >{{pr.cAreaTem}}</th>
-              <th >{{pr.fechaInicio}}</th>
-              <th >{{pr.fechaFin}}</th>
-              <th class="text-center"></th>
+              <th class="text-center">{{pr.cTipo_Moneda}}</th>
+              <th class="text-center">{{pr.monto}}</th>
+              <th class="text-center" >{{pr.tipo_Cambio}}</th>
+              <th class="text-center" >{{pr.responsable}}</th>
+              <th class="text-center" >{{pr.responsableEnt}}</th>
+              <th class="text-center" >{{pr.cAreaTem}}</th>
+              <th class="text-center" >{{pr.fechaInicio}}</th>
+              <th class="text-center">{{pr.fechaFin}}</th>
+              <th class="text-center">
+                <div class="d-flex gap-2 justify-content-center">
+                  <button type="button"
+                          class="btn btn-dark editBtn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalEditarProyecto"
+                          data-bs-whatever="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button type="button"
+                          class="btn btn-dark trashBtn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalEliminarProyecto"
+                          data-bs-whatever="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </th>
             </tr>
             {% endfor %}
       
@@ -75,7 +92,7 @@
           
           <tfoot >
             <tr>
-              <th class="text-center" style="width: 150px !important;">Tipo</th>
+              <th class="text-center" >Tipo</th>
               <th class="text-center">Codigo </th>
               <th class="text-center">Nombre </th>
               <th class="text-center">Descripción</th>

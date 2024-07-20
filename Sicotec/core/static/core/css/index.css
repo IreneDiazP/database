@@ -46,16 +46,3 @@ main {
 display: flex;
 justify-content: end;
 }
-
-#tblProyectos thead th:nth-child(2){
-  max-width: 150px;
-}
-#tblProyectos thead th:nth-child(2) input{
-  max-width: 150px;
-}  
-#tblProyectos tbody th:nth-child(2){
-  max-width: 150px;
-}
-#tblProyectos tbody th:nth-child(2) input{
-  max-width: 150px;
-}  
