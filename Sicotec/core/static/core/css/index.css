@@ -38,10 +38,7 @@ main {
 .table-responsive {
   overflow-x: hidden;
 }
-.dataTables_scrollHead {
-  background-color: #00568A;
-  
-}
+
 #tblProyectos_filter  {
 display: flex;
 justify-content: end;
