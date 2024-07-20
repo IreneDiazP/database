@@ -34,7 +34,7 @@ class Institucion_Financiamiento(models.Model):
     lestado = models.BooleanField(default=True, verbose_name="Estado")
 
     def __str__(self):
-        return f'{self.cInstFinancia} ({self.entidad_financiamiento})'
+        return self.cInstFinancia
 
 
 class Tipo_Apoyo(models.Model):
