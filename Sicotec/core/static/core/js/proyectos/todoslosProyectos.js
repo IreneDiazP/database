@@ -4,24 +4,26 @@ $(document).ready(function () {
             var title = $("#tblProyectos tfoot th").eq(index).text();
             var inputHTML = '<input  type="text" placeholder="' + title + '"';
             if (index === 0 || index === 1 ||index === 4  ) {
-                inputHTML += ' style="max-width: 134px;"';
+                inputHTML += ' style="max-width: 134px; text-align: center;"';
             }
             if (index === 2 || index === 6 || index === 7) {
-                inputHTML += ' style="width: 300px !important;"';
+                inputHTML += ' style="width: 300px !important; text-align: center;"';
             }
             if (index === 3 ) {
-                inputHTML += ' style="width: 450px !important;"';
+                inputHTML += ' style="width: 450px !important;  text-align: center;"';
             }
             if (index === 8 ) {
-                inputHTML += ' style="width: 160px !important;"';
+                inputHTML += ' style="width: 160px !important;  text-align: center;"';
             }
             if( index === 11 || index === 12){
-                inputHTML += ' style="max-width: 250px;"';
+                inputHTML += ' style="max-width: 250px;  text-align: center;"';
             }
             if( index === 14 || index === 15){
-                inputHTML += ' style="max-width: 100px;"';
+                inputHTML += ' style="max-width: 100px;  text-align: center;"';
             }
-
+            if( index === 5 || index === 9 || index === 10 || index === 13){
+                inputHTML += ' style="text-align: center;"';
+            }
 
             inputHTML += ' />';
             $(this).html(inputHTML);

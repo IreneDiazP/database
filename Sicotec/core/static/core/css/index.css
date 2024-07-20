@@ -34,15 +34,18 @@ header {
 main {
   min-height: calc(100vh - 66px); /* Establece el tamaño mínimo */
   height: auto; /* Permite que el tamaño crezca según el contenido */
-  background: #eaefe6;
 }
 .table-responsive {
   overflow-x: hidden;
 }
 .dataTables_scrollHead {
-  background-color: rgb(156, 47, 47);
+  background-color: #00568A;
+  
 }
 #tblProyectos_filter  {
 display: flex;
 justify-content: end;
+}
+#tblProyectos tfoot th input{
+  text-align: center;
 }

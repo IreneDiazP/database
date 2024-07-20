@@ -13,13 +13,6 @@
         <h2 class="fs-2 fw-semibold d-md-block d-none">Lista de Proyectos</h2>
         <h2 class="fs-5 fw-semibold d-md-none d-block">Lista de Proyectos</h2>
         <!--Comentario-->
-        <div class="custom-file-input">
-          <input type="file" id="fileInput" name="fileInput" />
-          <label for="fileInput" class="align-items-center d-flex text-center">
-            <i class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp; Importar CSV
-          </label>
-          <span id="nombreArchivo"></span>
-        </div>
       </div>
       <!--TABLA-->
       <div class="table-responsive">
@@ -69,14 +62,14 @@
               <th class="text-center">
                 <div class="d-flex gap-2 justify-content-center">
                   <button type="button"
-                          class="btn btn-dark editBtn"
+                          class="btn btn-success editBtn"
                           data-bs-toggle="modal"
                           data-bs-target="#modalEditarProyecto"
                           data-bs-whatever="Editar">
                     <i class="bi bi-pencil"></i>
                   </button>
                   <button type="button"
-                          class="btn btn-dark trashBtn"
+                          class="btn btn-danger trashBtn"
                           data-bs-toggle="modal"
                           data-bs-target="#modalEliminarProyecto"
                           data-bs-whatever="Eliminar">
