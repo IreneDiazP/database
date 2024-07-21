@@ -98,6 +98,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   name="txtNombreProyecto"
                   required
                   maxlength="100"
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtNombreProyecto"
                   >Nombre<span class="text-danger ms-2">*</span></label
@@ -115,6 +116,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   name="txtDescripcion"
                   required
                   maxlength="300"
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtDescripcion"
                   >Descripción<span class="text-danger ms-2">*</span></label
@@ -298,6 +300,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   id="txtRespIpen"
                   name="txtRespIpen"
                   maxlength="100"
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtRespIpen"
                   >Responsable IPEN<span class="text-danger ms-2"
@@ -318,6 +321,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   id="txtRespEnt"
                   name="txtRespEnt"
                   maxlength="100"
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtRespEnt"
                   >Responsable Entidad<span class="text-danger ms-2"
@@ -335,6 +339,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   class="form-select"
                   id="cboAreaTematica"
                   name="cboAreaTematica"
+                  oninput="convertToUppercase(this)"
                   required
                 >
                   <option selected></option>
@@ -358,6 +363,7 @@ Proyecto{% endblock title %} {% block contenido %}
                   class="form-control"
                   id="txtFechaInicio"
                   name="txtFechaInicio"
+                  
                   required
                 />
                 <label for="txtFechaInicio"

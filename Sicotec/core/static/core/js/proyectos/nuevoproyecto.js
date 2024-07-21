@@ -150,7 +150,7 @@ function limpiarCampos() {
   });
 }
 
-
+//EVENTO PARA CALCULAR TOTAL
 document.getElementById("txtMonto").addEventListener('input',function(){
   let monto=this.value
   console.log('el monto es :'+ monto);
@@ -173,4 +173,9 @@ document.getElementById("txttipoCambio").addEventListener('input',function(){
   document.getElementById('txtMontosoles').value=total;
 
 })
+
+//FUNCION PARA FORMULARIOS
+function convertToUppercase(input) {
+  input.value = input.value.toUpperCase();
+}
 
