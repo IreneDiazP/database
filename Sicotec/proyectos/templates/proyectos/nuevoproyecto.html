@@ -165,47 +165,29 @@ Proyecto{% endblock title %} {% block contenido %}
             <!--FINANCIAMIENTO POR-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoEnFinanciamiento"
-                  name="cboTipoEnFinanciamiento"
-                  required
-                >
+                <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" required>
                   <option selected></option>
                   {% for Ef in EntFinan %}
                   <option value="{{Ef.id}}">{{Ef.cEntFinancia}}</option>
                   {% endfor %}
                 </select>
                 <label for="cboTipoEnFinanciamiento">
-                  Entidad Financiamiento<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
+                  Entidad Financiamiento<span class="text-danger ms-2">*</span>
+                </label>
               </div>
             </div>
-            <!------   ----------------------------- -->
-            <!--INSTITUCION FINANCIAMIENTO  -->
+            
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoInsFinanciamiento"
-                  name="cboTipoInsFinanciamiento"
-                  required
-                >
+                <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
                   <option selected></option>
-
-                  {% for If in InsFinan %}
-                  <option value="{{If.id}}">{{If.cInstFinancia}}</option>
-                  {% endfor %}
                 </select>
                 <label for="cboTipoInsFinanciamiento">
-                  Institucion Financinaniento<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
+                  Institución Financiamiento<span class="text-danger ms-2">*</span>
+                </label>
               </div>
             </div>
+            
             <!------   ----------------------------- -->
             <!--TIPO DE MONEDA -->
             <div class="col-md-3">
@@ -425,7 +407,7 @@ Proyecto{% endblock title %} {% block contenido %}
 </div>
 {% endblock contenido %}
  {% block script %} 
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- <script src="{% static 'core/js/notificacion-Swal.js' %}"></script>
+
+
  <script src='{% static "core/js/proyectos/nuevoproyecto.js" %}'></script>
  {% endblock %}

@@ -110,3 +110,9 @@ def todosProyectos(request):
     return render(request, 'proyectos/todosProyectos.html', {
         'tproyectos': tproyectos
     })
+    
+def getInstituciones(request, entidad_id):
+    instituciones = Institucion_Financiamiento.objects.filter(entidad_financiamiento_id=entidad_id)
+    data = list(instituciones.values('id', 'cInstFinancia'))
+    print(data)
+    return JsonResponse(data, safe=False)

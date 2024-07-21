@@ -6,6 +6,10 @@ urlpatterns = [
     # registrar nuevo proyecto
     path('registrarProyecto/', views.registrarProyecto, name='registrarProyecto'),
     
-    #todos los proyectos
-    path('todosProyectos/', views.todosProyectos, name='todosProyectos')
+   #traer todos los proyecto
+    path('todosProyectos/', views.todosProyectos, name='todosProyectos'),
+    
+    #para cambio de proyectos
+    path('getInstituciones/<int:entidad_id>/', views.getInstituciones, name='getInstituciones'),
+
 ]

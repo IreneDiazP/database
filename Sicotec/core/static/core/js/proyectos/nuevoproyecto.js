@@ -1,4 +1,31 @@
-console.log("hola dede preoyecto");
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('cboTipoEnFinanciamiento').addEventListener('change', function () {
+      var entidadID = this.value;
+      if (entidadID) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/proyecto/getInstituciones/' + entidadID + '/', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.onreadystatechange = function () {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                  var data = JSON.parse(xhr.responseText);
+                  var cboInstituciones = document.getElementById('cboTipoInsFinanciamiento');
+                  cboInstituciones.innerHTML = '<option selected></option>';
+                  data.forEach(function (item) {
+                      var option = document.createElement('option');
+                      option.value = item.id;
+                      option.textContent = item.cInstFinancia;
+                      cboInstituciones.appendChild(option);
+                  });
+              }
+          };
+          xhr.send();
+      } else {
+          document.getElementById('cboTipoInsFinanciamiento').innerHTML = '';
+      }
+  });
+});
+
+
 
 function getCookie(name) {
   let cookieValue = null;
