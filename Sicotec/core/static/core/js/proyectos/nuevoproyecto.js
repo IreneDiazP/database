@@ -1,28 +1,32 @@
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('cboTipoEnFinanciamiento').addEventListener('change', function () {
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("cboTipoEnFinanciamiento")
+    .addEventListener("change", function () {
       var entidadID = this.value;
       if (entidadID) {
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', '/proyecto/getInstituciones/' + entidadID + '/', true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.onreadystatechange = function () {
-              if (xhr.readyState === 4 && xhr.status === 200) {
-                  var data = JSON.parse(xhr.responseText);
-                  var cboInstituciones = document.getElementById('cboTipoInsFinanciamiento');
-                  cboInstituciones.innerHTML = '<option selected></option>';
-                  data.forEach(function (item) {
-                      var option = document.createElement('option');
-                      option.value = item.id;
-                      option.textContent = item.cInstFinancia;
-                      cboInstituciones.appendChild(option);
-                  });
-              }
-          };
-          xhr.send();
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/proyecto/getInstituciones/" + entidadID + "/", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            var cboInstituciones = document.getElementById(
+              "cboTipoInsFinanciamiento"
+            );
+            cboInstituciones.innerHTML = "<option selected></option>";
+            data.forEach(function (item) {
+              var option = document.createElement("option");
+              option.value = item.id;
+              option.textContent = item.cInstFinancia;
+              cboInstituciones.appendChild(option);
+            });
+          }
+        };
+        xhr.send();
       } else {
-          document.getElementById('cboTipoInsFinanciamiento').innerHTML = '';
+        document.getElementById("cboTipoInsFinanciamiento").innerHTML = "";
       }
-  });
+    });
 });
 
 
@@ -43,6 +47,8 @@ function getCookie(name) {
   return cookieValue;
 }
 
+
+//click en el submit del formulario 
 document
   .getElementById("formAgregarProyecto")
   .addEventListener("submit", function (event) {
@@ -67,8 +73,6 @@ document
     let fechaFin = document.getElementById("txtFechaFin").value;
 
     const csrftoken = getCookie("csrftoken");
-
-    // console.log(tipo_proyec,cod_proyec,nom_proyect,des_proyect,pais,tipo_apoyo,entfinan,instfinan,tipo_moneda,monto,tipo_cambio,respIpen,respEnt,area_tem,fechaIn,fechaFin)
 
     let data = {
       cboTipoProyecto: tipo_proyec,
@@ -145,3 +149,28 @@ function limpiarCampos() {
     document.getElementById(campo).value = "";
   });
 }
+
+
+document.getElementById("txtMonto").addEventListener('input',function(){
+  let monto=this.value
+  console.log('el monto es :'+ monto);
+  let tipocambio=document.getElementById('txttipoCambio').value
+
+  total=monto*tipocambio
+  console.log('el total es '+total);
+  document.getElementById('txtMontosoles').value=total;
+
+
+
+})
+
+document.getElementById("txttipoCambio").addEventListener('input',function(){
+  let tipocambio=this.value
+  let monto=document.getElementById('txtMonto').value
+
+  total=monto*tipocambio
+  console.log('el total es '+total);
+  document.getElementById('txtMontosoles').value=total;
+
+})
+
