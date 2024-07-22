@@ -105,14 +105,15 @@ def todosProyectos(request):
     for pr in tproyectos:
         pr.fechaInicio = pr.fechaInicio.strftime('%d/%m/%Y')
         pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
-        
-        
+        pr.totalsoles=pr.tipo_Cambio*pr.monto
+            
     return render(request, 'proyectos/todosProyectos.html', {
         'tproyectos': tproyectos
     })
-    
+
+#obtener instituciones segun entidad
+@login_required
 def getInstituciones(request, entidad_id):
     instituciones = Institucion_Financiamiento.objects.filter(entidad_financiamiento_id=entidad_id)
     data = list(instituciones.values('id', 'cInstFinancia'))
-    print(data)
     return JsonResponse(data, safe=False)

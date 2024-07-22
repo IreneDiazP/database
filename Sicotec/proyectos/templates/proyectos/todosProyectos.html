@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Proyectos {% endblock title %}
 {% block head %}
-  
+
 {% endblock %}
 
 {% block contenido %}
@@ -17,7 +17,7 @@
       <!--TABLA-->
       <div class="table-responsive">
         <hr />
-        <table id="tblProyectos" class="table table-hover display shadow rounded"  style="width:100%;">
+        <table id="tblProyectos" class="table table-hover display shadow rounded" style="width:100%;">
           <thead class="table-dark">
             <tr>
               <th class="text-center ">Tipo</th>
@@ -30,7 +30,7 @@
               <th class="text-center">Insitucion Financiamiento</th>
               <th class="text-center">Tipo Moneda</th>
               <th class="text-center">Monto</th>
-              <th class="text-center">Tipo de Cambio</th>
+              <th class="text-center">Total soles</th>
               <th class="text-center">Responsable</th>
               <th class="text-center">Responsable Entidad</th>
               <th class="text-center">Area tematica</th>
@@ -40,49 +40,43 @@
             </tr>
           </thead>
           <tbody class="text-rigth">
-            {% for  pr in tproyectos %}
+            {% for pr in tproyectos %}
 
             <tr id="{{pr.id}}">
-              <th class="text-center" >{{pr.cTipo_proyecto}}</th>
+              <th class="text-center">{{pr.cTipo_proyecto}}</th>
               <th class="text-center">{{pr.codigoProyecto}} </th>
-              <th >{{pr.nomProyecto}} </th>
-              <th >{{pr.DescProyecto}}</th>
-              <th class="text-center" >{{pr.cpais}}</th>
-              <th class="text-center" > {{pr.cTipoApoyo}}</th>
-              <th >{{pr.cEntFinan}}</th>
-              <th >{{pr.cInstFinanc}}</th>
+              <th>{{pr.nomProyecto}} </th>
+              <th>{{pr.DescProyecto}}</th>
+              <th class="text-center">{{pr.cpais}}</th>
+              <th class="text-center"> {{pr.cTipoApoyo}}</th>
+              <th>{{pr.cEntFinan}}</th>
+              <th>{{pr.cInstFinanc}}</th>
               <th class="text-center">{{pr.cTipo_Moneda}}</th>
               <th class="text-center">{{pr.monto}}</th>
-              <th class="text-center" >{{pr.tipo_Cambio}}</th>
-              <th class="text-center" >{{pr.responsable}}</th>
-              <th class="text-center" >{{pr.responsableEnt}}</th>
-              <th class="text-center" >{{pr.cAreaTem}}</th>
-              <th class="text-center" >{{pr.fechaInicio}}</th>
+              <th class="text-center">{{pr.totalsoles}}</th>
+              <th class="text-center">{{pr.responsable}}</th>
+              <th class="text-center">{{pr.responsableEnt}}</th>
+              <th class="text-center">{{pr.cAreaTem}}</th>
+              <th class="text-center">{{pr.fechaInicio}}</th>
               <th class="text-center">{{pr.fechaFin}}</th>
               <th class="text-center">
                 <div class="d-flex gap-2 justify-content-center">
-                  <button type="button"
-                          class="btn btn-success editBtn"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalEditarProyecto"
-                          data-bs-whatever="Editar">
+                  <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
+                    data-bs-target="#modalEditarProyecto" data-bs-whatever="Editar">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button type="button"
-                          class="btn btn-danger trashBtn"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalEliminarProyecto"
-                          data-bs-whatever="Eliminar">
+                  <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
+                    data-bs-target="#modalEliminarProyecto" data-bs-whatever="Eliminar">
                     <i class="bi bi-trash"></i>
                   </button>
                 </div>
               </th>
             </tr>
             {% endfor %}
-      
+
           </tbody>
-          
-          <tfoot >
+
+          <tfoot>
             <th class="text-center ">Tipo</th>
             <th class="text-center">Codigo </th>
             <th class="text-center">Nombre Proyecto </th>
@@ -93,7 +87,7 @@
             <th class="text-center">Insitucion Financiamiento</th>
             <th class="text-center">Tipo Moneda</th>
             <th class="text-center">Monto</th>
-            <th class="text-center">Tipo de Cambio</th>
+            <th class="text-center">Total soles</th>
             <th class="text-center">Responsable</th>
             <th class="text-center">Responsable Entidad</th>
             <th class="text-center">Area tematica</th>
@@ -106,6 +100,287 @@
     </div>
   </div>
 </div>
+
+
+<!--MODAL PARA EDITAR PROYECTOS-->
+<div class="modal fade" id="modalEditarProyecto" tabindex="-1" aria-labelledby="modalEditarProyectoLabel"
+  aria-hidden="true">
+  <div class="modal-dialog m-auto modal-dialog-centered mt-3" style="--bs-modal-width: 1382px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="fs-2 fw-semibold d-md-block d-none">Edición de proyecto</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="row  px-3">
+        <div id="alerta" class="alert alert-danger mb-0" style="display: none" role="alert">Solo se permiten 30
+          caracteres como máximo en el campo de Teléfono.</div>
+      </div>
+      <form action="" id="formEditarProyecto" class="shadow px-3 rounded" method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="d-flex gap-3 flex-column justify-content-center">
+            <input type="hidden" class="form-control" id="txtIdProyectoModalEditarProyecto"
+              name="txtIdProyectoModalEditarProyecto" value="" readonly>
+            <div class="row g-3 px-3">
+              <!-- Aviso de campos obligatorios  -->
+              <div class="d-flex">
+                <span class="text-danger ms-2">* Campos obligatorios</span>
+              </div>
+              <!--TIPO DE PROYECTO-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboTipoProyecto" name="cboTipoProyecto" required>
+                    <option selected></option>
+                    {% for tp in tipoProyec %}
+                    <option value="{{tp.id}}">{{tp.cTipoProyecto}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboTipoProyecto">Tipo de Proyecto<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--CODIGO PROYECTO-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidCodProyecto" />
+                  <input type="text" class="form-control" id="txtCodigoProyecto" name="txtCodigoProyecto" required
+                    maxlength="20" />
+                  <label for="txtNombreProyecto">Codigo del proyecto<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--NOMBRE PROYECTO-->
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidNombre" />
+                  <input type="text" class="form-control" id="txtNombreProyecto" name="txtNombreProyecto" required
+                    maxlength="100" oninput="convertToUppercase(this)" />
+                  <label for="txtNombreProyecto">Nombre<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!--DESCRIPCIÓN-->
+              <div class="col-md-9">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidDescripcion" />
+                  <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
+                    maxlength="300" oninput="convertToUppercase(this)" />
+                  <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!--PAIS-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboPais" name="cboPais" required>
+                    <option selected></option>
+                    {% for P in pais %}
+                    <option value="{{P.id}}">{{P.cpais}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboPais">Pais<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--TIPO DE APOYO-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" required>
+                    <option selected></option>
+
+                    {% for Ta in TipoApoyo %}
+                    <option value="{{Ta.id}}">{{Ta.ctipo_apoyo}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboTipoApoyo">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--FINANCIAMIENTO POR-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" required>
+                    <option selected></option>
+                    {% for Ef in EntFinan %}
+                    <option value="{{Ef.id}}">{{Ef.cEntFinancia}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboTipoEnFinanciamiento">
+                    Entidad Financiamiento<span class="text-danger ms-2">*</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
+                    <option selected></option>
+                  </select>
+                  <label for="cboTipoInsFinanciamiento">
+                    Institución Financiamiento<span class="text-danger ms-2">*</span>
+                  </label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--TIPO DE MONEDA -->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
+                    <option selected></option>
+
+                    {% for Tm in TipoMoneda %}
+                    <option value="{{Tm.id}}">{{Tm.cTipo_moneda}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboTipoMOneda">
+                    Tipo de Moneda<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--MONTO-->
+              <div class="col-md-2">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidMonto" />
+                  <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
+                    pattern="^\d+(\.\d{1,4})?$" />
+                  <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--TIPO DE CAMBIO-->
+              <div class="col-md-2">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidtCambio" />
+                  <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required
+                    maxlength="15" pattern="^\d+(\.\d{1,4})?$" />
+                  <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--MONTO SOLES-->
+              <div class="col-md-2">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidMontosoles" />
+                  <input type="text" class="form-control" id="txtMontosoles" disabled name="txtMontosoles"
+                    maxlength="15" pattern="^\d+(\.\d{1,2})?$"
+                    title="Ingrese un monto válido con hasta dos decimales" />
+                  <label for="txtMontosoles">Equivalente Soles (S/)</label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--REPONSABLE IPEN-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidResponsableIpen" />
+                  <input type="text" class="form-control" id="txtRespIpen" name="txtRespIpen" maxlength="100"
+                    oninput="convertToUppercase(this)" />
+                  <label for="txtRespIpen">Responsable IPEN<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--REPONSABLE ENTIDAD-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidResponsableEnt" />
+                  <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
+                    oninput="convertToUppercase(this)" />
+                  <label for="txtRespEnt">Responsable Entidad<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--AREA TEMATICA-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select class="form-select" id="cboAreaTematica" name="cboAreaTematica"
+                    oninput="convertToUppercase(this)" required>
+                    <option selected></option>
+
+                    {% for At in AreaTem %}
+                    <option value="{{At.id}}">{{At.cArea_tematica}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboAreaTematica">Area Tematica<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+
+              <!--FECHA-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="txtFechaInicio" name="txtFechaInicio" required />
+                  <label for="txtFechaInicio">Fecha Inicio<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--FECHA-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="txtFechaFin" name="txtFechaFin" required />
+                  <label for="txtFechaFin">Fecha Fin<span class="text-danger ms-2">*</span></label>
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+            </div>
+          </div>
+        </div>
+        <!-- Botones Guardar y Cancelar -->
+        <div class="modal-footer">
+          <button class="btn btn-danger shadow text-light fs-6 btnForm" type="submit">
+            <i class="fas fa-save"></i>
+            &nbsp;Guardar datos
+          </button>
+          <button class="btn btn-secondary text-white shadow fs-6" type="button"
+            data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal eliminar Proyecto-->
+<div class="modal fade"
+     id="modalEliminarProyecto"
+     tabindex="-1"
+     aria-labelledby="eliminarProyectoLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="eliminarProyectoLabel">Eliminar proyecto</h1>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <form id="formEliminarProyecto" action="">
+        <div class="modal-body">
+          <input type="hidden"
+                 class="form-control"
+                 id="txtIdProyectoModalEliminarProyecto"
+                 name="txtIdProyectoModalEliminarProyecto"
+                 value=""
+                 readonly>
+          <div class="mensaje-aviso d-flex gap-2">
+            <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel ">¿Está seguro de eliminar al Proyecto?</h1>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>  Eliminar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 {% endblock contenido %}
 
 {% block script %}
@@ -117,8 +392,6 @@
 
 
 <!-- Custom JS -->
-<script src="{% static 'core/js/proyectos/todoslosProyectos.js' %}"></script>
-<script>
-  
-</script>
+<script src="{% static 'core/js/proyectos/todoslosProyectos.js' %}" type="module"></script>
+<script src="{% static 'core/js/datatable-init/datatable-proyectos-totales.js' %}"></script>
 {% endblock %}
