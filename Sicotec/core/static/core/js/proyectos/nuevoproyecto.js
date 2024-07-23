@@ -1,35 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("cboTipoEnFinanciamiento")
-    .addEventListener("change", function () {
+    .addEventListener("change", async function () {
       var entidadID = this.value;
       if (entidadID) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/proyecto/getInstituciones/" + entidadID + "/", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
-            var cboInstituciones = document.getElementById(
-              "cboTipoInsFinanciamiento"
-            );
-            cboInstituciones.innerHTML = "<option selected></option>";
-            data.forEach(function (item) {
-              var option = document.createElement("option");
-              option.value = item.id;
-              option.textContent = item.cInstFinancia;
-              cboInstituciones.appendChild(option);
-            });
+        try {
+          const response = await fetch(
+            `/proyecto/getInstituciones/${entidadID}/`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`La respuesta de la red no fue correcta: ${response.statusText}`);
           }
-        };
-        xhr.send();
+
+          const data = await response.json();
+          var cboInstituciones = document.getElementById(
+            "cboTipoInsFinanciamiento"
+          );
+          cboInstituciones.innerHTML = "<option selected></option>";
+          data.forEach(function (item) {
+            var option = document.createElement("option");
+            option.value = item.id;
+            option.textContent = item.cInstFinancia;
+            cboInstituciones.appendChild(option);
+          });
+        } catch (error) {
+          console.error(
+            "Hubo un problema con la operación de búsqueda:",
+            error
+          );
+        }
       } else {
         document.getElementById("cboTipoInsFinanciamiento").innerHTML = "";
       }
     });
 });
-
-
 
 function getCookie(name) {
   let cookieValue = null;
@@ -47,8 +58,7 @@ function getCookie(name) {
   return cookieValue;
 }
 
-
-//click en el submit del formulario 
+//click en el submit del formulario
 document
   .getElementById("formAgregarProyecto")
   .addEventListener("submit", function (event) {
@@ -95,7 +105,7 @@ document
     fetch(urlspost, {
       method: "POST",
       headers: {
-        "content-Type": "aplication/json",
+        "content-Type": "application/json",
         "X-CSRFToken": csrftoken,
       },
       body: JSON.stringify(data),
@@ -151,31 +161,26 @@ function limpiarCampos() {
 }
 
 //EVENTO PARA CALCULAR TOTAL
-document.getElementById("txtMonto").addEventListener('input',function(){
-  let monto=this.value
-  console.log('el monto es :'+ monto);
-  let tipocambio=document.getElementById('txttipoCambio').value
+document.getElementById("txtMonto").addEventListener("input", function () {
+  let monto = this.value;
+  console.log("el monto es :" + monto);
+  let tipocambio = document.getElementById("txttipoCambio").value;
 
-  total=monto*tipocambio
-  console.log('el total es '+total);
-  document.getElementById('txtMontosoles').value=total;
+  total = monto * tipocambio;
+  console.log("el total es " + total);
+  document.getElementById("txtMontosoles").value = total;
+});
 
+document.getElementById("txttipoCambio").addEventListener("input", function () {
+  let tipocambio = this.value;
+  let monto = document.getElementById("txtMonto").value;
 
-
-})
-
-document.getElementById("txttipoCambio").addEventListener('input',function(){
-  let tipocambio=this.value
-  let monto=document.getElementById('txtMonto').value
-
-  total=monto*tipocambio
-  console.log('el total es '+total);
-  document.getElementById('txtMontosoles').value=total;
-
-})
+  total = monto * tipocambio;
+  console.log("el total es " + total);
+  document.getElementById("txtMontosoles").value = total;
+});
 
 //FUNCION PARA FORMULARIOS
 function convertToUppercase(input) {
   input.value = input.value.toUpperCase();
 }
-

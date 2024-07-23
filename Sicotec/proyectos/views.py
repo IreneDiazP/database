@@ -101,14 +101,28 @@ def registrarProyecto(request):
 
 @login_required
 def todosProyectos(request):
-    tproyectos = Proyecto.objects.all()
+    tproyectos = Proyecto.objects.all().order_by('-id')
+    tipoProyec = Tipo_Proyecto.objects.all().order_by('cTipoProyecto')
+    pais = Pais.objects.all().order_by('cpais')
+    TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
+    EntFinan = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')
+    InsFinan = Institucion_Financiamiento.objects.all().order_by('cInstFinancia')
+    TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
+    AreaTem = Area_Tematica.objects.all().order_by('cArea_tematica')
     for pr in tproyectos:
         pr.fechaInicio = pr.fechaInicio.strftime('%d/%m/%Y')
         pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
         pr.totalsoles=pr.tipo_Cambio*pr.monto
             
     return render(request, 'proyectos/todosProyectos.html', {
-        'tproyectos': tproyectos
+        'tproyectos': tproyectos,
+        'tipoProyec':tipoProyec,
+        'pais':pais,
+        'TipoApoyo':TipoApoyo,
+        'EntFinan':EntFinan,
+        'InsFinan':InsFinan,
+        'TipoMoneda':TipoMoneda,
+        'AreaTem':AreaTem
     })
 
 #obtener instituciones segun entidad
@@ -117,3 +131,15 @@ def getInstituciones(request, entidad_id):
     instituciones = Institucion_Financiamiento.objects.filter(entidad_financiamiento_id=entidad_id)
     data = list(instituciones.values('id', 'cInstFinancia'))
     return JsonResponse(data, safe=False)
+
+#obtener datos del proyecto para el modal
+@login_required
+@login_required
+def get_DatosProyecto(request, idProyecto):
+    print('llegue a la url')
+    try:
+        proyectorequerido = Proyecto.objects.filter(id=idProyecto).values()
+        print(proyectorequerido)
+        return JsonResponse({'success': True, 'data': list(proyectorequerido)})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})

@@ -11,5 +11,6 @@ urlpatterns = [
     
     #para cambio de proyectos
     path('getInstituciones/<int:entidad_id>/', views.getInstituciones, name='getInstituciones'),
+    path('getDatosProyecto/<int:idProyecto>',views.get_DatosProyecto, name="get_DatosProyecto")
 
 ]
