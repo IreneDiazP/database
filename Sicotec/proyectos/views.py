@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.db import transaction
+from django.utils import timezone
 from django.http import JsonResponse
 import json
 from django.contrib.auth.decorators import login_required
@@ -100,6 +102,67 @@ def registrarProyecto(request):
 
 
 @login_required
+def editarproyecto(request,idProyecto):
+    try:
+        with transaction.atomic():
+            if request.method=='POST':
+                ProyectoEditado=Proyecto.objects.get(id=idProyecto)
+                
+                tipoProyecto_id = request.POST.get('cboTipoProyecto')
+                codigoProyecto = request.POST.get('txtCodigoProyecto')
+                NombreProyecto = request.POST.get('txtNombreProyecto')
+                DescProyecto = request.POST.get('txtDescripcion')
+                PaisProyecto_id = request.POST.get('cboPais')
+                TipoApoyoProyecto_id = request.POST.get('cboTipoApoyo')
+                EntFinanProyecto_id = request.POST.get('cboTipoEnFinanciamiento')
+                InstProyecto_id = request.POST.get('cboTipoInsFinanciamiento')
+                TipomonedaProyecto_id = request.POST.get('cboTipoMOneda')
+                MontoProyecto = request.POST.get('txtMonto')
+                TipoCambioProyecto = request.POST.get('txttipoCambio')
+                RespIpenProyecto = request.POST.get('txtRespIpen')
+                RespEntidadoProyecto = request.POST.get('txtRespEnt')
+                AreaTemProyecto_id = request.POST.get('cboAreaTematica')
+                FechaInicProyecto = request.POST.get('txtFechaInicio')
+                FechaFinProyecto = request.POST.get('txtFechaFin')
+                updated_by = request.user
+                fecha_actual = timezone.now()
+                
+                # Obtener instancias de modelos relacionados
+                tipoProyecto = Tipo_Proyecto.objects.get(id=tipoProyecto_id)
+                paisProyecto = Pais.objects.get(id=PaisProyecto_id)
+                tipoApoyoProyecto = Tipo_Apoyo.objects.get(id=TipoApoyoProyecto_id)
+                entFinanProyecto = Entidad_Financiamiento.objects.get(id=EntFinanProyecto_id)
+                instProyecto = Institucion_Financiamiento.objects.get(id=InstProyecto_id)
+                tipoMonedaProyecto = Tipo_Moneda.objects.get(id=TipomonedaProyecto_id)
+                areaTemProyecto = Area_Tematica.objects.get(id=AreaTemProyecto_id)
+
+                # Asignar valores al objeto Proyecto
+                ProyectoEditado.cTipo_proyecto = tipoProyecto
+                ProyectoEditado.codigoProyecto = codigoProyecto
+                ProyectoEditado.nomProyecto = NombreProyecto
+                ProyectoEditado.DescProyecto = DescProyecto
+                ProyectoEditado.cpais = paisProyecto
+                ProyectoEditado.cTipoApoyo = tipoApoyoProyecto
+                ProyectoEditado.cEntFinan = entFinanProyecto
+                ProyectoEditado.cInstFinanc = instProyecto
+                ProyectoEditado.cTipo_Moneda = tipoMonedaProyecto
+                ProyectoEditado.monto = MontoProyecto
+                ProyectoEditado.tipo_Cambio = TipoCambioProyecto
+                ProyectoEditado.responsable = RespIpenProyecto
+                ProyectoEditado.responsableEnt = RespEntidadoProyecto
+                ProyectoEditado.cAreaTem = areaTemProyecto
+                ProyectoEditado.fechaInicio = FechaInicProyecto
+                ProyectoEditado.fechaFin = FechaFinProyecto
+                ProyectoEditado.updated_by = updated_by
+                ProyectoEditado.updated = fecha_actual
+                
+                ProyectoEditado.save()
+                
+        return redirect('todosProyectos') 
+    except Exception as e:
+         return JsonResponse({'success': False, 'message': str(e)})
+
+@login_required
 def todosProyectos(request):
     tproyectos = Proyecto.objects.all().order_by('-id')
     tipoProyec = Tipo_Proyecto.objects.all().order_by('cTipoProyecto')
@@ -136,7 +199,6 @@ def getInstituciones(request, entidad_id):
 @login_required
 @login_required
 def get_DatosProyecto(request, idProyecto):
-    print('llegue a la url')
     try:
         proyectorequerido = Proyecto.objects.filter(id=idProyecto).values()
         print(proyectorequerido)
