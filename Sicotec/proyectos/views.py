@@ -52,14 +52,6 @@ def registrarProyecto(request):
             x_fechaFin = data.get('txtFechaFin')
             x_created_by = request.user
 
-            print(f"Tipo Proyecto: {x_tipo_proyec}")
-            print(f"Pais: {x_pais}")
-            print(f"Tipo Apoyo: {x_tipo_apoyo}")
-            print(f"Entidad Financiamiento: {x_entfinan}")
-            print(f"Institucion Financiamiento: {x_instfinan}")
-            print(f"Tipo Moneda: {x_tipo_moneda}")
-            print(f"Area Tematica: {x_area_tem}")
-
             tipo_proyec_instance = Tipo_Proyecto.objects.get(id=x_tipo_proyec)
             pais_instance = Pais.objects.get(id=x_pais)
             tipo_apoyo_instance = Tipo_Apoyo.objects.get(id=x_tipo_apoyo)
@@ -201,7 +193,6 @@ def getInstituciones(request, entidad_id):
 def get_DatosProyecto(request, idProyecto):
     try:
         proyectorequerido = Proyecto.objects.filter(id=idProyecto).values()
-        print(proyectorequerido)
         return JsonResponse({'success': True, 'data': list(proyectorequerido)})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
