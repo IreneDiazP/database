@@ -100,6 +100,8 @@ export async function CargardatoProyecto(idRegistroProyecto) {
       document.getElementById("txtRespIpen").value = result.data[0].responsable;
       document.getElementById("txtRespEnt").value = result.data[0].responsableEnt;
       document.getElementById("cboAreaTematica").value = result.data[0].cAreaTem_id;
+      document.getElementById("txtFechaInicio").value = result.data[0].fechaInicio;
+      document.getElementById("txtFechaFin").value = result.data[0].fechaFin;
     }
   } catch (error) {
     NotificacionSwal(
