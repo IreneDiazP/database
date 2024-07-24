@@ -179,8 +179,3 @@ document.getElementById("txttipoCambio").addEventListener("input", function () {
   console.log("el total es " + total);
   document.getElementById("txtMontosoles").value = total;
 });
-
-//FUNCION PARA FORMULARIOS
-function convertToUppercase(input) {
-  input.value = input.value.toUpperCase();
-}

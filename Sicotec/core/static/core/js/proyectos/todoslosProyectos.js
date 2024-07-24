@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .querySelector("#tblProyectos tbody")
     .addEventListener("click", async function (event) {
+        
       if (
         event.target.classList.contains("editBtn") ||
         event.target.closest(".editBtn")
@@ -15,4 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         CargardatoProyecto(idRegistroProyecto);
       }
     });
+
+    
 });
+
