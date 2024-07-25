@@ -1,36 +1,20 @@
 {% extends "core/base.html" %} {% load static %} {% block title %}Nuevo
 Proyecto{% endblock title %} {% block contenido %}
 <div class="main-content d-flex flex-column py-0 mb-md-5">
-  <div
-    class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-3 mb-md-0 mb-5"
-  >
+  <div class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-3 mb-md-0 mb-5">
     {% if mensaje_error %}
     <p style="color: red">{{ mensaje_error }}</p>
     {% endif %}
     <div>
-      <form
-        action="#"
-        id="formAgregarProyecto"
-        class="shadow px-3 py-3 rounded"
-        method="POST"
-      >
+      <form action="#" id="formAgregarProyecto" class="shadow px-3 py-3 rounded" method="POST">
         {% csrf_token %}
         <div class="d-flex gap-3 flex-column">
           <div class="col-12">
-            <span class="fs-2 fw-semibold d-md-block d-none"
-              >Registro del Proyecto</span
-            >
-            <span class="fs-5 fw-semibold d-md-none d-block text-center"
-              >Registro del Proyecto</span
-            >
+            <span class="fs-2 fw-semibold d-md-block d-none">Registro del Proyecto</span>
+            <span class="fs-5 fw-semibold d-md-none d-block text-center">Registro del Proyecto</span>
             <hr />
             <div class="row px-3">
-              <div
-                id="alerta"
-                class="alert alert-danger mb-0"
-                style="display: none"
-                role="alert"
-              >
+              <div id="alerta" class="alert alert-danger mb-0" style="display: none" role="alert">
                 Solo se permiten 30 caracteres como máximo en el campo de
                 Teléfono.
               </div>
@@ -44,46 +28,15 @@ Proyecto{% endblock title %} {% block contenido %}
             </div>
             <span class="fw-bold fs-6">Datos generales del Proyecto</span>
 
-            <!------   ----------------------------- -->
-            <!--TIPO DE PROYECTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoProyecto"
-                  name="cboTipoProyecto"
-                  required
-                >
-                  <option selected></option>
-                  {% for tp in tipoProyec %}
-                  <option value="{{tp.id}}">{{tp.cTipoProyecto}}</option>
-                  {% endfor %}
-                </select>
-                <label for="cboTipoProyecto"
-                  >Tipo de Proyecto<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
-              </div>
-            </div>
+
             <!------   ----------------------------- -->
             <!--CODIGO PROYECTO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidCodProyecto" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtCodigoProyecto"
-                  name="txtCodigoProyecto"
-                  required
-                  maxlength="20"
-                />
-                <label for="txtNombreProyecto"
-                  >Codigo del proyecto<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
+                <input type="text" class="form-control" id="txtCodigoProyecto" name="txtCodigoProyecto" required
+                  maxlength="20" />
+                <label for="txtNombreProyecto">Codigo del proyecto<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -91,76 +44,123 @@ Proyecto{% endblock title %} {% block contenido %}
             <div class="col-md-6">
               <div class="form-floating">
                 <input type="hidden" id="txtidNombre" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtNombreProyecto"
-                  name="txtNombreProyecto"
-                  required
-                  maxlength="100"
-                  oninput="convertToUppercase(this)"
-                />
-                <label for="txtNombreProyecto"
-                  >Nombre<span class="text-danger ms-2">*</span></label
-                >
+                <input type="text" class="form-control" id="txtNombreProyecto" name="txtNombreProyecto" required
+                  maxlength="100" oninput="convertToUppercase(this)" />
+                <label for="txtNombreProyecto">Nombre<span class="text-danger ms-2">*</span></label>
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--TIPO DE PROYECTO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select class="form-select" id="cboTipoProyecto" name="cboTipoProyecto" required>
+                  <option selected></option>
+                  {% for tp in tipoProyec %}
+                  <option value="{{tp.id}}">{{tp.cTipoProyecto}}</option>
+                  {% endfor %}
+                </select>
+                <label for="cboTipoProyecto">Tipo de Proyecto<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
             <!--DESCRIPCIÓN-->
             <div class="col-md-9">
               <div class="form-floating">
                 <input type="hidden" id="txtidDescripcion" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtDescripcion"
-                  name="txtDescripcion"
-                  required
-                  maxlength="300"
-                  oninput="convertToUppercase(this)"
-                />
-                <label for="txtDescripcion"
-                  >Descripción<span class="text-danger ms-2">*</span></label
-                >
+                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
+                  maxlength="300" oninput="convertToUppercase(this)" />
+                <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--AREA TEMATICA-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select class="form-select" id="cboAreaTematica" name="cboAreaTematica"
+                  oninput="convertToUppercase(this)" required>
+                  <option selected></option>
+
+                  {% for At in AreaTem %}
+                  <option value="{{At.id}}">{{At.cArea_tematica}}</option>
+                  {% endfor %}
+                </select>
+                <label for="cboAreaTematica">Area Tematica<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
             <!--PAIS-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboPais"
-                  name="cboPais"
-                  required
-                >
+                <select class="form-select" id="cboPais" name="cboPais" required>
                   <option selected></option>
                   {% for P in pais %}
                   <option value="{{P.id}}">{{P.cpais}}</option>
                   {% endfor %}
                 </select>
-                <label for="cboPais"
-                  >Pais<span class="text-danger ms-2">*</span></label
-                >
+                <label for="cboPais">Pais<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
+
+
+            {% comment %}
+            <!------   ----------------------------- -->
+            <!--DONACIONES - EQUIPAMIENTO-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidonaciones" />
+                <input type="text" class="form-control" id="txtDonaciones" name="txtDonaciones" maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
+                <label for="txtDonaciones">Donaciones</label>
+              </div>
+            </div>
+            {% endcomment %}
+
+            <!------   ----------------------------- -->
+            <!--REPONSABLE IPEN-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidResponsableIpen" />
+                <input type="text" class="form-control" id="txtRespIpen" name="txtRespIpen" maxlength="100"
+                  oninput="convertToUppercase(this)" />
+                <label for="txtRespIpen">Responsable IPEN<span class="text-danger ms-2">*</span></label>
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--FECHA-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="txtFechaInicio" name="txtFechaInicio" required />
+                <label for="txtFechaInicio">Fecha Inicio<span class="text-danger ms-2">*</span></label>
+              </div>
+            </div>
+
+            <!------   ----------------------------- -->
+            <!--FECHA-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="txtFechaFin" name="txtFechaFin" required />
+                <label for="txtFechaFin">Fecha Fin<span class="text-danger ms-2">*</span></label>
+              </div>
+            </div>
+
+
+            <!------   ----------------------------- -->
+          </div>
+          <hr>
+          <div class="row g-3 px-3">
+
+            <span class="fw-bold fs-6">Datos de financiamiento del Proyecto</span>
             <!------   ----------------------------- -->
             <!--TIPO DE APOYO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoApoyo"
-                  name="cboTipoApoyo"
-                  required
-                >
+                <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" required>
                   <option selected></option>
 
                   {% for Ta in TipoApoyo %}
                   <option value="{{Ta.id}}">{{Ta.ctipo_apoyo}}</option>
                   {% endfor %}
                 </select>
-                <label for="cboTipoApoyo"
-                  >Tipo de Apoyo<span class="text-danger ms-2">*</span></label
-                >
+                <label for="cboTipoApoyo">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -178,7 +178,7 @@ Proyecto{% endblock title %} {% block contenido %}
                 </label>
               </div>
             </div>
-            
+
             <div class="col-md-3">
               <div class="form-floating">
                 <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
@@ -189,17 +189,21 @@ Proyecto{% endblock title %} {% block contenido %}
                 </label>
               </div>
             </div>
-            
+            <!------   ----------------------------- -->
+            <!--REPONSABLE ENTIDAD-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidResponsableEnt" />
+                <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
+                  oninput="convertToUppercase(this)" />
+                <label for="txtRespEnt">Responsable Entidad<span class="text-danger ms-2">*</span></label>
+              </div>
+            </div>
             <!------   ----------------------------- -->
             <!--TIPO DE MONEDA -->
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoMOneda"
-                  name="cboTipoMOneda"
-                  required
-                >
+                <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
                   <option selected></option>
 
                   {% for Tm in TipoMoneda %}
@@ -207,200 +211,48 @@ Proyecto{% endblock title %} {% block contenido %}
                   {% endfor %}
                 </select>
                 <label for="cboTipoMOneda">
-                  Tipo de Moneda<span class="text-danger ms-2">*</span></label
-                >
+                  Tipo de Moneda<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--MONTO-->
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidMonto" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtMonto"
-                  name="txtMonto"
-                  required
-                  pattern="^\d+(\.\d{1,4})?$"
-                />
-                <label for="txtMonto"
-                  >Monto (S/)<span class="text-danger ms-2">*</span></label
-                >
+                <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
+                  pattern="^\d+(\.\d{1,4})?$" />
+                <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
             <!------   ----------------------------- -->
             <!--TIPO DE CAMBIO-->
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidtCambio" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txttipoCambio"
-                  name="txttipoCambio"
-                  required
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,4})?$"
-                />
-                <label for="txttipoCambio"
-                  >Tipo de Cambio<span class="text-danger ms-2">*</span></label
-                >
+                <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required maxlength="15"
+                  pattern="^\d+(\.\d{1,4})?$" />
+                <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
             <!------   ----------------------------- -->
             <!--MONTO SOLES-->
-            <div class="col-md-2">
+            <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidMontosoles" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtMontosoles"
-                  disabled
-                  name="txtMontosoles"
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
-                />
+                <input type="text" class="form-control" id="txtMontosoles" disabled name="txtMontosoles" maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
                 <label for="txtMontosoles">Equivalente Soles (S/)</label>
               </div>
             </div>
-
-            {% comment %}
-            <!------   ----------------------------- -->
-            <!--DONACIONES - EQUIPAMIENTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidonaciones" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtDonaciones"
-                  name="txtDonaciones"
-                  maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$"
-                  title="Ingrese un monto válido con hasta dos decimales"
-                />
-                <label for="txtDonaciones">Donaciones</label>
-              </div>
-            </div>
-            {% endcomment %}
-
-            <!------   ----------------------------- -->
-            <!--REPONSABLE IPEN-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidResponsableIpen" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtRespIpen"
-                  name="txtRespIpen"
-                  maxlength="100"
-                  oninput="convertToUppercase(this)"
-                />
-                <label for="txtRespIpen"
-                  >Responsable IPEN<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--REPONSABLE ENTIDAD-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidResponsableEnt" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtRespEnt"
-                  name="txtRespEnt"
-                  maxlength="100"
-                  oninput="convertToUppercase(this)"
-                />
-                <label for="txtRespEnt"
-                  >Responsable Entidad<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--AREA TEMATICA-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboAreaTematica"
-                  name="cboAreaTematica"
-                  oninput="convertToUppercase(this)"
-                  required
-                >
-                  <option selected></option>
-
-                  {% for At in AreaTem %}
-                  <option value="{{At.id}}">{{At.cArea_tematica}}</option>
-                  {% endfor %}
-                </select>
-                <label for="cboAreaTematica"
-                  >Area Tematica<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-
-            <!--FECHA-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="txtFechaInicio"
-                  name="txtFechaInicio"
-                  
-                  required
-                />
-                <label for="txtFechaInicio"
-                  >Fecha Inicio<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--FECHA-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input
-                  type="date"
-                  class="form-control"
-                  id="txtFechaFin"
-                  name="txtFechaFin"
-                  required
-                />
-                <label for="txtFechaFin"
-                  >Fecha Fin<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
           </div>
 
           <!-- Botones -->
           <div class="row g-3 px-3">
             <hr />
             <div class="col-12 d-flex justify-content-end mt-1">
-              <button
-                class="btn btn-lg text-white fs-6 bg-danger"
-                type="submit"
-                id='btnguardar'
-              >
+              <button class="btn btn-lg text-white fs-6 bg-danger" type="submit" id='btnguardar'>
                 <i class="fas fa-save"></i> &nbsp;Guardar datos
               </button>
             </div>
@@ -412,18 +264,18 @@ Proyecto{% endblock title %} {% block contenido %}
   </div>
 </div>
 {% endblock contenido %}
- {% block script %} 
+{% block script %}
 
 <script>
 
   function convertToUppercase(input) {
     input.value = input.value.toUpperCase();
   }
-  
-</script>
-
 
 </script>
 
- <script src='{% static "core/js/proyectos/nuevoproyecto.js" %}'></script>
- {% endblock %}
+
+</script>
+
+<script src='{% static "core/js/proyectos/nuevoproyecto.js" %}'></script>
+{% endblock %}

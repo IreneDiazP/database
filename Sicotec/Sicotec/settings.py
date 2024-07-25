@@ -79,27 +79,27 @@ WSGI_APPLICATION = 'Sicotec.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME':'sicotec',
-#         'USER':'root',
-#         'PASSWORD':'root',
-#         'HOST':'localhost',
-#         'PORT':'3306'
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'sicotec',
-        'USER':'remote',
-        'PASSWORD':'1234',
-        'HOST':'192.168.18.5',
+        'USER':'root',
+        'PASSWORD':'root',
+        'HOST':'localhost',
         'PORT':'3306'
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME':'sicotec',
+#         'USER':'remote',
+#         'PASSWORD':'1234',
+#         'HOST':'192.168.18.5',
+#         'PORT':'3306'
+#     }
+# }
 
 
 
