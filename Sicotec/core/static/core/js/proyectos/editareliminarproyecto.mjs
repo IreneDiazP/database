@@ -125,3 +125,74 @@ export async function CargardatoProyecto(idRegistroProyecto) {
     );
   }
 }
+
+document.getElementById("formEliminarProyecto").addEventListener("submit", function(event){
+  event.preventDefault(); 
+  const idregistro = document.getElementById("txtIdProyectoModalEliminarProyecto").value;
+
+  let elementoHtmlEditado = $("#tblProyectosRegistro").find(`#${idregistro}`);
+  const csrftoken = getCookie("csrftoken");
+
+
+  // Ocultar el modal
+  const modalElement = document.getElementById("modalEliminarProyecto");
+  let modalInstance = bootstrap.Modal.getInstance(modalElement);
+  if (!modalInstance) {
+    modalInstance = new bootstrap.Modal(modalElement);
+  }
+  modalInstance.hide();
+  
+
+  console.log('este es el idregistro: ',idregistro);
+  
+  fetch("../../proyecto/eliminarProyecto/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken
+    },
+    body: JSON.stringify({
+      action: "delete",
+      idRegistro: idregistro,
+    })
+  })
+  .then(response => response.json())
+  .then(response => {
+    if (response.success === true) {
+      elementoHtmlEditado.remove(); 
+      const row = document.querySelector(`#tblProyectos tr[id="${idregistro}"]`);
+      if (row) {
+        row.remove();
+      }
+      Swal.fire({
+        title: "Éxito!",
+        text: "Eliminación exitosa.",
+        icon: "success",
+        confirmButtonText: "Ok"
+      });
+    } else {
+      Swal.fire({
+        html: `
+          <p class="d-inline-flex gap-1">
+            <span>Error durante el proceso. Los cambios se han revertido.</span>
+            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="bi bi-info-circle fs-5"></i>
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              ${response.message}
+            </div>
+          </div>
+        `,
+        title: "Error!",
+        text: response.message,
+        icon: "error",
+        confirmButtonText: "Ok"
+      });
+    }
+  })
+  .catch(error => {
+    console.error("Error en la solicitud AJAX:", error);
+  });
+});

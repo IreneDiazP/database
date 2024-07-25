@@ -7,6 +7,8 @@ urlpatterns = [
     path('registrarProyecto/', views.registrarProyecto, name='registrarProyecto'),
     #editar proyecto
     path('editarproyecto/<int:idProyecto>', views.editarproyecto, name='editarproyecto'),
+    #eliminar proyecto
+    path('eliminarProyecto/',views.eliminarProyecto, name="eliminarproyecto"),
 
     
    #traer todos los proyecto

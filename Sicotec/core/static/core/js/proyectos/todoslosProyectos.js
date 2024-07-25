@@ -17,6 +17,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+  document.querySelector("#tblProyectos  tbody").addEventListener("click", function(event){
+    console.log('hola eliminar');
+    if(event.target.classList.contains("trashBtn") ||
+    event.target.closest(".trashBtn")){
+      console.log('comooo');
+      let idregistoeliminar=event.target.closest("tr").getAttribute("id")
+      console.log(idregistoeliminar);
+      document.getElementById('txtIdProyectoModalEliminarProyecto').value=idregistoeliminar;
+    }
+  })
+
     
 });
 

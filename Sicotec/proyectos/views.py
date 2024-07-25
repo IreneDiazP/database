@@ -180,6 +180,27 @@ def todosProyectos(request):
         'AreaTem':AreaTem
     })
 
+
+@login_required
+def eliminarProyecto(request):
+    try:
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            idregistro = data.get('idRegistro')
+            with transaction.atomic():
+                
+
+                print('holaaaaa')
+                print(idregistro)
+                proyecto = Proyecto.objects.get(id = idregistro)
+                print(proyecto.id)
+                proyecto.delete()
+
+                
+                return JsonResponse({'success':True, 'message': 'Registro eliminado correctamente'})
+    except Exception as e:
+         return JsonResponse({'success': False, 'message': str(e)})
+
 #obtener instituciones segun entidad
 @login_required
 def getInstituciones(request, entidad_id):
