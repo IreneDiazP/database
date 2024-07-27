@@ -5,8 +5,12 @@ urlpatterns = [
     # registrar nuevo evento
     path('registrarEvento/', views.registrarEvento, name='registrarEvento'),
     
+    #editar proyecto
+    path('editarevento/<int:idEvento>', views.editarevento, name='editarevento'),
+    
     #todos los eventos
     path('todosEventos/', views.todosEventos, name='todosEventos'),
     
-    
+    #otener datos del evento 
+    path('getDatosEvento/<int:idEvento>',views.get_Evento, name="get_DatosProyecto")
 ]

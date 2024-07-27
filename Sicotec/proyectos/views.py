@@ -209,7 +209,7 @@ def getInstituciones(request, entidad_id):
     return JsonResponse(data, safe=False)
 
 #obtener datos del proyecto para el modal
-@login_required
+
 @login_required
 def get_DatosProyecto(request, idProyecto):
     try:

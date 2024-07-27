@@ -1,99 +1,126 @@
 $(document).ready(function () {
-  $("#tblEventos thead th").each(function (index) {
-      if (index < $("#tblEventos thead th").length - 1) {
-        var title = $("#tblEventos thead th").eq(index).text();
-        var inputHTML = '<input  type="text" placeholder="' + title + '"';
-          if (index === 0 || index === 5  || index === 6 || index === 7 || index === 11 || index === 12) {
-            inputHTML += ' style="max-width: 134px; text-align: center;"';
-          }
-          if (index === 1 || index === 2 || index === 3 || index === 8 || index === 9 || index === 10) {
-            inputHTML += ' style="max-width: 250px; text-align: center;"';
-          }
-          if (index === 4) {
-            inputHTML += ' style="width: 450px !important; text-align: center;"';
-          }
-          if (index === 8 ) {
-            inputHTML += ' style="max-width: 160px; text-align: center;"';
-          }
-          inputHTML += " />";
-          $(this).html(inputHTML);
+  var thead = $("#tblEventos thead th");
+  var inputHTML = "";
+  
+  // Usa un DocumentFragment para reducir manipulaciones directas del DOM
+  var fragment = document.createDocumentFragment();
+  
+  thead.each(function (index) {
+    if (index < thead.length - 1) {
+      var title = $(this).text();
+      var inputElement = document.createElement("input");
+      inputElement.type = "text";
+      inputElement.placeholder = title;
+      
+      // Aplicar estilos basados en el índice
+      switch(index) {
+        case 0:
+        case 5:
+        case 6:
+        case 7:
+        case 11:
+        case 12:
+          inputElement.style.maxWidth = "134px";
+          inputElement.style.textAlign = "center";
+          break;
+        case 1:
+        case 2:
+        case 3:
+        case 8:
+        case 9:
+        case 10:
+          inputElement.style.maxWidth = "250px";
+          inputElement.style.textAlign = "center";
+          break;
+        case 4:
+          inputElement.style.width = "450px";
+          inputElement.style.textAlign = "center";
+          break;
+        case 8:
+          inputElement.style.maxWidth = "160px";
+          inputElement.style.textAlign = "center";
+          break;
       }
-  });
 
+      // Añadir el input al fragmento
+      fragment.appendChild(inputElement);
+      $(this).html(inputElement);
+    }
+  });
+  
   // Inicializa DataTable
   var table = $("#tblEventos").DataTable({
-      scrollX: true,
-      dom: "Bfrltip",
-      buttons: [
-          {
-              extend: "excelHtml5",
-              text: "Excel",
-              className: "btn btn-success",
-              exportOptions: {
-                  columns: ":visible",
-                  format: {
-                      header: function (data, columnIdx) {
-                          return $("#tblEventos tfoot th").eq(columnIdx).text();
-                      },
-                  },
-              },
+    scrollX: true,
+    dom: "Bfrltip",
+    buttons: [
+      {
+        extend: "excelHtml5",
+        text: "Excel",
+        className: "btn btn-success",
+        exportOptions: {
+          columns: ":visible",
+          format: {
+            header: function (data, columnIdx) {
+              return $("#tblEventos tfoot th").eq(columnIdx).text();
+            },
           },
-          {
-              extend: "pdfHtml5",
-              text: "PDF",
-              className: "btn btn-danger",
-              orientation: "landscape",
-              pageSize: "A0",
-              exportOptions: {
-                  columns: ":visible",
-                  format: {
-                      header: function (data, columnIdx) {
-                          return $("#tblEventos tfoot th").eq(columnIdx).text();
-                      },
-                  },
-              },
-              customize: function (doc) {
-                  doc.content[1].table.widths = "*"
-                      .repeat(doc.content[1].table.body[0].length)
-                      .split("");
-                  doc.styles.tableHeader.alignment = "center";
-              },
-              title: "Reporte Proyectos - Soft - Sicotec",
-          },
-      ],
-      language: {
-          lengthMenu: "Mostrar _MENU_ registros por página",
-          zeroRecords: "Ningún usuario encontrado",
-          info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
-          infoEmpty: "Ningún usuario encontrado",
-          infoFiltered: "(filtrados desde _MAX_ registros totales)",
-          search: "Buscar:",
-          loadingRecords: "Cargando...",
-          paginate: {
-              first: "Primero",
-              last: "Último",
-              next: "Siguiente",
-              previous: "Anterior",
-          },
+        },
       },
-      lengthMenu: [
-          [10, 25, 50, -1],
-          ['Mostrar 10 filas', 'Mostrar 25 filas', 'Mostrar 50 filas', 'Mostrar todo']
-      ],
-      ordering: true,
-      order: [[0, 'asc']],
+      {
+        extend: "pdfHtml5",
+        text: "PDF",
+        className: "btn btn-danger",
+        orientation: "landscape",
+        pageSize: "A0",
+        exportOptions: {
+          columns: ":visible",
+          format: {
+            header: function (data, columnIdx) {
+              return $("#tblEventos tfoot th").eq(columnIdx).text();
+            },
+          },
+        },
+        customize: function (doc) {
+          doc.content[1].table.widths = "*".repeat(doc.content[1].table.body[0].length).split("");
+          doc.styles.tableHeader.alignment = "center";
+        },
+        title: "Reporte Proyectos - Soft - Sicotec",
+      },
+    ],
+    language: {
+      lengthMenu: "Mostrar _MENU_ registros por página",
+      zeroRecords: "Ningún usuario encontrado",
+      info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+      infoEmpty: "Ningún usuario encontrado",
+      infoFiltered: "(filtrados desde _MAX_ registros totales)",
+      search: "Buscar:",
+      loadingRecords: "Cargando...",
+      paginate: {
+        first: "Primero",
+        last: "Último",
+        next: "Siguiente",
+        previous: "Anterior",
+      },
+    },
+    lengthMenu: [
+      [10, 25, 50, -1],
+      ['Mostrar 10 filas', 'Mostrar 25 filas', 'Mostrar 50 filas', 'Mostrar todo']
+    ],
+    ordering: true,
+    order: [[0, 'asc']],
   });
 
   // Agrega funcionalidad de búsqueda a cada campo de entrada en los encabezados
   table.columns().eq(0).each(function (colIdx) {
-      if (colIdx < table.columns().nodes().length - 1) {
-          $("input", table.column(colIdx).header()).on("keyup change", function () {
-              table.column(colIdx).search(this.value).draw();
-          });
+    if (colIdx < table.columns().nodes().length - 1) {
+      var inputField = $("input", table.column(colIdx).header());
+      inputField.on("keyup change", function () {
+        table.column(colIdx).search(this.value).draw();
+      });
 
-          $("input", table.column(colIdx).header()).on("click", function (e) {
-              e.stopPropagation();
-          });
-      }
+      inputField.on("click", function (e) {
+        e.stopPropagation();
+      });
+    }
   });
 });

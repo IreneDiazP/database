@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from django.db import transaction
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 import json
 from .models import Tipo_Evento,Evento,Tipo_Apoyo,Entidad_Financiamiento,Institucion_Financiamiento,Tipo_Moneda,Area_Tematica,Pais
@@ -28,6 +30,7 @@ def nuevoevento(request):
         'AreaTem': AreaTem
     })
     
+
 @login_required
 def registrarEvento(request):
     if request.method =='POST':
@@ -87,8 +90,72 @@ def registrarEvento(request):
             return JsonResponse({'success': False, 'message': f'Error al registrar el Evento: {str(e)}'}, status=500)
 
 
+def editarevento(request,idEvento):
+    print('hola de editar')
+    try:
+        with transaction.atomic():
+            if request.method == 'POST':
+                eventoeditado=Evento.objects.get(id = idEvento)
+                codigoevento=request.POST.get('txtCodigoEvento')
+                nombrevento=request.POST.get('txtNombreEvento')
+                tipoevento_id=request.POST.get('cboTipoEvento')
+                aretematica_id=request.POST.get('cboAreaTematica')
+                descripcionevento=request.POST.get('txtDescripcion')
+                pais_id=request.POST.get('cboPais')
+                FechaInicio = request.POST.get('txtFechainicio')
+                FechaFin = request.POST.get('txtFechafin')
+                tipoapoyo_id = request.POST.get('cboTipoApoyo')
+                Entifin_id = request.POST.get('cboTipoEnFinanciamiento')
+                Insntifin_id = request.POST.get('cboTipoInsFinanciamiento')
+                tipomoneda_id = request.POST.get('cboTipoMOneda')
+                monto=request.POST.get('txtMonto')
+                tipocambio=request.POST.get('txttipoCambio')
+                updated_by = request.user
+                fecha_actual = timezone.now()
+                
+                
+                x_tipoevento_instance=Tipo_Evento.objects.get(id=tipoevento_id)
+                x_areatema_instance=Area_Tematica.objects.get(id=aretematica_id)
+                x_pais_instance=Pais.objects.get(id=pais_id)
+                x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=tipoapoyo_id)
+                x_Entifina_instance=Entidad_Financiamiento.objects.get(id=Entifin_id)
+                x_institufina_instance=Institucion_Financiamiento.objects.get(id=Insntifin_id)
+                x_tipomoneda_instance=Tipo_Moneda.objects.get(id=tipomoneda_id)
+                
+                
+                eventoeditado.codigoEvento = codigoevento
+                eventoeditado.nomEvento = nombrevento
+                eventoeditado.cTipoEvento = x_tipoevento_instance
+                eventoeditado.cAreaTem = x_areatema_instance
+                eventoeditado.DescEvento = descripcionevento
+                eventoeditado.cpais = x_pais_instance
+                eventoeditado.fechaInicio = FechaInicio
+                eventoeditado.fechaFin = FechaFin
+                eventoeditado.cTipoApoyo = x_tipoapoyo_instance
+                eventoeditado.cEntFinan = x_Entifina_instance
+                eventoeditado.cInstFinanc = x_institufina_instance
+                eventoeditado.cTipo_Moneda = x_tipomoneda_instance
+                eventoeditado.monto = monto
+                eventoeditado.tipo_Cambio = tipocambio
+                eventoeditado.updated_by = updated_by
+                eventoeditado.updated = fecha_actual
+                
+                eventoeditado.save()
+                
+        return redirect('todosEventos') 
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+
+@login_required
 def todosEventos(request):
     todoeventos=Evento.objects.all().order_by('-id')
+    Tipo_Eventos=Evento.objects.all().order_by('cTipoEvento')
+    pais = Pais.objects.all().order_by('cpais')
+    TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
+    EntFinan = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')
+    InsFinan = Institucion_Financiamiento.objects.all().order_by('cInstFinancia')
+    TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
+    AreaTem = Area_Tematica.objects.all().order_by('cArea_tematica')
     for te in todoeventos:
         te.fechaInicio = te.fechaInicio.strftime('%d/%m/%Y')
         te.fechaFin = te.fechaFin.strftime('%d/%m/%Y')
@@ -97,5 +164,40 @@ def todosEventos(request):
     
     print('holaaaa')
     return render(request,'eventos/todoseventos.html',{
-        'todoeventos':todoeventos
+        'todoeventos':todoeventos,
+        'Tipo_Eventos':Tipo_Eventos,
+        'pais': pais,
+        'TipoApoyo': TipoApoyo,
+        'EntFinan': EntFinan,
+        'InsFinan': InsFinan,
+        'TipoMoneda': TipoMoneda,
+        'AreaTem': AreaTem
     })
+    
+@login_required   
+def get_Evento(request,idEvento):
+    try:
+        eventorequerido = Evento.objects.get(id=idEvento)
+        data = {
+            'codigoEvento': eventorequerido.codigoEvento,
+            'nomEvento': eventorequerido.nomEvento,
+            'cTipoEvento_id': eventorequerido.cTipoEvento_id,
+            'cAreaTem_id': eventorequerido.cAreaTem_id,
+            'DescEvento': eventorequerido.DescEvento,
+            'cpais_id': eventorequerido.cpais_id,
+            'fechaInicio': eventorequerido.fechaInicio,
+            'fechaFin': eventorequerido.fechaFin,
+            'cTipoApoyo_id': eventorequerido.cTipoApoyo_id,
+            'cEntFinan_id': eventorequerido.cEntFinan_id,
+            'cInstFinanc_id': eventorequerido.cInstFinanc_id,
+            'cTipo_Moneda_id': eventorequerido.cTipo_Moneda_id,
+            'monto': eventorequerido.monto,
+            'tipo_Cambio': eventorequerido.tipo_Cambio,
+            'created': eventorequerido.created,
+            'created_by_id': eventorequerido.created_by_id,
+            'updated': eventorequerido.updated,
+            'updated_by_id': eventorequerido.updated_by_id,
+        }
+        return JsonResponse({'success': True, 'data': data})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
