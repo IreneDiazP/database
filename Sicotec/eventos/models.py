@@ -22,7 +22,6 @@ class Evento(models.Model):
     cTipoApoyo = models.ForeignKey(Tipo_Apoyo, on_delete=models.PROTECT, verbose_name="Tipo_Apoyo", related_name='Eventos')
     cEntFinan = models.ForeignKey(Entidad_Financiamiento, on_delete=models.PROTECT, verbose_name="Entidad_Financiamiento", related_name='Eventos')
     cInstFinanc = models.ForeignKey(Institucion_Financiamiento, on_delete=models.PROTECT, verbose_name="Institución_Financiamiento", related_name='Eventos')
-    responsableEnt = models.CharField(max_length=100, verbose_name='Responsable_Entidad', null=True)
     cTipo_Moneda = models.ForeignKey(Tipo_Moneda, on_delete=models.PROTECT, verbose_name="Tipo_Moneda", related_name='Eventos')
     monto = models.DecimalField(max_digits=15, decimal_places=4, verbose_name='Monto', null=True)
     tipo_Cambio = models.DecimalField(max_digits=6, decimal_places=3, verbose_name='Tipo de Cambio', null=True)

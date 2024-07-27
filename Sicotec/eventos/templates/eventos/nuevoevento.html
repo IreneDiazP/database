@@ -35,7 +35,7 @@ Evento{% endblock title %} {% block contenido %}
                 <input type="hidden" id="txtidCodigoevento" />
                 <input type="text" class="form-control" id="txtCodigoEvento" name="txtCodigoEvento" required
                   maxlength="150" />
-                <label for="txtCodigoEvento">Nombre<span class="text-danger ms-2">*</span></label>
+                <label for="txtCodigoEvento">Codigo evento<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -44,7 +44,7 @@ Evento{% endblock title %} {% block contenido %}
               <div class="form-floating">
                 <input type="hidden" id="txtidNombreevento" />
                 <input type="text" class="form-control" id="txtNombreEvento" name="txtNombreEvento" required
-                  maxlength="150" />
+                  maxlength="150" oninput="convertToUppercase(this)"  />
                 <label for="txtNombreEvento">Nombre<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
@@ -82,7 +82,7 @@ Evento{% endblock title %} {% block contenido %}
               <div class="form-floating">
                 <input type="hidden" id="txtidDescripcion" />
                 <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
-                  maxlength="300" />
+                  maxlength="300" oninput="convertToUppercase(this)"  />
                 <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
@@ -104,17 +104,17 @@ Evento{% endblock title %} {% block contenido %}
             <!--FECHA-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="date" class="form-control" id="txtFecha" name="txtFecha" required />
-                <label for="txtFecha">Fecha Inicio<span class="text-danger ms-2">*</span></label>
+                <input type="date" class="form-control" id="txtFechainicio" name="txtFechainicio" required />
+                <label for="txtFechainicio">Fecha Inicio<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
             <!------   ----------------------------- -->
-            <!--FECHA-->
+            <!--FECHA FIN-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="date" class="form-control" id="txtFecha" name="txtFecha" required />
-                <label for="txtFecha">Fecha Fin<span class="text-danger ms-2">*</span></label>
+                <input type="date" class="form-control" id="txtFechafin" name="txtFechafin" required />
+                <label for="txtFechafin">Fecha Fin<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
@@ -155,7 +155,7 @@ Evento{% endblock title %} {% block contenido %}
               </div>
             </div>
             <!------   ----------------------------- -->
-            <!--ENTIDAD FINANCIAMIENTO FINANCIAMIENTO -->
+            <!--Institucion FINANCIAMIENTO FINANCIAMIENTO -->
             <div class="col-md-3">
               <div class="form-floating">
                 <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
@@ -171,13 +171,13 @@ Evento{% endblock title %} {% block contenido %}
             <!--TIPO DE MONEDA -->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoFinanciamiento" name="cboTipoFinanciamiento" required>
+                <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
                   <option selected></option>
                   {% for tm in TipoMoneda %}
                   <option value="{{tm.id}}">{{tm.cTipo_moneda}}</option>
                   {% endfor %}
                 </select>
-                <label for="cboTipoFinanciamiento">
+                <label for="cboTipoMOneda">
                   Tipo de Moneda<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
@@ -232,6 +232,14 @@ Evento{% endblock title %} {% block contenido %}
 </div>
 {% endblock contenido %}
  {% block script %}
+ <script>
+
+  function convertToUppercase(input) {
+    input.value = input.value.toUpperCase();
+  }
+
+</script>
  
  <script src="{% static 'core/js/inicializador/inicializador.js' %}"></script>
+ <script src="{% static 'core/js/eventos/nuevoevento.js' %}"></script>
  {% endblock %}

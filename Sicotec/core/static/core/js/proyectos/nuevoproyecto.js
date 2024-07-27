@@ -58,6 +58,7 @@ document
       txtFechaInicio: fechaIn,
       txtFechaFin: fechaFin,
     };
+
     fetch(urlspost, {
       method: "POST",
       headers: {
@@ -78,7 +79,7 @@ document
         }
       })
       .catch((error) => {
-        console.error("Error en la solicitud AJAX:", error);
+        console.error("Error en la solicitud :", error);
         NotificacionSwal(
           "Error!",
           "Hubo un problema al procesar la solicitud",
