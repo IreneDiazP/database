@@ -85,3 +85,17 @@ def registrarEvento(request):
             return JsonResponse({'success': True, 'message': 'Evento registrado correctamente'})
         except ObjectDoesNotExist as e:
             return JsonResponse({'success': False, 'message': f'Error al registrar el Evento: {str(e)}'}, status=500)
+
+
+def todosEventos(request):
+    todoeventos=Evento.objects.all().order_by('-id')
+    for te in todoeventos:
+        te.fechaInicio = te.fechaInicio.strftime('%d/%m/%Y')
+        te.fechaFin = te.fechaFin.strftime('%d/%m/%Y')
+        
+    print(todoeventos)
+    
+    print('holaaaa')
+    return render(request,'eventos/todoseventos.html',{
+        'todoeventos':todoeventos
+    })

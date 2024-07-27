@@ -67,3 +67,30 @@ main {
   grid-column: 1 / 3;
   grid-row: 5; 
 }
+
+
+#tblEventos_wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px; 
+}
+
+#tblEventos_filter{
+  grid-column: 2; 
+  grid-row: 2; 
+  display: flex;
+  justify-content: end;
+}
+#tblEventos_length{
+  grid-column: 1;
+  grid-row: 2; 
+}
+#tblEventos_info{
+  grid-column: 1 / 3;
+  grid-row: 4; 
+}
+#tblEventos_paginate{
+  grid-column: 1 / 3;
+  grid-row: 5; 
+}
