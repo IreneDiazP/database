@@ -276,23 +276,23 @@
             </div>
             <!------   ----------------------------- -->
             <!--MONTO-->
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-floating">
                 <input type="hidden" id="txtidMonto" />
-                <input type="text" class="form-control" id="txtMonto" name="txtMonto" maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
-                <label for="txtMonto">Monto</label>
+                <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
+                  pattern="^\d+(\.\d{1,4})?$" />
+                <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
             <!------   ----------------------------- -->
             <!--TIPO DE CAMBIO-->
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-floating">
-                <input type="hidden" id="txtidTipocambio" />
-                <input type="text" class="form-control"  id="txttipoCambio" name="txttipoCambio" maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
-                <label for="txttipoCambio">Tipo de Cambio</label>
+                <input type="hidden" id="txtidtCambio" />
+                <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required
+                  maxlength="15" pattern="^\d+(\.\d{1,4})?$" />
+                <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
