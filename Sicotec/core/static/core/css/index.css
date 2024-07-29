@@ -94,3 +94,30 @@ main {
   grid-column: 1 / 3;
   grid-row: 5; 
 }
+
+
+#tblParticipantes_wrapper{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px; 
+}
+
+#tblParticipantes_filter{
+  grid-column: 2; 
+  grid-row: 2; 
+  display: flex;
+  justify-content: end;
+}
+#tblParticipantes_length{
+  grid-column: 1;
+  grid-row: 2; 
+}
+#tblParticipantes_info{
+  grid-column: 1 / 3;
+  grid-row: 4; 
+}
+#tblParticipantes_paginate{
+  grid-column: 1 / 3;
+  grid-row: 5; 
+}
