@@ -24,6 +24,16 @@
         Eventos
       </button>
     </li>
+    <li>
+      <button
+        class="nav-link"
+        href="#tablaproyectosparticipante"
+        data-bs-toggle="tab"
+        data-bs-target="#tablaproyectosparticipante"
+      >
+        Proyectos
+      </button>
+    </li>
   </ul>
   <div class="tab-content pt-2">
     <div class="tab-pane show active" id="editparticipante">
@@ -45,12 +55,23 @@
               <div class="d-flex gap-3 flex-column">
                 <div class="col-12">
                   <span class="fs-2 fw-semibold d-md-block d-none"
-                    >Editar Participante</span
+                    >Registro de datos del Participante</span
                   >
                   <span class="fs-5 fw-semibold d-md-none d-block text-center"
-                    >Editar Participante</span
+                    >Registro de datos del Participante</span
                   >
                   <hr />
+                  <div class="row px-3">
+                    <div
+                      id="alerta"
+                      class="alert alert-danger mb-0"
+                      style="display: none"
+                      role="alert"
+                    >
+                      Solo se permiten 30 caracteres como máximo en el campo de
+                      Teléfono.
+                    </div>
+                  </div>
                 </div>
                 <!--formulario de ingreso datos-->
                 <div class="row g-3 px-3">
@@ -58,11 +79,9 @@
                   <div class="d-flex">
                     <span class="text-danger ms-2">* Campos obligatorios</span>
                   </div>
-                  <span class="fw-bold fs-6"
-                    >Datos generales del Particpante</span
-                  >
-
-                  <!--TIPO DE PARTICIPANTE (externo o interno)-->
+                  <span class="fw-bold fs-6">Datos generales del Particpante</span>
+      
+                  <!--TIPO DE PARTICIPANTE (experto o participante)-->
                   <div class="col-md-3">
                     <div class="form-floating">
                       <select
@@ -72,13 +91,30 @@
                         required
                       >
                         <option selected></option>
-
-                        <option value="1">Participante</option>
+      
+                        <option value="1">Tipo Participante</option>
                       </select>
                       <label for="cboTipoParticipacion"
-                        >Participante<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Participante<span class="text-danger ms-2">*</span></label
+                      >
+                    </div>
+                  </div>
+                  <!------   ----------------------------- -->
+                  <!--Procedencia (externo o interno)-->
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <select
+                        class="form-select"
+                        id="cboTipoParticipacion"
+                        name="cboTipoParticipacion"
+                        required
+                      >
+                        <option selected></option>
+      
+                        <option value="1">Tipo Participante</option>
+                      </select>
+                      <label for="cboTipoParticipacion"
+                        >Procedencia<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
@@ -158,7 +194,7 @@
                     </div>
                   </div>
                   <!------   ----------------------------- -->
-
+      
                   <!--TIPO DOCUMENTO-->
                   <div class="col-md-3">
                     <div class="form-floating">
@@ -169,7 +205,7 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="DNI">DNI</option>
                       </select>
                       <label for="cboTipoDocumento"
@@ -200,7 +236,7 @@
                       >
                     </div>
                   </div>
-
+      
                   <!------   ----------------------------- -->
                   <!--TELEFONO -->
                   <div class="col-md-3">
@@ -218,13 +254,32 @@
                       >
                     </div>
                   </div>
+                  <!--FORMACION ACADEMICA-->
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <select
+                        class="form-select"
+                        id="cboTipoDocumento"
+                        name="cboTipoDocumento"
+                        required
+                      >
+                        <option selected></option>
+      
+                        <option value="DNI">DNI</option>
+                      </select>
+                      <label for="cboTipoDocumento"
+                        >Formacion Académica<span class="text-danger ms-2"
+                          >*</span
+                        ></label
+                      >
+                    </div>
+                  </div>
+                  <!------   ----------------------------- -->
                 </div>
                 <hr />
                 <!--formulario de ingreso datos DOMICILIO DEL PARTICIPANTE-->
                 <div class="row g-3 px-3">
-                  <span class="fw-bold fs-6"
-                    >Datos domicilio del Participante</span
-                  >
+                  <span class="fw-bold fs-6">Datos domicilio del Participante</span>
                   <!------   ----------------------------- -->
                   <!--DEPARTAMENTO-->
                   <div class="col-md-3">
@@ -236,13 +291,11 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="Departamento">Departamento</option>
                       </select>
                       <label for="cboDepartamento"
-                        >Departamento<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Departamento<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
@@ -257,7 +310,7 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="Provincia">Provincia</option>
                       </select>
                       <label for="cboProvincia"
@@ -276,7 +329,7 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="Distrito">Distrito</option>
                       </select>
                       <label for="cboDistrito"
@@ -288,10 +341,8 @@
                 <hr />
                 <!--formulario de ingreso datos LABORALES DEL PARTICIPANTE-->
                 <div class="row g-3 px-3">
-                  <span class="fw-bold fs-6"
-                    >Datos Laborales del Participante</span
-                  >
-
+                  <span class="fw-bold fs-6">Datos Laborales del Participante</span>
+      
                   <!------   ----------------------------- -->
                   <!--SEDE-->
                   <div class="col-md-3">
@@ -303,7 +354,7 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="1">Sede</option>
                       </select>
                       <label for="cdboSede"
@@ -322,24 +373,56 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="1">Institucion</option>
                       </select>
                       <label for="cdboInstitucion"
-                        >Institucion<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Institucion<span class="text-danger ms-2">*</span></label
+                      >
+                    </div>
+                  </div>
+                  <!--DIRECCION-->
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <input type="hidden" id="txtidApellidoMaterno" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="txtApellidoMaterno"
+                        name="txtApellidoMaterno"
+                        required
+                        maxlength="150"
+                      />
+                      <label for="txtApellidoMaterno"
+                        >Direccion<span class="text-danger ms-2">*</span></label
+                      >
+                    </div>
+                  </div>
+                  <!--OFICINA-->
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <input type="hidden" id="txtidApellidoMaterno" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="txtApellidoMaterno"
+                        name="txtApellidoMaterno"
+                        required
+                        maxlength="150"
+                      />
+                      <label for="txtApellidoMaterno"
+                        >Oficina<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
                 </div>
-                <hr />
+                {% comment %} <hr />
                 <!--formulario de ingreso datos-->
                 <div class="row g-3 px-3">
                   <span class="fw-bold fs-6"
                     >Datos evento o proyecto del participante</span
                   >
-
+      
                   <!------   ----------------------------- -->
                   <!--TIPO DE EVENTO-->
                   <div class="col-md-3">
@@ -351,13 +434,11 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="1">Tipo de Evento</option>
                       </select>
                       <label for="cboTipoEvento"
-                        >Tipo de Evento<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Tipo de Evento<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
@@ -372,7 +453,7 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="1">Codigo - nombre de Evento</option>
                       </select>
                       <label for="cboCodigoEvento"
@@ -383,7 +464,7 @@
                     </div>
                   </div>
                   <!------   ----------------------------- -->
-
+      
                   <!--Tipo de Proyecto-->
                   <div class="col-md-3">
                     <div class="form-floating">
@@ -394,7 +475,7 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="1">Tipo de Proyecto</option>
                       </select>
                       <label for="cboTipoProyecto"
@@ -415,12 +496,11 @@
                         required
                       >
                         <option selected></option>
-
+      
                         <option value="1">Codigo - nombre de Proyecto</option>
                       </select>
                       <label for="cboCodigoProyecto"
-                        >Codigo - Nombre de Proyecto<span
-                          class="text-danger ms-2"
+                        >Codigo - Nombre de Proyecto<span class="text-danger ms-2"
                           >*</span
                         ></label
                       >
@@ -440,9 +520,7 @@
                         maxlength="150"
                       />
                       <label for="txtCodigoAutorizacion"
-                        >Autorizacion<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Autorizacion<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
@@ -481,7 +559,7 @@
                     </div>
                   </div> -->
                   <!--Compromiso-->
-
+      
                   <div class="col-md-12">
                     <div class="form-floating">
                       <input type="hidden" id="txtidCompromiso" />
@@ -494,14 +572,12 @@
                         rows="4"
                       ></textarea>
                       <label for="txtCompromiso"
-                        >Compromiso<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Compromiso<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
-                </div>
-
+                </div> {% endcomment %}
+      
                 <!-- Botones -->
                 <div class="row g-3 px-3">
                   <hr />
@@ -521,7 +597,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane show active" id="tablaeventosparticipante">
+    <div class="tab-pane show inactive" id="tablaeventosparticipante">
       <div class="main-content d-flex flex-column mx-3 my-4">
         <div class="tab-content shadow rounded px-4 py-5">
           <div
@@ -1059,6 +1135,9 @@
           </div>
         </div>
       </div>
+
+    </div>
+    <div class="tab-pane show inactive" id="tablaeventosparticipante">
 
     </div>
   </div>

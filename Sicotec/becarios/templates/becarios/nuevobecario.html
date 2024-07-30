@@ -1,20 +1,36 @@
 {% extends "core/base.html" %} {% load static %} {% block title %}Nuevo
 Participante{% endblock title %} {% block contenido %}
 <div class="main-content d-flex flex-column py-0 mb-md-5">
-  <div class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-3 mb-md-0 mb-5">
+  <div
+    class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-3 mb-md-0 mb-5"
+  >
     {% if mensaje_error %}
     <p style="color: red">{{ mensaje_error }}</p>
     {% endif %}
     <div>
-      <form action="#" id="formAgregarParticpante" class="shadow px-3 py-3 rounded" method="POST">
+      <form
+        action="#"
+        id="formAgregarParticpante"
+        class="shadow px-3 py-3 rounded"
+        method="POST"
+      >
         {% csrf_token %}
         <div class="d-flex gap-3 flex-column">
           <div class="col-12">
-            <span class="fs-2 fw-semibold d-md-block d-none">Registro de datos del Participante</span>
-            <span class="fs-5 fw-semibold d-md-none d-block text-center">Registro de datos del Participante</span>
+            <span class="fs-2 fw-semibold d-md-block d-none"
+              >Registro de datos del Participante</span
+            >
+            <span class="fs-5 fw-semibold d-md-none d-block text-center"
+              >Registro de datos del Participante</span
+            >
             <hr />
             <div class="row px-3">
-              <div id="alerta" class="alert alert-danger mb-0" style="display: none" role="alert">
+              <div
+                id="alerta"
+                class="alert alert-danger mb-0"
+                style="display: none"
+                role="alert"
+              >
                 Solo se permiten 30 caracteres como máximo en el campo de
                 Teléfono.
               </div>
@@ -28,15 +44,41 @@ Participante{% endblock title %} {% block contenido %}
             </div>
             <span class="fw-bold fs-6">Datos generales del Particpante</span>
 
-            <!--TIPO DE PARTICIPANTE (externo o interno)-->
+            <!--TIPO DE PARTICIPANTE (experto o participante)-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoParticipacion" name="cboTipoParticipacion" required>
+                <select
+                  class="form-select"
+                  id="cboTipoParticipacion"
+                  name="cboTipoParticipacion"
+                  required
+                >
                   <option selected></option>
 
-                  <option value="1">Participante</option>
+                  <option value="1">Tipo Participante</option>
                 </select>
-                <label for="cboTipoParticipacion">Participante<span class="text-danger ms-2">*</span></label>
+                <label for="cboTipoParticipacion"
+                  >Participante<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+            <!--Procedencia (externo o interno)-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoParticipacion"
+                  name="cboTipoParticipacion"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Tipo Participante</option>
+                </select>
+                <label for="cboTipoParticipacion"
+                  >Procedencia<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -44,35 +86,74 @@ Participante{% endblock title %} {% block contenido %}
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidNombreParticpante" />
-                <input type="text" class="form-control" id="txtNombreParticpante" name="txtNombreParticpante" required
-                  maxlength="150" />
-                <label for="txtNombreParticpante">Nombres<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtNombreParticpante"
+                  name="txtNombreParticpante"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtNombreParticpante"
+                  >Nombres<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!--APELLIDO PATERNO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidApellidoPaterno" />
-                <input type="text" class="form-control" id="txtApellidoPaterno" name="txtApellidoPaterno" required
-                  maxlength="150" />
-                <label for="txtApellidoPaterno">Apellido Paterno<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtApellidoPaterno"
+                  name="txtApellidoPaterno"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtApellidoPaterno"
+                  >Apellido Paterno<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!--APELLIDO MATERNO-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidApellidoMaterno" />
-                <input type="text" class="form-control" id="txtApellidoMaterno" name="txtApellidoMaterno" required
-                  maxlength="150" />
-                <label for="txtApellidoMaterno">Apellido Materno<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtApellidoMaterno"
+                  name="txtApellidoMaterno"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtApellidoMaterno"
+                  >Apellido Materno<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!--EMAIL-->
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidCorreo" />
-                <input type="email" class="form-control" id="txtCorreo" name="txtCorreo" required maxlength="150" />
-                <label for="txtCorreo">Correo Electronico<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="txtCorreo"
+                  name="txtCorreo"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtCorreo"
+                  >Correo Electronico<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -80,21 +161,42 @@ Participante{% endblock title %} {% block contenido %}
             <!--TIPO DOCUMENTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoDocumento" name="cboTipoDocumento" required>
+                <select
+                  class="form-select"
+                  id="cboTipoDocumento"
+                  name="cboTipoDocumento"
+                  required
+                >
                   <option selected></option>
 
                   <option value="DNI">DNI</option>
                 </select>
-                <label for="cboTipoDocumento">Tipo de documento<span class="text-danger ms-2">*</span></label>
+                <label for="cboTipoDocumento"
+                  >Tipo de documento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--DOCUMENTO -->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="text" class="form-control" id="txtDocumento" name="txtDocumento" required maxlength="8"
-                  pattern="\d{8}" title="El DNI debe tener 8 dígitos numéricos" />
-                <label for="txtDocumento">Número de documento<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtDocumento"
+                  name="txtDocumento"
+                  required
+                  maxlength="8"
+                  pattern="\d{8}"
+                  title="El DNI debe tener 8 dígitos numéricos"
+                />
+                <label for="txtDocumento"
+                  >Número de documento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
 
@@ -102,12 +204,42 @@ Participante{% endblock title %} {% block contenido %}
             <!--TELEFONO -->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="text" class="form-control" id="txtTelefono" name="txtTelefono" required maxlength="15" />
-                <label for="txtTelefono">Telefono<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtTelefono"
+                  name="txtTelefono"
+                  required
+                  maxlength="15"
+                />
+                <label for="txtTelefono"
+                  >Telefono<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
+            <!--FORMACION ACADEMICA-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboTipoDocumento"
+                  name="cboTipoDocumento"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="DNI">DNI</option>
+                </select>
+                <label for="cboTipoDocumento"
+                  >Formacion Académica<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
           </div>
-          <hr>
+          <hr />
           <!--formulario de ingreso datos DOMICILIO DEL PARTICIPANTE-->
           <div class="row g-3 px-3">
             <span class="fw-bold fs-6">Datos domicilio del Participante</span>
@@ -115,40 +247,61 @@ Participante{% endblock title %} {% block contenido %}
             <!--DEPARTAMENTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboDepartamento" name="cboDepartamento" required>
+                <select
+                  class="form-select"
+                  id="cboDepartamento"
+                  name="cboDepartamento"
+                  required
+                >
                   <option selected></option>
 
                   <option value="Departamento">Departamento</option>
                 </select>
-                <label for="cboDepartamento">Departamento<span class="text-danger ms-2">*</span></label>
+                <label for="cboDepartamento"
+                  >Departamento<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--PROVINCIA-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboProvincia" name="cboProvincia" required>
+                <select
+                  class="form-select"
+                  id="cboProvincia"
+                  name="cboProvincia"
+                  required
+                >
                   <option selected></option>
 
                   <option value="Provincia">Provincia</option>
                 </select>
-                <label for="cboProvincia">Provincia<span class="text-danger ms-2">*</span></label>
+                <label for="cboProvincia"
+                  >Provincia<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--DISTRITO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboDistrito" name="cboDistrito" required>
+                <select
+                  class="form-select"
+                  id="cboDistrito"
+                  name="cboDistrito"
+                  required
+                >
                   <option selected></option>
 
                   <option value="Distrito">Distrito</option>
                 </select>
-                <label for="cboDistrito">Distrito<span class="text-danger ms-2">*</span></label>
+                <label for="cboDistrito"
+                  >Distrito<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
           </div>
-          <hr>
+          <hr />
           <!--formulario de ingreso datos LABORALES DEL PARTICIPANTE-->
           <div class="row g-3 px-3">
             <span class="fw-bold fs-6">Datos Laborales del Participante</span>
@@ -157,56 +310,120 @@ Participante{% endblock title %} {% block contenido %}
             <!--SEDE-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cdboSede" name="cdboSede" required>
+                <select
+                  class="form-select"
+                  id="cdboSede"
+                  name="cdboSede"
+                  required
+                >
                   <option selected></option>
 
                   <option value="1">Sede</option>
                 </select>
-                <label for="cdboSede">Sede<span class="text-danger ms-2">*</span></label>
+                <label for="cdboSede"
+                  >Sede<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--INSTITUCION-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cdboInstitucion" name="cdboInstitucion" required>
+                <select
+                  class="form-select"
+                  id="cdboInstitucion"
+                  name="cdboInstitucion"
+                  required
+                >
                   <option selected></option>
 
                   <option value="1">Institucion</option>
                 </select>
-                <label for="cdboInstitucion">Institucion<span class="text-danger ms-2">*</span></label>
+                <label for="cdboInstitucion"
+                  >Institucion<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
-
+            <!--DIRECCION-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidApellidoMaterno" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtApellidoMaterno"
+                  name="txtApellidoMaterno"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtApellidoMaterno"
+                  >Direccion<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!--OFICINA-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="hidden" id="txtidApellidoMaterno" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtApellidoMaterno"
+                  name="txtApellidoMaterno"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtApellidoMaterno"
+                  >Oficina<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
           </div>
-          <hr>
+          {% comment %} <hr />
           <!--formulario de ingreso datos-->
           <div class="row g-3 px-3">
-            <span class="fw-bold fs-6">Datos evento o proyecto del participante</span>
-
+            <span class="fw-bold fs-6"
+              >Datos evento o proyecto del participante</span
+            >
 
             <!------   ----------------------------- -->
             <!--TIPO DE EVENTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoEvento" name="cboTipoEvento" required>
+                <select
+                  class="form-select"
+                  id="cboTipoEvento"
+                  name="cboTipoEvento"
+                  required
+                >
                   <option selected></option>
 
                   <option value="1">Tipo de Evento</option>
                 </select>
-                <label for="cboTipoEvento">Tipo de Evento<span class="text-danger ms-2">*</span></label>
+                <label for="cboTipoEvento"
+                  >Tipo de Evento<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--CODIGO DE EVENTO-->
             <div class="col-md-6">
               <div class="form-floating">
-                <select class="form-select" id="cboCodigoEvento" name="cboCodigoEvento" required>
+                <select
+                  class="form-select"
+                  id="cboCodigoEvento"
+                  name="cboCodigoEvento"
+                  required
+                >
                   <option selected></option>
 
                   <option value="1">Codigo - nombre de Evento</option>
                 </select>
-                <label for="cboCodigoEvento">Codigo - Nombre de Evento<span class="text-danger ms-2">*</span></label>
+                <label for="cboCodigoEvento"
+                  >Codigo - Nombre de Evento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -214,25 +431,42 @@ Participante{% endblock title %} {% block contenido %}
             <!--Tipo de Proyecto-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoProyecto" name="cboTipoProyecto" required>
+                <select
+                  class="form-select"
+                  id="cboTipoProyecto"
+                  name="cboTipoProyecto"
+                  required
+                >
                   <option selected></option>
 
                   <option value="1">Tipo de Proyecto</option>
                 </select>
-                <label for="cboTipoProyecto">Tipo de Proyecto<span class="text-danger ms-2">*</span></label>
+                <label for="cboTipoProyecto"
+                  >Tipo de Proyecto<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--Codigo - Nombre de Proyecto-->
             <div class="col-md-6">
               <div class="form-floating">
-                <select class="form-select" id="cboCodigoProyecto" name="cboCodigoProyecto" required>
+                <select
+                  class="form-select"
+                  id="cboCodigoProyecto"
+                  name="cboCodigoProyecto"
+                  required
+                >
                   <option selected></option>
 
                   <option value="1">Codigo - nombre de Proyecto</option>
                 </select>
-                <label for="cboCodigoProyecto">Codigo - Nombre de Proyecto<span
-                    class="text-danger ms-2">*</span></label>
+                <label for="cboCodigoProyecto"
+                  >Codigo - Nombre de Proyecto<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -240,9 +474,17 @@ Participante{% endblock title %} {% block contenido %}
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidCodigoAutorizacion" />
-                <input type="text" class="form-control" id="txtCodigoAutorizacion" name="txtCodigoAutorizacion" required
-                  maxlength="150" />
-                <label for="txtCodigoAutorizacion">Autorizacion<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtCodigoAutorizacion"
+                  name="txtCodigoAutorizacion"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtCodigoAutorizacion"
+                  >Autorizacion<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -258,9 +500,17 @@ Participante{% endblock title %} {% block contenido %}
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidCodigoAutorizacion" />
-                <input type="text" class="form-control" id="txtCodigoAutorizacion" name="txtCodigoAutorizacion" required
-                  maxlength="150" />
-                <label for="txtCodigoAutorizacion">Acta<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtCodigoAutorizacion"
+                  name="txtCodigoAutorizacion"
+                  required
+                  maxlength="150"
+                />
+                <label for="txtCodigoAutorizacion"
+                  >Acta<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -276,18 +526,29 @@ Participante{% endblock title %} {% block contenido %}
             <div class="col-md-12">
               <div class="form-floating">
                 <input type="hidden" id="txtidCompromiso" />
-                <textarea class="form-control" id="txtCompromiso" name="txtCompromiso" required maxlength="300"
-                  rows="4"></textarea>
-                <label for="txtCompromiso">Compromiso<span class="text-danger ms-2">*</span></label>
+                <textarea
+                  class="form-control"
+                  id="txtCompromiso"
+                  name="txtCompromiso"
+                  required
+                  maxlength="300"
+                  rows="4"
+                ></textarea>
+                <label for="txtCompromiso"
+                  >Compromiso<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
-          </div>
+          </div> {% endcomment %}
 
           <!-- Botones -->
           <div class="row g-3 px-3">
             <hr />
             <div class="col-12 d-flex justify-content-end mt-1">
-              <button class="btn btn-lg text-white fs-6 bg-danger" type="submit">
+              <button
+                class="btn btn-lg text-white fs-6 bg-danger"
+                type="submit"
+              >
                 <i class="fas fa-save"></i> &nbsp;Guardar datos
               </button>
             </div>

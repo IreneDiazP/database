@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("ID de la fila:", rowId);
 
               
-                // window.location.href = `/editarparticipante/?id=${rowId}`;
+                window.location.href = `../editarparticipante/`;
             }
         }
     });
