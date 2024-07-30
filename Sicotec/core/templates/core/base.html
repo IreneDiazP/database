@@ -36,8 +36,8 @@
       <div class="container-fluid">
 
         <!--PARA EL LOGO-->
-        <a href="{% url 'home' %}" class="navbar-brand d-none d-xl-block">
-          <img src="{% static 'core/images/ipen-logo-png.png' %}" class="offcanvas-title img-canvas-logo"
+        <a href="{% url 'home' %}" class="navbar-brand d-none d-xxl-block">
+          <img src="{% static 'core/images/logo_ipen.png' %}" class="offcanvas-title img-canvas-logo"
             id="offcanvasScrollingLabel" alt="" />
         </a>
 
@@ -63,7 +63,7 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
               <li><a class="dropdown-item" href="#">Administrador</a></li>
               <li>
-                <a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                <a class="dropdown-item" href="#" onclick="CerrarSesion()">Cerrar sesión</a>
               </li>
             </ul>
           </div>
@@ -256,7 +256,7 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
               <li><a class="dropdown-item" href="#">Administrador</a></li>
               <li>
-                <a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar sesión</a>
+                <a class="dropdown-item" href="#" onclick="CerrarSesion()">Cerrar sesión</a>
               </li>
             </ul>
           </div>
@@ -273,6 +273,13 @@
       {% block contenido %} {% endblock contenido %}
     </div>
   </main>
+
+  <script>
+    function CerrarSesion() {
+      localStorage.clear();
+      window.location.href = "{% url 'salir' %}";
+  }
+  </script>
 
 
   <!-- Bootstrap JS -->

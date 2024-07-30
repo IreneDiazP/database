@@ -24,3 +24,8 @@ def login_view(request):
 @login_required(login_url='/')
 def home(request):
     return render(request, 'core/home.html')
+
+
+def salir(request):
+    logout(request)
+    return redirect('/')
