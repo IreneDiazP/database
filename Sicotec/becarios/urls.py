@@ -11,5 +11,8 @@ urlpatterns = [
     path('editarparticipante/',views.editarparticipante,name='editarparticipante'),
     
     #obtener provincias de departamento
-    path('getProvincias/<int:iddepartamento>/',views.getProvincias,name='getProvincias')
+    path('getProvincias/<int:iddepartamento>/',views.getProvincias,name='getProvincias'),
+    
+    #obtener provincias de departamento
+    path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito')
 ]

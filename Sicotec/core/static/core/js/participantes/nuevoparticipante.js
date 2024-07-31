@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let inputprovincia=document.getElementById('inputprovincia')
         let inputdistrito=document.getElementById('inputdistrito')
 
-        if(paisSeleccionadoNombre ==='PERU'){
+        if(paisSeleccionadoNombre ==='PERU' || paisSeleccionadoNombre ==='PERÚ'){
             inputdepartamento.classList.remove('d-none')
             inputprovincia.classList.remove('d-none')
             inputdistrito.classList.remove('d-none')

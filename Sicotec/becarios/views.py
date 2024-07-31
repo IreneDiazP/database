@@ -28,3 +28,8 @@ def getProvincias (request, iddepartamento):
     provincia=Provincia.objects.filter(departamento_id=iddepartamento).order_by('provincia')
     data= list(provincia.values('id','provincia'))
     return JsonResponse(data, safe=False)
+
+def getDistrito (request, idprovincia):
+    distrito = Distrito.objects.filter(provincia_id=idprovincia).order_by('distrito')
+    data= list(distrito.values('id','distrito'))
+    return JsonResponse(data, safe=False)
