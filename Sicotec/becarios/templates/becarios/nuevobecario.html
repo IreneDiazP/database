@@ -55,7 +55,7 @@ Participante{% endblock title %} {% block contenido %}
                 >
                   <option selected></option>
 
-                  <option value="1">Tipo Participante</option>
+
                 </select>
                 <label for="cboTipoParticipacion"
                   >Participante<span class="text-danger ms-2">*</span></label
@@ -255,7 +255,9 @@ Participante{% endblock title %} {% block contenido %}
                 >
                   <option selected></option>
 
-                  <option value="Departamento">Departamento</option>
+                  {% for dep in departamentos %}
+                  <option value="{{dep.id}}">{{dep.departamento}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboDepartamento"
                   >Departamento<span class="text-danger ms-2">*</span></label
@@ -272,9 +274,7 @@ Participante{% endblock title %} {% block contenido %}
                   name="cboProvincia"
                   required
                 >
-                  <option selected></option>
 
-                  <option value="Provincia">Provincia</option>
                 </select>
                 <label for="cboProvincia"
                   >Provincia<span class="text-danger ms-2">*</span></label
@@ -559,4 +559,9 @@ Participante{% endblock title %} {% block contenido %}
     </div>
   </div>
 </div>
-{% endblock contenido %} {% block script %} {% endblock %}
+{% endblock contenido %} 
+{% block script %} 
+
+<script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>
+
+{% endblock %}

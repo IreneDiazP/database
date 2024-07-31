@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
   
             const data = await response.json();
-            var cboInstituciones = document.getElementById(
+            let cboInstituciones = document.getElementById(
               "cboTipoInsFinanciamiento"
             );
             cboInstituciones.innerHTML = "<option selected></option>";
             data.forEach(function (item) {
-              var option = document.createElement("option");
+              let option = document.createElement("option");
               option.value = item.id;
               option.textContent = item.cInstFinancia;
               cboInstituciones.appendChild(option);
