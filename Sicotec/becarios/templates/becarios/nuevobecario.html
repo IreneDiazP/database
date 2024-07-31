@@ -261,7 +261,7 @@ Participante{% endblock title %} {% block contenido %}
                 >
               </div>
             </div>
-          
+
             <!--CIUDAD-->
             <div class="col-md-3 d-none" id="inputciudad">
               <div class="form-floating">
@@ -273,9 +273,7 @@ Participante{% endblock title %} {% block contenido %}
                   name="txtCiudad"
                   maxlength="150"
                 />
-                <label for="txtCiudad"
-                  >Ciudad</label
-                >
+                <label for="txtCiudad">Ciudad</label>
               </div>
             </div>
 
@@ -293,9 +291,7 @@ Participante{% endblock title %} {% block contenido %}
                   <option value="{{dep.id}}">{{dep.departamento}}</option>
                   {% endfor %}
                 </select>
-                <label for="cboDepartamento"
-                  >Departamento</label
-                >
+                <label for="cboDepartamento">Departamento</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -307,27 +303,19 @@ Participante{% endblock title %} {% block contenido %}
                   id="cboProvincia"
                   name="cboProvincia"
                 ></select>
-                <label for="cboProvincia"
-                  >Provincia</label
-                >
+                <label for="cboProvincia">Provincia</label>
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--DISTRITO-->
             <div class="col-md-3 d-none" id="inputdistrito">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboDistrito"
-                  name="cboDistrito"
-                >
+                <select class="form-select" id="cboDistrito" name="cboDistrito">
                   <option selected></option>
 
                   <option value="Distrito">Distrito</option>
                 </select>
-                <label for="cboDistrito"
-                  >Distrito</label
-                >
+                <label for="cboDistrito">Distrito</label>
               </div>
             </div>
           </div>
@@ -336,25 +324,6 @@ Participante{% endblock title %} {% block contenido %}
           <div class="row g-3 px-3">
             <span class="fw-bold fs-6">Datos Laborales del Participante</span>
 
-            <!------   ----------------------------- -->
-            <!--SEDE-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cdboSede"
-                  name="cdboSede"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Sede</option>
-                </select>
-                <label for="cdboSede"
-                  >Sede<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
             <!------   ----------------------------- -->
             <!--INSTITUCION-->
             <div class="col-md-3">
@@ -374,6 +343,26 @@ Participante{% endblock title %} {% block contenido %}
                 >
               </div>
             </div>
+            <!--SEDE-->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cdboSede"
+                  name="cdboSede"
+                  required
+                >
+                  <option selected></option>
+
+                  <option value="1">Sede</option>
+                </select>
+                <label for="cdboSede"
+                  >Sede<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+            <!------   ----------------------------- -->
+
             <!--DIRECCION-->
             <div class="col-md-3">
               <div class="form-floating">
