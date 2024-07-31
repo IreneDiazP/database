@@ -54,8 +54,6 @@ Participante{% endblock title %} {% block contenido %}
                   required
                 >
                   <option selected></option>
-
-
                 </select>
                 <label for="cboTipoParticipacion"
                   >Participante<span class="text-danger ms-2">*</span></label
@@ -244,14 +242,50 @@ Participante{% endblock title %} {% block contenido %}
           <div class="row g-3 px-3">
             <span class="fw-bold fs-6">Datos domicilio del Participante</span>
             <!------   ----------------------------- -->
-            <!--DEPARTAMENTO-->
+            <!--PAIS-->
             <div class="col-md-3">
+              <div class="form-floating">
+                <select
+                  class="form-select"
+                  id="cboPais"
+                  name="cboPais"
+                  required
+                >
+                  <option selected></option>
+                  {% for P in pais %}
+                  <option value="{{P.id}}">{{P.cpais}}</option>
+                  {% endfor %}
+                </select>
+                <label for="cboPais"
+                  >Pais<span class="text-danger ms-2">*</span></label
+                >
+              </div>
+            </div>
+          
+            <!--CIUDAD-->
+            <div class="col-md-3 d-none" id="inputciudad">
+              <div class="form-floating">
+                <input type="hidden" id="txtidCiudad" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtCiudad"
+                  name="txtCiudad"
+                  maxlength="150"
+                />
+                <label for="txtCiudad"
+                  >Ciudad</label
+                >
+              </div>
+            </div>
+
+            <!--DEPARTAMENTO-->
+            <div class="col-md-3 d-none" id="inputdepartamento">
               <div class="form-floating">
                 <select
                   class="form-select"
                   id="cboDepartamento"
                   name="cboDepartamento"
-                  required
                 >
                   <option selected></option>
 
@@ -260,43 +294,39 @@ Participante{% endblock title %} {% block contenido %}
                   {% endfor %}
                 </select>
                 <label for="cboDepartamento"
-                  >Departamento<span class="text-danger ms-2">*</span></label
+                  >Departamento</label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--PROVINCIA-->
-            <div class="col-md-3">
+            <div class="col-md-3 d-none" id="inputprovincia">
               <div class="form-floating">
                 <select
                   class="form-select"
                   id="cboProvincia"
                   name="cboProvincia"
-                  required
-                >
-
-                </select>
+                ></select>
                 <label for="cboProvincia"
-                  >Provincia<span class="text-danger ms-2">*</span></label
+                  >Provincia</label
                 >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--DISTRITO-->
-            <div class="col-md-3">
+            <div class="col-md-3 d-none" id="inputdistrito">
               <div class="form-floating">
                 <select
                   class="form-select"
                   id="cboDistrito"
                   name="cboDistrito"
-                  required
                 >
                   <option selected></option>
 
                   <option value="Distrito">Distrito</option>
                 </select>
                 <label for="cboDistrito"
-                  >Distrito<span class="text-danger ms-2">*</span></label
+                  >Distrito</label
                 >
               </div>
             </div>
@@ -379,7 +409,8 @@ Participante{% endblock title %} {% block contenido %}
               </div>
             </div>
           </div>
-          {% comment %} <hr />
+          {% comment %}
+          <hr />
           <!--formulario de ingreso datos-->
           <div class="row g-3 px-3">
             <span class="fw-bold fs-6"
@@ -539,7 +570,8 @@ Participante{% endblock title %} {% block contenido %}
                 >
               </div>
             </div>
-          </div> {% endcomment %}
+          </div>
+          {% endcomment %}
 
           <!-- Botones -->
           <div class="row g-3 px-3">
@@ -559,9 +591,9 @@ Participante{% endblock title %} {% block contenido %}
     </div>
   </div>
 </div>
-{% endblock contenido %} 
-{% block script %} 
+{% endblock contenido %} {% block script %}
 
 <script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>
+<script src="{% static 'core/js/participantes/nuevoparticipante.js' %}"></script>
 
 {% endblock %}

@@ -2,14 +2,16 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito
+from proyectos.models import Pais
 # Create your views here.
 @login_required
 def nuevoParticipante(request):
-    
+    pais=Pais.objects.all().order_by('cpais')
     departamentos=Departamento.objects.all().order_by('departamento')
     print(departamentos)
     
     return render(request,'becarios/nuevobecario.html',{
+        'pais':pais,
         'departamentos':departamentos
     })
 @login_required

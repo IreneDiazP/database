@@ -1,5 +1,5 @@
 from django.db import models
-# from proyectos.models import Pais,Institucion_Financiamiento
+from proyectos.models import Pais,Institucion_Financiamiento
 
 
 class Departamento(models.Model):

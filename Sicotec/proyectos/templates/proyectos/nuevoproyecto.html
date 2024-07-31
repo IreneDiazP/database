@@ -92,7 +92,7 @@ Proyecto{% endblock title %} {% block contenido %}
                 <select class="form-select" id="cboPais" name="cboPais" required>
                   <option selected></option>
                   {% for P in pais %}
-                  <option value="{{P.id}}">{{P.cpais}}</option>
+                  <option value="{{P.id}}" data-nombre="{{P.cpais}}">{{P.cpais}}</option>
                   {% endfor %}
                 </select>
                 <label for="cboPais">Pais<span class="text-danger ms-2">*</span></label>
