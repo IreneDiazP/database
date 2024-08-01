@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded",function(){
-    document.getElementById("cboDepartamento").addEventListener("change", async function(){
-        const departametoid=this.value;
-        console.log(departametoid)
-        if(departametoid){
+    document.getElementById("cdboInstitucion").addEventListener("change", async function(){
+        
+        const idinstitucion=this.value;
+        
+        limpiarcampos()
+        if(idinstitucion){
             try {
                 const response = await fetch(
-                    `/becario/getProvincias/${departametoid}/`,
+                    `/becario/getSede/${idinstitucion}/`,
                     {
                         method: "GET",
                         headers: {
@@ -17,10 +19,10 @@ document.addEventListener("DOMContentLoaded",function(){
                     throw new Error(`La respuesta de la red no fue correcta: ${response.statusText}`);
                 }else{
                     const data = await response.json();
-                    const cboProvincia = document.getElementById('cboProvincia');
+                    const cdboSede = document.getElementById('cdboSede');
                     
-                    cboProvincia.innerHTML = "<option selected></option>" +
-                      data.map(item => `<option value="${item.id}">${item.provincia}</option>`).join('');
+                    cdboSede.innerHTML = "<option selected></option>" +
+                      data.map(item => `<option value="${item.id}">${item.nombre_sede}</option>`).join('');
                 }
                 
             } catch (error) {
@@ -30,18 +32,18 @@ document.addEventListener("DOMContentLoaded",function(){
                   );
             }
         }else{
-            document.getElementById("cboProvincia").innerHTML = "";
+            document.getElementById("cdboSede").innerHTML = "";
         }
 
     })
 
-    document.getElementById("cboProvincia").addEventListener("change", async function(){
-        const provinciaid=this.value;
-        console.log("id provincia"+provinciaid)
-        if(provinciaid){
+
+    document.getElementById("cdboSede").addEventListener("change", async function(){
+        const idsede=this.value;
+        if(idsede){
             try {
                 const response = await fetch(
-                    `/becario/getDistrito/${provinciaid}/`,
+                    `/becario/getdatosSede/${idsede}/`,
                     {
                         method: "GET",
                         headers: {
@@ -52,11 +54,11 @@ document.addEventListener("DOMContentLoaded",function(){
                 if(!response.ok){
                     throw new Error(`La respuesta de la red no fue correcta: ${response.statusText}`);
                 }else{
-                    const data = await response.json();
-                    const cboDistrito = document.getElementById('cboDistrito');
+                    const { direccion, oficina } = await response.json();
+                    document.getElementById('txtDireccionSede').value = direccion;
+                    document.getElementById('txtOficinasede').value = oficina;
+
                     
-                    cboDistrito.innerHTML = "<option selected></option>" +
-                      data.map(item => `<option value="${item.id}">${item.distrito}</option>`).join('');
                 }
                 
             } catch (error) {
@@ -66,9 +68,17 @@ document.addEventListener("DOMContentLoaded",function(){
                   );
             }
         }else{
-            document.getElementById("cboDistrito").innerHTML = "";
+            document.getElementById("cdboSede").innerHTML = "";
         }
 
     })
+
+function limpiarcampos(){
+    document.getElementById('txtDireccionSede').value=''
+    document.getElementById('txtOficinasede').value=''
+}
+
+
+
 
 })

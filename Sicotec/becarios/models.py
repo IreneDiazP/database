@@ -28,6 +28,11 @@ class Distrito(models.Model):
 class Tipo_Documento(models.Model):
     Tipo_documento = models.CharField(
         max_length=50, verbose_name='Tipo de documento')
+    
+    class Meta:
+        verbose_name = "Tipo Documento"
+        verbose_name_plural = "Tipos Documentos"
+
 
     def __str__(self):
         return self.Tipo_documento
@@ -35,6 +40,9 @@ class Tipo_Documento(models.Model):
 class FormacionAcademica(models.Model):
     nombre_formacionacademica = models.CharField(
         max_length=100, verbose_name='formacion academica')
+    class Meta:
+        verbose_name = "Formacion Academica"
+        verbose_name_plural = "Formaciones Academicas"
 
     def __str__(self):
         return self.nombre_formacionacademica
@@ -44,7 +52,10 @@ class Becas(models.Model):
         max_length=100, verbose_name='nombre beca')
     descripcion_beca = models.CharField(
         max_length=250, verbose_name='descripcion beca')
-
+    class Meta:
+        verbose_name = "Beca"
+        verbose_name_plural = "Becas"
+        
     def __str__(self):
         return self.nombre_beca
 

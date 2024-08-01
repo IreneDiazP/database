@@ -64,7 +64,9 @@ class Sede(models.Model):
     direccion_sede=models.CharField(max_length=200, verbose_name='direccion sede')
     oficina_sede=models.CharField(max_length=200, verbose_name='oficina sede')
     institucion_financiamiento= models.ForeignKey(Institucion_Financiamiento,on_delete=models.PROTECT,verbose_name="institucion financiamiento", related_name="sede")
-
+    def __str__(self):
+        return self.nombre_sede
+    
 
 class Proyecto(models.Model):
     cTipo_proyecto = models.ForeignKey(

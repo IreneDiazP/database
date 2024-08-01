@@ -14,5 +14,11 @@ urlpatterns = [
     path('getProvincias/<int:iddepartamento>/',views.getProvincias,name='getProvincias'),
     
     #obtener provincias de departamento
-    path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito')
+    path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito'),
+    
+    #obtener sede de acuerdo a institucion
+    path('getSede/<int:idinstitucion>/',views.getSede,name='getSede'),
+    #obtener sede direccion y oficina
+    
+    path('getdatosSede/<int:idsede>/',views.getdatosSede,name='getdatosSede'),
 ]

@@ -98,6 +98,7 @@
                   name="txtNombreParticpante"
                   required
                   maxlength="150"
+                  oninput="convertToUppercase(this)" 
                 />
                 <label for="txtNombreParticpante"
                   >Nombres<span class="text-danger ms-2">*</span></label
@@ -115,6 +116,7 @@
                   name="txtApellidoPaterno"
                   required
                   maxlength="150"
+                  oninput="convertToUppercase(this)" 
                 />
                 <label for="txtApellidoPaterno"
                   >Apellido Paterno<span class="text-danger ms-2"
@@ -134,6 +136,7 @@
                   name="txtApellidoMaterno"
                   required
                   maxlength="150"
+                  oninput="convertToUppercase(this)" 
                 />
                 <label for="txtApellidoMaterno"
                   >Apellido Materno<span class="text-danger ms-2"
@@ -278,6 +281,7 @@
                   id="txtCiudad"
                   name="txtCiudad"
                   maxlength="150"
+                  oninput="convertToUppercase(this)" 
                 />
                 <label for="txtCiudad">Ciudad</label>
               </div>
@@ -357,9 +361,6 @@
                   name="cdboSede"
                   required
                 >
-                  <option selected></option>
-
-                  <option value="1">Sede</option>
                 </select>
                 <label for="cdboSede"
                   >Sede<span class="text-danger ms-2">*</span></label
@@ -371,16 +372,15 @@
             <!--DIRECCION-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidApellidoMaterno" />
                 <input
                   type="text"
                   class="form-control"
-                  id="txtApellidoMaterno"
-                  name="txtApellidoMaterno"
+                  id="txtDireccionSede"
+                  name="txtDireccionSede"
                   required
                   maxlength="150"
                 />
-                <label for="txtApellidoMaterno"
+                <label for="txtDireccionSede"
                   >Direccion<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -388,16 +388,15 @@
             <!--OFICINA-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidApellidoMaterno" />
                 <input
                   type="text"
                   class="form-control"
-                  id="txtApellidoMaterno"
-                  name="txtApellidoMaterno"
+                  id="txtOficinasede"
+                  name="txtOficinasede"
                   required
                   maxlength="150"
                 />
-                <label for="txtApellidoMaterno"
+                <label for="txtOficinasede"
                   >Oficina<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -587,7 +586,16 @@
 </div>
 {% endblock contenido %} {% block script %}
 
+<script>
+
+  function convertToUppercase(input) {
+    input.value = input.value.toUpperCase();
+  }
+
+</script>
+
 <script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>
+<script src="{% static 'core/js/inicializador/inicializador_Sede_institucion.js' %}"></script>
 <script src="{% static 'core/js/participantes/nuevoparticipante.js' %}"></script>
 
 {% endblock %}

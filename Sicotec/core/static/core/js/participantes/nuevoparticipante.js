@@ -1,4 +1,3 @@
-console.log('hola participante');
 document.addEventListener("DOMContentLoaded", function() {
     // evento para ocultar o mostrar formularios
     document.getElementById("cboPais").addEventListener("change", function() {

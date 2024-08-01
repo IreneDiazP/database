@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
 
-from proyectos.models import Pais,Institucion_Financiamiento
+from proyectos.models import Pais,Institucion_Financiamiento,Sede
 # Create your views here.
 @login_required
 def nuevoParticipante(request):
@@ -34,13 +35,41 @@ def editarparticipante(request):
 def todosparticipantes (request):
     print('hola desde todos participantes')
     return render(request,'becarios/todosparticipantes.html')
-
+@login_required
 def getProvincias (request, iddepartamento):
     provincia=Provincia.objects.filter(departamento_id=iddepartamento).order_by('provincia')
     data= list(provincia.values('id','provincia'))
     return JsonResponse(data, safe=False)
-
+@login_required
 def getDistrito (request, idprovincia):
     distrito = Distrito.objects.filter(provincia_id=idprovincia).order_by('distrito')
     data= list(distrito.values('id','distrito'))
     return JsonResponse(data, safe=False)
+
+
+#traer sedes de acuerdo a la institucion
+@login_required
+def getSede (request, idinstitucion):
+    print('hola sede')
+    print(idinstitucion)
+    sede = Sede.objects.filter(institucion_financiamiento_id = idinstitucion).order_by('nombre_sede')
+    print(sede)
+    data= list(sede.values('id','nombre_sede'))
+    return JsonResponse(data, safe=False)
+
+
+@login_required
+def getdatosSede(request, idsede):
+    print('hola dato de sede id')
+    print(idsede)
+    datossede = get_object_or_404(Sede, id=idsede)
+    print(datossede)
+    
+    sede_data = {
+        'id': datossede.id,
+        'nombre': datossede.nombre_sede, 
+        'direccion': datossede.direccion_sede,
+        'oficina':datossede.oficina_sede
+    }
+    
+    return JsonResponse(sede_data)
