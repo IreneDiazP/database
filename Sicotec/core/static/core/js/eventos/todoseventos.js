@@ -6,30 +6,23 @@ document.addEventListener("DOMContentLoaded", function () {
         event.target.classList.contains("editBtn") ||
         event.target.closest(".editBtn")
       ) {
-        console.log('click en edit')
         let idRegistroEvento = event.target.closest("tr").getAttribute("id");
         document.getElementById("txtIdProyectoModalEditarEvento").value =
         idRegistroEvento;
-        console.log("ID del proyecto:", idRegistroEvento);
         CargardatoEventos(idRegistroEvento);
       }
     });
 
-//   document
-//     .querySelector("#tblEventos  tbody")
-//     .addEventListener("click", function (event) {
-//       console.log("hola eliminar");
-//       if (
-//         event.target.classList.contains("trashBtn") ||
-//         event.target.closest(".trashBtn")
-//       ) {
-//         console.log("comooo");
-//         let idregistoeliminar = event.target.closest("tr").getAttribute("id");
-//         console.log(idregistoeliminar);
-//         document.getElementById("txtIdProyectoModalEliminarProyecto").value =
-//           idregistoeliminar;
-//       }
-//     });
+
+    document.querySelector("#tblEventos  tbody").addEventListener("click", function(event){
+      if(event.target.classList.contains("trashBtn") ||
+      event.target.closest(".trashBtn")){
+        let idregistoeliminar=event.target.closest("tr").getAttribute("id")
+        document.getElementById('txtIdProyectoModalEliminarEvento').value=idregistoeliminar;
+      }
+    })
+
+
 });
 
 // Obtener token con Django
@@ -116,8 +109,6 @@ async function CargardatoEventos(idRegistroEvento) {
     } else {
       const result = await response.json();
       const data = result.data;
-      console.log("pedi los datos");
-      console.log(result);
 
       document.getElementById("txtCodigoEvento").value =
         data.codigoEvento;
@@ -160,3 +151,75 @@ async function CargardatoEventos(idRegistroEvento) {
     );
   }
 }
+
+
+
+//eliminar evento
+document.getElementById("formEliminarEvento").addEventListener("submit", function(event){
+  event.preventDefault(); 
+  const idregistro = document.getElementById("txtIdProyectoModalEliminarEvento").value;
+
+  let elementoHtmlEditado = $("#tblEventosRegistro").find(`#${idregistro}`);
+  const csrftoken = getCookie("csrftoken");
+
+
+  // Ocultar el modal
+  const modalElement = document.getElementById("modalEliminarEvento");
+  let modalInstance = bootstrap.Modal.getInstance(modalElement);
+  if (!modalInstance) {
+    modalInstance = new bootstrap.Modal(modalElement);
+  }
+  modalInstance.hide();
+  
+  
+  fetch("../../eventos/eliminarEvento/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken
+    },
+    body: JSON.stringify({
+      action: "delete",
+      idRegistro: idregistro,
+    })
+  })
+  .then(response => response.json())
+  .then(response => {
+    if (response.success === true) {
+      elementoHtmlEditado.remove(); 
+      const row = document.querySelector(`#tblEventos tr[id="${idregistro}"]`);
+      if (row) {
+        row.remove();
+      }
+      Swal.fire({
+        title: "Éxito!",
+        text: "Eliminación exitosa.",
+        icon: "success",
+        confirmButtonText: "Ok"
+      });
+    } else {
+      Swal.fire({
+        html: `
+          <p class="d-inline-flex gap-1">
+            <span>Error durante el proceso. Los cambios se han revertido.</span>
+            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              <i class="bi bi-info-circle fs-5"></i>
+            </button>
+          </p>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              ${response.message}
+            </div>
+          </div>
+        `,
+        title: "Error!",
+        text: response.message,
+        icon: "error",
+        confirmButtonText: "Ok"
+      });
+    }
+  })
+  .catch(error => {
+    console.error("Error en la solicitud:", error);
+  });
+});

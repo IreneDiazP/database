@@ -100,6 +100,7 @@ function limpiarCampos() {
       "cboTipoMOneda",
       "txtMonto",
       "txttipoCambio",
+      'txtMontosoles'
     ];
   
     campos.forEach((campo) => {

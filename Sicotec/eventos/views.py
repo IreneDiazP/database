@@ -146,6 +146,26 @@ def editarevento(request,idEvento):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
 
+
+def eliminarEvento(request):
+    try:
+        if request.method == 'POST':
+            data = json.loads(request.body)
+            idregistro = data.get('idRegistro')
+            with transaction.atomic():
+                
+
+                print('holaaaaa')
+                print(idregistro)
+                evento = Evento.objects.get(id = idregistro)
+                print(evento.id)
+                evento.delete()
+
+                
+                return JsonResponse({'success':True, 'message': 'Registro eliminado correctamente'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+
 @login_required
 def todosEventos(request):
     todoeventos=Evento.objects.all().order_by('-id')

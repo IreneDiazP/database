@@ -8,6 +8,10 @@ urlpatterns = [
     #editar proyecto
     path('editarevento/<int:idEvento>', views.editarevento, name='editarevento'),
     
+    #eliminar evento
+    path('eliminarEvento/',views.eliminarEvento, name="eliminarEvento"),
+
+    
     #todos los eventos
     path('todosEventos/', views.todosEventos, name='todosEventos'),
     
