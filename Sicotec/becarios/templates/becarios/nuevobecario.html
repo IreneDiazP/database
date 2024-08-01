@@ -56,7 +56,10 @@
                   name="cboTipoParticipacion"
                   required
                 >
-                  <option selected></option>
+                <option selected></option>
+                {% for value, display in tipo_participante_choices %}
+                    <option value="{{ value }}">{{ display }}</option>
+                {% endfor %}
                 </select>
                 <label for="cboTipoParticipacion"
                   >Participante<span class="text-danger ms-2">*</span></label
@@ -69,15 +72,16 @@
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoParticipacion"
-                  name="cboTipoParticipacion"
+                  id="cboTipoProcedencia"
+                  name="cboTipoProcedencia"
                   required
                 >
-                  <option selected></option>
-
-                  <option value="1">Tipo Participante</option>
+                <option selected></option>
+                {% for value, display in procedencia_choices %}
+                    <option value="{{ value }}">{{ display }}</option>
+                {% endfor %}
                 </select>
-                <label for="cboTipoParticipacion"
+                <label for="cboTipoProcedencia"
                   >Procedencia<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -151,9 +155,7 @@
                   maxlength="150"
                 />
                 <label for="txtCorreo"
-                  >Correo Electronico<span class="text-danger ms-2"
-                    >*</span
-                  ></label
+                  >Correo Electronico</label
                 >
               </div>
             </div>
@@ -169,8 +171,9 @@
                   required
                 >
                   <option selected></option>
-
-                  <option value="DNI">DNI</option>
+                  {% for td in tipoDocumento  %}
+                  <option value="{{td.id}}">{{td.Tipo_documento}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboTipoDocumento"
                   >Tipo de documento<span class="text-danger ms-2"
@@ -189,7 +192,7 @@
                   id="txtDocumento"
                   name="txtDocumento"
                   required
-                  maxlength="8"
+                  maxlength="30"
                   pattern="\d{8}"
                   title="El DNI debe tener 8 dígitos numéricos"
                 />
@@ -214,7 +217,7 @@
                   maxlength="15"
                 />
                 <label for="txtTelefono"
-                  >Telefono<span class="text-danger ms-2">*</span></label
+                  >Telefono</label
                 >
               </div>
             </div>
@@ -223,18 +226,18 @@
               <div class="form-floating">
                 <select
                   class="form-select"
-                  id="cboTipoDocumento"
-                  name="cboTipoDocumento"
+                  id="cboTiformacionacademica"
+                  name="cboTiformacionacademica"
                   required
                 >
                   <option selected></option>
 
-                  <option value="DNI">DNI</option>
+                  {% for fa in formacionacademica  %}
+                  <option value="{{fa.id}}">{{fa.nombre_formacionacademica}}</option>
+                  {% endfor %}
                 </select>
-                <label for="cboTipoDocumento"
-                  >Formacion Académica<span class="text-danger ms-2"
-                    >*</span
-                  ></label
+                <label for="cboTiformacionacademica"
+                  >Formacion Académica</label
                 >
               </div>
             </div>
@@ -336,8 +339,9 @@
                   required
                 >
                   <option selected></option>
-
-                  <option value="1">Institucion</option>
+                  {% for ins in institucion %}
+                  <option value="{{ins.id}}">{{ins.cInstFinancia}}</option>
+                  {% endfor %}
                 </select>
                 <label for="cdboInstitucion"
                   >Institucion<span class="text-danger ms-2">*</span></label

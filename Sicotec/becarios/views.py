@@ -1,18 +1,29 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import Departamento,Provincia,Distrito
-from proyectos.models import Pais
+from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
+
+from proyectos.models import Pais,Institucion_Financiamiento
 # Create your views here.
 @login_required
 def nuevoParticipante(request):
+        
+    tipo_participante_choices = Participante.PARTICIPANTE_CHOICES
+    procedencia_choices = Participante.PROCEDENCIA_CHOICES
+    tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
+    formacionacademica=FormacionAcademica.objects.all().order_by('nombre_formacionacademica')
     pais=Pais.objects.all().order_by('cpais')
     departamentos=Departamento.objects.all().order_by('departamento')
-    print(departamentos)
+    institucion=Institucion_Financiamiento.objects.all().order_by('cInstFinancia')
     
     return render(request,'becarios/nuevobecario.html',{
+        'tipo_participante_choices': tipo_participante_choices,
+        'procedencia_choices': procedencia_choices,
+        'tipoDocumento':tipoDocumento,
+        'formacionacademica':formacionacademica,
         'pais':pais,
-        'departamentos':departamentos
+        'departamentos':departamentos,
+        'institucion':institucion
     })
 @login_required
 def editarparticipante(request):
