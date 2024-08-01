@@ -97,16 +97,8 @@ def registrarParticpante(request):
                 created_by=x_created_by
             )
             
-
-            
-            
             participantenuevo.save()
-            print(participantenuevo)
-
             
-            
-            
-
             return JsonResponse({'success': True, 'message': 'Participante registrado correctamente'})
         except ObjectDoesNotExist as e :   
             return JsonResponse({'success': False, 'message': f'Error al registrar el Participante: {str(e)}'}, status=500)
@@ -124,8 +116,12 @@ def editarparticipante(request):
 
 @login_required
 def todosparticipantes (request):
-    print('hola desde todos participantes')
-    return render(request,'becarios/todosparticipantes.html')
+    participantes=Participante.objects.all().select_related('sede__institucion_financiamiento')
+
+    print(participantes)
+    return render(request,'becarios/todosparticipantes.html',{
+        'participantes':participantes
+    })
 
 
 
