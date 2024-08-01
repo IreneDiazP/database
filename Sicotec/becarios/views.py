@@ -49,23 +49,25 @@ def registrarParticpante(request):
             x_formacionAcademica = data.get('formacionAcademica')
             x_pais = data.get('pais')
             x_ciudad = data.get('ciudad')
-            x_departamento = data.get('departamento')
-            x_provincia = data.get('provincia')
-            x_distrito = data.get('distrito')
+            x_departamento = data.get('departamento') or None
+            x_provincia = data.get('provincia') or None
+            x_distrito = data.get('distrito') or None
             x_institucion = data.get('institucion')
             x_sede = data.get('sede')
             x_direccionSede = data.get('direccionSede')
             x_oficina = data.get('doficina')
             x_created_by = request.user
             
-            #instancias
-            tipodocumento_instancia= Tipo_Documento.objects.get(id=x_tipoDocumento)
-            formacionacademica_instancia= FormacionAcademica.objects.get(id=x_formacionAcademica)
-            pais_instancia=Pais.objects.get(id=x_pais)
-            departamento_instancia=Departamento.objects.get(id=x_departamento)
-            provincia_instancia=Provincia.objects.get(id=x_provincia)
-            distrito_instancia=Distrito.objects.get(id=x_distrito)
-            institucion_instancia=Institucion_Financiamiento.objects.get(id=x_institucion)
+                # Instancias
+            tipodocumento_instancia = Tipo_Documento.objects.get(id=x_tipoDocumento)
+            formacionacademica_instancia = FormacionAcademica.objects.get(id=x_formacionAcademica)
+            pais_instancia = Pais.objects.get(id=x_pais)
+            
+            # Manejar campos nulos o vacíos
+            departamento_instancia = Departamento.objects.get(id=x_departamento) if x_departamento else None
+            provincia_instancia = Provincia.objects.get(id=x_provincia) if x_provincia else None
+            distrito_instancia = Distrito.objects.get(id=x_distrito) if x_distrito else None
+            institucion_instancia = Institucion_Financiamiento.objects.get(id=x_institucion)
             
             
             regisrarsede, created = Sede.objects.get_or_create(
