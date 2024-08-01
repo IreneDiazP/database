@@ -90,7 +90,6 @@
             <!--NOMBRES-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidNombreParticpante" />
                 <input
                   type="text"
                   class="form-control"
@@ -128,7 +127,6 @@
             <!--APELLIDO MATERNO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidApellidoMaterno" />
                 <input
                   type="text"
                   class="form-control"
@@ -148,7 +146,6 @@
             <!--EMAIL-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidCorreo" />
                 <input
                   type="email"
                   class="form-control"
@@ -355,14 +352,16 @@
             <!--SEDE-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cdboSede"
-                  name="cdboSede"
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtNombreSede"
+                  name="txtNombreSede"
                   required
-                >
-                </select>
-                <label for="cdboSede"
+                  maxlength="150"
+                  oninput="convertToUppercase(this)"
+                />
+                <label for="txtNombreSede"
                   >Sede<span class="text-danger ms-2">*</span></label
                 >
               </div>
@@ -379,6 +378,7 @@
                   name="txtDireccionSede"
                   required
                   maxlength="150"
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtDireccionSede"
                   >Direccion<span class="text-danger ms-2">*</span></label
@@ -395,6 +395,7 @@
                   name="txtOficinasede"
                   required
                   maxlength="150"
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtOficinasede"
                   >Oficina<span class="text-danger ms-2">*</span></label
@@ -595,7 +596,6 @@
 </script>
 
 <script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>
-<script src="{% static 'core/js/inicializador/inicializador_Sede_institucion.js' %}"></script>
 <script src="{% static 'core/js/participantes/nuevoparticipante.js' %}"></script>
 
 {% endblock %}

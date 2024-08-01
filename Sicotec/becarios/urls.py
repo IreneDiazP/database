@@ -3,6 +3,10 @@ from . import views
 urlpatterns = [
     path('añadirnuevo/',views.nuevoParticipante, name='nuevoParticipante'),
     
+    #REGISTRAR NUEVO PARTICPANTE
+    path('registrarParticpante/',views.registrarParticpante, name='registrarParticpante'),
+
+    
     #traer todos los participantes
     path('todosparticipantes/',views.todosparticipantes, name='todosparticipantes'),
     
@@ -16,9 +20,6 @@ urlpatterns = [
     #obtener provincias de departamento
     path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito'),
     
-    #obtener sede de acuerdo a institucion
-    path('getSede/<int:idinstitucion>/',views.getSede,name='getSede'),
-    #obtener sede direccion y oficina
-    
-    path('getdatosSede/<int:idsede>/',views.getdatosSede,name='getdatosSede'),
+
+
 ]
