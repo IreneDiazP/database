@@ -91,7 +91,7 @@ def registrarParticpante(request):
                 cprovincia = provincia_instancia,
                 cdistrito = distrito_instancia,
                 ciudad = x_ciudad,
-                cInstFinanc = institucion_instancia,
+                sede=regisrarsede,
                 created_by=x_created_by
             )
             

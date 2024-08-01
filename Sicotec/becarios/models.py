@@ -1,6 +1,5 @@
 from django.db import models
-from proyectos.models import Pais,Institucion_Financiamiento
-from proyectos.models import Proyecto
+from proyectos.models import Pais,Institucion_Financiamiento,Proyecto,Sede
 from eventos.models import Evento
 from django.contrib.auth.models import User
 
@@ -101,12 +100,12 @@ class Participante(models.Model):
     ciudad = models.CharField(
         max_length=100, verbose_name='ciudad', null=True, blank=True)  
     cbeca = models.ForeignKey(Becas,on_delete=models.PROTECT,verbose_name= "beca", related_name="Participantes", null=True, blank=True)
-    cInstFinanc = models.ForeignKey(Institucion_Financiamiento, on_delete=models.PROTECT,
-                                    verbose_name="Institución de Financiamiento", related_name='Participantes', null=True, blank=True)
     proyecto = models.ForeignKey(
         Proyecto, on_delete=models.CASCADE, verbose_name="Proyecto", related_name='Participantes', null=True, blank=True)
     evento = models.ForeignKey(
         Evento, on_delete=models.CASCADE, verbose_name="evento", related_name='Participantes', null=True, blank=True)
+    sede = models.ForeignKey(Sede, on_delete=models.PROTECT, verbose_name="Sede", related_name='Participantes', null=True, blank=True)
+
     estado=models.BooleanField(default=True, verbose_name="estado")
     
     created_by = models.ForeignKey(User, on_delete=models.PROTECT,
