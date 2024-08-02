@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
+from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
@@ -107,6 +108,42 @@ def registrarParticpante(request):
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
 
+def actualizarParticipante(request):
+    if request.method == 'POST':
+        import json
+        
+        try:
+
+            data = json.loads(request.body)
+            print('Los datos son:', data)
+
+            for item in data.get('changes', []):
+                participante_id = item.get('id')
+                tipo_procedencia = item.get('procedencia')
+                estado = item.get('estado')
+                
+
+                try:
+                    participante = Participante.objects.get(id=participante_id)
+                    
+                    if tipo_procedencia:
+                        participante.procedencia = tipo_procedencia  
+                    if estado is not None:
+                        participante.estado = estado
+                    participante.save()
+                except Participante.DoesNotExist:
+                    continue
+            
+
+            return JsonResponse({'status': 'success'})
+
+        except json.JSONDecodeError:
+            
+            return JsonResponse({'status': 'error', 'message': 'Datos JSON inválidos'}, status=400)
+
+    return JsonResponse({'status': 'error'}, status=400)
+    
+
 @login_required
 def editarparticipante(request):
     print('hola de editar participante')
@@ -118,7 +155,6 @@ def editarparticipante(request):
 def todosparticipantes (request):
     participantes=Participante.objects.all().select_related('sede__institucion_financiamiento')
 
-    print(participantes)
     return render(request,'becarios/todosparticipantes.html',{
         'participantes':participantes
     })

@@ -20,6 +20,8 @@ urlpatterns = [
     #obtener provincias de departamento
     path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito'),
     
+    #actualizar participantes el tipo de participante y el estado
+    path('actualizarParticipante/',views.actualizarParticipante,name='actualizarParticipante'),
 
 
 ]

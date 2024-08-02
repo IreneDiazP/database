@@ -6,7 +6,7 @@ $(document).ready(function () {
     var fragment = document.createDocumentFragment();
     
     thead.each(function (index) {
-      if (index < thead.length - 1) {
+      if (index < thead.length - 2) {
         var title = $(this).text();
         var inputElement = document.createElement("input");
         inputElement.type = "text";
@@ -39,42 +39,42 @@ $(document).ready(function () {
     // Inicializa DataTable
     var table = $("#tblParticipantes").DataTable({
       scrollX: true,
-      dom: "Bfrltip",
-      buttons: [
-        {
-          extend: "excelHtml5",
-          text: "Excel",
-          className: "btn btn-success",
-          exportOptions: {
-            columns: ":visible",
-            format: {
-              header: function (data, columnIdx) {
-                return $("#tblParticipantes tfoot th").eq(columnIdx).text();
-              },
-            },
-          },
-        },
-        {
-          extend: "pdfHtml5",
-          text: "PDF",
-          className: "btn btn-danger",
-          orientation: "landscape",
-          pageSize: "A0",
-          exportOptions: {
-            columns: ":visible",
-            format: {
-              header: function (data, columnIdx) {
-                return $("#tblParticipantes tfoot th").eq(columnIdx).text();
-              },
-            },
-          },
-          customize: function (doc) {
-            doc.content[1].table.widths = "*".repeat(doc.content[1].table.body[0].length).split("");
-            doc.styles.tableHeader.alignment = "center";
-          },
-          title: "Reporte Proyectos - Soft - Sicotec",
-        },
-      ],
+      dom: "frltip",
+      // buttons: [
+      //   {
+      //     extend: "excelHtml5",
+      //     text: "Excel",
+      //     className: "btn btn-success",
+      //     exportOptions: {
+      //       columns: ":visible",
+      //       format: {
+      //         header: function (data, columnIdx) {
+      //           return $("#tblParticipantes tfoot th").eq(columnIdx).text();
+      //         },
+      //       },
+      //     },
+      //   },
+      //   {
+      //     extend: "pdfHtml5",
+      //     text: "PDF",
+      //     className: "btn btn-danger",
+      //     orientation: "landscape",
+      //     pageSize: "A0",
+      //     exportOptions: {
+      //       columns: ":visible",
+      //       format: {
+      //         header: function (data, columnIdx) {
+      //           return $("#tblParticipantes tfoot th").eq(columnIdx).text();
+      //         },
+      //       },
+      //     },
+      //     customize: function (doc) {
+      //       doc.content[1].table.widths = "*".repeat(doc.content[1].table.body[0].length).split("");
+      //       doc.styles.tableHeader.alignment = "center";
+      //     },
+      //     title: "Reporte Proyectos - Soft - Sicotec",
+      //   },
+      // ],
       language: {
         lengthMenu: "Mostrar _MENU_ registros por página",
         zeroRecords: "Ningún usuario encontrado",

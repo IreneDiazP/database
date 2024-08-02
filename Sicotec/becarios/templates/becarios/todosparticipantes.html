@@ -18,6 +18,7 @@
         <h2 class="fs-5 fw-semibold d-md-none d-block">
           Lista de Participantes
         </h2>
+        <button id="GuardarCambios" class="btn btn-primary">Guardar Cambios</button>
       </div>
       <!--TABLA-->
       <div class="table-responsive">
@@ -26,28 +27,61 @@
           id="tblParticipantes"
           class="table table-hover display shadow rounded"
           style="width: 100%"
-        >
+          >
           <thead class="table-dark">
             <tr>
-              <th class="text-center">Nombre y apellidos</th>
-              <th class="text-center">codigo Evento</th>
-
+              <th >Nombre y apellidos</th>
+              <th >codigo Evento</th>
+              <th class="text-center">Tipo Participante</th>
+              <th class="text-center">Procedencia</th>
+              <th class="text-center">Estado</th>
             </tr>
           </thead>
           <tbody class="text-rigth">
             {% for ptc in participantes %}
-            <tr id="{{ptc.id}}">
-              <th class="text-center">{{ptc.nom_participante}}</th>
-              <th class="text-center">{{ptc.sede.institucion_financiamiento.cInstFinancia}}</th>
+            <tr id="{{ ptc.id }}">
+              <th class="">
+                  {{ ptc.apellPate_participante }} {{ ptc.apellMate_participante }} {{ ptc.nom_participante }}
+              </th>
+              <th >
+                  {{ ptc.sede.institucion_financiamiento.cInstFinancia }}
+              </th>
+              <th class="text-center">
+                {{ ptc.tipo_participante }}
+            </th>
+              <th class="text-center">
+                  <div class="d-flex gap-2 justify-content-center">
+                      <input type="radio" id="tipoParticipanteInterno{{ ptc.id }}" name="procedencia{{ptc.id}}" value="INTERNO"
+                          {% if ptc.procedencia == 'INTERNO' %} checked {% endif %}>
+                      <label for="tipoParticipanteInterno{{ ptc.id }}">Interno</label>
+                      
+                      <input type="radio" id="tipoParticipanteExterno{{ ptc.id }}" name="procedencia{{ptc.id}}" value="EXTERNO"
+                          {% if ptc.procedencia == 'EXTERNO' %} checked {% endif %}>
+                      <label for="tipoParticipanteExterno{{ ptc.id }}">Externo</label>
+                  </div>
+              </th >
+              <th class="text-center">
+                <div class="d-flex gap-2 justify-content-center">
+                    <input type="radio" id="estadoTrue_{{ ptc.id }}" name="Estado_{{ ptc.id }}" value="True"
+                        {% if ptc.estado %} checked {% endif %}>
+                    <label for="estadoTrue_{{ ptc.id }}">Activo</label>
+                    
+                    <input type="radio" id="estadoFalse_{{ ptc.id }}" name="Estado_{{ ptc.id }}" value="False"
+                        {% if not ptc.estado %} checked {% endif %}>
+                    <label for="estadoFalse_{{ ptc.id }}">Inactivo</label>
+                </div>
+            </th>
 
-            </tr>
+          </tr>
             {% endfor %}
           </tbody>
 
           <tfoot>
-            <th class="text-center">Nombre y apellidos</th>
-             <th class="text-center">codigo Evento</th>
-
+            <th >Nombre y apellidos</th>
+             <th >codigo Evento</th>
+             <th class="text-center">Tipo Participante</th>
+             <th class="text-center">Procedencia</th>
+             <th class="text-center">Estado</th>
           </tfoot>
         </table>
       </div>
@@ -62,7 +96,7 @@
   tabindex="-1"
   aria-labelledby="modalEditarParticipanteLabel"
   aria-hidden="true"
->
+  >
   <div
     class="modal-dialog m-auto modal-dialog-centered mt-3"
     style="--bs-modal-width: 1382px"
@@ -440,7 +474,7 @@
   tabindex="-1"
   aria-labelledby="eliminarProyectoLabel"
   aria-hidden="true"
->
+  >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
