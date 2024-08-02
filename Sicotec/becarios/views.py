@@ -134,8 +134,13 @@ def actualizarParticipante(request):
                 except Participante.DoesNotExist:
                     continue
             
+            # datos actualizados para la tabla
+            participantes = Participante.objects.all().values(
+                'id', 'nom_participante', 'apellPate_participante', 'apellMate_participante',
+                'tipo_participante', 'procedencia', 'estado', 'sede__institucion_financiamiento__cInstFinancia'
+            )
 
-            return JsonResponse({'status': 'success'})
+            return JsonResponse({'status': 'success', 'participantes': list(participantes)})
 
         except json.JSONDecodeError:
             
