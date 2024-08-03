@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded",function(){
                 }else{
                     const data = await response.json();
                     const cboProvincia = document.getElementById('cboProvincia');
+                    document.getElementById('cboDistrito').value = "";
                     
                     cboProvincia.innerHTML = "<option selected></option>" +
                       data.map(item => `<option value="${item.id}">${item.provincia}</option>`).join('');
