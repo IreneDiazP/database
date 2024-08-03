@@ -90,9 +90,10 @@
                         name="cboTipoParticipacion"
                         required
                       >
-                        <option selected></option>
-      
-                        <option value="1">Tipo Participante</option>
+                      <option selected></option>
+                      {% for value, display in tipo_participante_choices %}
+                          <option value="{{ value }}">{{ display }}</option>
+                      {% endfor %}
                       </select>
                       <label for="cboTipoParticipacion"
                         >Participante<span class="text-danger ms-2">*</span></label
@@ -105,15 +106,16 @@
                     <div class="form-floating">
                       <select
                         class="form-select"
-                        id="cboTipoParticipacion"
-                        name="cboTipoParticipacion"
+                        id="cboTipoProcedencia"
+                        name="cboTipoProcedencia"
                         required
                       >
-                        <option selected></option>
-      
-                        <option value="1">Tipo Participante</option>
+                      <option selected></option>
+                      {% for value, display in procedencia_choices %}
+                          <option value="{{ value }}">{{ display }}</option>
+                      {% endfor %}
                       </select>
-                      <label for="cboTipoParticipacion"
+                      <label for="cboTipoProcedencia"
                         >Procedencia<span class="text-danger ms-2">*</span></label
                       >
                     </div>
@@ -122,7 +124,6 @@
                   <!--NOMBRES-->
                   <div class="col-md-3">
                     <div class="form-floating">
-                      <input type="hidden" id="txtidNombreParticpante" />
                       <input
                         type="text"
                         class="form-control"
@@ -130,6 +131,7 @@
                         name="txtNombreParticpante"
                         required
                         maxlength="150"
+                        oninput="convertToUppercase(this)" 
                       />
                       <label for="txtNombreParticpante"
                         >Nombres<span class="text-danger ms-2">*</span></label
@@ -147,6 +149,7 @@
                         name="txtApellidoPaterno"
                         required
                         maxlength="150"
+                        oninput="convertToUppercase(this)" 
                       />
                       <label for="txtApellidoPaterno"
                         >Apellido Paterno<span class="text-danger ms-2"
@@ -158,7 +161,6 @@
                   <!--APELLIDO MATERNO-->
                   <div class="col-md-3">
                     <div class="form-floating">
-                      <input type="hidden" id="txtidApellidoMaterno" />
                       <input
                         type="text"
                         class="form-control"
@@ -166,6 +168,7 @@
                         name="txtApellidoMaterno"
                         required
                         maxlength="150"
+                        oninput="convertToUppercase(this)" 
                       />
                       <label for="txtApellidoMaterno"
                         >Apellido Materno<span class="text-danger ms-2"
@@ -177,19 +180,15 @@
                   <!--EMAIL-->
                   <div class="col-md-3">
                     <div class="form-floating">
-                      <input type="hidden" id="txtidCorreo" />
                       <input
                         type="email"
                         class="form-control"
                         id="txtCorreo"
                         name="txtCorreo"
-                        required
                         maxlength="150"
                       />
                       <label for="txtCorreo"
-                        >Correo Electronico<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                        >Correo Electronico</label
                       >
                     </div>
                   </div>
@@ -205,8 +204,9 @@
                         required
                       >
                         <option selected></option>
-      
-                        <option value="DNI">DNI</option>
+                        {% for tipo in tipoDocumento %}
+                        <option value="{{ tipo.id }}" {% if tipo.id == participante.tipo_documento_id %}selected{% endif %}>{{ tipo.Tipo_documento }}</option>
+                    {% endfor %}
                       </select>
                       <label for="cboTipoDocumento"
                         >Tipo de documento<span class="text-danger ms-2"
@@ -225,8 +225,7 @@
                         id="txtDocumento"
                         name="txtDocumento"
                         required
-                        maxlength="8"
-                        pattern="\d{8}"
+                        maxlength="30"
                         title="El DNI debe tener 8 dígitos numéricos"
                       />
                       <label for="txtDocumento"
@@ -246,11 +245,10 @@
                         class="form-control"
                         id="txtTelefono"
                         name="txtTelefono"
-                        required
                         maxlength="15"
                       />
                       <label for="txtTelefono"
-                        >Telefono<span class="text-danger ms-2">*</span></label
+                        >Telefono</label
                       >
                     </div>
                   </div>
@@ -259,18 +257,18 @@
                     <div class="form-floating">
                       <select
                         class="form-select"
-                        id="cboTipoDocumento"
-                        name="cboTipoDocumento"
+                        id="cboTiformacionacademica"
+                        name="cboTiformacionacademica"
                         required
                       >
                         <option selected></option>
       
-                        <option value="DNI">DNI</option>
+                        {% for fa in formacionacademica  %}
+                        <option value="{{fa.id}}">{{fa.nombre_formacionacademica}}</option>
+                        {% endfor %}
                       </select>
-                      <label for="cboTipoDocumento"
-                        >Formacion Académica<span class="text-danger ms-2"
-                          >*</span
-                        ></label
+                      <label for="cboTiformacionacademica"
+                        >Formacion Académica</label
                       >
                     </div>
                   </div>
@@ -281,60 +279,79 @@
                 <div class="row g-3 px-3">
                   <span class="fw-bold fs-6">Datos domicilio del Participante</span>
                   <!------   ----------------------------- -->
-                  <!--DEPARTAMENTO-->
+                  <!--PAIS-->
                   <div class="col-md-3">
+                    <div class="form-floating">
+                      <select
+                        class="form-select"
+                        id="cboPais"
+                        name="cboPais"
+                        required
+                      >
+                        <option selected></option>
+                        {% for P in pais %}
+                        <option value="{{P.id}}">{{P.cpais}}</option>
+                        {% endfor %}
+                      </select>
+                      <label for="cboPais"
+                        >Pais<span class="text-danger ms-2">*</span></label
+                      >
+                    </div>
+                  </div>
+      
+                  <!--CIUDAD-->
+                  <div class="col-md-3 d-none" id="inputciudad">
+                    <div class="form-floating">
+                      <input type="hidden" id="txtidCiudad" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="txtCiudad"
+                        name="txtCiudad"
+                        maxlength="150"
+                        oninput="convertToUppercase(this)" 
+                      />
+                      <label for="txtCiudad">Ciudad</label>
+                    </div>
+                  </div>
+      
+                  <!--DEPARTAMENTO-->
+                  <div class="col-md-3 d-none" id="inputdepartamento">
                     <div class="form-floating">
                       <select
                         class="form-select"
                         id="cboDepartamento"
                         name="cboDepartamento"
-                        required
                       >
                         <option selected></option>
       
-                        <option value="Departamento">Departamento</option>
+                        {% for dep in departamentos %}
+                        <option value="{{dep.id}}">{{dep.departamento}}</option>
+                        {% endfor %}
                       </select>
-                      <label for="cboDepartamento"
-                        >Departamento<span class="text-danger ms-2">*</span></label
-                      >
+                      <label for="cboDepartamento">Departamento</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
                   <!--PROVINCIA-->
-                  <div class="col-md-3">
+                  <div class="col-md-3 d-none" id="inputprovincia">
                     <div class="form-floating">
                       <select
                         class="form-select"
                         id="cboProvincia"
                         name="cboProvincia"
-                        required
-                      >
-                        <option selected></option>
-      
-                        <option value="Provincia">Provincia</option>
-                      </select>
-                      <label for="cboProvincia"
-                        >Provincia<span class="text-danger ms-2">*</span></label
-                      >
+                      ></select>
+                      <label for="cboProvincia">Provincia</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
                   <!--DISTRITO-->
-                  <div class="col-md-3">
+                  <div class="col-md-3 d-none" id="inputdistrito">
                     <div class="form-floating">
-                      <select
-                        class="form-select"
-                        id="cboDistrito"
-                        name="cboDistrito"
-                        required
-                      >
-                        <option selected></option>
+                      <select class="form-select" id="cboDistrito" name="cboDistrito">
       
-                        <option value="Distrito">Distrito</option>
                       </select>
-                      <label for="cboDistrito"
-                        >Distrito<span class="text-danger ms-2">*</span></label
-                      >
+                      <label for="cboDistrito">Distrito</label>
                     </div>
                   </div>
                 </div>
@@ -343,25 +360,6 @@
                 <div class="row g-3 px-3">
                   <span class="fw-bold fs-6">Datos Laborales del Participante</span>
       
-                  <!------   ----------------------------- -->
-                  <!--SEDE-->
-                  <div class="col-md-3">
-                    <div class="form-floating">
-                      <select
-                        class="form-select"
-                        id="cdboSede"
-                        name="cdboSede"
-                        required
-                      >
-                        <option selected></option>
-      
-                        <option value="1">Sede</option>
-                      </select>
-                      <label for="cdboSede"
-                        >Sede<span class="text-danger ms-2">*</span></label
-                      >
-                    </div>
-                  </div>
                   <!------   ----------------------------- -->
                   <!--INSTITUCION-->
                   <div class="col-md-3">
@@ -373,27 +371,47 @@
                         required
                       >
                         <option selected></option>
-      
-                        <option value="1">Institucion</option>
+                        {% for ins in institucion %}
+                        <option value="{{ins.id}}">{{ins.cInstFinancia}}</option>
+                        {% endfor %}
                       </select>
                       <label for="cdboInstitucion"
                         >Institucion<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
-                  <!--DIRECCION-->
+                  <!--SEDE-->
                   <div class="col-md-3">
                     <div class="form-floating">
-                      <input type="hidden" id="txtidApellidoMaterno" />
                       <input
                         type="text"
                         class="form-control"
-                        id="txtApellidoMaterno"
-                        name="txtApellidoMaterno"
+                        id="txtNombreSede"
+                        name="txtNombreSede"
                         required
                         maxlength="150"
+                        oninput="convertToUppercase(this)"
                       />
-                      <label for="txtApellidoMaterno"
+                      <label for="txtNombreSede"
+                        >Sede<span class="text-danger ms-2">*</span></label
+                      >
+                    </div>
+                  </div>
+                  <!------   ----------------------------- -->
+      
+                  <!--DIRECCION-->
+                  <div class="col-md-3">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="txtDireccionSede"
+                        name="txtDireccionSede"
+                        required
+                        maxlength="150"
+                        oninput="convertToUppercase(this)"
+                      />
+                      <label for="txtDireccionSede"
                         >Direccion<span class="text-danger ms-2">*</span></label
                       >
                     </div>
@@ -401,22 +419,23 @@
                   <!--OFICINA-->
                   <div class="col-md-3">
                     <div class="form-floating">
-                      <input type="hidden" id="txtidApellidoMaterno" />
                       <input
                         type="text"
                         class="form-control"
-                        id="txtApellidoMaterno"
-                        name="txtApellidoMaterno"
+                        id="txtOficinasede"
+                        name="txtOficinasede"
                         required
                         maxlength="150"
+                        oninput="convertToUppercase(this)"
                       />
-                      <label for="txtApellidoMaterno"
+                      <label for="txtOficinasede"
                         >Oficina<span class="text-danger ms-2">*</span></label
                       >
                     </div>
                   </div>
                 </div>
-                {% comment %} <hr />
+                {% comment %}
+                <hr />
                 <!--formulario de ingreso datos-->
                 <div class="row g-3 px-3">
                   <span class="fw-bold fs-6"
@@ -576,7 +595,8 @@
                       >
                     </div>
                   </div>
-                </div> {% endcomment %}
+                </div>
+                {% endcomment %}
       
                 <!-- Botones -->
                 <div class="row g-3 px-3">
@@ -683,7 +703,7 @@
         tabindex="-1"
         aria-labelledby="modalEditarParticipanteLabel"
         aria-hidden="true"
-      >
+        >
         <div
           class="modal-dialog m-auto modal-dialog-centered mt-3"
           style="--bs-modal-width: 1382px"
@@ -1086,7 +1106,7 @@
         tabindex="-1"
         aria-labelledby="eliminarProyectoLabel"
         aria-hidden="true"
-      >
+       >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -1145,4 +1165,10 @@
 
 {% endblock contenido %} 
 
-{% block script %} {% endblock %}
+
+
+{% block script %} 
+
+
+
+{% endblock %}
