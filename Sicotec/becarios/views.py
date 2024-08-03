@@ -187,6 +187,16 @@ def getdatosparticipante(request):
         idparticipante = data.get('participanteidId')
         participante = Participante.objects.get(id=idparticipante)
         
+        sede_data = {}
+        if participante.sede:
+            sede_data = {
+            'nombre_sede': participante.sede.nombre_sede,
+            'direccion_sede': participante.sede.direccion_sede,
+            'oficina_sede': participante.sede.oficina_sede,
+            'institucion_financiamiento':participante.sede.institucion_financiamiento.id
+            }
+        
+        
         response_data = {
             'success': True,
             'data': {
@@ -196,19 +206,20 @@ def getdatosparticipante(request):
                 'apellMate_participante': participante.apellMate_participante,
                 'email': participante.email,
                 'tipo_participante': participante.tipo_participante,
+                'tipo_documento':participante.cTipo_Documento.id if participante.cTipo_Documento else '',
                 'procedencia': participante.procedencia,
                 'numero_documento': participante.numero_documento,
                 'telefono': participante.telefono,
-                'cFormacion_academica': participante.cFormacion_academica.nombre_formacionacademica if participante.cFormacion_academica else '',
-                'cpais': participante.cpais.cpais if participante.cpais else '',
-                'cdepartamento': participante.cdepartamento.departamento if participante.cdepartamento else '',
-                'cprovincia': participante.cprovincia.provincia if participante.cprovincia else '',
-                'cdistrito': participante.cdistrito.distrito if participante.cdistrito else '',
+                'cFormacion_academica': participante.cFormacion_academica.id if participante.cFormacion_academica else '',
+                'cpais': participante.cpais.id ,
+                'cdepartamento': participante.cdepartamento.id if participante.cdepartamento else '',
+                'cprovincia': participante.cprovincia.id if participante.cprovincia else '',
+                'cdistrito': participante.cdistrito.id if participante.cdistrito else '',
                 'ciudad': participante.ciudad,
-                'cbeca': participante.cbeca.nombre_beca if participante.cbeca else '',
+                'cbeca': participante.cbeca.id if participante.cbeca else '',
                 'proyecto': participante.proyecto.id if participante.proyecto else '',
                 'evento': participante.evento.id if participante.evento else '',
-                'sede': participante.sede.nombre_sede if participante.sede else '',
+                'sede': sede_data,
                 'estado': participante.estado
             }
         }
