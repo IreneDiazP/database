@@ -39,18 +39,49 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('cboTiformacionacademica').value = data.data.cFormacion_academica;
             document.getElementById('cboPais').value = data.data.cpais;
             document.getElementById('txtCiudad').value = data.data.ciudad;
-            document.getElementById('cboDepartamento').value = data.data.cdepartamento;
-            document.getElementById('cboProvincia').value = data.data.cprovincia;
-            document.getElementById('cboDistrito').value = data.data.cdistrito;
-            document.getElementById('cdboInstitucion').value = data.data.sede.institucion_financiamiento ;
-            document.getElementById('txtNombreSede').value = data.data.sede.nombre_sede ;
-            document.getElementById('txtDireccionSede').value = data.data.sede.direccion_sede ;
-            document.getElementById('txtOficinasede').value = data.data.sede.oficina_sede ;
-            actualizarVisibilidadCampos();
+            actualizarVisibilidadCampos() 
+            // Cargar datos de departamento y provincia
+            const departamentoId = data.data.cdepartamento;
+            const provinciaId = data.data.cprovincia;
+    
+            if (departamentoId) {
+                document.getElementById('cboDepartamento').value = departamentoId;
+                // Cargar provincias basadas en el departamento
+                fetch(`/becario/getProvincias/${departamentoId}/`)
+                    .then(response => response.json())
+                    .then(provincias => {
+                        const cboProvincia = document.getElementById('cboProvincia');
+                        cboProvincia.innerHTML = "<option selected></option>" +
+                          provincias.map(item => `<option value="${item.id}" ${item.id === provinciaId ? 'selected' : ''}>${item.provincia}</option>`).join('');
+                        if (provinciaId) {
+                            document.getElementById('cboProvincia').value = provinciaId;
+                            // Cargar distritos basados en la provincia
+                            fetch(`/becario/getDistrito/${provinciaId}/`)
+                                .then(response => response.json())
+                                .then(distritos => {
+                                    const cboDistrito = document.getElementById('cboDistrito');
+                                    cboDistrito.innerHTML = "<option selected></option>" +
+                                      distritos.map(item => `<option value="${item.id}" ${item.id === data.data.cdistrito ? 'selected' : ''}>${item.distrito}</option>`).join('');
+                                });
+                        }
+                    });
+            } else {
+                document.getElementById('cboProvincia').innerHTML = "";
+                document.getElementById('cboDistrito').innerHTML = "";
+            }
+    
+            // Cargar datos de sede
+            if (data.data.sede) {
+                document.getElementById('cdboInstitucion').value = data.data.sede.institucion_financiamiento;
+                document.getElementById('txtNombreSede').value = data.data.sede.nombre_sede;
+                document.getElementById('txtDireccionSede').value = data.data.sede.direccion_sede;
+                document.getElementById('txtOficinasede').value = data.data.sede.oficina_sede;
+            }
         } else {
             console.error('Error:', data.message);
         }
     })
+    
     .catch(error => {
         console.error('Error en la solicitud:', error);
     });
@@ -91,3 +122,33 @@ function actualizarVisibilidadCampos() {
         inputdistrito.classList.add('d-none');
     }
 }
+
+
+document.getElementById("cboPais").addEventListener("change", function() {
+    const { value, textContent } = this.options[this.selectedIndex];
+    const paisSeleccionadoNombre = textContent.toUpperCase();
+    let inputciudad=document.getElementById('inputciudad')
+    let inputdepartamento=document.getElementById('inputdepartamento')
+    let inputprovincia=document.getElementById('inputprovincia')
+    let inputdistrito=document.getElementById('inputdistrito')
+
+    if(paisSeleccionadoNombre ==='PERU' || paisSeleccionadoNombre ==='PERÚ'){
+        inputdepartamento.classList.remove('d-none')
+        inputprovincia.classList.remove('d-none')
+        inputdistrito.classList.remove('d-none')
+        inputciudad.classList.add('d-none')
+        document.getElementById('txtCiudad').value = "";
+
+    }else{
+        inputciudad.classList.remove('d-none')
+        inputdepartamento.classList.add('d-none')
+        inputprovincia.classList.add('d-none')
+        inputdistrito.classList.add('d-none')
+
+        document.getElementById('cboDepartamento').value = "";
+        document.getElementById('cboProvincia').value = "";
+        document.getElementById('cboDistrito').value = "";
+
+    }
+
+});
