@@ -206,7 +206,8 @@ def getdatosparticipante(request):
                 'cdistrito': participante.cdistrito.distrito if participante.cdistrito else '',
                 'ciudad': participante.ciudad,
                 'cbeca': participante.cbeca.nombre_beca if participante.cbeca else '',
-
+                'proyecto': participante.proyecto.id if participante.proyecto else '',
+                'evento': participante.evento.id if participante.evento else '',
                 'sede': participante.sede.nombre_sede if participante.sede else '',
                 'estado': participante.estado
             }

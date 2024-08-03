@@ -26,8 +26,23 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .then(data => {
         if (data.success) {
-            console.log('Datos de los participantes:', data.data);
-            
+            console.log('Datos de los participantes:', data);
+            document.getElementById('cboTipoParticipacion').value = data.data.tipo_participante;
+            document.getElementById('cboTipoProcedencia').value = data.data.procedencia;
+            document.getElementById('txtNombreParticpante').value = data.data.nom_participante;
+            document.getElementById('txtApellidoPaterno').value = data.data.apellPate_participante;
+            document.getElementById('txtApellidoMaterno').value = data.data.apellMate_participante;
+            document.getElementById('txtCorreo').value = data.data.email;
+            // document.getElementById('cboTipoDocumento').value = data.data.email;
+            document.getElementById('txtDocumento').value = data.data.numero_documento;
+            document.getElementById('txtTelefono').value = data.data.telefono;
+            document.getElementById('cboTiformacionacademica').value = data.data.cFormacion_academica;
+            document.getElementById('cboPais').value = data.data.cpais;
+            document.getElementById('txtCiudad').value = data.data.ciudad;
+            document.getElementById('cboDepartamento').value = data.data.cdepartamento;
+            document.getElementById('cboProvincia').value = data.data.cprovincia;
+            document.getElementById('cboDistrito').value = data.data.cdistrito;
+            // document.getElementById('cdboInstitucion').value = data.data.email;
         } else {
             console.error('Error:', data.message);
         }
