@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let rowId = row.id;
         console.log("ID de la fila:", rowId);
 
-        window.location.href = `../editarparticipante/`;
+        window.location.href = `../../becario/editarparticipante/${rowId}/`;
       }
     }
   });

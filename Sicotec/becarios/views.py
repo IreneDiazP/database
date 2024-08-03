@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 import json
 from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
@@ -150,9 +151,23 @@ def actualizarParticipante(request):
     
 
 @login_required
-def editarparticipante(request):
-    print('hola de editar participante')
-    return render(request,'becarios/editarparticipante.html')
+def editarparticipante(request,idparticipante):
+    tipo_participante_choices = Participante.PARTICIPANTE_CHOICES
+    procedencia_choices = Participante.PROCEDENCIA_CHOICES
+    tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
+    formacionacademica=FormacionAcademica.objects.all().order_by('nombre_formacionacademica')
+    pais=Pais.objects.all().order_by('cpais')
+    departamentos=Departamento.objects.all().order_by('departamento')
+    institucion=Institucion_Financiamiento.objects.all().order_by('cInstFinancia')
+    return render(request,'becarios/editarparticipante.html',{
+        'tipo_participante_choices': tipo_participante_choices,
+        'procedencia_choices': procedencia_choices,
+        'tipoDocumento':tipoDocumento,
+        'formacionacademica':formacionacademica,
+        'pais':pais,
+        'departamentos':departamentos,
+        'institucion':institucion
+    })
 
 
 
@@ -164,6 +179,46 @@ def todosparticipantes (request):
         'participantes':participantes
     })
 
+@login_required
+@require_POST
+def getdatosparticipante(request):
+    try:
+        data = json.loads(request.body)
+        idparticipante = data.get('participanteidId')
+        participante = Participante.objects.get(id=idparticipante)
+        
+        response_data = {
+            'success': True,
+            'data': {
+                'id': participante.id,
+                'nom_participante': participante.nom_participante,
+                'apellPate_participante': participante.apellPate_participante,
+                'apellMate_participante': participante.apellMate_participante,
+                'email': participante.email,
+                'tipo_participante': participante.tipo_participante,
+                'procedencia': participante.procedencia,
+                'numero_documento': participante.numero_documento,
+                'telefono': participante.telefono,
+                'cFormacion_academica': participante.cFormacion_academica.nombre_formacionacademica if participante.cFormacion_academica else '',
+                'cpais': participante.cpais.cpais if participante.cpais else '',
+                'cdepartamento': participante.cdepartamento.departamento if participante.cdepartamento else '',
+                'cprovincia': participante.cprovincia.provincia if participante.cprovincia else '',
+                'cdistrito': participante.cdistrito.distrito if participante.cdistrito else '',
+                'ciudad': participante.ciudad,
+                'cbeca': participante.cbeca.nombre_beca if participante.cbeca else '',
+
+                'sede': participante.sede.nombre_sede if participante.sede else '',
+                'estado': participante.estado
+            }
+        }
+        return JsonResponse(response_data)
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
+    except Participante.DoesNotExist:
+        return JsonResponse({'success': False, 'message': 'Participante no encontrado'}, status=404)
+    except Exception as e:
+        # Captura cualquier otra excepción y devuelve un error genérico
+        return JsonResponse({'success': False, 'message': str(e)}, status=500)
 
 
 @login_required
