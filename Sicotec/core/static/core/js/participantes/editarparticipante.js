@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const csrftoken = getCookie("csrftoken");
     const urlsposttt = "/becario/getdatosparticipante/";
-    
+
+
+    //obtener datos del participante y rellenar en cada campo
     fetch(urlsposttt, {
         method: 'POST',
         headers: {
@@ -86,21 +88,23 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('Error en la solicitud:', error);
     });
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
+
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
             }
         }
-        return cookieValue;
     }
-});
+    return cookieValue;
+}
 
 function actualizarVisibilidadCampos() {
     const cboPais = document.getElementById("cboPais");
@@ -122,7 +126,6 @@ function actualizarVisibilidadCampos() {
         inputdistrito.classList.add('d-none');
     }
 }
-
 
 document.getElementById("cboPais").addEventListener("change", function() {
     const { value, textContent } = this.options[this.selectedIndex];

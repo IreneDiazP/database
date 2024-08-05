@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
+from eventos.models import Evento
 
 from proyectos.models import Pais,Institucion_Financiamiento,Sede
 # Create your views here.
@@ -152,6 +153,7 @@ def actualizarParticipante(request):
 
 @login_required
 def editarparticipante(request,idparticipante):
+    participante = Participante.objects.get(id=idparticipante)
     tipo_participante_choices = Participante.PARTICIPANTE_CHOICES
     procedencia_choices = Participante.PROCEDENCIA_CHOICES
     tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
@@ -159,6 +161,14 @@ def editarparticipante(request,idparticipante):
     pais=Pais.objects.all().order_by('cpais')
     departamentos=Departamento.objects.all().order_by('departamento')
     institucion=Institucion_Financiamiento.objects.all().order_by('cInstFinancia')
+    
+    # Obtener los proyectos y eventos asociados al participante
+    proyectos = participante.proyectos.all()
+    eventos = participante.eventos.all()
+    
+    print( proyectos)
+    print(eventos)
+    
     return render(request,'becarios/editarparticipante.html',{
         'tipo_participante_choices': tipo_participante_choices,
         'procedencia_choices': procedencia_choices,
@@ -166,7 +176,9 @@ def editarparticipante(request,idparticipante):
         'formacionacademica':formacionacademica,
         'pais':pais,
         'departamentos':departamentos,
-        'institucion':institucion
+        'institucion':institucion,
+        'proyectos':proyectos,
+        'eventos':eventos,
     })
 
 
@@ -247,3 +259,14 @@ def getDistrito (request, idprovincia):
     distrito = Distrito.objects.filter(provincia_id=idprovincia).order_by('distrito')
     data= list(distrito.values('id','distrito'))
     return JsonResponse(data, safe=False)
+
+
+# def buscar_eventos(request):
+#     eventos = []
+#     if 'codigo_evento' in request.GET:
+#         codigo_evento = request.GET['codigo_evento']
+#         if codigo_evento:
+#             eventos = Evento.objects.filter(codigoEvento__icontains=codigo_evento)
+    
+#     print(eventos)
+    

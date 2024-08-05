@@ -25,6 +25,10 @@ urlpatterns = [
     #obtener provincias de departamento
     path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito'),
     
+    
+    
+     #obtener provincias de departamento
+    # path('buscar_eventos/',views.buscar_eventos,name='buscar_eventos'),
 
 
 
