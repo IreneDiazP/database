@@ -100,10 +100,10 @@ class Participante(models.Model):
     ciudad = models.CharField(
         max_length=100, verbose_name='ciudad', null=True, blank=True)  
     cbeca = models.ForeignKey(Becas,on_delete=models.PROTECT,verbose_name= "beca", related_name="Participantes", null=True, blank=True)
-    proyecto = models.ForeignKey(
-        Proyecto, on_delete=models.CASCADE, verbose_name="Proyecto", related_name='Participantes', null=True, blank=True)
-    evento = models.ForeignKey(
-        Evento, on_delete=models.CASCADE, verbose_name="evento", related_name='Participantes', null=True, blank=True)
+    proyectos = models.ManyToManyField(Proyecto, related_name='Participantes', blank=True)
+    
+    eventos = models.ManyToManyField(Evento, related_name='Participantes', blank=True,)
+
     sede = models.ForeignKey(Sede, on_delete=models.PROTECT, verbose_name="Sede", related_name='Participantes', null=True, blank=True)
 
     estado=models.BooleanField(default=True, verbose_name="estado")
