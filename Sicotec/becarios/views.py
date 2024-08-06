@@ -6,9 +6,9 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
-from eventos.models import Evento
+from eventos.models import Evento,Tipo_Apoyo
 
-from proyectos.models import Pais,Institucion_Financiamiento,Sede
+from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica
 # Create your views here.
 @login_required
 def nuevoParticipante(request):
@@ -110,6 +110,7 @@ def registrarParticpante(request):
     else:
         return JsonResponse({'error': 'Método no permitido'}, status=405)
 
+@login_required
 def actualizarParticipante(request):
     if request.method == 'POST':
         import json
@@ -154,6 +155,12 @@ def actualizarParticipante(request):
 @login_required
 def editarparticipante(request,idparticipante):
     participante = Participante.objects.get(id=idparticipante)
+    todosEventos = Evento.objects.all()
+    Tipo_Eventos=Evento.objects.all().order_by('cTipoEvento')
+    TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
+    EntFinan = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')
+    TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
+    AreaTem = Area_Tematica.objects.all().order_by('cArea_tematica')
     tipo_participante_choices = Participante.PARTICIPANTE_CHOICES
     procedencia_choices = Participante.PROCEDENCIA_CHOICES
     tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
@@ -179,6 +186,12 @@ def editarparticipante(request,idparticipante):
         'institucion':institucion,
         'proyectos':proyectos,
         'eventos':eventos,
+        'todosEventos':todosEventos,
+        'Tipo_Eventos':Tipo_Eventos,
+        'TipoApoyo':TipoApoyo,
+        'EntFinan':EntFinan,
+        'TipoMoneda':TipoMoneda,
+        'AreaTem':AreaTem
     })
 
 
@@ -261,12 +274,32 @@ def getDistrito (request, idprovincia):
     return JsonResponse(data, safe=False)
 
 
-# def buscar_eventos(request):
-#     eventos = []
-#     if 'codigo_evento' in request.GET:
-#         codigo_evento = request.GET['codigo_evento']
-#         if codigo_evento:
-#             eventos = Evento.objects.filter(codigoEvento__icontains=codigo_evento)
-    
-#     print(eventos)
-    
+@login_required   
+def get_Evento(request,idEvento):
+    try:
+        print('llegue a get evento')
+        eventorequerido = Evento.objects.get(id=idEvento)
+        data = {
+            'codigoEvento': eventorequerido.codigoEvento,
+            'nomEvento': eventorequerido.nomEvento,
+            'cTipoEvento_id': eventorequerido.cTipoEvento_id,
+            'cAreaTem_id': eventorequerido.cAreaTem_id,
+            'DescEvento': eventorequerido.DescEvento,
+            'cpais_id': eventorequerido.cpais_id,
+            'fechaInicio': eventorequerido.fechaInicio,
+            'fechaFin': eventorequerido.fechaFin,
+            'cTipoApoyo_id': eventorequerido.cTipoApoyo_id,
+            'cEntFinan_id': eventorequerido.cEntFinan_id,
+            'cInstFinanc_id': eventorequerido.cInstFinanc_id,
+            'cTipo_Moneda_id': eventorequerido.cTipo_Moneda_id,
+            'monto': eventorequerido.monto,
+            'tipo_Cambio': eventorequerido.tipo_Cambio,
+            'created': eventorequerido.created,
+            'created_by_id': eventorequerido.created_by_id,
+            'updated': eventorequerido.updated,
+            'updated_by_id': eventorequerido.updated_by_id,
+        }
+        
+        return JsonResponse({'success': True, 'data': data})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})

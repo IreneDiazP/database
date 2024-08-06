@@ -197,6 +197,7 @@ def todosEventos(request):
 @login_required   
 def get_Evento(request,idEvento):
     try:
+        print('llegue a get evento')
         eventorequerido = Evento.objects.get(id=idEvento)
         data = {
             'codigoEvento': eventorequerido.codigoEvento,
@@ -218,6 +219,7 @@ def get_Evento(request,idEvento):
             'updated': eventorequerido.updated,
             'updated_by_id': eventorequerido.updated_by_id,
         }
+        
         return JsonResponse({'success': True, 'data': data})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
