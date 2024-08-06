@@ -706,7 +706,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <span class="fs-2 fw-semibold d-md-block d-none"
-                >Edición de Participante</span
+                >Agregar evento al Participante</span
               >
               <button
                 type="button"
@@ -782,7 +782,7 @@
 
             <form
               action=""
-              id="formEditarParticipante"
+              id="formEditarañadirEvento"
               class="shadow px-3 rounded"
               method="POST"
             >
@@ -807,6 +807,7 @@
                     </div>
                     <span class="fw-bold fs-6">Datos generales del Evento</span>
 
+                    <input type="hidden" id="ideventousuario">
                     <!------   ----------------------------- -->
                     <!--CODIGO DE EVENTO-->
                     <div class="col-md-3">
@@ -1141,7 +1142,7 @@
                   type="submit"
                 >
                   <i class="fas fa-save"></i>
-                  &nbsp;Guardar datos
+                  &nbsp;Guardar y añadir evento
                 </button>
                 <button
                   class="btn btn-secondary text-white shadow fs-6"

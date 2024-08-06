@@ -278,6 +278,7 @@ def get_Evento(request,idEvento):
        
         eventorequerido = Evento.objects.get(id=idEvento)
         data = {
+            'idevento':idEvento,
             'codigoEvento': eventorequerido.codigoEvento,
             'nomEvento': eventorequerido.nomEvento,
             'cTipoEvento_id': eventorequerido.cTipoEvento_id,

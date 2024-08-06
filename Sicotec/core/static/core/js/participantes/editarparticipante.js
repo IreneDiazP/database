@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//cookies
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== "") {
@@ -130,6 +131,7 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
 
 function actualizarVisibilidadCampos() {
   const cboPais = document.getElementById("cboPais");
@@ -220,9 +222,9 @@ document.getElementById('btnagregareventoparticipante').addEventListener('click'
       const data = result.data;
       console.log('los datos para evento')
       console.log(data)
-
       document.getElementById("txtCodigoEvento").value =
         data.codigoEvento;
+        document.getElementById("ideventousuario").value = data.idevento;
       document.getElementById("txtNombreEvento").value =
         data.nomEvento;
       document.getElementById("cboTipoEvento").value =
@@ -270,4 +272,49 @@ document.getElementById("cboTipoEnFinanciamiento").addEventListener("change", fu
   const urlget = `/proyecto/getInstituciones/${this.value}`;
   cargarInstitucionesFinanciamiento(this.value, null, urlget);
 });
+
+//click en boton 
+
+document.getElementById('formEditarañadirEvento').addEventListener('submit',function(event){
+  event.preventDefault();
+
+  console.log('clic en evento')
+  idevento = document.getElementById('ideventousuario').value
+  CodigoEvento = document.getElementById('txtCodigoEvento').value
+  NombreEvento = document.getElementById('txtNombreEvento').value
+  TipoEvento = document.getElementById('cboTipoEvento').value
+  AreaTematica = document.getElementById('cboAreaTematica').value
+  DescripcionEvento = document.getElementById('txtDescripcion').value
+  PaisEvento = document.getElementById('cboPaiss').value
+  Fechainicio = document.getElementById('txtFechainicio').value
+  Fechafin = document.getElementById('txtFechafin').value
+  TipoApoyo = document.getElementById('cboTipoApoyo').value
+  TipoEnFinanciamiento = document.getElementById('cboTipoEnFinanciamiento').value
+  TipoInsFinanciamiento = document.getElementById('cboTipoInsFinanciamiento').value
+  TipoMOneda = document.getElementById('cboTipoMOneda').value
+  Monto = document.getElementById('txtMonto').value
+  TipoCambio = document.getElementById('txttipoCambio').value
+
+  data={
+    idevento,
+    CodigoEvento,
+    NombreEvento,
+    TipoEvento,
+    AreaTematica,
+    DescripcionEvento,
+    PaisEvento,
+    Fechainicio,
+    Fechafin,
+    TipoApoyo,
+    TipoEnFinanciamiento,
+    TipoInsFinanciamiento,
+    TipoMOneda,
+    Monto,
+    TipoCambio
+  }
+
+  console.log('data es : '+ {data})
+  console.log(data)
+
+})
 
