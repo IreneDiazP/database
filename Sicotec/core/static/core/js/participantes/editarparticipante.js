@@ -313,8 +313,29 @@ document.getElementById('formEditarañadirEvento').addEventListener('submit',fun
     TipoCambio
   }
 
-  console.log('data es : '+ {data})
-  console.log(data)
+  urleditarevento="../../editarevento/"
+  const csrftoken = getCookie("csrftoken");
+  fetch(urleditarevento,{
+    method: "POST",
+    headers:{
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken
+    },
+    body:JSON.stringify(data)
+  }).then(response => response.json()).then(data => {
+    if (data.success) {
+      console.log('listo envie todo');
+      // Puedes redirigir o mostrar una notificación
+      alert('Evento actualizado exitosamente');
+    } else {
+      console.error('Error:', data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error en la solicitud:', error);
+  });
+  
+
 
 })
 

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.db import transaction
+from django.utils import timezone
 from django.views.decorators.http import require_POST
 import json
-from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
@@ -113,7 +114,6 @@ def registrarParticpante(request):
 @login_required
 def actualizarParticipante(request):
     if request.method == 'POST':
-        import json
         
         try:
 
@@ -302,3 +302,62 @@ def get_Evento(request,idEvento):
         return JsonResponse({'success': True, 'data': data})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
+    
+def editarevento(request):
+    if request.method == 'POST':
+        try:
+            with transaction.atomic():
+                data=json.loads(request.body)
+                x_idevento=data.get('idevento')
+                x_CodigoEvento = data.get('CodigoEvento')
+                x_NombreEvento = data.get('NombreEvento')
+                x_TipoEvento = data.get('TipoEvento')
+                x_AreaTematica = data.get('AreaTematica')
+                x_DescripcionEvento = data.get('DescripcionEvento')
+                x_PaisEvento = data.get('PaisEvento')
+                x_Fechainicio = data.get('Fechainicio')
+                x_Fechafin = data.get('Fechafin')
+                x_TipoApoyo = data.get('TipoApoyo')
+                x_TipoEnFinanciamiento = data.get('TipoEnFinanciamiento')
+                TipoInsFinanciamiento = data.get('TipoInsFinanciamiento')
+                x_TipoMOneda = data.get('TipoMOneda')
+                x_Monto = data.get('Monto')
+                x_TipoCambio = data.get('TipoCambio')
+                updated_by = request.user
+                fecha_actual = timezone.now()
+                
+                eventoeditado=Evento.objects.get(id = x_idevento)
+                
+                x_tipoevento_instance=Tipo_Evento.objects.get(id=x_TipoEvento)
+                x_areatema_instance=Area_Tematica.objects.get(id=x_AreaTematica)
+                x_pais_instance=Pais.objects.get(id=x_PaisEvento)
+                x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=x_TipoApoyo)
+                x_Entifina_instance=Entidad_Financiamiento.objects.get(id=x_TipoEnFinanciamiento)
+                x_institufina_instance=Institucion_Financiamiento.objects.get(id=TipoInsFinanciamiento)
+                x_tipomoneda_instance=Tipo_Moneda.objects.get(id=x_TipoMOneda)
+                
+                
+                eventoeditado.codigoEvento = x_CodigoEvento
+                eventoeditado.nomEvento = x_NombreEvento
+                eventoeditado.cTipoEvento = x_tipoevento_instance
+                eventoeditado.cAreaTem = x_areatema_instance
+                eventoeditado.DescEvento = x_DescripcionEvento
+                eventoeditado.cpais = x_pais_instance
+                eventoeditado.fechaInicio = x_Fechainicio
+                eventoeditado.fechaFin = x_Fechafin
+                eventoeditado.cTipoApoyo = x_tipoapoyo_instance
+                eventoeditado.cEntFinan = x_Entifina_instance
+                eventoeditado.cInstFinanc = x_institufina_instance
+                eventoeditado.cTipo_Moneda = x_tipomoneda_instance
+                eventoeditado.monto = x_Monto
+                eventoeditado.tipo_Cambio = x_TipoCambio
+                eventoeditado.updated_by = updated_by
+                eventoeditado.updated = fecha_actual
+                
+                eventoeditado.save()
+            
+            return JsonResponse({'success': True})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)

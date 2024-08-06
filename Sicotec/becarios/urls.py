@@ -26,7 +26,9 @@ urlpatterns = [
     path('getDistrito/<int:idprovincia>/',views.getDistrito,name='getDistrito'),
     
     #otener datos del evento 
-    path('getDatosEvento/<int:idEvento>',views.get_Evento, name="get_DatosProyecto")
+    path('getDatosEvento/<int:idEvento>',views.get_Evento, name="get_DatosProyecto"),
     
+    #
+    path('editarevento/',views.editarevento, name="editarevento")
 
 ]
