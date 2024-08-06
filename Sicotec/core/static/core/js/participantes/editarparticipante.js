@@ -243,10 +243,8 @@ document.getElementById('btnagregareventoparticipante').addEventListener('click'
       document.getElementById("cboTipoEnFinanciamiento").value =
         data.cEntFinan_id;
 
-    //   await cargarInstitucionesFinanciamiento(
-    //     data.cEntFinan_id,
-    //     data.cInstFinanc_id
-    //   );
+        const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
+        await cargarInstitucionesFinanciamiento(data.cEntFinan_id, data.cInstFinanc_id, urlget);
 
       document.getElementById("cboTipoMOneda").value =
         data.cTipo_Moneda_id;
@@ -266,4 +264,10 @@ document.getElementById('btnagregareventoparticipante').addEventListener('click'
 
 })
 
+// Evento para cargar instituciones de financiamiento
+document.getElementById("cboTipoEnFinanciamiento").addEventListener("change", function () {
+
+  const urlget = `/proyecto/getInstituciones/${this.value}`;
+  cargarInstitucionesFinanciamiento(this.value, null, urlget);
+});
 
