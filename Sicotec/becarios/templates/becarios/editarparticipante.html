@@ -919,16 +919,16 @@
                       <div class="form-floating">
                         <select
                           class="form-select"
-                          id="cboPais"
-                          name="cboPais"
+                          id="cboPaiss"
+                          name="cboPaiss"
                           required
                         >
                           <option selected></option>
-                          {% for p in pais %}
-                          <option value="{{p.id}}">{{p.cpais}}</option>
+                          {% for pais in pais %}
+                          <option value="{{pais.id}}">{{pais.cpais}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboPais"
+                        <label for="cboPaiss"
                           >Pais<span class="text-danger ms-2">*</span></label
                         >
                       </div>

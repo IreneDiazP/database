@@ -218,6 +218,8 @@ document.getElementById('btnagregareventoparticipante').addEventListener('click'
     } else {
       const result = await response.json();
       const data = result.data;
+      console.log('los datos para evento')
+      console.log(data)
 
       document.getElementById("txtCodigoEvento").value =
         data.codigoEvento;
@@ -228,9 +230,11 @@ document.getElementById('btnagregareventoparticipante').addEventListener('click'
       document.getElementById("cboAreaTematica").value =
         data.cAreaTem_id;
       document.getElementById("txtDescripcion").value = data.DescEvento;
-      document.getElementById("cboPais").value =
+      document.getElementById("cboPaiss").value =
         data.cpais_id;
-        document.getElementById("txtFechainicio").value =
+        console.log(document.getElementById("cboPaiss").value =
+        data.cpais_id)
+      document.getElementById("txtFechainicio").value =
         data.fechaInicio;
       document.getElementById("txtFechafin").value = data.fechaFin;
       document.getElementById("cboTipoApoyo").value =

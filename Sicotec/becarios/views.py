@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
-from eventos.models import Evento,Tipo_Apoyo
+from eventos.models import Evento,Tipo_Apoyo,Tipo_Evento
 
 from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica
 # Create your views here.
@@ -118,7 +118,6 @@ def actualizarParticipante(request):
         try:
 
             data = json.loads(request.body)
-            print('Los datos son:', data)
 
             for item in data.get('changes', []):
                 participante_id = item.get('id')
@@ -156,7 +155,7 @@ def actualizarParticipante(request):
 def editarparticipante(request,idparticipante):
     participante = Participante.objects.get(id=idparticipante)
     todosEventos = Evento.objects.all()
-    Tipo_Eventos=Evento.objects.all().order_by('cTipoEvento')
+    Tipo_Eventos=Tipo_Evento.objects.all().order_by('cTipoEvento')
     TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
     EntFinan = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')
     TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
@@ -166,6 +165,7 @@ def editarparticipante(request,idparticipante):
     tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
     formacionacademica=FormacionAcademica.objects.all().order_by('nombre_formacionacademica')
     pais=Pais.objects.all().order_by('cpais')
+   
     departamentos=Departamento.objects.all().order_by('departamento')
     institucion=Institucion_Financiamiento.objects.all().order_by('cInstFinancia')
     
@@ -173,9 +173,7 @@ def editarparticipante(request,idparticipante):
     proyectos = participante.proyectos.all()
     eventos = participante.eventos.all()
     
-    print( proyectos)
-    print(eventos)
-    
+
     return render(request,'becarios/editarparticipante.html',{
         'tipo_participante_choices': tipo_participante_choices,
         'procedencia_choices': procedencia_choices,
@@ -277,7 +275,7 @@ def getDistrito (request, idprovincia):
 @login_required   
 def get_Evento(request,idEvento):
     try:
-        print('llegue a get evento')
+       
         eventorequerido = Evento.objects.get(id=idEvento)
         data = {
             'codigoEvento': eventorequerido.codigoEvento,
@@ -285,7 +283,7 @@ def get_Evento(request,idEvento):
             'cTipoEvento_id': eventorequerido.cTipoEvento_id,
             'cAreaTem_id': eventorequerido.cAreaTem_id,
             'DescEvento': eventorequerido.DescEvento,
-            'cpais_id': eventorequerido.cpais_id,
+            'cpais_id': eventorequerido.cpais.id,
             'fechaInicio': eventorequerido.fechaInicio,
             'fechaFin': eventorequerido.fechaFin,
             'cTipoApoyo_id': eventorequerido.cTipoApoyo_id,
