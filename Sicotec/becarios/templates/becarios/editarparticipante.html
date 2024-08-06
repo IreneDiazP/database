@@ -1227,6 +1227,14 @@
 
 {% block script %} 
 
+<script>
+
+  function convertToUppercase(input) {
+    input.value = input.value.toUpperCase();
+  }
+
+</script>
+
 <script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>
 
 <script src="{% static 'core/js/inicializador/inicializador_entidad_instituciones.js' %}"></script>

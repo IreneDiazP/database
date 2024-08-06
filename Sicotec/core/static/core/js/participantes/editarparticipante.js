@@ -132,7 +132,6 @@ function getCookie(name) {
   return cookieValue;
 }
 
-
 function actualizarVisibilidadCampos() {
   const cboPais = document.getElementById("cboPais");
   const paisSeleccionadoNombre =
@@ -182,160 +181,200 @@ document.getElementById("cboPais").addEventListener("change", function () {
   }
 });
 
-
-
 //para vambio de nombre o tipo de evento
 const cboTipoEventoCodigo = document.getElementById("cboTipoEventobuscar");
 const cboEventoNombre = document.getElementById("cboNombreeventobuscar");
 
 cboTipoEventoCodigo.addEventListener("change", function () {
-    idvalortipo=this.value
-    cboEventoNombre.value=idvalortipo
-  });
-  
-  cboEventoNombre.addEventListener("change", function () {
-    idvalornombre=this.value
-    cboTipoEventoCodigo.value=idvalornombre
-  });
-
-document.getElementById('btnagregareventoparticipante').addEventListener('click', async function(){
-    idRegistroEvento=document.getElementById('cboTipoEventobuscar').value
-    contenedorbuscar=document.getElementById('opcionBuscarEvento')
-    contenedorbuscar.classList.add('d-none')
-
-    const urleventos=`../../getDatosEvento/${idRegistroEvento}`
-
-  const csrftoken = getCookie("csrftoken");
-  try {
-    const response = await fetch(urleventos, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "X-CSRFToken": csrftoken,
-      },
-    });
-    if (!response.ok) {
-      const errorData = await response.json();
-      NotificacionSwal("Error!", errorData.message, "error", "ok");
-    } else {
-      const result = await response.json();
-      const data = result.data;
-      console.log('los datos para evento')
-      console.log(data)
-      document.getElementById("txtCodigoEvento").value =
-        data.codigoEvento;
-        document.getElementById("ideventousuario").value = data.idevento;
-      document.getElementById("txtNombreEvento").value =
-        data.nomEvento;
-      document.getElementById("cboTipoEvento").value =
-        data.cTipoEvento_id;
-      document.getElementById("cboAreaTematica").value =
-        data.cAreaTem_id;
-      document.getElementById("txtDescripcion").value = data.DescEvento;
-      document.getElementById("cboPaiss").value =
-        data.cpais_id;
-        console.log(document.getElementById("cboPaiss").value =
-        data.cpais_id)
-      document.getElementById("txtFechainicio").value =
-        data.fechaInicio;
-      document.getElementById("txtFechafin").value = data.fechaFin;
-      document.getElementById("cboTipoApoyo").value =
-        data.cTipoApoyo_id;
-
-      document.getElementById("cboTipoEnFinanciamiento").value =
-        data.cEntFinan_id;
-
-        const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
-        await cargarInstitucionesFinanciamiento(data.cEntFinan_id, data.cInstFinanc_id, urlget);
-
-      document.getElementById("cboTipoMOneda").value =
-        data.cTipo_Moneda_id;
-      document.getElementById("txtMonto").value = data.monto;
-      document.getElementById("txttipoCambio").value =
-        data.tipo_Cambio;
-
-    }
-  } catch (error) {
-    NotificacionSwal(
-      "Error!",
-      "Hubo un problema al procesar la solicitud",
-      "error",
-      "ok"
-    );
-  }
-
-})
-
-// Evento para cargar instituciones de financiamiento
-document.getElementById("cboTipoEnFinanciamiento").addEventListener("change", function () {
-
-  const urlget = `/proyecto/getInstituciones/${this.value}`;
-  cargarInstitucionesFinanciamiento(this.value, null, urlget);
+  idvalortipo = this.value;
+  cboEventoNombre.value = idvalortipo;
 });
 
-//click en boton 
+cboEventoNombre.addEventListener("change", function () {
+  idvalornombre = this.value;
+  cboTipoEventoCodigo.value = idvalornombre;
+});
 
-document.getElementById('formEditarañadirEvento').addEventListener('submit',function(event){
-  event.preventDefault();
+document
+  .getElementById("btnagregareventoparticipante")
+  .addEventListener("click", async function () {
+    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
+    contenedorbuscar = document.getElementById("opcionBuscarEvento");
+    contenedorbuscar.classList.add("d-none");
 
-  console.log('clic en evento')
-  idevento = document.getElementById('ideventousuario').value
-  CodigoEvento = document.getElementById('txtCodigoEvento').value
-  NombreEvento = document.getElementById('txtNombreEvento').value
-  TipoEvento = document.getElementById('cboTipoEvento').value
-  AreaTematica = document.getElementById('cboAreaTematica').value
-  DescripcionEvento = document.getElementById('txtDescripcion').value
-  PaisEvento = document.getElementById('cboPaiss').value
-  Fechainicio = document.getElementById('txtFechainicio').value
-  Fechafin = document.getElementById('txtFechafin').value
-  TipoApoyo = document.getElementById('cboTipoApoyo').value
-  TipoEnFinanciamiento = document.getElementById('cboTipoEnFinanciamiento').value
-  TipoInsFinanciamiento = document.getElementById('cboTipoInsFinanciamiento').value
-  TipoMOneda = document.getElementById('cboTipoMOneda').value
-  Monto = document.getElementById('txtMonto').value
-  TipoCambio = document.getElementById('txttipoCambio').value
+    const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
 
-  data={
-    idevento,
-    CodigoEvento,
-    NombreEvento,
-    TipoEvento,
-    AreaTematica,
-    DescripcionEvento,
-    PaisEvento,
-    Fechainicio,
-    Fechafin,
-    TipoApoyo,
-    TipoEnFinanciamiento,
-    TipoInsFinanciamiento,
-    TipoMOneda,
-    Monto,
-    TipoCambio
-  }
+    const csrftoken = getCookie("csrftoken");
+    try {
+      const response = await fetch(urleventos, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "X-CSRFToken": csrftoken,
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        NotificacionSwal("Error!", errorData.message, "error", "ok");
+      } else {
+        const result = await response.json();
+        const data = result.data;
+        console.log("los datos para evento");
+        console.log(data);
+        document.getElementById("txtCodigoEvento").value = data.codigoEvento;
+        document.getElementById("ideventousuario").value = data.idevento;
+        document.getElementById("txtNombreEvento").value = data.nomEvento;
+        document.getElementById("cboTipoEvento").value = data.cTipoEvento_id;
+        document.getElementById("cboAreaTematica").value = data.cAreaTem_id;
+        document.getElementById("txtDescripcion").value = data.DescEvento;
+        document.getElementById("cboPaiss").value = data.cpais_id;
+        console.log(
+          (document.getElementById("cboPaiss").value = data.cpais_id)
+        );
+        document.getElementById("txtFechainicio").value = data.fechaInicio;
+        document.getElementById("txtFechafin").value = data.fechaFin;
+        document.getElementById("cboTipoApoyo").value = data.cTipoApoyo_id;
 
-  urleditarevento="../../editarevento/"
-  const csrftoken = getCookie("csrftoken");
-  fetch(urleditarevento,{
-    method: "POST",
-    headers:{
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken
-    },
-    body:JSON.stringify(data)
-  }).then(response => response.json()).then(data => {
-    if (data.success) {
-      console.log('listo envie todo');
-      // Puedes redirigir o mostrar una notificación
-      alert('Evento actualizado exitosamente');
-    } else {
-      console.error('Error:', data.message);
+        document.getElementById("cboTipoEnFinanciamiento").value =
+          data.cEntFinan_id;
+
+        const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
+        await cargarInstitucionesFinanciamiento(
+          data.cEntFinan_id,
+          data.cInstFinanc_id,
+          urlget
+        );
+
+        document.getElementById("cboTipoMOneda").value = data.cTipo_Moneda_id;
+        document.getElementById("txtMonto").value = data.monto;
+        document.getElementById("txttipoCambio").value = data.tipo_Cambio;
+      }
+    } catch (error) {
+      NotificacionSwal(
+        "Error!",
+        "Hubo un problema al procesar la solicitud",
+        "error",
+        "ok"
+      );
     }
-  })
-  .catch(error => {
-    console.error('Error en la solicitud:', error);
   });
-  
 
+// Evento para cargar instituciones de financiamiento
+document
+  .getElementById("cboTipoEnFinanciamiento")
+  .addEventListener("change", function () {
+    const urlget = `/proyecto/getInstituciones/${this.value}`;
+    cargarInstitucionesFinanciamiento(this.value, null, urlget);
+  });
 
-})
+//click en boton
 
+document
+  .getElementById("formEditarañadirEvento")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    console.log("clic en evento");
+    idevento = document.getElementById("ideventousuario").value;
+    CodigoEvento = document.getElementById("txtCodigoEvento").value;
+    NombreEvento = document.getElementById("txtNombreEvento").value;
+    TipoEvento = document.getElementById("cboTipoEvento").value;
+    AreaTematica = document.getElementById("cboAreaTematica").value;
+    DescripcionEvento = document.getElementById("txtDescripcion").value;
+    PaisEvento = document.getElementById("cboPaiss").value;
+    Fechainicio = document.getElementById("txtFechainicio").value;
+    Fechafin = document.getElementById("txtFechafin").value;
+    TipoApoyo = document.getElementById("cboTipoApoyo").value;
+    TipoEnFinanciamiento = document.getElementById(
+      "cboTipoEnFinanciamiento"
+    ).value;
+    TipoInsFinanciamiento = document.getElementById(
+      "cboTipoInsFinanciamiento"
+    ).value;
+    TipoMOneda = document.getElementById("cboTipoMOneda").value;
+    Monto = document.getElementById("txtMonto").value;
+    TipoCambio = document.getElementById("txttipoCambio").value;
+
+    data = {
+      idevento,
+      CodigoEvento,
+      NombreEvento,
+      TipoEvento,
+      AreaTematica,
+      DescripcionEvento,
+      PaisEvento,
+      Fechainicio,
+      Fechafin,
+      TipoApoyo,
+      TipoEnFinanciamiento,
+      TipoInsFinanciamiento,
+      TipoMOneda,
+      Monto,
+      TipoCambio,
+    };
+
+    urleditarevento = "../../editarevento/";
+    const csrftoken = getCookie("csrftoken");
+    fetch(urleditarevento, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log("listo envie todo");
+          contenedorbuscar = document.getElementById("opcionBuscarEvento");
+          contenedorbuscar.classList.remove("d-none");
+
+          const modalElement = document.getElementById(
+            "modalEditarParticipantes"
+          );
+
+          const modal = bootstrap.Modal.getInstance(modalElement);
+
+          limpiarCampos();
+
+          if (modal) {
+            modal.hide();
+          }
+        } else {
+          console.error("Error:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
+      });
+  });
+
+function limpiarCampos() {
+  const campos = [
+    "ideventousuario",
+    "txtCodigoEvento",
+    "txtNombreEvento",
+    "cboTipoEvento",
+    "cboAreaTematica",
+    "txtDescripcion",
+    "cboPaiss",
+    "txtFechainicio",
+    "txtFechafin",
+    "cboTipoApoyo",
+    "cboTipoEnFinanciamiento",
+    "cboTipoInsFinanciamiento",
+    "cboTipoMOneda",
+    "txtMonto",
+    "txttipoCambio",
+    "cboTipoEventobuscar",
+    "cboNombreeventobuscar",
+  ];
+
+  campos.forEach((campo) => {
+    const element = document.getElementById(campo);
+    if (element) {
+      element.value = "";
+    }
+  });
+}
