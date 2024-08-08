@@ -181,7 +181,8 @@ document.getElementById("cboPais").addEventListener("change", function () {
   }
 });
 
-//para vambio de nombre o tipo de evento
+//para cambio de nombre o tipo de evento
+
 const cboTipoEventoCodigo = document.getElementById("cboTipoEventobuscar");
 const cboEventoNombre = document.getElementById("cboNombreeventobuscar");
 
@@ -195,6 +196,8 @@ cboEventoNombre.addEventListener("change", function () {
   cboTipoEventoCodigo.value = idvalornombre;
 });
 
+
+//EVENTO CLICK EN AGREGAR EVENTO Y ESTE PINTA EN EL MODAL
 document
   .getElementById("btnagregareventoparticipante")
   .addEventListener("click", async function () {
@@ -267,8 +270,9 @@ document
     cargarInstitucionesFinanciamiento(this.value, null, urlget);
   });
 
-//click en boton
 
+
+//click en boton SUBMIT GUARDAR EVENTO 
 document
   .getElementById("formEditarañadirEvento")
   .addEventListener("submit", function (event) {
@@ -341,6 +345,8 @@ document
           if (modal) {
             modal.hide();
           }
+
+
         } else {
           console.error("Error:", data.message);
         }
@@ -349,6 +355,7 @@ document
         console.error("Error en la solicitud:", error);
       });
   });
+
 
 function limpiarCampos() {
   const campos = [
@@ -378,3 +385,5 @@ function limpiarCampos() {
     }
   });
 }
+
+
