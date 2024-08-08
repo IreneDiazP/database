@@ -44,6 +44,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+function VerificarTipoMoneda(TipoMoneda) {
+  const tipo = TipoMoneda.toLowerCase();
+  const esSoles = tipo === "soles";
+
+  const tipoCambioInput = document.getElementById("txttipoCambio");
+  const montoInput = document.getElementById("txtMonto");
+  const montosolesInput = document.getElementById("txtMontosoles");
+
+  tipoCambioInput.disabled = esSoles;//true o false
+  tipoCambioInput.value = esSoles ? "1" : "";
+  montoInput.value = "";
+  montosolesInput.value = "";
+}
+
 
 function clickmonto(monto) {
   console.log("el monto es :" + monto);
@@ -61,16 +75,3 @@ function clicktipocammbio(tipocambio) {
   document.getElementById("txtMontosoles").value = total;
 }
 
-function VerificarTipoMoneda(TipoMoneda) {
-  const tipo = TipoMoneda.toLowerCase();
-  const esSoles = tipo === "soles";
-
-  const tipoCambioInput = document.getElementById("txttipoCambio");
-  const montoInput = document.getElementById("txtMonto");
-  const montosolesInput = document.getElementById("txtMontosoles");
-
-  tipoCambioInput.disabled = esSoles;//true o false
-  tipoCambioInput.value = esSoles ? "1" : "";
-  montoInput.value = "";
-  montosolesInput.value = "";
-}

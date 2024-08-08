@@ -140,6 +140,7 @@ async function CargardatoProyecto(idRegistroProyecto) {
       document.getElementById("txtMonto").value = result.data[0].monto;
       document.getElementById("txttipoCambio").value =
         result.data[0].tipo_Cambio;
+        clickmonto(result.data[0].monto)
       document.getElementById("txtRespIpen").value = result.data[0].responsable;
       document.getElementById("txtRespEnt").value =
         result.data[0].responsableEnt;
@@ -228,4 +229,27 @@ document.getElementById("formEliminarProyecto").addEventListener("submit", funct
   .catch(error => {
     console.error("Error en la solicitud AJAX:", error);
   });
+});
+
+//click en tipo de moneda
+document
+  .getElementById("cboTipoMOneda")
+  .addEventListener("change", function () {
+    this.value;
+    let selectElement = this;
+    let selectedOption = selectElement.options[selectElement.selectedIndex];
+    let selectedText = selectedOption.text;
+    VerificarTipoMoneda(selectedText);
+  });
+
+
+//EVENTO PARA CALCULAR TOTAL
+document.getElementById("txtMonto").addEventListener("input", function () {
+  let monto = this.value;
+  clickmonto(monto)
+});
+
+document.getElementById("txttipoCambio").addEventListener("input", function () {
+  let tipocambio = this.value;
+  clicktipocammbio(tipocambio)
 });

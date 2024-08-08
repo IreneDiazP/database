@@ -107,4 +107,26 @@ function limpiarCampos() {
       document.getElementById(campo).value = "";
     });
   }
-  
+
+//click en tipo de moneda
+document
+  .getElementById("cboTipoMOneda")
+  .addEventListener("change", function () {
+    this.value;
+    let selectElement = this;
+    let selectedOption = selectElement.options[selectElement.selectedIndex];
+    let selectedText = selectedOption.text;
+    VerificarTipoMoneda(selectedText);
+  });
+
+
+//EVENTO PARA CALCULAR TOTAL
+document.getElementById("txtMonto").addEventListener("input", function () {
+  let monto = this.value;
+  clickmonto(monto)
+});
+
+document.getElementById("txttipoCambio").addEventListener("input", function () {
+  let tipocambio = this.value;
+  clicktipocammbio(tipocambio)
+});
