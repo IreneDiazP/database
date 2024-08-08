@@ -201,9 +201,11 @@ cboEventoNombre.addEventListener("change", function () {
 document
   .getElementById("btnagregareventoparticipante")
   .addEventListener("click", async function () {
+    TipoParticipante()
     idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
     contenedorbuscar = document.getElementById("opcionBuscarEvento");
     contenedorbuscar.classList.add("d-none");
+    
 
     const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
 
@@ -386,4 +388,32 @@ function limpiarCampos() {
   });
 }
 
+
+//funcion para verificar si es experto o no 
+function TipoParticipante() {
+  let tipoparticipantee = document.getElementById('cboTipoParticipacion').value;
+  console.log(tipoparticipantee);
+
+  let tipoparticipante = tipoparticipantee.toUpperCase();
+  let esExperto = tipoparticipante === "EXPERTO";
+
+  const compromiso = document.getElementById('txtCompromiso');
+  const informe = document.getElementById('txtInforme');
+  const observacion = document.getElementById('txtObservacion');
+  const actividad = document.getElementById('txtActividad');
+
+  
+  const compromisoContainer = compromiso.closest('.col-md-3');
+  const informeContainer = informe.closest('.col-md-3');
+  const observacionContainer = observacion.closest('.col-md-3');
+  const actividadContainer = actividad.closest('.col-md-3');
+
+  if (esExperto) {
+    if (compromisoContainer) compromisoContainer.classList.add('d-none');
+    if (informeContainer) informeContainer.classList.add('d-none');
+  } else {
+    if (observacionContainer) observacionContainer.classList.add('d-none');
+    if (actividadContainer) actividadContainer.classList.add('d-none');
+  }
+}
 

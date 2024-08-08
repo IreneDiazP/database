@@ -124,3 +124,126 @@ class Participante(models.Model):
     def __str__(self):
         return self.nom_participante
     
+    
+
+
+class Det_EventoProyecto(models.Model):
+    participante = models.ForeignKey(
+        Participante,
+        on_delete=models.PROTECT,
+        verbose_name="id participante",
+        related_name='det_eventoparticipante'
+    )
+    
+    proyecto = models.ForeignKey(
+        Proyecto,
+        on_delete=models.PROTECT,
+        verbose_name="id proyecto",
+        related_name='det_eventoparticipante',
+        null=True,
+        blank=True
+    )
+    
+    evento = models.ForeignKey(
+        Evento,
+        on_delete=models.PROTECT,
+        verbose_name="id evento",
+        related_name='det_eventoparticipante',
+        null=True,
+        blank=True
+    )
+    
+    Cod_autorizacion = models.CharField(
+        max_length=50,
+        verbose_name='código autorización',
+        null=True,
+        blank=True
+    )
+    
+    Cod_acta = models.CharField(
+        max_length=50,
+        verbose_name='código acta',
+        null=True,
+        blank=True
+    )
+    
+    Autorizacion = models.FileField(
+        upload_to='autorizaciones/',
+        verbose_name='documento autorización',
+        null=True,
+        blank=True
+    )
+    
+    acta = models.FileField(
+        upload_to='acta/',
+        verbose_name='documento Acta',
+        null=True,
+        blank=True
+    )
+    
+    Compromiso = models.CharField(
+        max_length=250,
+        verbose_name='compromiso',
+        null=True,
+        blank=True
+    )
+    
+    Objetivo = models.CharField(
+        max_length=250,
+        verbose_name='objetivo',
+        null=True,
+        blank=True
+    )
+    
+    Informe = models.CharField(
+        max_length=50,
+        verbose_name='informe',
+        null=True,
+        blank=True
+    )
+    
+    Observacion = models.CharField(
+        max_length=250,
+        verbose_name='observación',
+        null=True,
+        blank=True
+    )
+    
+    actividad = models.CharField(
+        max_length=250,
+        verbose_name='actividad',
+        null=True,
+        blank=True
+    )
+    
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name="detalleEventoproyecto_created_by",
+        verbose_name="Creado por"
+    )
+    
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Fecha de Creación"
+    )
+    
+    updated_by = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name="detalleEventoproyecto_updated_by",
+        verbose_name="Modificado por",
+        null=True
+    )
+    
+    updated = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Fecha de Edición"
+    )
+    
+    class Meta:
+        verbose_name = "detalle evento y proyecto"
+        verbose_name_plural = "detalles eventos y proyectos"
+
+    def __str__(self):
+        return f"Participante: {self.participante} - Proyecto: {self.proyecto} - Evento: {self.evento}"

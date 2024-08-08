@@ -426,169 +426,6 @@
                     </div>
                   </div>
                 </div>
-                {% comment %}
-                <hr />
-                <!--formulario de ingreso datos-->
-                <div class="row g-3 px-3">
-                  <span class="fw-bold fs-6"
-                    >Datos evento o proyecto del participante</span
-                  >
-      
-                  <!------   ----------------------------- -->
-                  <!--TIPO DE EVENTO-->
-                  <div class="col-md-3">
-                    <div class="form-floating">
-                      <select
-                        class="form-select"
-                        id="cboTipoEvento"
-                        name="cboTipoEvento"
-                        required
-                      >
-                        <option selected></option>
-      
-                        <option value="1">Tipo de Evento</option>
-                      </select>
-                      <label for="cboTipoEvento"
-                        >Tipo de Evento<span class="text-danger ms-2">*</span></label
-                      >
-                    </div>
-                  </div>
-                  <!------   ----------------------------- -->
-                  <!--CODIGO DE EVENTO-->
-                  <div class="col-md-6">
-                    <div class="form-floating">
-                      <select
-                        class="form-select"
-                        id="cboCodigoEvento"
-                        name="cboCodigoEvento"
-                        required
-                      >
-                        <option selected></option>
-      
-                        <option value="1">Codigo - nombre de Evento</option>
-                      </select>
-                      <label for="cboCodigoEvento"
-                        >Codigo - Nombre de Evento<span class="text-danger ms-2"
-                          >*</span
-                        ></label
-                      >
-                    </div>
-                  </div>
-                  <!------   ----------------------------- -->
-      
-                  <!--Tipo de Proyecto-->
-                  <div class="col-md-3">
-                    <div class="form-floating">
-                      <select
-                        class="form-select"
-                        id="cboTipoProyecto"
-                        name="cboTipoProyecto"
-                        required
-                      >
-                        <option selected></option>
-      
-                        <option value="1">Tipo de Proyecto</option>
-                      </select>
-                      <label for="cboTipoProyecto"
-                        >Tipo de Proyecto<span class="text-danger ms-2"
-                          >*</span
-                        ></label
-                      >
-                    </div>
-                  </div>
-                  <!------   ----------------------------- -->
-                  <!--Codigo - Nombre de Proyecto-->
-                  <div class="col-md-6">
-                    <div class="form-floating">
-                      <select
-                        class="form-select"
-                        id="cboCodigoProyecto"
-                        name="cboCodigoProyecto"
-                        required
-                      >
-                        <option selected></option>
-      
-                        <option value="1">Codigo - nombre de Proyecto</option>
-                      </select>
-                      <label for="cboCodigoProyecto"
-                        >Codigo - Nombre de Proyecto<span class="text-danger ms-2"
-                          >*</span
-                        ></label
-                      >
-                    </div>
-                  </div>
-                  <!------   ----------------------------- -->
-                  <!--Codigo de Autorizacion-->
-                  <div class="col-md-3">
-                    <div class="form-floating">
-                      <input type="hidden" id="txtidCodigoAutorizacion" />
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="txtCodigoAutorizacion"
-                        name="txtCodigoAutorizacion"
-                        required
-                        maxlength="150"
-                      />
-                      <label for="txtCodigoAutorizacion"
-                        >Autorizacion<span class="text-danger ms-2">*</span></label
-                      >
-                    </div>
-                  </div>
-                  <!------   ----------------------------- -->
-                  <!-- SUBIR AUTORIZACION -->
-                  <!-- <div class="col-md-3">
-                    <div class="form-floating">
-                      <input type="file" class="form-control" id="fileDocumento" name="fileDocumento" required />
-                      <label for="fileDocumento">Subir Documento<span class="text-danger ms-2">*</span></label>
-                    </div>
-                  </div> -->
-                  <!------   ----------------------------- -->
-                  <!--ACTA -->
-                  <div class="col-md-3">
-                    <div class="form-floating">
-                      <input type="hidden" id="txtidCodigoAutorizacion" />
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="txtCodigoAutorizacion"
-                        name="txtCodigoAutorizacion"
-                        required
-                        maxlength="150"
-                      />
-                      <label for="txtCodigoAutorizacion"
-                        >Acta<span class="text-danger ms-2">*</span></label
-                      >
-                    </div>
-                  </div>
-                  <!------   ----------------------------- -->
-                  <!-- SUBIR ACTA  -->
-                  <!-- <div class="col-md-3">
-                    <div class="form-floating">
-                      <input type="file" class="form-control" id="fileDocumento" name="fileDocumento" required />
-                      <label for="fileDocumento">Subir Acta<span class="text-danger ms-2">*</span></label>
-                    </div>
-                  </div> -->
-                  <!--Compromiso-->
-      
-                  <div class="col-md-12">
-                    <div class="form-floating">
-                      <input type="hidden" id="txtidCompromiso" />
-                      <textarea
-                        class="form-control"
-                        id="txtCompromiso"
-                        name="txtCompromiso"
-                        required
-                        maxlength="300"
-                        rows="4"
-                      ></textarea>
-                      <label for="txtCompromiso"
-                        >Compromiso<span class="text-danger ms-2">*</span></label
-                      >
-                    </div>
-                  </div>
-                </div>
-                {% endcomment %}
       
                 <!-- Botones -->
                 <div class="row g-3 px-3">
@@ -1133,6 +970,144 @@
                       </div>
                     </div>
                   </div>
+
+                  <hr />
+                  <!--formulario de ingreso datos-->
+                  <div class="row g-3 px-3">
+                    <span class="fw-bold fs-6"
+                      >Detalles del Evento</span
+                    >
+                    <!------   ----------------------------- -->
+                    <!--CODIGO AUTORIZACION-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtCodigoAutorizacion"
+                          name="txtCodigoAutorizacion"
+                  
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtCodigoAutorizacion"
+                          >Codigo Autorizacion</label
+                        >
+                      </div>
+                    </div>
+                    <!------   ----------------------------- -->
+                    <!--CODIGO ACTA-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtCodigoActa"
+                          name="txtCodigoActa"
+                          
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtCodigoActa"
+                          >Codigo Acta</label
+                        >
+                      </div>
+                    </div>
+                    <!------   ----------------------------- -->
+                    <!--COMPROMISO-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtCompromiso"
+                          name="txtCompromiso"
+                          
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtCompromiso"
+                          >Compromiso</label
+                        >
+                      </div>
+                    </div>
+                    <!------   ----------------------------- -->
+                    <!-- OBJETIVO -->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtObjetivo"
+                          name="txtObjetivo"
+                          
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtObjetivo"
+                          >Objetivo</label
+                        >
+                      </div>
+                    </div>
+                    <!------   ----------------------------- -->
+                    <!--INFORME-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtInforme"
+                          name="txtInforme"
+                          
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtInforme"
+                          >Informe</label
+                        >
+                      </div>
+                    </div>
+                    <!------   ----------------------------- -->
+                    <!--OBSERVACION-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtObservacion"
+                          name="txtObservacion"
+                          
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtObservacion"
+                          >Observacion</label
+                        >
+                      </div>
+                    </div>
+
+                    <!------   ----------------------------- -->
+                    <!--ACTIVIDAD-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtActividad"
+                          name="txtActividad"
+                          
+                          maxlength="150"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtActividad"
+                          >Actividad</label
+                        >
+                      </div>
+                    </div>
+
+                    <!------   ----------------------------- -->
+                  </div>
+
                 </div>
               </div>
               <!-- Botones Guardar y Cancelar -->
@@ -1153,7 +1128,7 @@
                 </button>
               </div>
             </form>
-            
+
           </div>
         </div>
       </div>
