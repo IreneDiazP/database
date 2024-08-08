@@ -1,7 +1,9 @@
+let participanteidId;
+
 document.addEventListener("DOMContentLoaded", function () {
   const url = window.location.pathname;
   const parts = url.split("/");
-  const participanteidId = parts[parts.length - 2];
+  participanteidId = parts[parts.length - 2];
 
   const data = { participanteidId: participanteidId };
 
@@ -280,8 +282,10 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    console.log("clic en evento");
+    console.log("clickkkk en evento");
+
     idevento = document.getElementById("ideventousuario").value;
+    idproyecto = document.getElementById('idproyectousuario').value
     CodigoEvento = document.getElementById("txtCodigoEvento").value;
     NombreEvento = document.getElementById("txtNombreEvento").value;
     TipoEvento = document.getElementById("cboTipoEvento").value;
@@ -300,9 +304,19 @@ document
     TipoMOneda = document.getElementById("cboTipoMOneda").value;
     Monto = document.getElementById("txtMonto").value;
     TipoCambio = document.getElementById("txttipoCambio").value;
+    Codigo_autorizacion = document.getElementById("txtCodigoAutorizacion").value;
+    Codigo_acta = document.getElementById("txtCodigoActa").value;
+    Compromiso = document.getElementById("txtCompromiso").value;
+    Objetivo = document.getElementById("txtObjetivo").value;
+    Informe = document.getElementById("txtInforme").value;
+    Observacion = document.getElementById("txtObservacion").value;
+    Actividad = document.getElementById("txtActividad").value;
+    iddetalleeventoproyecto = document.getElementById('iddetalleeventoproyecto').value
+    idparticipante=participanteidId
 
     data = {
       idevento,
+      idproyecto,
       CodigoEvento,
       NombreEvento,
       TipoEvento,
@@ -317,9 +331,18 @@ document
       TipoMOneda,
       Monto,
       TipoCambio,
+      Codigo_autorizacion,
+      Codigo_acta,
+      Compromiso,
+      Objetivo,
+      Informe,
+      Observacion,
+      Actividad,
+      idparticipante,
+      iddetalleeventoproyecto,
     };
 
-    urleditarevento = "../../editarevento/";
+    urleditarevento = "../../añadireventoproyecto/";
     const csrftoken = getCookie("csrftoken");
     fetch(urleditarevento, {
       method: "POST",
@@ -330,9 +353,12 @@ document
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
+      .then((responseData) => {
+        if (responseData.success) {
           console.log("listo envie todo");
+          let eventos = responseData.eventos
+          console.log(eventos)
+
           contenedorbuscar = document.getElementById("opcionBuscarEvento");
           contenedorbuscar.classList.remove("d-none");
 
@@ -348,6 +374,44 @@ document
             modal.hide();
           }
 
+        //para crear la tabla 
+        const tablaBody = document.getElementById("tablaEventosBody");
+        // Crea el HTML de la tabla
+      let html = "";
+      eventos.forEach(evento => {
+        html += `
+          <tr id="${evento.id}">
+            <th class="text-center">${evento.codigoevento}</th>
+            <th class="text-center">${evento.tipoevento}</th>
+            <th class="text-center">${evento.nomEvento}</th>
+            <th class="text-center">
+              <div class="d-flex gap-2 justify-content-center">
+                <button
+                  type="button"
+                  class="btn btn-success editBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalEditarParticipantes"
+                  data-bs-whatever="Editar"
+                >
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger trashBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalEliminarEvento"
+                  data-bs-whatever="Eliminar"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </th>
+          </tr>
+        `;
+      });
+
+      // Asigna el HTML generado al tbody
+      tablaBody.innerHTML = html;
 
         } else {
           console.error("Error:", data.message);

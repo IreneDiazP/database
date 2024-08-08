@@ -1,15 +1,17 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 from django.db import transaction
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica
+from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica,Det_EventoProyecto
 from eventos.models import Evento,Tipo_Apoyo,Tipo_Evento
 
-from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica
+from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica,Proyecto
 # Create your views here.
 @login_required
 def nuevoParticipante(request):
@@ -303,12 +305,14 @@ def get_Evento(request,idEvento):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
     
-def editarevento(request):
+def añadireventoproyecto(request):
     if request.method == 'POST':
         try:
             with transaction.atomic():
                 data=json.loads(request.body)
+                #obtener valores del body que se envio de js
                 x_idevento=data.get('idevento')
+                x_idproyecto = data.get('idproyecto')
                 x_CodigoEvento = data.get('CodigoEvento')
                 x_NombreEvento = data.get('NombreEvento')
                 x_TipoEvento = data.get('TipoEvento')
@@ -323,11 +327,22 @@ def editarevento(request):
                 x_TipoMOneda = data.get('TipoMOneda')
                 x_Monto = data.get('Monto')
                 x_TipoCambio = data.get('TipoCambio')
+                x_Codigo_autorizacion = data.get('Codigo_autorizacion')
+                x_Codigo_acta = data.get('Codigo_acta')
+                x_Compromiso = data.get('Compromiso')
+                x_Objetivo = data.get('Objetivo')
+                x_Informe = data.get('Informe')
+                x_Observacion = data.get('Observacion')
+                x_Actividad = data.get('Actividad')
+                x_idparticipante = data.get('idparticipante')
+                x_iddetalleeventoproyecto =data.get('iddetalleeventoproyecto')
+                print('el id es '+ x_iddetalleeventoproyecto)
                 updated_by = request.user
                 fecha_actual = timezone.now()
                 
                 eventoeditado=Evento.objects.get(id = x_idevento)
                 
+                #instancias
                 x_tipoevento_instance=Tipo_Evento.objects.get(id=x_TipoEvento)
                 x_areatema_instance=Area_Tematica.objects.get(id=x_AreaTematica)
                 x_pais_instance=Pais.objects.get(id=x_PaisEvento)
@@ -336,7 +351,11 @@ def editarevento(request):
                 x_institufina_instance=Institucion_Financiamiento.objects.get(id=TipoInsFinanciamiento)
                 x_tipomoneda_instance=Tipo_Moneda.objects.get(id=x_TipoMOneda)
                 
+                x_idevento_instance = Evento.objects.get(id=x_idevento) if x_idevento else None
+                x_idproyecto_instance = Proyecto.objects.get(id=x_idproyecto) if x_idproyecto else None
+                x_idparticipante_instance = Participante.objects.get(id=x_idparticipante) if x_idparticipante else None
                 
+                #guardar evento 
                 eventoeditado.codigoEvento = x_CodigoEvento
                 eventoeditado.nomEvento = x_NombreEvento
                 eventoeditado.cTipoEvento = x_tipoevento_instance
@@ -354,9 +373,58 @@ def editarevento(request):
                 eventoeditado.updated_by = updated_by
                 eventoeditado.updated = fecha_actual
                 
+                
+                if not x_iddetalleeventoproyecto:
+                        # Crea un nuevo objeto
+                    detalle_evento_proyecto = Det_EventoProyecto()
+                else:
+
+                    # Actualiza el objeto existente
+                    detalle_evento_proyecto = get_object_or_404(Det_EventoProyecto, id=x_iddetalleeventoproyecto)
+                 
+                 
+                # Asigna los valores a los campos
+                detalle_evento_proyecto.participante = x_idparticipante_instance
+                detalle_evento_proyecto.proyecto = x_idproyecto_instance
+                detalle_evento_proyecto.evento = x_idevento_instance
+                detalle_evento_proyecto.Cod_autorizacion = data.get('Cod_autorizacion')
+                detalle_evento_proyecto.Cod_acta = data.get('Cod_acta')
+                
+                # Manejo de archivos
+                if 'Autorizacion' in request.FILES:
+                    detalle_evento_proyecto.Autorizacion = request.FILES['Autorizacion']
+                if 'acta' in request.FILES:
+                    detalle_evento_proyecto.acta = request.FILES['acta']
+                
+                detalle_evento_proyecto.Compromiso = data.get('Compromiso')
+                detalle_evento_proyecto.Objetivo = data.get('Objetivo')
+                detalle_evento_proyecto.Informe = data.get('Informe')
+                detalle_evento_proyecto.Observacion = data.get('Observacion')
+                detalle_evento_proyecto.actividad = data.get('actividad')
+                
+                # Asigna el usuario que lo creó o actualizó
+                detalle_evento_proyecto.created_by = updated_by
+                detalle_evento_proyecto.updated_by = updated_by
+                
                 eventoeditado.save()
+                detalle_evento_proyecto.save()
+                
+                participante = Participante.objects.get(id=x_idparticipante)
+                eventosparticipante = participante.eventos.all()
+                
+                eventosparticipantesdata=[]
+                for evento in eventosparticipante:
+                    eventosparticipantesdata.append({
+                        'id':evento.id,
+                        'nombrevento': evento.nomEvento,
+                        'codigoevento':evento.codigoEvento,
+                        'tipoevento':evento.cTipoEvento
+                    })
+                
             
-            return JsonResponse({'success': True})
+                
+            
+            return JsonResponse({'success': True,'eventos': eventosparticipantesdata})
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
         except Exception as e:
