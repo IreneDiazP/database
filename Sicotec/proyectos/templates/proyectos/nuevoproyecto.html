@@ -218,10 +218,9 @@ Proyecto{% endblock title %} {% block contenido %}
             <!--MONTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidMonto" />
                 <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
                   pattern="^\d+(\.\d{1,4})?$" />
-                <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
+                <label for="txtMonto">Monto <span class="text-danger ms-2">*</span></label>
               </div>
             </div>
 
@@ -229,7 +228,6 @@ Proyecto{% endblock title %} {% block contenido %}
             <!--TIPO DE CAMBIO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidtCambio" />
                 <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required maxlength="15"
                   pattern="^\d+(\.\d{1,4})?$" />
                 <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
@@ -237,10 +235,9 @@ Proyecto{% endblock title %} {% block contenido %}
             </div>
 
             <!------   ----------------------------- -->
-            <!--MONTO SOLES-->
+            <!--EQUIVALENTE SOLES-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidMontosoles" />
                 <input type="text" class="form-control" id="txtMontosoles" disabled name="txtMontosoles" maxlength="15"
                   pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
                 <label for="txtMontosoles">Equivalente Soles (S/)</label>
