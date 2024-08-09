@@ -264,6 +264,17 @@ document
     }
   });
 
+  function Limpiarcamposbutton() {
+    console.log('limpiar campos');
+    const contenedorbuscar = document.getElementById("opcionBuscarEvento");
+    contenedorbuscar.classList.remove("d-none");
+    limpiarCampos();
+  }
+  
+  // Añade el event listener a los botones
+  document.getElementById("botoncancelareventoparticipante").addEventListener('click', Limpiarcamposbutton);
+  document.getElementById("closebuttoneventoparticipante").addEventListener('click', Limpiarcamposbutton);
+
 // Evento para cargar instituciones de financiamiento
 document
   .getElementById("cboTipoEnFinanciamiento")
