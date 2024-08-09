@@ -305,146 +305,6 @@ def get_Evento(request,idEvento):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
     
-# def añadireventoproyecto(request):
-#     if request.method == 'POST':
-#         try:
-#             with transaction.atomic():
-#                 data=json.loads(request.body)
-#                 #obtener valores del body que se envio de js
-#                 x_idevento=data.get('idevento')
-#                 x_idproyecto = data.get('idproyecto')
-#                 x_CodigoEvento = data.get('CodigoEvento')
-#                 x_NombreEvento = data.get('NombreEvento')
-#                 x_TipoEvento = data.get('TipoEvento')
-#                 x_AreaTematica = data.get('AreaTematica')
-#                 x_DescripcionEvento = data.get('DescripcionEvento')
-#                 x_PaisEvento = data.get('PaisEvento')
-#                 x_Fechainicio = data.get('Fechainicio')
-#                 x_Fechafin = data.get('Fechafin')
-#                 x_TipoApoyo = data.get('TipoApoyo')
-#                 x_TipoEnFinanciamiento = data.get('TipoEnFinanciamiento')
-#                 TipoInsFinanciamiento = data.get('TipoInsFinanciamiento')
-#                 x_TipoMOneda = data.get('TipoMOneda')
-#                 x_Monto = data.get('Monto')
-#                 x_TipoCambio = data.get('TipoCambio')
-#                 x_Codigo_autorizacion = data.get('Codigo_autorizacion')
-#                 x_Codigo_acta = data.get('Codigo_acta')
-#                 x_Compromiso = data.get('Compromiso')
-#                 x_Objetivo = data.get('Objetivo')
-#                 x_Informe = data.get('Informe')
-#                 x_Observacion = data.get('Observacion')
-#                 x_Actividad = data.get('Actividad')
-#                 x_idparticipante = data.get('idparticipante')
-#                 x_iddetalleeventoproyecto =data.get('iddetalleeventoproyecto')
-#                 print('el id es '+ x_iddetalleeventoproyecto)
-#                 updated_by = request.user
-#                 fecha_actual = timezone.now()
-                
-#                 eventoeditado=Evento.objects.get(id = x_idevento)
-                
-#                 #instancias
-#                 x_tipoevento_instance=Tipo_Evento.objects.get(id=x_TipoEvento)
-#                 x_areatema_instance=Area_Tematica.objects.get(id=x_AreaTematica)
-#                 x_pais_instance=Pais.objects.get(id=x_PaisEvento)
-#                 x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=x_TipoApoyo)
-#                 x_Entifina_instance=Entidad_Financiamiento.objects.get(id=x_TipoEnFinanciamiento)
-#                 x_institufina_instance=Institucion_Financiamiento.objects.get(id=TipoInsFinanciamiento)
-#                 x_tipomoneda_instance=Tipo_Moneda.objects.get(id=x_TipoMOneda)
-                
-#                 x_idevento_instance = Evento.objects.get(id=x_idevento) if x_idevento else None
-#                 x_idproyecto_instance = Proyecto.objects.get(id=x_idproyecto) if x_idproyecto else None
-#                 x_idparticipante_instance = Participante.objects.get(id=x_idparticipante) if x_idparticipante else None
-                
-#                 #guardar evento 
-#                 eventoeditado.codigoEvento = x_CodigoEvento
-#                 eventoeditado.nomEvento = x_NombreEvento
-#                 eventoeditado.cTipoEvento = x_tipoevento_instance
-#                 eventoeditado.cAreaTem = x_areatema_instance
-#                 eventoeditado.DescEvento = x_DescripcionEvento
-#                 eventoeditado.cpais = x_pais_instance
-#                 eventoeditado.fechaInicio = x_Fechainicio
-#                 eventoeditado.fechaFin = x_Fechafin
-#                 eventoeditado.cTipoApoyo = x_tipoapoyo_instance
-#                 eventoeditado.cEntFinan = x_Entifina_instance
-#                 eventoeditado.cInstFinanc = x_institufina_instance
-#                 eventoeditado.cTipo_Moneda = x_tipomoneda_instance
-#                 eventoeditado.monto = x_Monto
-#                 eventoeditado.tipo_Cambio = x_TipoCambio
-#                 eventoeditado.updated_by = updated_by
-#                 eventoeditado.updated = fecha_actual
-                
-                
-#                 if not x_iddetalleeventoproyecto:
-#                         # Crea un nuevo objeto
-#                     detalle_evento_proyecto = Det_EventoProyecto()
-#                 else:
-
-#                     # Actualiza el objeto existente
-#                     detalle_evento_proyecto = get_object_or_404(Det_EventoProyecto, id=x_iddetalleeventoproyecto)
-                 
-                 
-#                 # Asigna los valores a los campos
-#                 detalle_evento_proyecto.participante = x_idparticipante_instance
-#                 detalle_evento_proyecto.proyecto = x_idproyecto_instance
-#                 detalle_evento_proyecto.evento = x_idevento_instance
-#                 detalle_evento_proyecto.Cod_autorizacion = data.get('Cod_autorizacion')
-#                 detalle_evento_proyecto.Cod_acta = data.get('Cod_acta')
-                
-#                 # Manejo de archivos
-#                 if 'Autorizacion' in request.FILES:
-#                     detalle_evento_proyecto.Autorizacion = request.FILES['Autorizacion']
-#                 if 'acta' in request.FILES:
-#                     detalle_evento_proyecto.acta = request.FILES['acta']
-                
-#                 detalle_evento_proyecto.Compromiso = data.get('Compromiso')
-#                 detalle_evento_proyecto.Objetivo = data.get('Objetivo')
-#                 detalle_evento_proyecto.Informe = data.get('Informe')
-#                 detalle_evento_proyecto.Observacion = data.get('Observacion')
-#                 detalle_evento_proyecto.actividad = data.get('actividad')
-                
-#                 detalle_evento_proyecto.created_by = updated_by
-#                 detalle_evento_proyecto.updated_by = updated_by
-                
-#                 #crear evento participante
-#                 participante = get_object_or_404(Participante, id=x_idparticipante_instance)
-#                 evento = get_object_or_404(Evento, id=x_tipoevento_instance)
-        
-#                 # Verificar si el evento ya está en la relación ManyToMany
-#                 if evento not in participante.eventos.all():
-#                 # Añadir el evento al participante
-#                     participante.eventos.add(evento)
-#                  # Guardar el participante
-#                     participante.save()
-#                     print(f"Evento con ID {x_tipoevento_instance} añadido al participante con ID {x_idparticipante_instance}.")
-#                 else:
-#                     print(f"El evento con ID {x_tipoevento_instance} ya está asociado al participante con ID {x_idparticipante_instance}.")
-                    
-#                 #guardar el evento editado
-#                 eventoeditado.save()
-#                 #guardar el eventodetalle
-#                 detalle_evento_proyecto.save()
-                
-                
-#                 participante = Participante.objects.get(id=x_idparticipante)
-#                 eventosparticipante = participante.eventos.all()
-                
-#                 eventosparticipantesdata=[]
-#                 for evento in eventosparticipante:
-#                     eventosparticipantesdata.append({
-#                         'id':evento.id,
-#                         'nombrevento': evento.nomEvento,
-#                         'codigoevento':evento.codigoEvento,
-#                         'tipoevento':evento.cTipoEvento.id
-#                     })
-                
-                           
-            
-#             return JsonResponse({'success': True,'eventos': eventosparticipantesdata})
-#         except json.JSONDecodeError:
-#             return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
-#         except Exception as e:
-#             return JsonResponse({'success': False, 'message': str(e)}, status=500)
-        
         
 def añadireventoproyecto(request):
     if request.method == 'POST':
@@ -516,7 +376,11 @@ def añadireventoproyecto(request):
                 
                 # Manejo del objeto Det_EventoProyecto
                 if not x_iddetalleeventoproyecto:
-                    detalle_evento_proyecto = Det_EventoProyecto()
+                    verificarsiexiste=Det_EventoProyecto.objects.filter(participante_id = x_idparticipante_instance, evento_id = eventoeditado).exists()
+                    if verificarsiexiste:
+                        return JsonResponse({'success': False, 'message': 'Ya existe un proyecto con este participante y evento.'}, status=400)
+                    else:
+                        detalle_evento_proyecto = Det_EventoProyecto()
                 else:
                     detalle_evento_proyecto = get_object_or_404(Det_EventoProyecto, id=x_iddetalleeventoproyecto)
                 
@@ -564,7 +428,7 @@ def añadireventoproyecto(request):
                         'tipoevento': evento.cTipoEvento.cTipoEvento  # Cambiado a ID
                     })
                 
-            return JsonResponse({'success': True, 'eventos': eventosparticipantesdata})
+            return JsonResponse({'success': True,'message': 'Proyecto registrado correctamente', 'eventos': eventosparticipantesdata})
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
         except Exception as e:

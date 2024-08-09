@@ -425,12 +425,14 @@ document
 
           // Asigna el HTML generado al tbody
           tablaBody.innerHTML = html;
+          NotificacionSwal("Éxito!", responseData.message, "success", "ok");
         } else {
-          console.error("Error:", data.message);
+          NotificacionSwal("Error!", responseData.message, "error", "ok");
         }
       })
       .catch((error) => {
         console.error("Error en la solicitud:", error);
+        NotificacionSwal("Error!", "Ocurrió un problema con la solicitud.", "error", "ok");
       });
   });
 
