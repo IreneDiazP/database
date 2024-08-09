@@ -198,16 +198,14 @@ cboEventoNombre.addEventListener("change", function () {
   cboTipoEventoCodigo.value = idvalornombre;
 });
 
-
 //EVENTO CLICK EN AGREGAR EVENTO Y ESTE PINTA EN EL MODAL
 document
   .getElementById("btnagregareventoparticipante")
   .addEventListener("click", async function () {
-    TipoParticipante()
+    TipoParticipante();
     idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
     contenedorbuscar = document.getElementById("opcionBuscarEvento");
     contenedorbuscar.classList.add("d-none");
-    
 
     const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
 
@@ -274,9 +272,7 @@ document
     cargarInstitucionesFinanciamiento(this.value, null, urlget);
   });
 
-
-
-//click en boton SUBMIT GUARDAR EVENTO 
+//click en boton SUBMIT GUARDAR EVENTO
 document
   .getElementById("formEditarañadirEvento")
   .addEventListener("submit", function (event) {
@@ -285,7 +281,7 @@ document
     console.log("clickkkk en evento");
 
     idevento = document.getElementById("ideventousuario").value;
-    idproyecto = document.getElementById('idproyectousuario').value
+    idproyecto = document.getElementById("idproyectousuario").value;
     CodigoEvento = document.getElementById("txtCodigoEvento").value;
     NombreEvento = document.getElementById("txtNombreEvento").value;
     TipoEvento = document.getElementById("cboTipoEvento").value;
@@ -304,15 +300,19 @@ document
     TipoMOneda = document.getElementById("cboTipoMOneda").value;
     Monto = document.getElementById("txtMonto").value;
     TipoCambio = document.getElementById("txttipoCambio").value;
-    Codigo_autorizacion = document.getElementById("txtCodigoAutorizacion").value;
+    Codigo_autorizacion = document.getElementById(
+      "txtCodigoAutorizacion"
+    ).value;
     Codigo_acta = document.getElementById("txtCodigoActa").value;
     Compromiso = document.getElementById("txtCompromiso").value;
     Objetivo = document.getElementById("txtObjetivo").value;
     Informe = document.getElementById("txtInforme").value;
     Observacion = document.getElementById("txtObservacion").value;
     Actividad = document.getElementById("txtActividad").value;
-    iddetalleeventoproyecto = document.getElementById('iddetalleeventoproyecto').value
-    idparticipante=participanteidId
+    iddetalleeventoproyecto = document.getElementById(
+      "iddetalleeventoproyecto"
+    ).value;
+    idparticipante = participanteidId;
 
     data = {
       idevento,
@@ -356,8 +356,8 @@ document
       .then((responseData) => {
         if (responseData.success) {
           console.log("listo envie todo");
-          let eventos = responseData.eventos
-          console.log(eventos)
+          let eventos = responseData.eventos;
+          console.log(eventos);
 
           contenedorbuscar = document.getElementById("opcionBuscarEvento");
           contenedorbuscar.classList.remove("d-none");
@@ -374,16 +374,18 @@ document
             modal.hide();
           }
 
-        //para crear la tabla 
-        const tablaBody = document.getElementById("tablaEventosBody");
-        // Crea el HTML de la tabla
-      let html = "";
-      eventos.forEach(evento => {
-        html += `
+          //para crear la tabla
+          const tablaBody = document.querySelector(
+            "#tblParticipantesEventos tbody"
+          );
+          // Crea el HTML de la tabla
+          let html = "";
+          eventos.forEach((evento) => {
+            html += `
           <tr id="${evento.id}">
             <th class="text-center">${evento.codigoevento}</th>
             <th class="text-center">${evento.tipoevento}</th>
-            <th class="text-center">${evento.nomEvento}</th>
+            <th class="text-center">${evento.nombrevento}</th>
             <th class="text-center">
               <div class="d-flex gap-2 justify-content-center">
                 <button
@@ -408,11 +410,10 @@ document
             </th>
           </tr>
         `;
-      });
+          });
 
-      // Asigna el HTML generado al tbody
-      tablaBody.innerHTML = html;
-
+          // Asigna el HTML generado al tbody
+          tablaBody.innerHTML = html;
         } else {
           console.error("Error:", data.message);
         }
@@ -421,7 +422,6 @@ document
         console.error("Error en la solicitud:", error);
       });
   });
-
 
 function limpiarCampos() {
   const campos = [
@@ -452,32 +452,29 @@ function limpiarCampos() {
   });
 }
 
-
-//funcion para verificar si es experto o no 
+//funcion para verificar si es experto o no
 function TipoParticipante() {
-  let tipoparticipantee = document.getElementById('cboTipoParticipacion').value;
+  let tipoparticipantee = document.getElementById("cboTipoParticipacion").value;
   console.log(tipoparticipantee);
 
   let tipoparticipante = tipoparticipantee.toUpperCase();
   let esExperto = tipoparticipante === "EXPERTO";
 
-  const compromiso = document.getElementById('txtCompromiso');
-  const informe = document.getElementById('txtInforme');
-  const observacion = document.getElementById('txtObservacion');
-  const actividad = document.getElementById('txtActividad');
+  const compromiso = document.getElementById("txtCompromiso");
+  const informe = document.getElementById("txtInforme");
+  const observacion = document.getElementById("txtObservacion");
+  const actividad = document.getElementById("txtActividad");
 
-  
-  const compromisoContainer = compromiso.closest('.col-md-3');
-  const informeContainer = informe.closest('.col-md-3');
-  const observacionContainer = observacion.closest('.col-md-3');
-  const actividadContainer = actividad.closest('.col-md-3');
+  const compromisoContainer = compromiso.closest(".col-md-3");
+  const informeContainer = informe.closest(".col-md-3");
+  const observacionContainer = observacion.closest(".col-md-3");
+  const actividadContainer = actividad.closest(".col-md-3");
 
   if (esExperto) {
-    if (compromisoContainer) compromisoContainer.classList.add('d-none');
-    if (informeContainer) informeContainer.classList.add('d-none');
+    if (compromisoContainer) compromisoContainer.classList.add("d-none");
+    if (informeContainer) informeContainer.classList.add("d-none");
   } else {
-    if (observacionContainer) observacionContainer.classList.add('d-none');
-    if (actividadContainer) actividadContainer.classList.add('d-none');
+    if (observacionContainer) observacionContainer.classList.add("d-none");
+    if (actividadContainer) actividadContainer.classList.add("d-none");
   }
 }
-
