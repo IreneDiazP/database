@@ -13,7 +13,7 @@ urlpatterns = [
     #actualizar participantes el tipo de participante y el estado
     path('actualizarParticipante/',views.actualizarParticipante,name='actualizarParticipante'),
     
-    #url todos de editar participante
+    #url todos de editar participante renderizar los datos para participantes
     path('editarparticipante/<int:idparticipante>/',views.editarparticipante,name='editarparticipante'),
     
     #traer datos de un participante
@@ -28,7 +28,10 @@ urlpatterns = [
     #otener datos del evento 
     path('getDatosEvento/<int:idEvento>',views.get_Evento, name="get_DatosProyecto"),
     
-    #
-    path('añadireventoproyecto/',views.añadireventoproyecto, name="añadireventoproyecto")
+    #añadir el evento a detalles eventos proyecto 
+    path('añadireventoproyecto/',views.añadireventoproyecto, name="añadireventoproyecto"),
+        
+    #añadir el evento a detalles eventos proyecto 
+    path('modificarparticipante/<int:idparticipante>',views.modificarparticipante, name="modificarparticipante")
 
 ]

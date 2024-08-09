@@ -307,6 +307,7 @@ def get_Evento(request,idEvento):
     
         
 def añadireventoproyecto(request):
+
     if request.method == 'POST':
         try:
             with transaction.atomic():
@@ -374,11 +375,11 @@ def añadireventoproyecto(request):
                 eventoeditado.updated_by = updated_by
                 eventoeditado.updated = fecha_actual
                 
-                # Manejo del objeto Det_EventoProyecto
+                # cargar datos a  Det_EventoProyecto
                 if not x_iddetalleeventoproyecto:
                     verificarsiexiste=Det_EventoProyecto.objects.filter(participante_id = x_idparticipante_instance, evento_id = eventoeditado).exists()
                     if verificarsiexiste:
-                        return JsonResponse({'success': False, 'message': 'Ya existe un proyecto con este participante y evento.'}, status=400)
+                        return JsonResponse({'success': False, 'message': 'Este evento ya se encuentra vinculado con este participante.'}, status=400)
                     else:
                         detalle_evento_proyecto = Det_EventoProyecto()
                 else:
@@ -390,7 +391,7 @@ def añadireventoproyecto(request):
                 detalle_evento_proyecto.Cod_autorizacion = x_Codigo_autorizacion
                 detalle_evento_proyecto.Cod_acta = x_Codigo_acta
                 
-                # Manejo de archivos
+                # Manejo para los archivos 
                 if 'Autorizacion' in request.FILES:
                     detalle_evento_proyecto.Autorizacion = request.FILES['Autorizacion']
                 if 'acta' in request.FILES:
@@ -433,3 +434,112 @@ def añadireventoproyecto(request):
             return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)}, status=500)
+
+
+def modificarparticipante(request, idparticipante):
+    if request.method == 'POST':
+        participante = Participante.objects.get(id=idparticipante)
+        data = json.loads(request.body)
+        x_tipoparticipante = data.get('tipoparticipante')
+        x_procedencia = data.get('procedencia')
+        x_nombre = data.get('nombreparticipante')
+        x_apellidopaterno = data.get('apellidopaterno')
+        x_apellidomaterno = data.get('apellidomaterno')
+        x_email = data.get('correoelectronico')
+        x_tipodocumento = data.get('tipodocumento')
+        x_numerodocumento = data.get('numerodocumento')
+        x_telefono = data.get('telefono')
+        x_formacionacademica = data.get('formacionacademica')
+        x_pais = data.get('pais')
+        x_ciudad = data.get('ciudad')
+        x_departamento = data.get('departamento')
+        x_provincia = data.get('provincia')
+        x_distrito = data.get('distrito')
+        x_institucion = data.get('institucion')
+        x_sede = data.get('sede')
+        x_direccion = data.get('direccion')
+        x_oficina = data.get('oficina')
+        updated_by = request.user
+        fecha_actual = timezone.now()
+        
+        try:
+            with transaction.atomic():
+                # Instancias
+                x_tipodocumento_instance = Tipo_Documento.objects.get(id=x_tipodocumento)
+                x_formacionacademica_instance = FormacionAcademica.objects.get(id=x_formacionacademica)
+                x_pais_instance = Pais.objects.get(id=x_pais)
+                x_departamento_instance = Departamento.objects.get(id=x_departamento)
+                x_provincia_instance = Provincia.objects.get(id=x_provincia)
+                x_distrito_instance = Distrito.objects.get(id=x_distrito)
+                x_institucion_instance = Institucion_Financiamiento.objects.get(id=x_institucion)
+                
+                # Actualización de Participante
+                participante.tipo_participante = x_tipoparticipante
+                participante.procedencia = x_procedencia
+                participante.nom_participante = x_nombre
+                participante.apellPate_participante = x_apellidopaterno
+                participante.apellMate_participante = x_apellidomaterno
+                participante.email = x_email
+                participante.cTipo_Documento = x_tipodocumento_instance
+                participante.numero_documento = x_numerodocumento
+                participante.telefono = x_telefono
+                participante.cFormacion_academica = x_formacionacademica_instance
+                participante.cpais = x_pais_instance
+                participante.cdepartamento = x_departamento_instance
+                participante.cprovincia = x_provincia_instance
+                participante.cdistrito = x_distrito_instance
+                participante.ciudad = x_ciudad
+                participante.estado = True
+                participante.updated_by = updated_by
+                participante.updated = fecha_actual
+                
+                
+                if x_sede:
+                    try:
+                        sede_instance = Sede.objects.get(id=participante.sede.id)
+                        sede_instance.nombre_sede = x_sede
+                        sede_instance.direccion_sede = x_direccion
+                        sede_instance.oficina_sede = x_oficina
+                        sede_instance.institucion_financiamiento = x_institucion_instance
+                        sede_instance.save()
+                    except Sede.DoesNotExist:
+                        
+                        sede_instance = Sede(
+                            nombre_sede=x_sede,
+                            direccion_sede=x_direccion,
+                            oficina_sede=x_oficina,
+                            institucion_financiamiento=x_institucion_instance
+                        )
+                        sede_instance.save()
+                    
+                    participante.sede = sede_instance
+                
+                participante.save()
+                
+                participante_data = {
+                    'id': participante.id,
+                    'tipoparticipante': participante.tipo_participante,
+                    'procedencia': participante.procedencia,
+                    'nombreparticipante': participante.nom_participante,
+                    'apellidopaterno': participante.apellPate_participante,
+                    'apellidomaterno': participante.apellMate_participante,
+                    'correoelectronico': participante.email,
+                    'tipodocumento': participante.cTipo_Documento.id,
+                    'numerodocumento': participante.numero_documento,
+                    'telefono': participante.telefono,
+                    'formacionacademica': participante.cFormacion_academica.id,
+                    'pais': participante.cpais.id,
+                    'ciudad': participante.ciudad,
+                    'departamento': participante.cdepartamento.id,
+                    'provincia': participante.cprovincia.id,
+                    'distrito': participante.cdistrito.id,
+                    'institucion': participante.sede.institucion_financiamiento.id if participante.sede else None,
+                    'sede': participante.sede.nombre_sede if participante.sede else None,
+                    'direccion': participante.sede.direccion_sede if participante.sede else None,
+                    'oficina': participante.sede.oficina_sede if participante.sede else None
+                }
+                return JsonResponse({'success': True, 'message': 'Los datos del participante fueron actualizados correctamente', 'data': participante_data})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+    return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
