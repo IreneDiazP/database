@@ -12,7 +12,9 @@ from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,
 from eventos.models import Evento,Tipo_Apoyo,Tipo_Evento
 
 from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica,Proyecto
-# Create your views here.
+
+
+
 @login_required
 def nuevoParticipante(request):
 
