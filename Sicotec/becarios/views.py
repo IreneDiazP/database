@@ -470,9 +470,9 @@ def modificarparticipante(request, idparticipante):
                 x_tipodocumento_instance = Tipo_Documento.objects.get(id=x_tipodocumento)
                 x_formacionacademica_instance = FormacionAcademica.objects.get(id=x_formacionacademica)
                 x_pais_instance = Pais.objects.get(id=x_pais)
-                x_departamento_instance = Departamento.objects.get(id=x_departamento)
-                x_provincia_instance = Provincia.objects.get(id=x_provincia)
-                x_distrito_instance = Distrito.objects.get(id=x_distrito)
+                x_departamento_instance = Departamento.objects.get(id=x_departamento) if x_departamento else None
+                x_provincia_instance = Provincia.objects.get(id=x_provincia) if x_provincia else None
+                x_distrito_instance = Distrito.objects.get(id=x_distrito) if x_distrito else None
                 x_institucion_instance = Institucion_Financiamiento.objects.get(id=x_institucion)
                 
                 # Actualización de Participante
@@ -532,9 +532,9 @@ def modificarparticipante(request, idparticipante):
                     'formacionacademica': participante.cFormacion_academica.id,
                     'pais': participante.cpais.id,
                     'ciudad': participante.ciudad,
-                    'departamento': participante.cdepartamento.id,
-                    'provincia': participante.cprovincia.id,
-                    'distrito': participante.cdistrito.id,
+                    'departamento': participante.cdepartamento.id if participante.cdepartamento else None,
+                    'provincia': participante.cprovincia.id if participante.cprovincia else None,
+                    'distrito': participante.cdistrito.id if participante.cdistrito else None,
                     'institucion': participante.sede.institucion_financiamiento.id if participante.sede else None,
                     'sede': participante.sede.nombre_sede if participante.sede else None,
                     'direccion': participante.sede.direccion_sede if participante.sede else None,
