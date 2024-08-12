@@ -342,6 +342,8 @@ def añadireventoproyecto(request):
                 x_Actividad = data.get('Actividad')
                 x_idparticipante = data.get('idparticipante')
                 x_iddetalleeventoproyecto = data.get('iddetalleeventoproyecto')
+                print(' edittar golllll')
+                print(x_idproyecto)
                 
                 updated_by = request.user
                 fecha_actual = timezone.now()

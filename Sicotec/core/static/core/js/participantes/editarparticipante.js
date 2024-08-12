@@ -556,6 +556,9 @@ editButtons.forEach(button => {
       document.getElementById('txtInforme').value=data.informe
       document.getElementById('txtObservacion').value=data.observacion
       document.getElementById('txtActividad').value=data.actividad
+      document.getElementById('ideventousuario').value=data.idevento
+      
+      document.getElementById('iddetalleeventoproyecto').value=data.iddetalle
 
 
     }   else {
