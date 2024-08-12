@@ -307,7 +307,8 @@ def get_Evento(request,idEvento):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
     
-        
+
+@login_required       
 def añadireventoproyecto(request):
 
     if request.method == 'POST':
@@ -437,6 +438,7 @@ def añadireventoproyecto(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)}, status=500)
 
+@login_required
 
 def modificarparticipante(request, idparticipante):
     if request.method == 'POST':
@@ -545,3 +547,46 @@ def modificarparticipante(request, idparticipante):
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
         
     return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
+
+@login_required
+def editareventoparticipante(request, idevento,idparticipante):
+    if request.method == 'GET':
+        try:
+            with transaction.atomic():
+                eventoparticipante=Evento.objects.get(id =idevento)
+                detalleeventoparticipante = Det_EventoProyecto.objects.get(participante_id = idparticipante, evento_id=idevento)
+                
+                
+                eventoparticipante_data = {
+                'idevento': eventoparticipante.id,
+                'codigoevento':eventoparticipante.codigoEvento,
+                'nombrevento':eventoparticipante.nomEvento,
+                'tipoevento':eventoparticipante.cTipoEvento.id,
+                'areatematica':eventoparticipante.cAreaTem.id,
+                'descripcion':eventoparticipante.DescEvento,
+                'pais':eventoparticipante.cpais.id,
+                'fechainicio':eventoparticipante.fechaInicio,
+                'fechafin':eventoparticipante.fechaFin,
+                'tipoapoyo':eventoparticipante.cTipoApoyo.id,
+                'entidadfinanciamiento':eventoparticipante.cEntFinan.id,
+                'institucionfinanciamiento':eventoparticipante.cInstFinanc.id,
+                'tipomoneda':eventoparticipante.cTipo_Moneda.id,
+                'monto': str(eventoparticipante.monto),  # Serializar Decimal como cadena
+                'tipocambio': str(eventoparticipante.tipo_Cambio),
+                'iddetalle':detalleeventoparticipante.id,
+                'codigoautorizacion':detalleeventoparticipante.Cod_autorizacion,
+                'codigoacta':detalleeventoparticipante.Cod_acta,
+                'compromiso':detalleeventoparticipante.Compromiso,
+                'objetivo':detalleeventoparticipante.Objetivo,
+                'informe':detalleeventoparticipante.Informe,
+                'observacion':detalleeventoparticipante.Observacion,
+                'actividad':detalleeventoparticipante.actividad
+                 
+                }
+                
+                return JsonResponse({'success':True, 'eventoparticipante':eventoparticipante_data})
+        except Exception as e:    
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+    return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
+

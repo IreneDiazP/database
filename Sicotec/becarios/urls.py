@@ -32,6 +32,9 @@ urlpatterns = [
     path('añadireventoproyecto/',views.añadireventoproyecto, name="añadireventoproyecto"),
         
     #añadir el evento a detalles eventos proyecto 
-    path('modificarparticipante/<int:idparticipante>',views.modificarparticipante, name="modificarparticipante")
+    path('modificarparticipante/<int:idparticipante>',views.modificarparticipante, name="modificarparticipante"),
+    
+    #obtener datos del evento para editar 
+    path('editareventoparticipante/<int:idevento>/<int:idparticipante>/',views.editareventoparticipante, name="editareventoparticipante")
 
 ]
