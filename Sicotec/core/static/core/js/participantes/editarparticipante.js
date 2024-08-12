@@ -116,6 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((error) => {
       console.error("Error en la solicitud:", error);
     });
+
+
+
+
 });
 
 //cookies
@@ -500,77 +504,86 @@ function TipoParticipante() {
   }
 }
 
-
-
-//clic en editar evento agregado 
-const editButtons = document.querySelectorAll('.editBtn');
-  
-editButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    contenedorbuscar = document.getElementById("opcionBuscarEvento");
-    contenedorbuscar.classList.add("d-none");
-    TipoParticipante()
-    const row = this.closest('tr');
-    const rowIds = row.id;
-    console.log('ID de la fila:', rowIds);
-      console.log(participanteidId)
-      const csrftoken = getCookie("csrftoken");
-  
-  const urlgetevento = `../../editareventoparticipante/${rowIds}/${participanteidId}/`
-  fetch(urlgetevento,{
-    method:"GET",
-    headers:{
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken
-    }
-  }).then((response) => response.json()).then((responsedata) => {
-    if(responsedata.success){
-      console.log("holi boli")
-      console.log(responsedata.eventoparticipante)
-      data= responsedata.eventoparticipante
-      document.getElementById('txtCodigoEvento').value=data.codigoevento
-      document.getElementById('txtNombreEvento').value=data.nombrevento
-      document.getElementById('cboTipoEvento').value=data.tipoevento
-      document.getElementById('cboAreaTematica').value=data.areatematica
-      document.getElementById('txtDescripcion').value=data.descripcion
-      document.getElementById('cboPaiss').value=data.pais
-      document.getElementById('txtFechainicio').value=data.fechainicio
-      document.getElementById('txtFechafin').value=data.fechafin
-      document.getElementById('cboTipoApoyo').value=data.tipoapoyo
-      document.getElementById('cboTipoEnFinanciamiento').value=data.entidadfinanciamiento
-      const urlget = `/proyecto/getInstituciones/${data.entidadfinanciamiento}`;
-      cargarInstitucionesFinanciamiento(
-        data.entidadfinanciamiento,
-        data.institucionfinanciamiento,
-        urlget
-      );
-      document.getElementById('cboTipoMOneda').value=data.tipomoneda
-      const monto = parseFloat(data.monto);
-      const tipoCambio = parseFloat(data.tipocambio);
-      document.getElementById('txtMonto').value = formatDecimal(monto);
-      document.getElementById('txttipoCambio').value = formatDecimal(tipoCambio);
-      document.getElementById('txtCodigoAutorizacion').value=data.codigoautorizacion
-      document.getElementById('txtCodigoActa').value=data.codigoacta
-      document.getElementById('txtCompromiso').value=data.compromiso
-      document.getElementById('txtObjetivo').value=data.objetivo
-      document.getElementById('txtInforme').value=data.informe
-      document.getElementById('txtObservacion').value=data.observacion
-      document.getElementById('txtActividad').value=data.actividad
-      document.getElementById('ideventousuario').value=data.idevento
+  //clic en editar evento agregado 
+  document
+  .querySelector("#tblParticipantesEventos tbody")
+  .addEventListener("click", async function (event) {
+    // Verifica si el clic se realizó en un botón de edición
+    if (event.target.classList.contains("editBtn") || event.target.closest(".editBtn")) {
+      // Obtén el ID del registro del evento desde la fila más cercana
+      const row = event.target.closest("tr");
+      const rowId = row.id;
+      console.log('ID de la fila:', rowId);
       
-      document.getElementById('iddetalleeventoproyecto').value=data.iddetalle
-
-
-    }   else {
-      console.log("Error:", responsedata.message);
+      // Oculta el contenedor de búsqueda
+      document.getElementById("opcionBuscarEvento").classList.add("d-none");
+      
+      // Llama a la función TipoParticipante si es necesario
+      TipoParticipante();
+      
+      // Obtén el token CSRF
+      const csrftoken = getCookie("csrftoken");
+      
+      // Construye la URL para la solicitud fetch
+      const urlgetevento = `../../editareventoparticipante/${rowId}/${participanteidId}/`;
+      
+      // Realiza la solicitud fetch
+      try {
+        const response = await fetch(urlgetevento, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken
+          }
+        });
+        
+        const responsedata = await response.json();
+        
+        if (responsedata.success) {
+          console.log("Datos del evento:", responsedata.eventoparticipante);
+          
+          const data = responsedata.eventoparticipante;
+          document.getElementById('txtCodigoEvento').value = data.codigoevento;
+          document.getElementById('txtNombreEvento').value = data.nombrevento;
+          document.getElementById('cboTipoEvento').value = data.tipoevento;
+          document.getElementById('cboAreaTematica').value = data.areatematica;
+          document.getElementById('txtDescripcion').value = data.descripcion;
+          document.getElementById('cboPaiss').value = data.pais;
+          document.getElementById('txtFechainicio').value = data.fechainicio;
+          document.getElementById('txtFechafin').value = data.fechafin;
+          document.getElementById('cboTipoApoyo').value = data.tipoapoyo;
+          document.getElementById('cboTipoEnFinanciamiento').value = data.entidadfinanciamiento;
+          
+          const urlget = `/proyecto/getInstituciones/${data.entidadfinanciamiento}`;
+          cargarInstitucionesFinanciamiento(
+            data.entidadfinanciamiento,
+            data.institucionfinanciamiento,
+            urlget
+          );
+          
+          document.getElementById('cboTipoMOneda').value = data.tipomoneda;
+          document.getElementById('txtMonto').value = formatDecimal(parseFloat(data.monto));
+          document.getElementById('txttipoCambio').value = formatDecimal(parseFloat(data.tipocambio));
+          document.getElementById('txtCodigoAutorizacion').value = data.codigoautorizacion;
+          document.getElementById('txtCodigoActa').value = data.codigoacta;
+          document.getElementById('txtCompromiso').value = data.compromiso;
+          document.getElementById('txtObjetivo').value = data.objetivo;
+          document.getElementById('txtInforme').value = data.informe;
+          document.getElementById('txtObservacion').value = data.observacion;
+          document.getElementById('txtActividad').value = data.actividad;
+          document.getElementById('ideventousuario').value = data.idevento;
+          document.getElementById('iddetalleeventoproyecto').value = data.iddetalle;
+        } else {
+          console.log("Error:", responsedata.message);
+        }
+      } catch (error) {
+        console.log("Error en la solicitud:", error);
+      }
     }
-  }).catch(error => {
-    console.log("Error en la solicitud:", error);
   });
 
- 
-  });
-});
+
+
 
 // Función para eliminar ceros no significativos//////////////////////////////////
 function formatDecimal(value) {
