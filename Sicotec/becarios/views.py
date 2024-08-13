@@ -592,3 +592,26 @@ def editareventoparticipante(request, idevento,idparticipante):
         
     return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
 
+@login_required
+def eliminareventoparticipante (request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            idevento=data.get('idevento')
+            idparticipante = data.get('idparticipante')
+            with transaction.atomic():
+                
+                participante = Participante.objects.get(id=idparticipante)
+
+                ideventoeliminar = Evento.objects.get(id = idevento )
+                
+                iddetalleeventoeliminar = Det_EventoProyecto.objects.get(evento_id = idevento, participante_id= idparticipante )
+                
+                iddetalleeventoeliminar.delete()
+                
+                participante.eventos.remove(ideventoeliminar)
+                
+                return JsonResponse({'success':True, 'message': 'El evento vinculado a este participante fue eliminado exitosamente'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+    return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)

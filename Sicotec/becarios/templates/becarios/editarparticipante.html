@@ -504,7 +504,7 @@
                           type="button"
                           class="btn btn-danger trashBtn"
                           data-bs-toggle="modal"
-                          data-bs-target="#modalEliminarEvento"
+                          data-bs-target="#modalEliminarEventoParticipante"
                           data-bs-whatever="Eliminar"
                         >
                           <i class="bi bi-trash"></i>
@@ -1142,7 +1142,7 @@
       <!-- Modal eliminar Proyecto-->
       <div
         class="modal fade"
-        id="modalEliminarProyecto"
+        id="modalEliminarEventoParticipante"
         tabindex="-1"
         aria-labelledby="eliminarProyectoLabel"
         aria-hidden="true"
@@ -1165,8 +1165,8 @@
                 <input
                   type="hidden"
                   class="form-control"
-                  id="txtIdProyectoModalEliminarProyecto"
-                  name="txtIdProyectoModalEliminarProyecto"
+                  id="txtIdProyectoModalEliminarEventoParti"
+                  name="txtIdProyectoModalEliminarEventoParti"
                   value=""
                   readonly
                 />
@@ -1175,7 +1175,7 @@
                     class="modal-title fs-6 text-center mb-2"
                     id="staticBackdropLabel "
                   >
-                    ¿Está seguro de eliminar al Proyecto?
+                    ¿Está seguro de eliminar el evento vinculado al participante?
                   </h1>
                 </div>
               </div>

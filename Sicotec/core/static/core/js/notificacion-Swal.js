@@ -1,7 +1,7 @@
-const NotificacionSwal=(titleText,text,icon,confirmButtonText)=>{
+const NotificacionSwal=(title,text,icon,confirmButtonText)=>{
 
     Swal.fire({
-        titleText:titleText,
+        title:title,
         text:text,
         icon: icon,//warning,error,success. info
         confirmButtonText:confirmButtonText

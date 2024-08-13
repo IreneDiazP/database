@@ -35,6 +35,8 @@ urlpatterns = [
     path('modificarparticipante/<int:idparticipante>',views.modificarparticipante, name="modificarparticipante"),
     
     #obtener datos del evento para editar 
-    path('editareventoparticipante/<int:idevento>/<int:idparticipante>/',views.editareventoparticipante, name="editareventoparticipante")
+    path('editareventoparticipante/<int:idevento>/<int:idparticipante>/',views.editareventoparticipante, name="editareventoparticipante"),
+        #obtener datos del evento para editar 
+    path('eliminareventoparticipante/',views.eliminareventoparticipante, name="eliminareventoparticipante")
 
 ]

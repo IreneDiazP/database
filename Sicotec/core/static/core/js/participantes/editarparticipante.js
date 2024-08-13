@@ -416,9 +416,9 @@ document
                   type="button"
                   class="btn btn-danger trashBtn"
                   data-bs-toggle="modal"
-                  data-bs-target="#modalEliminarEvento"
+                  data-bs-target="#modalEliminarEventoParticipante"
                   data-bs-whatever="Eliminar"
-                >
+                  >
                   <i class="bi bi-trash"></i>
                 </button>
               </div>
@@ -510,24 +510,23 @@ function TipoParticipante() {
   .addEventListener("click", async function (event) {
     // Verifica si el clic se realizó en un botón de edición
     if (event.target.classList.contains("editBtn") || event.target.closest(".editBtn")) {
-      // Obtén el ID del registro del evento desde la fila más cercana
       const row = event.target.closest("tr");
       const rowId = row.id;
       console.log('ID de la fila:', rowId);
       
-      // Oculta el contenedor de búsqueda
+      
       document.getElementById("opcionBuscarEvento").classList.add("d-none");
       
-      // Llama a la función TipoParticipante si es necesario
+      
       TipoParticipante();
       
-      // Obtén el token CSRF
+      
       const csrftoken = getCookie("csrftoken");
       
-      // Construye la URL para la solicitud fetch
+      
       const urlgetevento = `../../editareventoparticipante/${rowId}/${participanteidId}/`;
       
-      // Realiza la solicitud fetch
+      
       try {
         const response = await fetch(urlgetevento, {
           method: "GET",
@@ -583,11 +582,90 @@ function TipoParticipante() {
   });
 
 
-
-
 // Función para eliminar ceros no significativos//////////////////////////////////
 function formatDecimal(value) {
   // Convertir a número, eliminando ceros a la derecha
   let formattedValue = parseFloat(value).toString();
   return formattedValue;
 }
+
+
+// Manejar clic en el botón de eliminar en la tabla
+document.querySelector("#tblParticipantesEventos tbody").addEventListener("click", function(event) {
+  if (event.target.classList.contains("trashBtn") || event.target.closest(".trashBtn")) {
+    let idRegistroEliminar = event.target.closest("tr").getAttribute("id");
+    document.getElementById('txtIdProyectoModalEliminarEventoParti').value = idRegistroEliminar;
+    console.log('El id para eliminar: ' + idRegistroEliminar);
+  }
+});
+
+// Manejar el envío del formulario de eliminación
+document.getElementById("formEliminarProyecto").addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const idRegistro = document.getElementById("txtIdProyectoModalEliminarEventoParti").value;
+  const csrftoken = getCookie("csrftoken");
+
+  // Ocultar el modal
+  const modalElement = document.getElementById("modalEliminarEventoParticipante");
+  let modalInstance = bootstrap.Modal.getInstance(modalElement);
+  if (!modalInstance) {
+    modalInstance = new bootstrap.Modal(modalElement);
+  }
+  modalInstance.hide();
+
+  // Datos a enviar
+  const data = {
+    'idevento': idRegistro,
+    'idparticipante': participanteidId // Asegúrate de que participanteidId esté definido
+  };
+
+  fetch('../../eliminareventoparticipante/', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken
+    },
+    body: JSON.stringify(data)
+  }).then((response) => response.json()).then((responseData) => {
+    if (responseData.success) {
+      // Eliminar fila en la tabla
+      const row = document.querySelector(`#tblParticipantesEventos tr[id="${idRegistro}"]`);
+      if (row) {
+        row.remove();
+      }
+
+
+      // Mostrar notificación de éxito
+      NotificacionSwal(
+        "Éxito!",
+        responseData.message,
+        "success",
+        "Ok"
+      );
+
+    } else {
+      // Mostrar notificación de error
+      NotificacionSwal(
+        "Error!",
+        responseData.message || "Ocurrió un error.",
+        "error",
+        "Ok"
+      );
+    }
+  }).catch((error) => {
+    console.error('Error:', error);
+    NotificacionSwal(
+      "Error!",
+      "Ocurrió un error al realizar la solicitud.",
+      "error",
+      "Ok"
+    );
+  });
+});
+
+
+
+
+
+
