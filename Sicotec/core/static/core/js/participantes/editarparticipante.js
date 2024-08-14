@@ -138,6 +138,8 @@ function getCookie(name) {
   return cookieValue;
 }
 
+
+//VISIBILIDAD CUANDO ELIGE PERU U OTRO PAIS PARA DEPARTAMENTO
 function actualizarVisibilidadCampos() {
   const cboPais = document.getElementById("cboPais");
   const paisSeleccionadoNombre =
@@ -187,8 +189,7 @@ document.getElementById("cboPais").addEventListener("change", function () {
   }
 });
 
-//para cambio de nombre o tipo de evento
-
+//para cambio de nombre o tipo de EVENTO
 const cboTipoEventoCodigo = document.getElementById("cboTipoEventobuscar");
 const cboEventoNombre = document.getElementById("cboNombreeventobuscar");
 
@@ -264,7 +265,8 @@ document
         await cargarInstitucionesFinanciamiento(
           data.cEntFinan_id,
           data.cInstFinanc_id,
-          urlget
+          urlget,
+          0
         );
 
         document.getElementById("cboTipoMOneda").value = data.cTipo_Moneda_id;
@@ -280,6 +282,7 @@ document
       );
     }
   });
+
 
   function Limpiarcamposbutton() {
     console.log('limpiar campos');
@@ -297,7 +300,7 @@ document
   .getElementById("cboTipoEnFinanciamiento")
   .addEventListener("change", function () {
     const urlget = `/proyecto/getInstituciones/${this.value}`;
-    cargarInstitucionesFinanciamiento(this.value, null, urlget);
+    cargarInstitucionesFinanciamiento(this.value, null, urlget,0);
   });
 
 //click en boton SUBMIT GUARDAR EVENTO
@@ -569,7 +572,8 @@ function TipoParticipante(compromiso,informe,observacion,actividad) {
           cargarInstitucionesFinanciamiento(
             data.entidadfinanciamiento,
             data.institucionfinanciamiento,
-            urlget
+            urlget,
+            0
           );
           
           document.getElementById('cboTipoMOneda').value = data.tipomoneda;
@@ -750,12 +754,13 @@ document.getElementById("btnagregarproyectoparticipante").addEventListener('clic
       document.getElementById("txtRespEnt").value = data.ResponsableEntidad;
       document.getElementById("cboAreaTematicaP").value = data.AreaTematica;
 
-      // const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
-      // await cargarInstitucionesFinanciamiento(
-      //   data.cEntFinan_id,
-      //   data.cInstFinanc_id,
-      //   urlget
-      // );
+      const urlget = `/proyecto/getInstituciones/${data.EntidadFina}`;
+      await cargarInstitucionesFinanciamiento(
+        data.EntidadFina,
+        data.InstittucionFina,
+        urlget,
+        1
+      );
 
       document.getElementById("txtFechaInicioP").value = data.FechaInicio;
       document.getElementById("txtFechaFinP").value = data.FechaFin;
@@ -772,7 +777,132 @@ document.getElementById("btnagregarproyectoparticipante").addEventListener('clic
 
 })
 
+//EVENTO CLICK EN AGREGAR EVENTO Y ESTE PINTA EN EL MODAL
+document
+  .getElementById("btnagregareventoparticipante")
+  .addEventListener("click", async function () {
+    contenedorbuscar = document.getElementById("opcionBuscarEvento");
+    contenedorbuscar.classList.add("d-none");
+    obtenerValorocultar()
+    
+    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
 
 
+    const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
+
+    const csrftoken = getCookie("csrftoken");
+    try {
+      const response = await fetch(urleventos, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "X-CSRFToken": csrftoken,
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        NotificacionSwal("Error!", errorData.message, "error", "ok");
+      } else {
+        const result = await response.json();
+        const data = result.data;
+        console.log("los datos para evento");
+        console.log(data);
+        document.getElementById("txtCodigoEvento").value = data.codigoEvento;
+        document.getElementById("ideventousuario").value = data.idevento;
+        document.getElementById("txtNombreEvento").value = data.nomEvento;
+        document.getElementById("cboTipoEvento").value = data.cTipoEvento_id;
+        document.getElementById("cboAreaTematica").value = data.cAreaTem_id;
+        document.getElementById("txtDescripcion").value = data.DescEvento;
+        document.getElementById("cboPaiss").value = data.cpais_id;
+        console.log(
+          (document.getElementById("cboPaiss").value = data.cpais_id)
+        );
+        document.getElementById("txtFechainicio").value = data.fechaInicio;
+        document.getElementById("txtFechafin").value = data.fechaFin;
+        document.getElementById("cboTipoApoyo").value = data.cTipoApoyo_id;
+
+        document.getElementById("cboTipoEnFinanciamiento").value =
+          data.cEntFinan_id;
+
+        const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
+        await cargarInstitucionesFinanciamiento(
+          data.cEntFinan_id,
+          data.cInstFinanc_id,
+          urlget,
+          0
+        );
+
+        document.getElementById("cboTipoMOneda").value = data.cTipo_Moneda_id;
+        document.getElementById("txtMonto").value = data.monto;
+        document.getElementById("txttipoCambio").value = data.tipo_Cambio;
+      }
+    } catch (error) {
+      NotificacionSwal(
+        "Error!",
+        "Hubo un problema al procesar la solicitud",
+        "error",
+        "ok"
+      );
+    }
+  });
+  
 
 
+  function LimpiarcamposProyectobutton() {
+    console.log('limpiar campos');
+    const contenedorbuscar = document.getElementById("opcionBuscarProyecto");
+    contenedorbuscar.classList.remove("d-none");
+    limpiarCamposProyectos();
+  }
+  
+  // Añade el event listener a los botones
+  document.getElementById("botoncancelarProyectoparticipante").addEventListener('click', LimpiarcamposProyectobutton);
+  document.getElementById("closebuttonProyectoparticipante").addEventListener('click', LimpiarcamposProyectobutton);
+
+// Evento para cargar instituciones de financiamiento
+document
+  .getElementById("cboTipoEnFinanciamientoP")
+  .addEventListener("change", function () {
+    const urlget = `/proyecto/getInstituciones/${this.value}`;
+    cargarInstitucionesFinanciamiento(this.value, null, urlget,1);
+  });
+
+
+  function limpiarCamposProyectos() {
+    const campos = [
+      "cboTipoProyectobuscar",
+      "cboNombreProyectobuscar",
+      "cboTipoProyecto",
+      "txtCodigoProyecto",
+      "txtNombreProyecto",
+      "txtDescripcionP",
+      "cboPaisP",
+      "cboTipoApoyoP",
+      "cboTipoEnFinanciamientoP",
+      "cboTipoInsFinanciamientoP",
+      "cboTipoMOnedaP",
+      "txtidMontop",
+      "txtidtCambioP",
+      "txtMontosolesP",
+      "txtRespIpen",
+      "txtRespEnt",
+      "cboAreaTematicaP",
+      "txtFechaInicioP",
+      "txtFechaFinP",
+      "txtCodigoAutorizacionp",
+      "txtCodigoActap",
+      "txtCompromisop",
+      "txtObjetivop",
+      "txtInformep",
+      "txtObservacionp",
+      "txtActividadp"
+  
+    ];
+  
+    campos.forEach((campo) => {
+      const element = document.getElementById(campo);
+      if (element) {
+        element.value = "";
+      }
+    });
+  }
