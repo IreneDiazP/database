@@ -116,10 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((error) => {
       console.error("Error en la solicitud:", error);
     });
-
-
-
-
 });
 
 //cookies
@@ -137,7 +133,6 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-
 
 //VISIBILIDAD CUANDO ELIGE PERU U OTRO PAIS PARA DEPARTAMENTO
 function actualizarVisibilidadCampos() {
@@ -204,15 +199,14 @@ cboEventoNombre.addEventListener("change", function () {
 });
 
 //FUNCION PARA  OBTENER VARIABLES
-function obtenerValorocultar(){
+function obtenerValorocultar() {
   const compromiso = document.getElementById("txtCompromiso");
   const informe = document.getElementById("txtInforme");
   const observacion = document.getElementById("txtObservacion");
-  const actividad = document.getElementById("txtActividad")
+  const actividad = document.getElementById("txtActividad");
 
-TipoParticipante(compromiso,informe,observacion,actividad);
+  TipoParticipante(compromiso, informe, observacion, actividad);
 }
-
 
 //EVENTO CLICK EN AGREGAR EVENTO Y ESTE PINTA EN EL MODAL
 document
@@ -220,10 +214,9 @@ document
   .addEventListener("click", async function () {
     contenedorbuscar = document.getElementById("opcionBuscarEvento");
     contenedorbuscar.classList.add("d-none");
-    obtenerValorocultar()
-    
-    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
+    obtenerValorocultar();
 
+    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
 
     const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
 
@@ -283,24 +276,27 @@ document
     }
   });
 
+function Limpiarcamposbutton() {
+  console.log("limpiar campos");
+  const contenedorbuscar = document.getElementById("opcionBuscarEvento");
+  contenedorbuscar.classList.remove("d-none");
+  limpiarCampos();
+}
 
-  function Limpiarcamposbutton() {
-    console.log('limpiar campos');
-    const contenedorbuscar = document.getElementById("opcionBuscarEvento");
-    contenedorbuscar.classList.remove("d-none");
-    limpiarCampos();
-  }
-  
-  // Añade el event listener a los botones
-  document.getElementById("botoncancelareventoparticipante").addEventListener('click', Limpiarcamposbutton);
-  document.getElementById("closebuttoneventoparticipante").addEventListener('click', Limpiarcamposbutton);
+// Añade el event listener a los botones
+document
+  .getElementById("botoncancelareventoparticipante")
+  .addEventListener("click", Limpiarcamposbutton);
+document
+  .getElementById("closebuttoneventoparticipante")
+  .addEventListener("click", Limpiarcamposbutton);
 
 // Evento para cargar instituciones de financiamiento
 document
   .getElementById("cboTipoEnFinanciamiento")
   .addEventListener("change", function () {
     const urlget = `/proyecto/getInstituciones/${this.value}`;
-    cargarInstitucionesFinanciamiento(this.value, null, urlget,0);
+    cargarInstitucionesFinanciamiento(this.value, null, urlget, 0);
   });
 
 //click en boton SUBMIT GUARDAR EVENTO
@@ -308,7 +304,6 @@ document
   .getElementById("formEditarañadirEvento")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-
 
     idevento = document.getElementById("ideventousuario").value;
     idproyecto = document.getElementById("idproyectousuario").value;
@@ -451,7 +446,12 @@ document
       })
       .catch((error) => {
         console.error("Error en la solicitud:", error);
-        NotificacionSwal("Error!", "Ocurrió un problema con la solicitud.", "error", "ok");
+        NotificacionSwal(
+          "Error!",
+          "Ocurrió un problema con la solicitud.",
+          "error",
+          "ok"
+        );
       });
   });
 
@@ -480,8 +480,7 @@ function limpiarCampos() {
     "txtObjetivo",
     "txtInforme",
     "txtObservacion",
-    "txtActividad"
-
+    "txtActividad",
   ];
 
   campos.forEach((campo) => {
@@ -494,8 +493,7 @@ function limpiarCampos() {
 
 //funcion para verificar si es experto o no
 
-
-function TipoParticipante(compromiso,informe,observacion,actividad) {
+function TipoParticipante(compromiso, informe, observacion, actividad) {
   let tipoparticipantee = document.getElementById("cboTipoParticipacion").value;
   console.log(tipoparticipantee);
 
@@ -516,57 +514,54 @@ function TipoParticipante(compromiso,informe,observacion,actividad) {
   }
 }
 
-
-
-  //clic en editar evento agregado 
-  document
+//clic en editar evento agregado
+document
   .querySelector("#tblParticipantesEventos tbody")
   .addEventListener("click", async function (event) {
     // Verifica si el clic se realizó en un botón de edición
-    if (event.target.classList.contains("editBtn") || event.target.closest(".editBtn")) {
+    if (
+      event.target.classList.contains("editBtn") ||
+      event.target.closest(".editBtn")
+    ) {
       const row = event.target.closest("tr");
       const rowId = row.id;
-      console.log('ID de la fila:', rowId);
-      
-      
+      console.log("ID de la fila:", rowId);
+
       document.getElementById("opcionBuscarEvento").classList.add("d-none");
-      
-      
-      obtenerValorocultar()
-      
-      
+
+      obtenerValorocultar();
+
       const csrftoken = getCookie("csrftoken");
-      
-      
+
       const urlgetevento = `../../editareventoparticipante/${rowId}/${participanteidId}/`;
-      
-      
+
       try {
         const response = await fetch(urlgetevento, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": csrftoken
-          }
+            "X-CSRFToken": csrftoken,
+          },
         });
-        
+
         const responsedata = await response.json();
-        
+
         if (responsedata.success) {
           console.log("Datos del evento:", responsedata.eventoparticipante);
-          
+
           const data = responsedata.eventoparticipante;
-          document.getElementById('txtCodigoEvento').value = data.codigoevento;
-          document.getElementById('txtNombreEvento').value = data.nombrevento;
-          document.getElementById('cboTipoEvento').value = data.tipoevento;
-          document.getElementById('cboAreaTematica').value = data.areatematica;
-          document.getElementById('txtDescripcion').value = data.descripcion;
-          document.getElementById('cboPaiss').value = data.pais;
-          document.getElementById('txtFechainicio').value = data.fechainicio;
-          document.getElementById('txtFechafin').value = data.fechafin;
-          document.getElementById('cboTipoApoyo').value = data.tipoapoyo;
-          document.getElementById('cboTipoEnFinanciamiento').value = data.entidadfinanciamiento;
-          
+          document.getElementById("txtCodigoEvento").value = data.codigoevento;
+          document.getElementById("txtNombreEvento").value = data.nombrevento;
+          document.getElementById("cboTipoEvento").value = data.tipoevento;
+          document.getElementById("cboAreaTematica").value = data.areatematica;
+          document.getElementById("txtDescripcion").value = data.descripcion;
+          document.getElementById("cboPaiss").value = data.pais;
+          document.getElementById("txtFechainicio").value = data.fechainicio;
+          document.getElementById("txtFechafin").value = data.fechafin;
+          document.getElementById("cboTipoApoyo").value = data.tipoapoyo;
+          document.getElementById("cboTipoEnFinanciamiento").value =
+            data.entidadfinanciamiento;
+
           const urlget = `/proyecto/getInstituciones/${data.entidadfinanciamiento}`;
           cargarInstitucionesFinanciamiento(
             data.entidadfinanciamiento,
@@ -574,19 +569,25 @@ function TipoParticipante(compromiso,informe,observacion,actividad) {
             urlget,
             0
           );
-          
-          document.getElementById('cboTipoMOneda').value = data.tipomoneda;
-          document.getElementById('txtMonto').value = formatDecimal(parseFloat(data.monto));
-          document.getElementById('txttipoCambio').value = formatDecimal(parseFloat(data.tipocambio));
-          document.getElementById('txtCodigoAutorizacion').value = data.codigoautorizacion;
-          document.getElementById('txtCodigoActa').value = data.codigoacta;
-          document.getElementById('txtCompromiso').value = data.compromiso;
-          document.getElementById('txtObjetivo').value = data.objetivo;
-          document.getElementById('txtInforme').value = data.informe;
-          document.getElementById('txtObservacion').value = data.observacion;
-          document.getElementById('txtActividad').value = data.actividad;
-          document.getElementById('ideventousuario').value = data.idevento;
-          document.getElementById('iddetalleeventoproyecto').value = data.iddetalle;
+
+          document.getElementById("cboTipoMOneda").value = data.tipomoneda;
+          document.getElementById("txtMonto").value = formatDecimal(
+            parseFloat(data.monto)
+          );
+          document.getElementById("txttipoCambio").value = formatDecimal(
+            parseFloat(data.tipocambio)
+          );
+          document.getElementById("txtCodigoAutorizacion").value =
+            data.codigoautorizacion;
+          document.getElementById("txtCodigoActa").value = data.codigoacta;
+          document.getElementById("txtCompromiso").value = data.compromiso;
+          document.getElementById("txtObjetivo").value = data.objetivo;
+          document.getElementById("txtInforme").value = data.informe;
+          document.getElementById("txtObservacion").value = data.observacion;
+          document.getElementById("txtActividad").value = data.actividad;
+          document.getElementById("ideventousuario").value = data.idevento;
+          document.getElementById("iddetalleeventoproyecto").value =
+            data.iddetalle;
         } else {
           console.log("Error:", responsedata.message);
         }
@@ -596,7 +597,6 @@ function TipoParticipante(compromiso,informe,observacion,actividad) {
     }
   });
 
-
 // Función para eliminar ceros no significativos//////////////////////////////////
 function formatDecimal(value) {
   // Convertir a número, eliminando ceros a la derecha
@@ -604,86 +604,97 @@ function formatDecimal(value) {
   return formattedValue;
 }
 
-
 // Manejar clic en el botón de eliminar en la tabla
-document.querySelector("#tblParticipantesEventos tbody").addEventListener("click", function(event) {
-  if (event.target.classList.contains("trashBtn") || event.target.closest(".trashBtn")) {
-    let idRegistroEliminar = event.target.closest("tr").getAttribute("id");
-    document.getElementById('txtIdProyectoModalEliminarEventoParti').value = idRegistroEliminar;
-    console.log('El id para eliminar: ' + idRegistroEliminar);
-  }
-});
+document
+  .querySelector("#tblParticipantesEventos tbody")
+  .addEventListener("click", function (event) {
+    if (
+      event.target.classList.contains("trashBtn") ||
+      event.target.closest(".trashBtn")
+    ) {
+      let idRegistroEliminar = event.target.closest("tr").getAttribute("id");
+      document.getElementById("txtIdProyectoModalEliminarEventoParti").value =
+        idRegistroEliminar;
+      console.log("El id para eliminar: " + idRegistroEliminar);
+    }
+  });
 
 // Manejar el envío del formulario de eliminación
-document.getElementById("formEliminarProyecto").addEventListener('submit', function(event) {
-  event.preventDefault();
+document
+  .getElementById("formEliminarProyecto")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
 
-  const idRegistro = document.getElementById("txtIdProyectoModalEliminarEventoParti").value;
-  const csrftoken = getCookie("csrftoken");
+    const idRegistro = document.getElementById(
+      "txtIdProyectoModalEliminarEventoParti"
+    ).value;
+    const csrftoken = getCookie("csrftoken");
 
-  // Ocultar el modal
-  const modalElement = document.getElementById("modalEliminarEventoParticipante");
-  let modalInstance = bootstrap.Modal.getInstance(modalElement);
-  if (!modalInstance) {
-    modalInstance = new bootstrap.Modal(modalElement);
-  }
-  modalInstance.hide();
-
-  // Datos a enviar
-  const data = {
-    'idevento': idRegistro,
-    'idparticipante': participanteidId // Asegúrate de que participanteidId esté definido
-  };
-
-  fetch('../../eliminareventoparticipante/', {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken
-    },
-    body: JSON.stringify(data)
-  }).then((response) => response.json()).then((responseData) => {
-    if (responseData.success) {
-      // Eliminar fila en la tabla
-      const row = document.querySelector(`#tblParticipantesEventos tr[id="${idRegistro}"]`);
-      if (row) {
-        row.remove();
-      }
-
-
-      // Mostrar notificación de éxito
-      NotificacionSwal(
-        "Éxito!",
-        responseData.message,
-        "success",
-        "Ok"
-      );
-
-    } else {
-      // Mostrar notificación de error
-      NotificacionSwal(
-        "Error!",
-        responseData.message || "Ocurrió un error.",
-        "error",
-        "Ok"
-      );
-    }
-  }).catch((error) => {
-    console.error('Error:', error);
-    NotificacionSwal(
-      "Error!",
-      "Ocurrió un error al realizar la solicitud.",
-      "error",
-      "Ok"
+    // Ocultar el modal
+    const modalElement = document.getElementById(
+      "modalEliminarEventoParticipante"
     );
+    let modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (!modalInstance) {
+      modalInstance = new bootstrap.Modal(modalElement);
+    }
+    modalInstance.hide();
+
+    // Datos a enviar
+    const data = {
+      idevento: idRegistro,
+      idparticipante: participanteidId, // Asegúrate de que participanteidId esté definido
+    };
+
+    fetch("../../eliminareventoparticipante/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.success) {
+          // Eliminar fila en la tabla
+          const row = document.querySelector(
+            `#tblParticipantesEventos tr[id="${idRegistro}"]`
+          );
+          if (row) {
+            row.remove();
+          }
+
+          // Mostrar notificación de éxito
+          NotificacionSwal("Éxito!", responseData.message, "success", "Ok");
+        } else {
+          // Mostrar notificación de error
+          NotificacionSwal(
+            "Error!",
+            responseData.message || "Ocurrió un error.",
+            "error",
+            "Ok"
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        NotificacionSwal(
+          "Error!",
+          "Ocurrió un error al realizar la solicitud.",
+          "error",
+          "Ok"
+        );
+      });
   });
-});
 
 // *****************************************************************************************
 //para cambio de nombre o tipo de evento
 
 const cboTipoProyectobuscar = document.getElementById("cboTipoProyectobuscar");
-const cboNombreProyectobuscar = document.getElementById("cboNombreProyectobuscar");
+const cboNombreProyectobuscar = document.getElementById(
+  "cboNombreProyectobuscar"
+);
 
 cboTipoProyectobuscar.addEventListener("change", function () {
   idvalortipo = this.value;
@@ -696,237 +707,256 @@ cboNombreProyectobuscar.addEventListener("change", function () {
 });
 
 //FUNCION PARA  OBTENER VARIABLES
-function obtenerValorocultarProyecto(){
+function obtenerValorocultarProyecto() {
   const compromiso = document.getElementById("txtCompromisop");
   const informe = document.getElementById("txtInformep");
   const observacion = document.getElementById("txtObservacionp");
-  const actividad = document.getElementById("txtActividadp")
+  const actividad = document.getElementById("txtActividadp");
 
-TipoParticipante(compromiso,informe,observacion,actividad);
+  TipoParticipante(compromiso, informe, observacion, actividad);
 }
 
-
 //BOTON AGREGAR PROYECTO
-document.getElementById("btnagregarproyectoparticipante").addEventListener('click', async function(){
-  contenedorbuscar = document.getElementById("opcionBuscarProyecto");
-  contenedorbuscar.classList.add("d-none");
-  obtenerValorocultarProyecto()
+document
+  .getElementById("btnagregarproyectoparticipante")
+  .addEventListener("click", async function () {
+    contenedorbuscar = document.getElementById("opcionBuscarProyecto");
+    contenedorbuscar.classList.add("d-none");
+    obtenerValorocultarProyecto();
 
-  //obtenemos el id del proyecto que vamos buscar
-  const idproyectobuscar = document.getElementById('cboTipoProyectobuscar').value
+    //obtenemos el id del proyecto que vamos buscar
+    const idproyectobuscar = document.getElementById(
+      "cboTipoProyectobuscar"
+    ).value;
 
-  console.log('el id del proyecto es: '+idproyectobuscar)
+    console.log("el id del proyecto es: " + idproyectobuscar);
 
-  const urlproyecto = `../../getProyectoParticipante/${idproyectobuscar}`;
+    const urlproyecto = `../../getProyectoParticipante/${idproyectobuscar}`;
 
-  const csrftoken = getCookie("csrftoken");
-  try {
-    const response = await fetch(urlproyecto, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "X-CSRFToken": csrftoken,
-      },
-    });
-    if (!response.ok) {
-      const errorData = await response.json();
-      NotificacionSwal("Error!", errorData.message, "error", "ok");
-    } else {
-      const result = await response.json();
-      const data = result.data;
-      console.log("los datos para proyecto");
-      console.log(result)
-      console.log(data);
+    const csrftoken = getCookie("csrftoken");
+    try {
+      const response = await fetch(urlproyecto, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "X-CSRFToken": csrftoken,
+        },
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        NotificacionSwal("Error!", errorData.message, "error", "ok");
+      } else {
+        const result = await response.json();
+        const data = result.data;
+        console.log("los datos para proyecto");
+        console.log(result);
+        console.log(data);
 
-      
-      document.getElementById("cboTipoProyecto").value = data.TipoProyecto;
-      document.getElementById("txtCodigoProyecto").value = data.CodigoProyecto;
-      document.getElementById("txtNombreProyecto").value = data.NombreProyecto;
-      document.getElementById("txtDescripcionP").value = data.DescProyecto;
-      document.getElementById("cboPaisP").value = data.PaisProyecto;
-      document.getElementById("cboTipoApoyoP").value = data.TipoApoyo;
-      document.getElementById("cboTipoEnFinanciamientoP").value = data.EntidadFina;
-      document.getElementById("cboTipoMOnedaP").value = data.TipoMoneda;
-      document.getElementById('txtidMontop').value = formatDecimal(parseFloat(data.monto));
-      document.getElementById('txtidtCambioP').value = formatDecimal(parseFloat(data.TipoCambio));
-      document.getElementById("txtRespIpen").value = data.Responsable;
-      document.getElementById("txtRespEnt").value = data.ResponsableEntidad;
-      document.getElementById("cboAreaTematicaP").value = data.AreaTematica;
+        document.getElementById("cboTipoProyecto").value = data.TipoProyecto;
+        document.getElementById("txtCodigoProyecto").value =
+          data.CodigoProyecto;
+        document.getElementById("txtNombreProyecto").value =
+          data.NombreProyecto;
+        document.getElementById("txtDescripcionP").value = data.DescProyecto;
+        document.getElementById("cboPaisP").value = data.PaisProyecto;
+        document.getElementById("cboTipoApoyoP").value = data.TipoApoyo;
+        document.getElementById("cboTipoEnFinanciamientoP").value =
+          data.EntidadFina;
+        document.getElementById("cboTipoMOnedaP").value = data.TipoMoneda;
+        document.getElementById("txtidMontop").value = formatDecimal(
+          parseFloat(data.monto)
+        );
+        document.getElementById("txtidtCambioP").value = formatDecimal(
+          parseFloat(data.TipoCambio)
+        );
+        document.getElementById("txtRespIpen").value = data.Responsable;
+        document.getElementById("txtRespEnt").value = data.ResponsableEntidad;
+        document.getElementById("cboAreaTematicaP").value = data.AreaTematica;
 
-      const urlget = `/proyecto/getInstituciones/${data.EntidadFina}`;
-      await cargarInstitucionesFinanciamiento(
-        data.EntidadFina,
-        data.InstittucionFina,
-        urlget,
-        1
+        const urlget = `/proyecto/getInstituciones/${data.EntidadFina}`;
+        await cargarInstitucionesFinanciamiento(
+          data.EntidadFina,
+          data.InstittucionFina,
+          urlget,
+          1
+        );
+
+        document.getElementById("txtFechaInicioP").value = data.FechaInicio;
+        document.getElementById("txtFechaFinP").value = data.FechaFin;
+        document.getElementById("txtIdProyectoModalEditarProyecto").value =
+          data.idproyecto;
+      }
+    } catch (error) {
+      NotificacionSwal(
+        "Error!",
+        "Hubo un problema al procesar la solicitud",
+        "error",
+        "ok"
       );
-
-      document.getElementById("txtFechaInicioP").value = data.FechaInicio;
-      document.getElementById("txtFechaFinP").value = data.FechaFin;
-      document.getElementById("txtIdProyectoModalEditarProyecto").value = data.idproyecto;
     }
-  } catch (error) {
-    NotificacionSwal(
-      "Error!",
-      "Hubo un problema al procesar la solicitud",
-      "error",
-      "ok"
-    );
-  }
+  });
 
-})
+function LimpiarcamposProyectobutton() {
+  console.log("limpiar campos");
+  const contenedorbuscar = document.getElementById("opcionBuscarProyecto");
+  contenedorbuscar.classList.remove("d-none");
+  limpiarCamposProyectos();
+}
 
-
-
-
-  function LimpiarcamposProyectobutton() {
-    console.log('limpiar campos');
-    const contenedorbuscar = document.getElementById("opcionBuscarProyecto");
-    contenedorbuscar.classList.remove("d-none");
-    limpiarCamposProyectos();
-  }
-  
-  // Añade el event listener a los botones
-  document.getElementById("botoncancelarProyectoparticipante").addEventListener('click', LimpiarcamposProyectobutton);
-  document.getElementById("closebuttonProyectoparticipante").addEventListener('click', LimpiarcamposProyectobutton);
+// Añade el event listener a los botones
+document
+  .getElementById("botoncancelarProyectoparticipante")
+  .addEventListener("click", LimpiarcamposProyectobutton);
+document
+  .getElementById("closebuttonProyectoparticipante")
+  .addEventListener("click", LimpiarcamposProyectobutton);
 
 // Evento para cargar instituciones de financiamiento
 document
   .getElementById("cboTipoEnFinanciamientoP")
   .addEventListener("change", function () {
     const urlget = `/proyecto/getInstituciones/${this.value}`;
-    cargarInstitucionesFinanciamiento(this.value, null, urlget,1);
+    cargarInstitucionesFinanciamiento(this.value, null, urlget, 1);
   });
 
+function limpiarCamposProyectos() {
+  const campos = [
+    "cboTipoProyectobuscar",
+    "cboNombreProyectobuscar",
+    "cboTipoProyecto",
+    "txtCodigoProyecto",
+    "txtNombreProyecto",
+    "txtDescripcionP",
+    "cboPaisP",
+    "cboTipoApoyoP",
+    "cboTipoEnFinanciamientoP",
+    "cboTipoInsFinanciamientoP",
+    "cboTipoMOnedaP",
+    "txtidMontop",
+    "txtidtCambioP",
+    "txtMontosolesP",
+    "txtRespIpen",
+    "txtRespEnt",
+    "cboAreaTematicaP",
+    "txtFechaInicioP",
+    "txtFechaFinP",
+    "txtCodigoAutorizacionp",
+    "txtCodigoActap",
+    "txtCompromisop",
+    "txtObjetivop",
+    "txtInformep",
+    "txtObservacionp",
+    "txtActividadp",
+  ];
 
-  function limpiarCamposProyectos() {
-    const campos = [
-      "cboTipoProyectobuscar",
-      "cboNombreProyectobuscar",
-      "cboTipoProyecto",
-      "txtCodigoProyecto",
-      "txtNombreProyecto",
-      "txtDescripcionP",
-      "cboPaisP",
-      "cboTipoApoyoP",
-      "cboTipoEnFinanciamientoP",
-      "cboTipoInsFinanciamientoP",
-      "cboTipoMOnedaP",
-      "txtidMontop",
-      "txtidtCambioP",
-      "txtMontosolesP",
-      "txtRespIpen",
-      "txtRespEnt",
-      "cboAreaTematicaP",
-      "txtFechaInicioP",
-      "txtFechaFinP",
-      "txtCodigoAutorizacionp",
-      "txtCodigoActap",
-      "txtCompromisop",
-      "txtObjetivop",
-      "txtInformep",
-      "txtObservacionp",
-      "txtActividadp"
-  
-    ];
-  
-    campos.forEach((campo) => {
-      const element = document.getElementById(campo);
-      if (element) {
-        element.value = "";
-      }
-    });
-  }
-
-document.getElementById("formEditarProyecto").addEventListener('submit',function(event){
-event.preventDefault()
-const tipoProyecto = document.getElementById("cboTipoProyecto").value
-const CodigoProyecto = document.getElementById("txtCodigoProyecto").value
-const NombreProyecto = document.getElementById("txtNombreProyecto").value
-const descripcionProyecto = document.getElementById("txtDescripcionP").value
-const pais = document.getElementById("cboPaisP").value
-const tipoApoyo = document.getElementById("cboTipoApoyoP").value
-const tipoFinanciamiento = document.getElementById("cboTipoEnFinanciamientoP").value
-const InstittucionFinanciamiento = document.getElementById("cboTipoInsFinanciamientoP").value
-const tipoMoneda = document.getElementById("cboTipoMOnedaP").value
-const Monto = document.getElementById("txtidMontop").value
-const TipoCambio = document.getElementById("txtidtCambioP").value
-const responsableIpen = document.getElementById("txtRespIpen").value
-const responsableEntidad = document.getElementById("txtRespEnt").value
-const areaTematica = document.getElementById("cboAreaTematicaP").value
-const fechaInicio = document.getElementById("txtFechaInicioP").value
-const fechaFin = document.getElementById("txtFechaFinP").value
-const codigoautorizacion = document.getElementById("txtCodigoAutorizacionp").value
-const codigoActa = document.getElementById("txtCodigoActap").value
-const compromiso = document.getElementById("txtCompromisop").value
-const objetivo = document.getElementById("txtObjetivop").value
-const informe = document.getElementById("txtInformep").value
-const observacion = document.getElementById("txtObservacionp").value
-const actividad = document.getElementById("txtActividadp").value
-const idproyecto = document.getElementById("txtIdProyectoModalEditarProyecto").value
-const iddetalleproyecto = document.getElementById("iddetalleproyectoparticipoante").value
-
-let idparticipante = participanteidId
-const data={
-  tipoProyecto,
-  CodigoProyecto,
-  NombreProyecto,
-  descripcionProyecto,
-  pais,
-  tipoApoyo,
-  tipoFinanciamiento,
-  InstittucionFinanciamiento,
-  tipoMoneda,
-  Monto,
-  TipoCambio,
-  responsableIpen,
-  responsableEntidad,
-  areaTematica,
-  fechaInicio,
-  fechaFin,
-  codigoautorizacion,
-  codigoActa,
-  compromiso,
-  objetivo,
-  informe,
-  observacion,
-  actividad,
-  idparticipante,
-  idproyecto,
-  iddetalleproyecto
-}
-console.log('La data es:', data);
-urlenviarproyecto ="../../añadirproyectoparticipante/"
-const csrftoken = getCookie("csrftoken");
-fetch(urlenviarproyecto,{
-  method: "POST",
-  headers:{
-    "Content-Type": "application/json",
-    "X-CSRFToken": csrftoken,
-  },
-  body: JSON.stringify(data),
-}).then((response) => response.json()).then((response)=>{
-  if(response.success){
-    console.log('la data es:')
-    console.log(response.data)
-    let proyectos=response.data
-    contenedorbuscar = document.getElementById("opcionBuscarEvento");
-    contenedorbuscar.classList.remove("d-none");
-    const modalElement = document.getElementById(
-      "modalEditarProyecto"
-    );
-    const modal = bootstrap.Modal.getInstance(modalElement);
-    limpiarCamposProyectos()
-    if (modal) {
-      modal.hide();
+  campos.forEach((campo) => {
+    const element = document.getElementById(campo);
+    if (element) {
+      element.value = "";
     }
+  });
+}
 
-    const tablaBody = document.querySelector(
-      "#tblProyectos tbody"
-    );
-    let html = "";
-    proyectos.forEach((pr)=>{
-      html+=`
+document
+  .getElementById("formEditarProyecto")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const tipoProyecto = document.getElementById("cboTipoProyecto").value;
+    const CodigoProyecto = document.getElementById("txtCodigoProyecto").value;
+    const NombreProyecto = document.getElementById("txtNombreProyecto").value;
+    const descripcionProyecto =
+      document.getElementById("txtDescripcionP").value;
+    const pais = document.getElementById("cboPaisP").value;
+    const tipoApoyo = document.getElementById("cboTipoApoyoP").value;
+    const tipoFinanciamiento = document.getElementById(
+      "cboTipoEnFinanciamientoP"
+    ).value;
+    const InstittucionFinanciamiento = document.getElementById(
+      "cboTipoInsFinanciamientoP"
+    ).value;
+    const tipoMoneda = document.getElementById("cboTipoMOnedaP").value;
+    const Monto = document.getElementById("txtidMontop").value;
+    const TipoCambio = document.getElementById("txtidtCambioP").value;
+    const responsableIpen = document.getElementById("txtRespIpen").value;
+    const responsableEntidad = document.getElementById("txtRespEnt").value;
+    const areaTematica = document.getElementById("cboAreaTematicaP").value;
+    const fechaInicio = document.getElementById("txtFechaInicioP").value;
+    const fechaFin = document.getElementById("txtFechaFinP").value;
+    const codigoautorizacion = document.getElementById(
+      "txtCodigoAutorizacionp"
+    ).value;
+    const codigoActa = document.getElementById("txtCodigoActap").value;
+    const compromiso = document.getElementById("txtCompromisop").value;
+    const objetivo = document.getElementById("txtObjetivop").value;
+    const informe = document.getElementById("txtInformep").value;
+    const observacion = document.getElementById("txtObservacionp").value;
+    const actividad = document.getElementById("txtActividadp").value;
+    const idproyecto = document.getElementById(
+      "txtIdProyectoModalEditarProyecto"
+    ).value;
+    const iddetalleproyecto = document.getElementById(
+      "iddetalleproyectoparticipoante"
+    ).value;
+
+    let idparticipante = participanteidId;
+    const data = {
+      tipoProyecto,
+      CodigoProyecto,
+      NombreProyecto,
+      descripcionProyecto,
+      pais,
+      tipoApoyo,
+      tipoFinanciamiento,
+      InstittucionFinanciamiento,
+      tipoMoneda,
+      Monto,
+      TipoCambio,
+      responsableIpen,
+      responsableEntidad,
+      areaTematica,
+      fechaInicio,
+      fechaFin,
+      codigoautorizacion,
+      codigoActa,
+      compromiso,
+      objetivo,
+      informe,
+      observacion,
+      actividad,
+      idparticipante,
+      idproyecto,
+      iddetalleproyecto,
+    };
+    console.log("La data es:", data);
+    urlenviarproyecto = "../../añadirproyectoparticipante/";
+    const csrftoken = getCookie("csrftoken");
+    fetch(urlenviarproyecto, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success) {
+          console.log("la data es:");
+          console.log(response.data);
+          let proyectos = response.data;
+          contenedorbuscar = document.getElementById("opcionBuscarEvento");
+          contenedorbuscar.classList.remove("d-none");
+          const modalElement = document.getElementById("modalEditarProyecto");
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          limpiarCamposProyectos();
+          if (modal) {
+            modal.hide();
+          }
+
+          const tablaBody = document.querySelector("#tblProyectos tbody");
+          let html = "";
+          proyectos.forEach((pr) => {
+            html += `
       <tr id="${pr.id}">
       <th class="text-center">${pr.codigoProyecto} </th>
       <th>${pr.nomProyecto} </th>
@@ -948,16 +978,21 @@ fetch(urlenviarproyecto,{
       </th>
     </tr>
     `;
-    })
-    tablaBody.innerHTML = html;
+          });
+          tablaBody.innerHTML = html;
 
-    NotificacionSwal("Éxito!", response.message, "success", "ok");
-  }else{
-    NotificacionSwal("Error!", response.message, "error", "ok");
-  }
-}).catch((error) => {
-  console.error("Error en la solicitud:", error);
-  NotificacionSwal("Error!", "Ocurrió un problema con la solicitud.", "error", "ok");
-});
-
-})
+          NotificacionSwal("Éxito!", response.message, "success", "ok");
+        } else {
+          NotificacionSwal("Error!", response.message, "error", "ok");
+        }
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
+        NotificacionSwal(
+          "Error!",
+          "Ocurrió un problema con la solicitud.",
+          "error",
+          "ok"
+        );
+      });
+  });
