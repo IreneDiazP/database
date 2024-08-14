@@ -37,6 +37,9 @@ urlpatterns = [
     #obtener datos del evento para editar 
     path('editareventoparticipante/<int:idevento>/<int:idparticipante>/',views.editareventoparticipante, name="editareventoparticipante"),
         #obtener datos del evento para editar 
-    path('eliminareventoparticipante/',views.eliminareventoparticipante, name="eliminareventoparticipante")
-
+    path('eliminareventoparticipante/',views.eliminareventoparticipante, name="eliminareventoparticipante"),
+    
+    #BUSCAR PROYECTO PARA AÑADIR
+   
+    path('getProyectoParticipante/<int:idproyecto>',views.getProyectoParticipante, name="getProyectoParticipante")
 ]

@@ -9,9 +9,9 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .models import Departamento,Provincia,Distrito,Participante,Tipo_Documento,FormacionAcademica,Det_EventoProyecto
-from eventos.models import Evento,Tipo_Apoyo,Tipo_Evento
+from eventos.models import Evento,Tipo_Evento
 
-from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica,Proyecto
+from proyectos.models import Pais,Institucion_Financiamiento,Sede,Entidad_Financiamiento,Tipo_Moneda,Area_Tematica,Proyecto,Tipo_Proyecto,Tipo_Apoyo
 
 
 
@@ -160,6 +160,7 @@ def editarparticipante(request,idparticipante):
     participante = Participante.objects.get(id=idparticipante)
     todosEventos = Evento.objects.all()
     Tipo_Eventos=Tipo_Evento.objects.all().order_by('cTipoEvento')
+
     TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
     EntFinan = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')
     TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
@@ -167,6 +168,9 @@ def editarparticipante(request,idparticipante):
     tipo_participante_choices = Participante.PARTICIPANTE_CHOICES
     procedencia_choices = Participante.PROCEDENCIA_CHOICES
     tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
+    
+    TodoProyectos = Proyecto.objects.all()
+    tipoProyecto = Tipo_Proyecto.objects.all()
     formacionacademica=FormacionAcademica.objects.all().order_by('nombre_formacionacademica')
     pais=Pais.objects.all().order_by('cpais')
    
@@ -187,13 +191,15 @@ def editarparticipante(request,idparticipante):
         'departamentos':departamentos,
         'institucion':institucion,
         'proyectos':proyectos,
+        'TodoProyectos':TodoProyectos,
         'eventos':eventos,
         'todosEventos':todosEventos,
         'Tipo_Eventos':Tipo_Eventos,
         'TipoApoyo':TipoApoyo,
         'EntFinan':EntFinan,
         'TipoMoneda':TipoMoneda,
-        'AreaTem':AreaTem
+        'AreaTem':AreaTem,
+        'tipoProyecto':tipoProyecto
     })
 
 
@@ -342,8 +348,7 @@ def añadireventoproyecto(request):
                 x_Actividad = data.get('Actividad')
                 x_idparticipante = data.get('idparticipante')
                 x_iddetalleeventoproyecto = data.get('iddetalleeventoproyecto')
-                print(' edittar golllll')
-                print(x_idproyecto)
+
                 
                 updated_by = request.user
                 fecha_actual = timezone.now()
@@ -615,3 +620,34 @@ def eliminareventoparticipante (request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
     return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
+
+
+@login_required   
+def getProyectoParticipante(request,idproyecto):
+    try:
+       
+        Proyectorequerido = Proyecto.objects.get(id=idproyecto)
+        data = {
+            'idevento':idproyecto,
+            'TipoProyecto': Proyectorequerido.cTipo_proyecto_id,
+            'CodigoProyecto': Proyectorequerido.codigoProyecto,
+            'NombreProyecto': Proyectorequerido.nomProyecto,
+            'DescProyecto': Proyectorequerido.DescProyecto,
+            'PaisProyecto': Proyectorequerido.cpais_id,
+            'TipoApoyo': Proyectorequerido.cTipoApoyo_id,
+            'EntidadFina': Proyectorequerido.cEntFinan_id,
+            'InstittucionFina': Proyectorequerido.cInstFinanc_id,
+            'TipoMoneda': Proyectorequerido.cTipo_Moneda_id,
+            'monto': Proyectorequerido.monto,
+            'TipoCambio': Proyectorequerido.tipo_Cambio,
+            'Responsable': Proyectorequerido.responsable,
+            'ResponsableEntidad': Proyectorequerido.responsableEnt,
+            'AreaTematica': Proyectorequerido.cAreaTem_id,
+            'FechaInicio': Proyectorequerido.fechaInicio,
+            'FechaFin': Proyectorequerido.fechaFin,
+        }
+        
+        
+        return JsonResponse({'success': True, 'data': data})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})

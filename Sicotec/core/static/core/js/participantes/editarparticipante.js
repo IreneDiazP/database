@@ -202,14 +202,27 @@ cboEventoNombre.addEventListener("change", function () {
   cboTipoEventoCodigo.value = idvalornombre;
 });
 
+//FUNCION PARA  OBTENER VARIABLES
+function obtenerValorocultar(){
+  const compromiso = document.getElementById("txtCompromiso");
+  const informe = document.getElementById("txtInforme");
+  const observacion = document.getElementById("txtObservacion");
+  const actividad = document.getElementById("txtActividad")
+
+TipoParticipante(compromiso,informe,observacion,actividad);
+}
+
+
 //EVENTO CLICK EN AGREGAR EVENTO Y ESTE PINTA EN EL MODAL
 document
   .getElementById("btnagregareventoparticipante")
   .addEventListener("click", async function () {
-    TipoParticipante();
-    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
     contenedorbuscar = document.getElementById("opcionBuscarEvento");
     contenedorbuscar.classList.add("d-none");
+    obtenerValorocultar()
+    
+    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
+
 
     const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
 
@@ -478,17 +491,14 @@ function limpiarCampos() {
 }
 
 //funcion para verificar si es experto o no
-function TipoParticipante() {
+
+
+function TipoParticipante(compromiso,informe,observacion,actividad) {
   let tipoparticipantee = document.getElementById("cboTipoParticipacion").value;
   console.log(tipoparticipantee);
 
   let tipoparticipante = tipoparticipantee.toUpperCase();
   let esExperto = tipoparticipante === "EXPERTO";
-
-  const compromiso = document.getElementById("txtCompromiso");
-  const informe = document.getElementById("txtInforme");
-  const observacion = document.getElementById("txtObservacion");
-  const actividad = document.getElementById("txtActividad");
 
   const compromisoContainer = compromiso.closest(".col-md-3");
   const informeContainer = informe.closest(".col-md-3");
@@ -504,6 +514,8 @@ function TipoParticipante() {
   }
 }
 
+
+
   //clic en editar evento agregado 
   document
   .querySelector("#tblParticipantesEventos tbody")
@@ -518,7 +530,7 @@ function TipoParticipante() {
       document.getElementById("opcionBuscarEvento").classList.add("d-none");
       
       
-      TipoParticipante();
+      obtenerValorocultar()
       
       
       const csrftoken = getCookie("csrftoken");
@@ -664,6 +676,101 @@ document.getElementById("formEliminarProyecto").addEventListener('submit', funct
   });
 });
 
+// *****************************************************************************************
+//para cambio de nombre o tipo de evento
+
+const cboTipoProyectobuscar = document.getElementById("cboTipoProyectobuscar");
+const cboNombreProyectobuscar = document.getElementById("cboNombreProyectobuscar");
+
+cboTipoProyectobuscar.addEventListener("change", function () {
+  idvalortipo = this.value;
+  cboNombreProyectobuscar.value = idvalortipo;
+});
+
+cboNombreProyectobuscar.addEventListener("change", function () {
+  idvalornombre = this.value;
+  cboTipoProyectobuscar.value = idvalornombre;
+});
+
+//FUNCION PARA  OBTENER VARIABLES
+function obtenerValorocultarProyecto(){
+  const compromiso = document.getElementById("txtCompromisop");
+  const informe = document.getElementById("txtInformep");
+  const observacion = document.getElementById("txtObservacionp");
+  const actividad = document.getElementById("txtActividadp")
+
+TipoParticipante(compromiso,informe,observacion,actividad);
+}
+
+
+//BOTON AGREGAR PROYECTO
+document.getElementById("btnagregarproyectoparticipante").addEventListener('click', async function(){
+  contenedorbuscar = document.getElementById("opcionBuscarProyecto");
+  contenedorbuscar.classList.add("d-none");
+  obtenerValorocultarProyecto()
+
+  //obtenemos el id del proyecto que vamos buscar
+  const idproyectobuscar = document.getElementById('cboTipoProyectobuscar').value
+
+  console.log('el id del proyecto es: '+idproyectobuscar)
+
+  const urlproyecto = `../../getProyectoParticipante/${idproyectobuscar}`;
+
+  const csrftoken = getCookie("csrftoken");
+  try {
+    const response = await fetch(urlproyecto, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "X-CSRFToken": csrftoken,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      NotificacionSwal("Error!", errorData.message, "error", "ok");
+    } else {
+      const result = await response.json();
+      const data = result.data;
+      console.log("los datos para proyecto");
+      console.log(result)
+      console.log(data);
+
+      
+      document.getElementById("cboTipoProyecto").value = data.TipoProyecto;
+      document.getElementById("txtCodigoProyecto").value = data.CodigoProyecto;
+      document.getElementById("txtNombreProyecto").value = data.NombreProyecto;
+      document.getElementById("txtDescripcionP").value = data.DescProyecto;
+      document.getElementById("cboPaisP").value = data.PaisProyecto;
+      document.getElementById("cboTipoApoyoP").value = data.TipoApoyo;
+      document.getElementById("cboTipoEnFinanciamientoP").value = data.EntidadFina;
+      document.getElementById("cboTipoMOnedaP").value = data.TipoMoneda;
+      document.getElementById('txtidMontop').value = formatDecimal(parseFloat(data.monto));
+      document.getElementById('txtidtCambioP').value = formatDecimal(parseFloat(data.TipoCambio));
+      document.getElementById("txtRespIpen").value = data.Responsable;
+      document.getElementById("txtRespEnt").value = data.ResponsableEntidad;
+      document.getElementById("cboAreaTematicaP").value = data.AreaTematica;
+
+      // const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
+      // await cargarInstitucionesFinanciamiento(
+      //   data.cEntFinan_id,
+      //   data.cInstFinanc_id,
+      //   urlget
+      // );
+
+      document.getElementById("txtFechaInicioP").value = data.FechaInicio;
+      document.getElementById("txtFechaFinP").value = data.FechaFin;
+      // document.getElementById("txttipoCambio").value = data.tipo_Cambio;
+    }
+  } catch (error) {
+    NotificacionSwal(
+      "Error!",
+      "Hubo un problema al procesar la solicitud",
+      "error",
+      "ok"
+    );
+  }
+
+})
 
 
 

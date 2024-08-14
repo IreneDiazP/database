@@ -1226,7 +1226,7 @@
                   </tr>
                 </thead>
                 <tbody class="text-rigth">
-                  {% for pr in tproyectos %}
+                  {% for pr in proyectos %}
       
                   <tr id="{{pr.id}}">
                     <th class="text-center">{{pr.codigoProyecto}} </th>
@@ -1282,7 +1282,7 @@
 
                   <div class="row g-4 justify-content-between align-items-center">
                     <div class="row col-md-9">
-                      <!--TIPO DE PROYECTO-->
+                      <!--CODIGO DE PROYECTO-->
                       <div class="col-md-6">
                         <div class="form-floating">
                           <select
@@ -1292,8 +1292,8 @@
                             required
                           >
                             <option selected></option>
-                            {% for teventos in todosEventos %}
-                            <option value="{{teventos.id}}">{{teventos.codigoEvento}}</option>
+                            {% for tproy in TodoProyectos %}
+                            <option value="{{tproy.id}}">{{tproy.codigoProyecto}}</option>
                             {% endfor %}
                           </select>
                           <label for="cboTipoProyectobuscar"
@@ -1305,7 +1305,7 @@
                       </div>
 
 
-                      <!--NOMBRES DE EVENTO-->
+                      <!--NOMBRES DE EVENTO BUSCAR-->
                       <div class="col-md-6">
                         <div class="form-floating">
                           <select
@@ -1315,8 +1315,8 @@
                             required
                             >
                             <option selected></option>
-                            {% for teventos in todosEventos %}
-                            <option value="{{teventos.id}}">{{teventos.nomEvento}}</option>
+                            {% for tproy in TodoProyectos %}
+                            <option value="{{tproy.id}}">{{tproy.nomProyecto}}</option>
                             {% endfor %}
                           </select>
                           <label for="cboNombreProyectobuscar"
@@ -1329,7 +1329,7 @@
                     </div>
                       <div class="col-md-3 mt-0">
                         <button
-                        id="btnagregareventoparticipante"
+                        id="btnagregarproyectoparticipante"
                         class="btn btn-danger shadow text-light fs-6 btnForm"
                         >
                         Agregar Proyecto
@@ -1356,7 +1356,7 @@
                       <div class="form-floating">
                         <select class="form-select" id="cboTipoProyecto" name="cboTipoProyecto" required>
                           <option selected></option>
-                          {% for tp in tipoProyec %}
+                          {% for tp in tipoProyecto %}
                           <option value="{{tp.id}}">{{tp.cTipoProyecto}}</option>
                           {% endfor %}
                         </select>
@@ -1367,7 +1367,6 @@
                     <!--CODIGO PROYECTO-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidCodProyecto" />
                         <input type="text" class="form-control" id="txtCodigoProyecto" name="txtCodigoProyecto" required
                           maxlength="20" />
                         <label for="txtNombreProyecto">Codigo del proyecto<span class="text-danger ms-2">*</span></label>
@@ -1377,7 +1376,6 @@
                     <!--NOMBRE PROYECTO-->
                     <div class="col-md-6">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidNombre" />
                         <input type="text" class="form-control" id="txtNombreProyecto" name="txtNombreProyecto" required
                           maxlength="100" oninput="convertToUppercase(this)" />
                         <label for="txtNombreProyecto">Nombre<span class="text-danger ms-2">*</span></label>
@@ -1386,16 +1384,15 @@
                     <!--DESCRIPCIÓN-->
                     <div class="col-md-9">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidDescripcion" />
-                        <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
+                        <input type="text" class="form-control" id="txtDescripcionP" name="txtDescripcionP" required
                           maxlength="300" oninput="convertToUppercase(this)" />
-                        <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
+                        <label for="txtDescripcionP">Descripción<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
                     <!--PAIS-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboPais" name="cboPais" required>
+                        <select class="form-select" id="cboPaisP" name="cboPais" required>
                           <option selected></option>
                           {% for p in pais %}
                           <option value="{{p.id}}">{{p.cpais}}</option>
@@ -1408,27 +1405,27 @@
                     <!--TIPO DE APOYO-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" required>
+                        <select class="form-select" id="cboTipoApoyoP" name="cboTipoApoyoP" required>
                           <option selected></option>
       
                           {% for Ta in TipoApoyo %}
                           <option value="{{Ta.id}}">{{Ta.ctipo_apoyo}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboTipoApoyo">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
+                        <label for="cboTipoApoyoP">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--FINANCIAMIENTO POR-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" required>
+                        <select class="form-select" id="cboTipoEnFinanciamientoP" name="cboTipoEnFinanciamientoP" required>
                           <option selected></option>
                           {% for Ef in EntFinan %}
                           <option value="{{Ef.id}}">{{Ef.cEntFinancia}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboTipoEnFinanciamiento">
+                        <label for="cboTipoEnFinanciamientoP">
                           Entidad Financiamiento<span class="text-danger ms-2">*</span>
                         </label>
                       </div>
@@ -1449,14 +1446,14 @@
                     <!--TIPO DE MONEDA -->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
+                        <select class="form-select" id="cboTipoMOnedaP" name="cboTipoMOnedaP" required>
                           <option selected></option>
       
                           {% for Tm in TipoMoneda %}
                           <option value="{{Tm.id}}">{{Tm.cTipo_moneda}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboTipoMOneda">
+                        <label for="cboTipoMOnedaP">
                           Tipo de Moneda<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
@@ -1464,10 +1461,10 @@
                     <!--MONTO-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidMonto" />
-                        <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
+
+                        <input type="text" class="form-control" id="txtidMontop" name="txtidMontop" required
                           pattern="^\d+(\.\d{1,4})?$" />
-                        <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
+                        <label for="txtidMontop">Monto (S/)<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
       
@@ -1475,10 +1472,9 @@
                     <!--TIPO DE CAMBIO-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidtCambio" />
-                        <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required
+                        <input type="text" class="form-control" id="txtidtCambioP" name="txtidtCambioP" required
                           maxlength="15" pattern="^\d+(\.\d{1,4})?$" />
-                        <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
+                        <label for="txtidtCambioP">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
       
@@ -1486,11 +1482,10 @@
                     <!--MONTO SOLES-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidMontosoles" />
-                        <input type="text" class="form-control" id="txtMontosoles" disabled name="txtMontosoles"
+                        <input type="text" class="form-control" id="txtMontosolesP" disabled name="txtMontosolesP"
                           maxlength="15" pattern="^\d+(\.\d{1,2})?$"
                           title="Ingrese un monto válido con hasta dos decimales" />
-                        <label for="txtMontosoles">Equivalente Soles (S/)</label>
+                        <label for="txtMontosolesP">Equivalente Soles (S/)</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -1508,7 +1503,6 @@
                     <!--REPONSABLE ENTIDAD-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidResponsableEnt" />
                         <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
                           oninput="convertToUppercase(this)" />
                         <label for="txtRespEnt">Responsable Entidad<span class="text-danger ms-2">*</span></label>
@@ -1519,7 +1513,7 @@
                     <!--AREA TEMATICA-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboAreaTematica" name="cboAreaTematica"
+                        <select class="form-select" id="cboAreaTematicaP" name="cboAreaTematicaP"
                           oninput="convertToUppercase(this)" required>
                           <option selected></option>
       
@@ -1527,7 +1521,7 @@
                           <option value="{{At.id}}">{{At.cArea_tematica}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboAreaTematica">Area Tematica<span class="text-danger ms-2">*</span></label>
+                        <label for="cboAreaTematicaP">Area Tematica<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -1535,8 +1529,8 @@
                     <!--FECHA-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="date" class="form-control" id="txtFechaInicio" name="txtFechaInicio" required />
-                        <label for="txtFechaInicio">Fecha Inicio<span class="text-danger ms-2">*</span></label>
+                        <input type="date" class="form-control" id="txtFechaInicioP" name="txtFechaInicioP" required />
+                        <label for="txtFechaInicioP">Fecha Inicio<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
       
@@ -1544,8 +1538,8 @@
                     <!--FECHA-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="date" class="form-control" id="txtFechaFin" name="txtFechaFin" required />
-                        <label for="txtFechaFin">Fecha Fin<span class="text-danger ms-2">*</span></label>
+                        <input type="date" class="form-control" id="txtFechaFinP" name="txtFechaFinP" required />
+                        <label for="txtFechaFinP">Fecha Fin<span class="text-danger ms-2">*</span></label>
                       </div>
                     </div>
 
@@ -1570,13 +1564,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtCodigoAutorizacion"
-                        name="txtCodigoAutorizacion"
+                        id="txtCodigoAutorizacionp"
+                        name="txtCodigoAutorizacionp"
                 
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtCodigoAutorizacion"
+                      <label for="txtCodigoAutorizacionp"
                         >Codigo Autorizacion</label
                       >
                     </div>
@@ -1588,13 +1582,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtCodigoActa"
-                        name="txtCodigoActa"
+                        id="txtCodigoActap"
+                        name="txtCodigoActap"
                         
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtCodigoActa"
+                      <label for="txtCodigoActap"
                         >Codigo Acta</label
                       >
                     </div>
@@ -1606,13 +1600,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtCompromiso"
-                        name="txtCompromiso"
+                        id="txtCompromisop"
+                        name="txtCompromisop"
                         
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtCompromiso"
+                      <label for="txtCompromisop"
                         >Compromiso</label
                       >
                     </div>
@@ -1624,13 +1618,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtObjetivo"
-                        name="txtObjetivo"
+                        id="txtObjetivop"
+                        name="txtObjetivop"
                         
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtObjetivo"
+                      <label for="txtObjetivop"
                         >Objetivo</label
                       >
                     </div>
@@ -1642,13 +1636,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtInforme"
-                        name="txtInforme"
+                        id="txtInformep"
+                        name="txtInformep"
                         
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtInforme"
+                      <label for="txtInformep"
                         >Informe</label
                       >
                     </div>
@@ -1660,13 +1654,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtObservacion"
-                        name="txtObservacion"
+                        id="txtObservacionp"
+                        name="txtObservacionp"
                         
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtObservacion"
+                      <label for="txtObservacionp"
                         >Observacion</label
                       >
                     </div>
@@ -1679,13 +1673,13 @@
                       <input
                         type="text"
                         class="form-control"
-                        id="txtActividad"
-                        name="txtActividad"
+                        id="txtActividadp"
+                        name="txtActividadp"
                         
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtActividad"
+                      <label for="txtActividadp"
                         >Actividad</label
                       >
                     </div>
