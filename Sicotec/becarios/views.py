@@ -718,16 +718,7 @@ def añadirproyectoparticipante(request):
                 editproyecto.fechaInicio=x_fechaInicio
                 editproyecto.fechaFin=x_fechaFin
                 editproyecto.updated_by=updated_by
-                print(f"x_tipoProyecto: {x_tipoProyecto}")
-                print(f"x_pais: {x_pais}")
-                print(f"x_tipoApoyo: {x_tipoApoyo}")
-                print(f"x_EntidadFinanciamiento: {x_EntidadFinanciamiento}")
-                print(f"x_InstittucionFinanciamiento: {x_InstittucionFinanciamiento}")
-                print(f"x_tipoMoneda: {x_tipoMoneda}")
-                print(f"x_areaTematica: {x_areaTematica}")
-                print(f"x_idparticipante: {x_idparticipante}")
-                print(f"x_idproyecto: {x_idproyecto}")
-                print(f"x_iddetalleproyecto: {x_iddetalleproyecto}")
+
                 
                 
                 # cargar datos a  Det_EventoProyecto
@@ -779,16 +770,16 @@ def añadirproyectoparticipante(request):
                 for proyecto in participante.proyectos.all():
                     Proyectoparticipantesdata.append({
                         'id': proyecto.id,
-                        'codigoproyecto': proyecto.codigoProyecto,
-                        'nombreproyecto': proyecto.nomProyecto,
-                        'responsableentidad': proyecto.responsableEnt , # Cambiado a ID
-                        'areatematia': proyecto.cAreaTem.cArea_tematica, 
-                        'fechainicio': proyecto.fechaInicio, 
-                        'fechafin': proyecto.fechaFin, 
+                        'codigoProyecto': proyecto.codigoProyecto,
+                        'nomProyecto': proyecto.nomProyecto,
+                        'responsableEnt': proyecto.responsableEnt , # Cambiado a ID
+                        'cAreaTem': proyecto.cAreaTem.cArea_tematica, 
+                        'fechaInicio': proyecto.fechaInicio, 
+                        'fechaFin': proyecto.fechaFin, 
 
                     })
 
-                return JsonResponse({'success': True,'message': 'Proyecto registrado correctamente', 'eventos': Proyectoparticipantesdata})
+                return JsonResponse({'success': True,'message': 'Proyecto registrado correctamente', 'data': Proyectoparticipantesdata})
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
         except Exception as e:

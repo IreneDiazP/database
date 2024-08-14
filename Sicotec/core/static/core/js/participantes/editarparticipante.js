@@ -909,10 +909,55 @@ fetch(urlenviarproyecto,{
   if(response.success){
     console.log('la data es:')
     console.log(response.data)
+    let proyectos=response.data
+    contenedorbuscar = document.getElementById("opcionBuscarEvento");
+    contenedorbuscar.classList.remove("d-none");
+    const modalElement = document.getElementById(
+      "modalEditarProyecto"
+    );
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    limpiarCamposProyectos()
+    if (modal) {
+      modal.hide();
+    }
+
+    const tablaBody = document.querySelector(
+      "#tblProyectos tbody"
+    );
+    let html = "";
+    proyectos.forEach((pr)=>{
+      html+=`
+      <tr id="${pr.id}">
+      <th class="text-center">${pr.codigoProyecto} </th>
+      <th>${pr.nomProyecto} </th>
+      <th class="text-center">${pr.responsableEnt}</th>
+      <th class="text-center">${pr.cAreaTem}</th>
+      <th class="text-center">${pr.fechaInicio}</th>
+      <th class="text-center">${pr.fechaFin}</th>
+      <th class="text-center">
+        <div class="d-flex gap-2 justify-content-center">
+          <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
+            data-bs-target="#modalEditarProyecto" data-bs-whatever="Editar">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
+            data-bs-target="#modalEliminarProyecto" data-bs-whatever="Eliminar">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </th>
+    </tr>
+    `;
+    })
+    tablaBody.innerHTML = html;
+
     NotificacionSwal("Éxito!", response.message, "success", "ok");
   }else{
-    NotificacionSwal("Éxito!", response.message, "error", "ok");
+    NotificacionSwal("Error!", response.message, "error", "ok");
   }
-})
+}).catch((error) => {
+  console.error("Error en la solicitud:", error);
+  NotificacionSwal("Error!", "Ocurrió un problema con la solicitud.", "error", "ok");
+});
 
 })
