@@ -646,8 +646,42 @@ def getProyectoParticipante(request,idproyecto):
             'FechaInicio': Proyectorequerido.fechaInicio,
             'FechaFin': Proyectorequerido.fechaFin,
         }
-        
-        
         return JsonResponse({'success': True, 'data': data})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
+    
+def añadirproyectoparticipante(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        x_tipoProyecto = data.get('tipoProyecto')
+        x_CodigoProyecto = data.get('CodigoProyecto')
+        x_NombreProyecto = data.get('NombreProyecto')
+        x_descripcionProyecto = data.get('descripcionProyecto')
+        x_pais = data.get('pais')
+        x_tipoApoyo = data.get('tipoApoyo')
+        x_tipoFinanciamiento = data.get('tipoFinanciamiento')
+        x_InstittucionFinanciamiento = data.get('InstittucionFinanciamiento')
+        x_tipoMoneda = data.get('tipoMoneda')
+        x_Monto = data.get('Monto')
+        x_TipoCambio = data.get('TipoCambio')
+        x_responsableIpen = data.get('responsableIpen')
+        x_responsableEntidad = data.get('responsableEntidad')
+        x_areaTematica = data.get('areaTematica')
+        x_fechaInicio = data.get('fechaInicio')
+        x_fechaFin = data.get('fechaFin')
+        x_codigoautorizacion = data.get('codigoautorizacion')
+        x_codigoActa = data.get('codigoActa')
+        x_compromiso = data.get('compromiso')
+        x_objetivo = data.get('objetivo')
+        x_informe = data.get('informe')
+        x_idparticipante = data.get('idparticipante')
+        x_idproyecto = data.get('idproyecto')
+        updated_by = request.user
+        fecha_actual = timezone.now()
+        
+        #INSTANCIAS
+        
+        
+        
+        
+        return

@@ -309,7 +309,6 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    console.log("clickkkk en evento");
 
     idevento = document.getElementById("ideventousuario").value;
     idproyecto = document.getElementById("idproyectousuario").value;
@@ -835,6 +834,7 @@ document
         document.getElementById("cboTipoMOneda").value = data.cTipo_Moneda_id;
         document.getElementById("txtMonto").value = data.monto;
         document.getElementById("txttipoCambio").value = data.tipo_Cambio;
+        document.getElementById("txtIdProyectoModalEditarProyecto").value = data.idevento
       }
     } catch (error) {
       NotificacionSwal(
@@ -906,3 +906,76 @@ document
       }
     });
   }
+
+document.getElementById("formEditarProyecto").addEventListener('submit',function(event){
+event.preventDefault()
+const tipoProyecto = document.getElementById("cboTipoProyecto").value
+const CodigoProyecto = document.getElementById("txtCodigoProyecto").value
+const NombreProyecto = document.getElementById("txtNombreProyecto").value
+const descripcionProyecto = document.getElementById("txtDescripcionP").value
+const pais = document.getElementById("cboPaisP").value
+const tipoApoyo = document.getElementById("cboTipoApoyoP").value
+const tipoFinanciamiento = document.getElementById("cboTipoEnFinanciamientoP").value
+const InstittucionFinanciamiento = document.getElementById("cboTipoInsFinanciamientoP").value
+const tipoMoneda = document.getElementById("cboTipoMOnedaP").value
+const Monto = document.getElementById("txtidMontop").value
+const TipoCambio = document.getElementById("txtidtCambioP").value
+const responsableIpen = document.getElementById("txtRespIpen").value
+const responsableEntidad = document.getElementById("txtRespEnt").value
+const areaTematica = document.getElementById("cboAreaTematicaP").value
+const fechaInicio = document.getElementById("txtFechaInicioP").value
+const fechaFin = document.getElementById("txtFechaFinP").value
+const codigoautorizacion = document.getElementById("txtCodigoAutorizacionp").value
+const codigoActa = document.getElementById("txtCodigoActap").value
+const compromiso = document.getElementById("txtCompromisop").value
+const objetivo = document.getElementById("txtObjetivop").value
+const informe = document.getElementById("txtInformep").value
+const actividad = document.getElementById("txtActividadp").value
+const idproyecto = document.getElementById("txtIdProyectoModalEditarProyecto").value
+let idparticipante = participanteidId
+const data={
+  tipoProyecto,
+  CodigoProyecto,
+  NombreProyecto,
+  descripcionProyecto,
+  pais,
+  tipoApoyo,
+  tipoFinanciamiento,
+  InstittucionFinanciamiento,
+  tipoMoneda,
+  Monto,
+  TipoCambio,
+  responsableIpen,
+  responsableEntidad,
+  areaTematica,
+  fechaInicio,
+  fechaFin,
+  codigoautorizacion,
+  codigoActa,
+  compromiso,
+  objetivo,
+  informe,
+  actividad,
+  idparticipante,
+  idproyecto
+}
+console.log('La data es:', data);
+urlenviarproyecto ="../../añadirproyectoparticipante/"
+const csrftoken = getCookie("csrftoken");
+fetch(urlenviarproyecto,{
+  method: "POST",
+  headers:{
+    "Content-Type": "application/json",
+    "X-CSRFToken": csrftoken,
+  },
+  body: JSON.stringify(data),
+}).then((response) => response.json()).then((response)=>{
+  if(response.success){
+    console.log('la data es:')
+    console.log(response.data)
+  }else{
+
+  }
+})
+
+})

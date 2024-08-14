@@ -76,29 +76,29 @@ class Proyecto(models.Model):
     nomProyecto = models.CharField(
         max_length=100, verbose_name='Nombre de Proyecto')
     DescProyecto = models.CharField(
-        max_length=300, verbose_name='Descripción de Proyecto')
+        max_length=300, verbose_name='Descripción de Proyecto', null=True , blank=True)
     cpais = models.ForeignKey(
         Pais, on_delete=models.PROTECT, verbose_name="País", related_name='proyectos')
     cTipoApoyo = models.ForeignKey(
-        Tipo_Apoyo, on_delete=models.PROTECT, verbose_name="Tipo de Apoyo", related_name='proyectos')
+        Tipo_Apoyo, on_delete=models.PROTECT, verbose_name="Tipo de Apoyo", related_name='proyectos' , null=True , blank=True)
     cEntFinan = models.ForeignKey(Entidad_Financiamiento, on_delete=models.PROTECT,
-                                  verbose_name="Entidad de Financiamiento", related_name='proyectos')
+                                  verbose_name="Entidad de Financiamiento", related_name='proyectos', null=True , blank=True)
     cInstFinanc = models.ForeignKey(Institucion_Financiamiento, on_delete=models.PROTECT,
-                                    verbose_name="Institución de Financiamiento", related_name='proyectos')
+                                    verbose_name="Institución de Financiamiento", related_name='proyectos' , null=True , blank=True)
     cTipo_Moneda = models.ForeignKey(
-        Tipo_Moneda, on_delete=models.PROTECT, verbose_name="Tipo de Moneda", related_name='proyectos')
+        Tipo_Moneda, on_delete=models.PROTECT, verbose_name="Tipo de Moneda", related_name='proyectos' , null=True, blank=True)
     monto = models.DecimalField(
-        max_digits=15, decimal_places=4, verbose_name='Monto', null=True)
+        max_digits=15, decimal_places=4, verbose_name='Monto', null=True, blank=True)
     tipo_Cambio = models.DecimalField(
-        max_digits=6, decimal_places=3, verbose_name='Tipo de Cambio', null=True)
+        max_digits=6, decimal_places=3, verbose_name='Tipo de Cambio', null=True , blank=True)
     responsable = models.CharField(
         max_length=100, verbose_name='Responsable IPEN')
     responsableEnt = models.CharField(
-        max_length=100, verbose_name='Responsable Entidad', null=True)
+        max_length=100, verbose_name='Responsable Entidad', null=True , blank=True)
     cAreaTem = models.ForeignKey(Area_Tematica, on_delete=models.PROTECT,
                                  verbose_name="Área Temática", related_name='proyectos')
-    fechaInicio = models.DateField(verbose_name='Fecha de Inicio')
-    fechaFin = models.DateField(verbose_name='Fecha Fin')
+    fechaInicio = models.DateField(verbose_name='Fecha de Inicio', null=True , blank=True )
+    fechaFin = models.DateField(verbose_name='Fecha Fin' , null=True , blank=True)
 
     created_by = models.ForeignKey(User, on_delete=models.PROTECT,
                                    related_name="proyecto_created_by", verbose_name="Creado por")
