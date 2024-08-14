@@ -628,7 +628,7 @@ def getProyectoParticipante(request,idproyecto):
        
         Proyectorequerido = Proyecto.objects.get(id=idproyecto)
         data = {
-            'idevento':idproyecto,
+            'idproyecto':idproyecto,
             'TipoProyecto': Proyectorequerido.cTipo_proyecto_id,
             'CodigoProyecto': Proyectorequerido.codigoProyecto,
             'NombreProyecto': Proyectorequerido.nomProyecto,
@@ -659,7 +659,7 @@ def añadirproyectoparticipante(request):
         x_descripcionProyecto = data.get('descripcionProyecto')
         x_pais = data.get('pais')
         x_tipoApoyo = data.get('tipoApoyo')
-        x_tipoFinanciamiento = data.get('tipoFinanciamiento')
+        x_EntidadFinanciamiento = data.get('tipoFinanciamiento')
         x_InstittucionFinanciamiento = data.get('InstittucionFinanciamiento')
         x_tipoMoneda = data.get('tipoMoneda')
         x_Monto = data.get('Monto')
@@ -674,14 +674,123 @@ def añadirproyectoparticipante(request):
         x_compromiso = data.get('compromiso')
         x_objetivo = data.get('objetivo')
         x_informe = data.get('informe')
+        x_observacion = data.get('observacion')
+        x_actividad = data.get('actividad')
         x_idparticipante = data.get('idparticipante')
         x_idproyecto = data.get('idproyecto')
+        x_iddetalleproyecto = data.get('iddetalleproyecto')
         updated_by = request.user
         fecha_actual = timezone.now()
-        
-        #INSTANCIAS
-        
-        
+        print('el id pryecto es: ')
+        print(x_idproyecto)
         
         
-        return
+        try:
+            with transaction.atomic():
+                  #INSTANCIAS
+                x_tipoProyecto_instance = Tipo_Proyecto.objects.get(id = x_tipoProyecto)
+                x_pais_instance = Pais.objects.get(id = x_pais)
+                x_tipoApoyo_instance = Tipo_Apoyo.objects.get(id = x_tipoApoyo) if x_tipoApoyo else None
+                x_EntidadFinanciamiento_instance = Entidad_Financiamiento.objects.get(id = x_EntidadFinanciamiento) if x_EntidadFinanciamiento else None
+                
+                x_InstittucionFinanciamiento_instance = Institucion_Financiamiento.objects.get(id = x_InstittucionFinanciamiento)if x_InstittucionFinanciamiento else None
+                x_tipoMoneda_instance = Tipo_Moneda.objects.get(id = x_tipoMoneda)if x_tipoMoneda else None
+                x_areaTematica_instance = Area_Tematica.objects.get(id = x_areaTematica)
+                x_idparticipante_instance = Participante.objects.get(id=x_idparticipante) if x_idparticipante else None
+                
+                #OBTENEMOS EL PROYECTO
+                editproyecto = Proyecto.objects.get(id = x_idproyecto)
+                #AHORA CAMBIAREMOS SUS VALORES
+                editproyecto.cTipo_proyecto=x_tipoProyecto_instance
+                editproyecto.codigoProyecto=x_CodigoProyecto
+                editproyecto.nomProyecto=x_NombreProyecto
+                editproyecto.DescProyecto=x_descripcionProyecto
+                editproyecto.cpais=x_pais_instance
+                editproyecto.cTipoApoyo=x_tipoApoyo_instance
+                editproyecto.cEntFinan=x_EntidadFinanciamiento_instance
+                editproyecto.cInstFinanc=x_InstittucionFinanciamiento_instance
+                editproyecto.cTipo_Moneda=x_tipoMoneda_instance
+                editproyecto.monto=x_Monto
+                editproyecto.tipo_Cambio=x_TipoCambio
+                editproyecto.responsable=x_responsableIpen
+                editproyecto.responsableEnt=x_responsableEntidad
+                editproyecto.cAreaTem=x_areaTematica_instance
+                editproyecto.fechaInicio=x_fechaInicio
+                editproyecto.fechaFin=x_fechaFin
+                editproyecto.updated_by=updated_by
+                print(f"x_tipoProyecto: {x_tipoProyecto}")
+                print(f"x_pais: {x_pais}")
+                print(f"x_tipoApoyo: {x_tipoApoyo}")
+                print(f"x_EntidadFinanciamiento: {x_EntidadFinanciamiento}")
+                print(f"x_InstittucionFinanciamiento: {x_InstittucionFinanciamiento}")
+                print(f"x_tipoMoneda: {x_tipoMoneda}")
+                print(f"x_areaTematica: {x_areaTematica}")
+                print(f"x_idparticipante: {x_idparticipante}")
+                print(f"x_idproyecto: {x_idproyecto}")
+                print(f"x_iddetalleproyecto: {x_iddetalleproyecto}")
+                
+                
+                # cargar datos a  Det_EventoProyecto
+                if not x_iddetalleproyecto:
+                    verificarsiexiste=Det_EventoProyecto.objects.filter(participante_id = x_idparticipante_instance, proyecto_id = editproyecto).exists()
+                    if verificarsiexiste:
+                        return JsonResponse({'success': False, 'message': 'Este Proyecto ya se encuentra vinculado con este participante.'}, status=400)
+                    else:
+                        detalle_proyecto_participante = Det_EventoProyecto()
+                else:
+                    detalle_proyecto_participante = get_object_or_404(Det_EventoProyecto, id =x_iddetalleproyecto)
+                
+                detalle_proyecto_participante.participante = x_idparticipante_instance
+                detalle_proyecto_participante.proyecto = editproyecto
+                detalle_proyecto_participante.evento = None
+                detalle_proyecto_participante.Cod_autorizacion = x_codigoautorizacion
+                detalle_proyecto_participante.Cod_acta = x_codigoActa
+                
+                # Manejo para los archivos 
+                if 'Autorizacion' in request.FILES:
+                    detalle_proyecto_participante.Autorizacion = request.FILES['Autorizacion']
+                if 'acta' in request.FILES:
+                    detalle_proyecto_participante.acta = request.FILES['acta']
+                
+                detalle_proyecto_participante.Compromiso = x_compromiso
+                detalle_proyecto_participante.Objetivo = x_objetivo
+                detalle_proyecto_participante.Informe = x_informe
+                detalle_proyecto_participante.Observacion = x_observacion
+                detalle_proyecto_participante.actividad = x_actividad
+                
+                detalle_proyecto_participante.created_by = updated_by
+                detalle_proyecto_participante.updated_by = updated_by
+                
+                # Guardar evento y detalle
+                editproyecto.save()
+                detalle_proyecto_participante.save()
+                
+                # Añadir evento al participante
+                participante = get_object_or_404(Participante, id=x_idparticipante_instance.id)
+                if editproyecto not in participante.proyectos.all():
+                    participante.proyectos.add(editproyecto)
+                    participante.save()
+                    print(f"Evento con ID {x_idproyecto} añadido al participante con ID {x_idparticipante_instance.id}.")
+                else:
+                    print(f"El evento con ID {x_idproyecto} ya está asociado al participante con ID {x_idparticipante_instance.id}.")
+                
+                # Obtener eventos actualizados del participante
+                Proyectoparticipantesdata = []
+                for proyecto in participante.proyectos.all():
+                    Proyectoparticipantesdata.append({
+                        'id': proyecto.id,
+                        'codigoproyecto': proyecto.codigoProyecto,
+                        'nombreproyecto': proyecto.nomProyecto,
+                        'responsableentidad': proyecto.responsableEnt , # Cambiado a ID
+                        'areatematia': proyecto.cAreaTem.cArea_tematica, 
+                        'fechainicio': proyecto.fechaInicio, 
+                        'fechafin': proyecto.fechaFin, 
+
+                    })
+
+                return JsonResponse({'success': True,'message': 'Proyecto registrado correctamente', 'eventos': Proyectoparticipantesdata})
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Error en los datos recibidos'}, status=400)
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            return JsonResponse({'success': False, 'message': str(e)}, status=500)

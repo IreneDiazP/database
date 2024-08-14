@@ -763,7 +763,7 @@ document.getElementById("btnagregarproyectoparticipante").addEventListener('clic
 
       document.getElementById("txtFechaInicioP").value = data.FechaInicio;
       document.getElementById("txtFechaFinP").value = data.FechaFin;
-      // document.getElementById("txttipoCambio").value = data.tipo_Cambio;
+      document.getElementById("txtIdProyectoModalEditarProyecto").value = data.idproyecto;
     }
   } catch (error) {
     NotificacionSwal(
@@ -776,76 +776,7 @@ document.getElementById("btnagregarproyectoparticipante").addEventListener('clic
 
 })
 
-//EVENTO CLICK EN AGREGAR EVENTO Y ESTE PINTA EN EL MODAL
-document
-  .getElementById("btnagregareventoparticipante")
-  .addEventListener("click", async function () {
-    contenedorbuscar = document.getElementById("opcionBuscarEvento");
-    contenedorbuscar.classList.add("d-none");
-    obtenerValorocultar()
-    
-    idRegistroEvento = document.getElementById("cboTipoEventobuscar").value;
 
-
-    const urleventos = `../../getDatosEvento/${idRegistroEvento}`;
-
-    const csrftoken = getCookie("csrftoken");
-    try {
-      const response = await fetch(urleventos, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "X-CSRFToken": csrftoken,
-        },
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        NotificacionSwal("Error!", errorData.message, "error", "ok");
-      } else {
-        const result = await response.json();
-        const data = result.data;
-        console.log("los datos para evento");
-        console.log(data);
-        document.getElementById("txtCodigoEvento").value = data.codigoEvento;
-        document.getElementById("ideventousuario").value = data.idevento;
-        document.getElementById("txtNombreEvento").value = data.nomEvento;
-        document.getElementById("cboTipoEvento").value = data.cTipoEvento_id;
-        document.getElementById("cboAreaTematica").value = data.cAreaTem_id;
-        document.getElementById("txtDescripcion").value = data.DescEvento;
-        document.getElementById("cboPaiss").value = data.cpais_id;
-        console.log(
-          (document.getElementById("cboPaiss").value = data.cpais_id)
-        );
-        document.getElementById("txtFechainicio").value = data.fechaInicio;
-        document.getElementById("txtFechafin").value = data.fechaFin;
-        document.getElementById("cboTipoApoyo").value = data.cTipoApoyo_id;
-
-        document.getElementById("cboTipoEnFinanciamiento").value =
-          data.cEntFinan_id;
-
-        const urlget = `/proyecto/getInstituciones/${data.cEntFinan_id}`;
-        await cargarInstitucionesFinanciamiento(
-          data.cEntFinan_id,
-          data.cInstFinanc_id,
-          urlget,
-          0
-        );
-
-        document.getElementById("cboTipoMOneda").value = data.cTipo_Moneda_id;
-        document.getElementById("txtMonto").value = data.monto;
-        document.getElementById("txttipoCambio").value = data.tipo_Cambio;
-        document.getElementById("txtIdProyectoModalEditarProyecto").value = data.idevento
-      }
-    } catch (error) {
-      NotificacionSwal(
-        "Error!",
-        "Hubo un problema al procesar la solicitud",
-        "error",
-        "ok"
-      );
-    }
-  });
-  
 
 
   function LimpiarcamposProyectobutton() {
@@ -930,8 +861,11 @@ const codigoActa = document.getElementById("txtCodigoActap").value
 const compromiso = document.getElementById("txtCompromisop").value
 const objetivo = document.getElementById("txtObjetivop").value
 const informe = document.getElementById("txtInformep").value
+const observacion = document.getElementById("txtObservacionp").value
 const actividad = document.getElementById("txtActividadp").value
 const idproyecto = document.getElementById("txtIdProyectoModalEditarProyecto").value
+const iddetalleproyecto = document.getElementById("iddetalleproyectoparticipoante").value
+
 let idparticipante = participanteidId
 const data={
   tipoProyecto,
@@ -955,9 +889,11 @@ const data={
   compromiso,
   objetivo,
   informe,
+  observacion,
   actividad,
   idparticipante,
-  idproyecto
+  idproyecto,
+  iddetalleproyecto
 }
 console.log('La data es:', data);
 urlenviarproyecto ="../../añadirproyectoparticipante/"
@@ -973,8 +909,9 @@ fetch(urlenviarproyecto,{
   if(response.success){
     console.log('la data es:')
     console.log(response.data)
+    NotificacionSwal("Éxito!", response.message, "success", "ok");
   }else{
-
+    NotificacionSwal("Éxito!", response.message, "error", "ok");
   }
 })
 
