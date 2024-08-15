@@ -561,8 +561,11 @@ def editareventoparticipante(request, idevento,idparticipante):
         try:
             with transaction.atomic():
                 eventoparticipante=Evento.objects.get(id =idevento)
-                detalleeventoparticipante = Det_EventoProyecto.objects.get(participante_id = idparticipante, evento_id=idevento)
                 
+                try:
+                    detalleeventoparticipante = Det_EventoProyecto.objects.get(participante_id = idparticipante, evento_id=idevento)
+                except Det_EventoProyecto.DoesNotExist:
+                    detalleeventoparticipante = None
                 
                 eventoparticipante_data = {
                 'idevento': eventoparticipante.id,
@@ -580,14 +583,14 @@ def editareventoparticipante(request, idevento,idparticipante):
                 'tipomoneda':eventoparticipante.cTipo_Moneda.id,
                 'monto': str(eventoparticipante.monto),  # Serializar Decimal como cadena
                 'tipocambio': str(eventoparticipante.tipo_Cambio),
-                'iddetalle':detalleeventoparticipante.id,
-                'codigoautorizacion':detalleeventoparticipante.Cod_autorizacion,
-                'codigoacta':detalleeventoparticipante.Cod_acta,
-                'compromiso':detalleeventoparticipante.Compromiso,
-                'objetivo':detalleeventoparticipante.Objetivo,
-                'informe':detalleeventoparticipante.Informe,
-                'observacion':detalleeventoparticipante.Observacion,
-                'actividad':detalleeventoparticipante.actividad
+                'iddetalle':detalleeventoparticipante.id if detalleeventoparticipante else None,
+                'codigoautorizacion':detalleeventoparticipante.Cod_autorizacion if detalleeventoparticipante else None,
+                'codigoacta':detalleeventoparticipante.Cod_acta if detalleeventoparticipante else None,
+                'compromiso':detalleeventoparticipante.Compromiso if detalleeventoparticipante else None,
+                'objetivo':detalleeventoparticipante.Objetivo if detalleeventoparticipante else None,
+                'informe':detalleeventoparticipante.Informe if detalleeventoparticipante else None,
+                'observacion':detalleeventoparticipante.Observacion if detalleeventoparticipante else None,
+                'actividad':detalleeventoparticipante.actividad if detalleeventoparticipante else None,
                  
                 }
                 
@@ -794,7 +797,14 @@ def editarproyectoparticipante(request,idproyecto,idparticipante):
         try:
             with transaction.atomic():
                 proyectoparticipante=Proyecto.objects.get(id =idproyecto)
-                detalleproyectoparticipante = Det_EventoProyecto.objects.get(participante_id = idparticipante, proyecto_id=idproyecto)
+                
+                try:
+                    detalleproyectoparticipante = Det_EventoProyecto.objects.get(participante_id=idparticipante, proyecto_id=idproyecto)
+                except Det_EventoProyecto.DoesNotExist:
+                    detalleproyectoparticipante = None
+                
+                print(proyectoparticipante)
+                print(detalleproyectoparticipante)
                 
                 
                 proyectoParticipante_data = {
@@ -815,15 +825,16 @@ def editarproyectoparticipante(request,idproyecto,idparticipante):
                 'areatematica': str(proyectoparticipante.cAreaTem.id),
                 'fechainicio':proyectoparticipante.fechaInicio,
                 'fechafin':proyectoparticipante.fechaFin,
-                'codautorizacion':detalleproyectoparticipante.Cod_autorizacion,
-                'codigoacta':detalleproyectoparticipante.Cod_acta,
-                'compromiso':detalleproyectoparticipante.Compromiso,
-                'objetivo':detalleproyectoparticipante.Objetivo,
-                'informe':detalleproyectoparticipante.Informe,
-                'observacion':detalleproyectoparticipante.Observacion,
-                'actividad':detalleproyectoparticipante.actividad,
-                'iddetalleproyecto':detalleproyectoparticipante.id
+                'codautorizacion': detalleproyectoparticipante.Cod_autorizacion if detalleproyectoparticipante else None,
+                'codigoacta': detalleproyectoparticipante.Cod_acta if detalleproyectoparticipante else None,
+                'compromiso': detalleproyectoparticipante.Compromiso if detalleproyectoparticipante else None,
+                'objetivo': detalleproyectoparticipante.Objetivo if detalleproyectoparticipante else None,
+                'informe': detalleproyectoparticipante.Informe if detalleproyectoparticipante else None,
+                'observacion': detalleproyectoparticipante.Observacion if detalleproyectoparticipante else None,
+                'actividad': detalleproyectoparticipante.actividad if detalleproyectoparticipante else None,
+                'iddetalleproyecto': detalleproyectoparticipante.id if detalleproyectoparticipante else None
                 }
+                
                 
                 return JsonResponse({'success':True, 'proyectoparticipante':proyectoParticipante_data})
         except Exception as e:    
@@ -839,6 +850,8 @@ def eliminarproyectoparticipante (request):
             data = json.loads(request.body)
             idproyecto=data.get('idproyecto')
             idparticipante = data.get('idparticipante')
+            print(idproyecto)
+            print(idparticipante)
             with transaction.atomic():
                 
                 participante = Participante.objects.get(id=idparticipante)

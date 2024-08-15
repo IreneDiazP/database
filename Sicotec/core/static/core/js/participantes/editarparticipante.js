@@ -534,7 +534,7 @@ document
       const csrftoken = getCookie("csrftoken");
 
       const urlgetevento = `../../editareventoparticipante/${rowId}/${participanteidId}/`;
-
+      console.log(urlgetevento)
       try {
         const response = await fetch(urlgetevento, {
           method: "GET",
@@ -1017,7 +1017,11 @@ document
 
       const csrftoken = getCookie("csrftoken");
 
+      console.log('llegue hasta arriba de url')
+
       const urlgetproyecto = `../../editarproyectoparticipante/${rowId}/${participanteidId}/`;
+
+      console.log(urlgetproyecto)
 
       try {
         const response = await fetch(urlgetproyecto, {
