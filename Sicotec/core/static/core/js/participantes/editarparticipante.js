@@ -996,3 +996,94 @@ document
         );
       });
   });
+
+
+//CLICK EN EL BUTTON EDITAR 
+document
+  .querySelector("#tblProyectos tbody")
+  .addEventListener("click", async function (event) {
+    // Verifica si el clic se realizó en un botón de edición
+    if (
+      event.target.classList.contains("editBtn") ||
+      event.target.closest(".editBtn")
+    ) {
+      const row = event.target.closest("tr");
+      const rowId = row.id;
+      console.log("ID de la fila:", rowId);
+
+      document.getElementById("opcionBuscarProyecto").classList.add("d-none");
+
+      obtenerValorocultarProyecto();
+
+      const csrftoken = getCookie("csrftoken");
+
+      const urlgetproyecto = `../../editarproyectoparticipante/${rowId}/${participanteidId}/`;
+
+      try {
+        const response = await fetch(urlgetproyecto, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken,
+          },
+        });
+
+        const responsedata = await response.json();
+
+        if (responsedata.success) {
+          console.log("Datos del proyecto:", responsedata.proyectoparticipante);
+          console.log(responsedata.proyectoparticipante)
+
+          const data = responsedata.proyectoparticipante;
+
+          document.getElementById("cboTipoProyecto").value = data.tipoProyecto;
+          document.getElementById("txtCodigoProyecto").value =
+            data.codigoProyecto;
+          document.getElementById("txtNombreProyecto").value =
+            data.nombreproyecto;
+          document.getElementById("txtDescripcionP").value = data.descripcionProyecto;
+          document.getElementById("cboPaisP").value = data.pais;
+          document.getElementById("cboTipoApoyoP").value = data.tipoApoyo;
+          document.getElementById("cboTipoEnFinanciamientoP").value =
+            data.EntiFinanciamiento;
+          document.getElementById("cboTipoMOnedaP").value = data.tipoMoneda;
+          document.getElementById("txtidMontop").value = formatDecimal(
+            parseFloat(data.monto)
+          );
+          document.getElementById("txtidtCambioP").value = formatDecimal(
+            parseFloat(data.tipoCambio)
+          );
+          document.getElementById("txtRespIpen").value = data.ResponsableIpen;
+          document.getElementById("txtRespEnt").value = data.Responsableentidad;
+          document.getElementById("cboAreaTematicaP").value = data.areatematica;
+  
+          const urlget = `/proyecto/getInstituciones/${data.EntiFinanciamiento}`;
+          await cargarInstitucionesFinanciamiento(
+            data.EntiFinanciamiento,
+            data.InstiFinanciamiento,
+            urlget,
+            1
+          );
+  
+          document.getElementById("txtFechaInicioP").value = data.fechainicio;
+          document.getElementById("txtFechaFinP").value = data.fechafin;
+          document.getElementById("txtIdProyectoModalEditarProyecto").value =data.idproyecto;
+          document.getElementById("txtCodigoAutorizacionp").value=data.codautorizacion
+          document.getElementById("txtCodigoActap").value=data.codigoacta
+          document.getElementById("txtCompromisop").value=data.compromiso
+          document.getElementById("txtObjetivop").value=data.objetivo
+          document.getElementById("txtInformep").value=data.informe
+          document.getElementById("txtObservacionp").value=data.observacion
+          document.getElementById("txtActividadp").value=data.actividad
+          document.getElementById("iddetalleproyectoparticipoante").value=data.iddetalleproyecto
+        
+        } else {
+          console.log("Error:", responsedata.message);
+          NotificacionSwal("Error!", responsedata.message,'Error','ok')
+        }
+      } catch (error) {
+        NotificacionSwal("Error!", responsedata.message,'Error','ok')
+      }
+    }
+  });
+  

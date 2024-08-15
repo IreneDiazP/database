@@ -785,3 +785,46 @@ def añadirproyectoparticipante(request):
         except Exception as e:
             print(f"Error: {str(e)}")
             return JsonResponse({'success': False, 'message': str(e)}, status=500)
+
+
+def editarproyectoparticipante(request,idproyecto,idparticipante):
+    if request.method == 'GET':
+        try:
+            with transaction.atomic():
+                proyectoparticipante=Proyecto.objects.get(id =idproyecto)
+                detalleproyectoparticipante = Det_EventoProyecto.objects.get(participante_id = idparticipante, proyecto_id=idproyecto)
+                
+                
+                proyectoParticipante_data = {
+                'idproyecto': proyectoparticipante.id,
+                'tipoProyecto': proyectoparticipante.cTipo_proyecto.id,
+                'codigoProyecto':proyectoparticipante.codigoProyecto,
+                'nombreproyecto':proyectoparticipante.nomProyecto,
+                'descripcionProyecto':proyectoparticipante.DescProyecto,
+                'pais':proyectoparticipante.cpais.id,
+                'tipoApoyo':proyectoparticipante.cTipoApoyo.id,
+                'EntiFinanciamiento':proyectoparticipante.cEntFinan.id,
+                'InstiFinanciamiento':proyectoparticipante.cInstFinanc.id,
+                'tipoMoneda':proyectoparticipante.cTipo_Moneda.id,
+                'monto':str(proyectoparticipante.monto),
+                'tipoCambio':str(proyectoparticipante.tipo_Cambio),
+                'ResponsableIpen':proyectoparticipante.responsable,
+                'Responsableentidad':proyectoparticipante.responsableEnt,
+                'areatematica': str(proyectoparticipante.cAreaTem.id),
+                'fechainicio':proyectoparticipante.fechaInicio,
+                'fechafin':proyectoparticipante.fechaFin,
+                'codautorizacion':detalleproyectoparticipante.Cod_autorizacion,
+                'codigoacta':detalleproyectoparticipante.Cod_acta,
+                'compromiso':detalleproyectoparticipante.Compromiso,
+                'objetivo':detalleproyectoparticipante.Objetivo,
+                'informe':detalleproyectoparticipante.Informe,
+                'observacion':detalleproyectoparticipante.Observacion,
+                'actividad':detalleproyectoparticipante.actividad,
+                'iddetalleproyecto':detalleproyectoparticipante.id
+                }
+                
+                return JsonResponse({'success':True, 'proyectoparticipante':proyectoParticipante_data})
+        except Exception as e:    
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+    return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)

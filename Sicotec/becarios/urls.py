@@ -43,5 +43,9 @@ urlpatterns = [
    
     path('getProyectoParticipante/<int:idproyecto>',views.getProyectoParticipante, name="getProyectoParticipante"),
     
-    path('añadirproyectoparticipante/',views.añadirproyectoparticipante, name="añadirproyectoparticipante")
+    path('añadirproyectoparticipante/',views.añadirproyectoparticipante, name="añadirproyectoparticipante"),
+    
+    #obtener datos del proyecto para editar 
+    path('editarproyectoparticipante/<int:idproyecto>/<int:idparticipante>/',views.editarproyectoparticipante, name="editarproyectoparticipante"),
+    
 ]
