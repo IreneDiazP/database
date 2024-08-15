@@ -1086,4 +1086,87 @@ document
       }
     }
   });
-  
+
+
+// Manejar clic en el botón de eliminar en la tabla
+document
+  .querySelector("#tblProyectos tbody")
+  .addEventListener("click", function (event) {
+    if (
+      event.target.classList.contains("trashBtn") ||
+      event.target.closest(".trashBtn")
+    ) {
+      let idRegistroEliminar = event.target.closest("tr").getAttribute("id");
+      document.getElementById("txtIdProyectoModalEliminarProyecto").value =idRegistroEliminar;
+      console.log("El id para eliminar: " + idRegistroEliminar);
+    }
+  });
+
+// Manejar el envío del formulario de eliminación
+document
+  .getElementById("formEliminarProyectodetalle")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const idRegistro = document.getElementById(
+      "txtIdProyectoModalEliminarProyecto"
+    ).value;
+    const csrftoken = getCookie("csrftoken");
+
+    // Ocultar el modal
+    const modalElement = document.getElementById(
+      "modalEliminarProyecto"
+    );
+    let modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (!modalInstance) {
+      modalInstance = new bootstrap.Modal(modalElement);
+    }
+    modalInstance.hide();
+
+    // Datos a enviar
+    const data = {
+      idproyecto: idRegistro,
+      idparticipante: participanteidId, 
+    };
+
+    fetch("../../eliminarproyectoparticipante/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.success) {
+          // Eliminar fila en la tabla
+          const row = document.querySelector(
+            `#tblProyectos tr[id="${idRegistro}"]`
+          );
+          if (row) {
+            row.remove();
+          }
+
+          // Mostrar notificación de éxito
+          NotificacionSwal("Éxito!", responseData.message, "success", "Ok");
+        } else {
+          // Mostrar notificación de error
+          NotificacionSwal(
+            "Error!",
+            responseData.message || "Ocurrió un error.",
+            "error",
+            "Ok"
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        NotificacionSwal(
+          "Error!",
+          "Ocurrió un error al realizar la solicitud.",
+          "error",
+          "Ok"
+        );
+      });
+  });

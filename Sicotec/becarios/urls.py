@@ -48,4 +48,6 @@ urlpatterns = [
     #obtener datos del proyecto para editar 
     path('editarproyectoparticipante/<int:idproyecto>/<int:idparticipante>/',views.editarproyectoparticipante, name="editarproyectoparticipante"),
     
+    path('eliminarproyectoparticipante/',views.eliminarproyectoparticipante, name="eliminarproyectoparticipante"),
+    
 ]

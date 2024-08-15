@@ -650,6 +650,8 @@ def getProyectoParticipante(request,idproyecto):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
     
+
+@login_required   
 def añadirproyectoparticipante(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -827,4 +829,29 @@ def editarproyectoparticipante(request,idproyecto,idparticipante):
         except Exception as e:    
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
         
+    return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
+
+
+@login_required
+def eliminarproyectoparticipante (request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            idproyecto=data.get('idproyecto')
+            idparticipante = data.get('idparticipante')
+            with transaction.atomic():
+                
+                participante = Participante.objects.get(id=idparticipante)
+
+                idproyectoeliminar = Proyecto.objects.get(id = idproyecto )
+                
+                iddetalleproyectoeliminar = Det_EventoProyecto.objects.get(proyecto_id = idproyecto, participante_id= idparticipante )
+                
+                iddetalleproyectoeliminar.delete()
+                
+                participante.proyectos.remove(idproyectoeliminar)
+                
+                return JsonResponse({'success':True, 'message': 'El proyecto vinculado a este participante fue eliminado exitosamente'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
     return JsonResponse({'success': False, 'message': 'Método de solicitud no permitido'}, status=400)
