@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'eventos',
     'mantenimiento',
     'proyectos',
-    'usuarios'
+    'usuarios',
+    'reportes'
 ]
 
 MIDDLEWARE = [

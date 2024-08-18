@@ -23,6 +23,7 @@ urlpatterns = [
     path('eventos/', include('eventos.urls')),
     path('proyecto/', include('proyectos.urls')),
     path('usuario/', include('usuarios.urls')),
+    path('reportes/', include('reportes.urls')),
     # Path del Admin
     path('admin/', admin.site.urls),
 
