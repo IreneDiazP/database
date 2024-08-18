@@ -61,7 +61,7 @@
                   </div>
               </th >
               <th class="text-center">
-                <div class="d-flex gap-2 justify-content-center">
+                 <div class="d-flex gap-2 justify-content-center">
                     <input type="radio" id="estadoTrue_{{ ptc.id }}" name="Estado_{{ ptc.id }}" value="True"
                         {% if ptc.estado %} checked {% endif %}>
                     <label for="estadoTrue_{{ ptc.id }}">Activo</label>
@@ -69,7 +69,7 @@
                     <input type="radio" id="estadoFalse_{{ ptc.id }}" name="Estado_{{ ptc.id }}" value="False"
                         {% if not ptc.estado %} checked {% endif %}>
                     <label for="estadoFalse_{{ ptc.id }}">Inactivo</label>
-                </div>
+                </div> 
             </th>
 
           </tr>
