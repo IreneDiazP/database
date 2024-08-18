@@ -150,7 +150,7 @@
 
               </ul>
             </li>
-            {% if request.user.is_staff or request.user.is_superuser %}
+            {% comment %} {% if request.user.is_staff or request.user.is_superuser %}
             <!--USUARIOS-->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
@@ -177,7 +177,35 @@
               </ul>
             </li>
 
-            {% endif %}
+            {% endif %} {% endcomment %}
+
+            
+            <!--USUARIOS-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="nav-link__icon bi bi-clipboard2-data-fill fs-5 text-white"></i>
+                <span class="nav-link__title text-white">Reportes</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a id="RCapacitacionArea"
+                    class=" dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 "
+                    href="{% url 'nuevoUsuario' %}">
+                    <i class="nav-link__icon bi bi-filetype-pdf fs-5"></i> Capacitacion por Area
+                  </a>
+                </li>
+                <li> <a id="RParticipantesporAño"
+                    class=" dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 "
+                    href="#">
+                    <i class="nav-link__icon bi bi-filetype-pdf fs-5"></i>
+                    Particiantes por Año
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
             {% if request.user.is_staff or request.user.is_superuser %}
             <!--MANTENIMIENTO-->
             <li class="nav-item dropdown">
@@ -190,43 +218,51 @@
                 <li>
                   <a id="Mantenimiento"
                     class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
-                    href="{% url 'nuevoUsuario' %}">
+                    href="#">
                     <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Institución
                   </a>
                 </li>
                 <li>
                   <a id="Mantenimiento"
                     class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
-                    href="{% url 'nuevoUsuario' %}">
+                    href="#">
                     <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Sede
                   </a>
                 </li>
                 <li>
                   <a id="Mantenimiento"
                     class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
-                    href="{% url 'nuevoUsuario' %}">
+                    href="#">
                     <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Temática
                   </a>
                 </li>
                 <li>
                   <a id="Mantenimiento"
                     class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
-                    href="{% url 'nuevoUsuario' %}">
+                    href="#">
                     <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Tipo de Apoyo
                   </a>
                 </li>
                 <li>
                   <a id="Mantenimiento"
                     class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
-                    href="{% url 'nuevoUsuario' %}">
+                    href="#">
                     <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Tipo Financiamiento
                   </a>
                 </li>
                 <li>
                   <a id="Mantenimiento"
                     class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
-                    href="{% url 'nuevoUsuario' %}">
+                    href="#">
                     <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Tipo de Proyecto
+                  </a>
+                </li>
+
+                <li>
+                  <a id="Usuarios"
+                    class="dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 fw-bold"
+                    href="{% url 'nuevoUsuario' %}">
+                    <i class="nav-link__icon bi bi-plus fs-5"></i> Añadir Usuarios
                   </a>
                 </li>
               </ul>
