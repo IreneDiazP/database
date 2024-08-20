@@ -26,4 +26,13 @@ urlpatterns = [
     path('editartematica/',views.editartematica, name='editartematica'),
 
     path('eliminartematica/',views.eliminartematica, name='eliminartematica'),
+    
+    #CRUD TIPO APOYO
+    path('añadirnuevotipoapoyo/',views.añadirnuevotipoapoyo, name='añadirnuevotipoapoyo'),
+    
+    # path('getTipoApoyo/<int:idtipoapoyo>/',views.getTipoApoyo, name='getTipoApoyo'),
+    
+    # path('editartipoapoyo/',views.editartipoapoyo, name='editartipoapoyo'),
+
+    # path('eliminartipoapoyo/',views.eliminartipoapoyo, name='eliminartipoapoyo'),
 ]

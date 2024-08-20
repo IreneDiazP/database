@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from proyectos.models import Entidad_Financiamiento, Institucion_Financiamiento, Area_Tematica
+from proyectos.models import Entidad_Financiamiento, Institucion_Financiamiento, Area_Tematica, Tipo_Apoyo
 
 # Create your views here.
 
@@ -238,3 +238,76 @@ def eliminartematica(request):
             return JsonResponse({'success': True, 'message': 'Area Temática eliminado correctamente'})
         except Exception as e:
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+
+
+#crud de tipo de apoyo @login_required
+def añadirnuevotipoapoyo(request):
+    tipoapoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
+
+    return render(request, 'mantenimiento/nuevotipoapoyo.html', {
+        'tipoapoyo': tipoapoyo,
+    })
+
+# @login_required
+# def getTipoApoyo(request, idtipoapoyo):
+#     try:
+#         print('holi boli')
+#         tematica = Area_Tematica.objects.get(id=idtematica)
+#         dataTematica = {
+#             'nombreTematica': tematica.cArea_tematica,
+           
+#         }
+#         return JsonResponse({'success': True, 'data': dataTematica})
+#     except Exception as e:
+#         return JsonResponse({'success': False, 'message': str(e)})
+
+# @login_required
+# def editartipoapoyo(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         try:
+#             idTematica = data.get('idTematica')
+#             NuevaTematica = data.get('tematica')
+
+
+#             if not idTematica:
+#                 nuevatemtica = Area_Tematica(
+#                     cArea_tematica=NuevaTematica,
+#                 )
+#                 nuevatemtica.save()
+#                 message = 'La Temática fue registrada exitosamente'
+#             else:
+#                 gettematica = Area_Tematica.objects.get(
+#                     id=idTematica)
+#                 gettematica.cArea_tematica = NuevaTematica
+#                 gettematica.save()
+#                 message = 'La Temática fue modificada exitosamente'
+
+#             tematicas = Area_Tematica.objects.all().order_by('cArea_tematica')
+
+#             tematicas_list = [
+#                 {
+#                     'id': tem.id,
+#                     'temtica': tem.cArea_tematica,
+#                 } for tem in tematicas
+#             ]
+
+#             return JsonResponse({'success': True, 'message': message, 'data': tematicas_list})
+
+#         except Exception as e:
+#             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+        
+# @login_required
+# def eliminartipoapoyo(request):
+#     if request.method == 'POST':
+#         try:
+#             data = json.loads(request.body)
+#             idTematica = data.get('idTematica')
+#             tematica = Area_Tematica.objects.get(
+#                 id=idTematica)
+#             tematica.delete()
+
+#             return JsonResponse({'success': True, 'message': 'Area Temática eliminado correctamente'})
+#         except Exception as e:
+#             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
