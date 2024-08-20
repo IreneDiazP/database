@@ -112,3 +112,57 @@ def getEntidad(request, identidad):
         return JsonResponse({'success': True, 'data': datainstitucion})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
+
+
+
+@login_required
+def editarentidad(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        try:
+            idEntidad = data.get('idEntidad')
+            NUevaEntidad = data.get('Entidad')
+
+
+            if not idEntidad:
+                nuevaentidad = Entidad_Financiamiento(
+                    cEntFinancia=NUevaEntidad,
+                    lestado=True
+                )
+                nuevaentidad.save()
+                message = 'La Entidad fue registrada exitosamente'
+            else:
+                getEntidad = Entidad_Financiamiento.objects.get(
+                    id=idEntidad)
+                getEntidad.cEntFinancia = NUevaEntidad
+                getEntidad.lestado = True
+                getEntidad.save()
+                message = 'La Entidad fue modificada exitosamente'
+
+            Entidades = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')
+
+            entidades_list = [
+                {
+                    'id': enti.id,
+                    'entidad_financiamiento': enti.cEntFinancia,
+                } for enti in Entidades
+            ]
+
+            return JsonResponse({'success': True, 'message': message, 'data': entidades_list})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+@login_required
+def eliminarEntidad(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            idEntidad = data.get('idEntidad')
+            entidad = Entidad_Financiamiento.objects.get(
+                id=idEntidad)
+            entidad.delete()
+
+            return JsonResponse({'success': True, 'message': 'Institucion eliminado correctamente'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)

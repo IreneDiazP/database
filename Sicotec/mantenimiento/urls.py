@@ -13,4 +13,8 @@ urlpatterns = [
     path('añadirnuevoentidad/',views.añadirnuevoentidad, name='añadirnuevoentidad'),
         
     path('getEntidad/<int:identidad>/',views.getEntidad, name='getEntidad'),
+    
+    path('editarentidad/',views.editarentidad, name='editarentidad'),
+    
+    path('eliminarEntidad/',views.eliminarEntidad, name='eliminarEntidad'),
 ]

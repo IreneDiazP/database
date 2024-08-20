@@ -110,7 +110,7 @@
       <div class="row px-3">
         <form
           action=""
-          id="formEditarInstitucion"
+          id="formEditarEntidad"
           class="shadow px-3 rounded"
           method="POST"
         >
@@ -148,7 +148,7 @@
                       oninput="convertToUppercase(this)"
                     />
                     <label for="txtNombreEntidad"
-                      >Nombre<span class="text-danger ms-2">*</span></label
+                      >Nombre Entidad<span class="text-danger ms-2">*</span></label
                     >
                   </div>
                 </div>
@@ -180,16 +180,16 @@
   </div>
 </div>
 <!-- Modal eliminar INSTITUCION -->
-<div class="modal fade" id="modalEliminarEntidad" tabindex="-1" aria-labelledby="EliminarInstitucionLabel" aria-hidden="true">
+<div class="modal fade" id="modalEliminarEntidad" tabindex="-1" aria-labelledby="EliminarEntidadLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="EliminarInstitucionLabel">Eliminar institución</h1>
+        <h1 class="modal-title fs-5" id="EliminarEntidadLabel">Eliminar institución</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="formEliminarInstitucion" action="">
+      <form id="formEliminarEntidad" action="">
         <div class="modal-body">
-          <input type="hidden" class="form-control" id="txtIdProyectoModalEliminarInstitucion" name="txtIdProyectoModalEliminarInstitucion" value="" readonly>
+          <input type="hidden" class="form-control" id="txtIdModalEliminarEntidad" name="txtIdModalEliminarEntidad" value="" readonly>
           <div class="mensaje-aviso d-flex gap-2">
             <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel">¿Está seguro de eliminar la institución?</h1>
           </div>
