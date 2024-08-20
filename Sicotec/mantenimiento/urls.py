@@ -17,4 +17,13 @@ urlpatterns = [
     path('editarentidad/',views.editarentidad, name='editarentidad'),
     
     path('eliminarEntidad/',views.eliminarEntidad, name='eliminarEntidad'),
+    
+    #CRUD TEMATICA
+    path('añadirnuevatematica/',views.añadirnuevatematica, name='añadirnuevatematica'),
+    
+    path('getTematica/<int:idtematica>/',views.getTematica, name='getTematica'),
+    
+    path('editartematica/',views.editartematica, name='editartematica'),
+
+    path('eliminartematica/',views.eliminartematica, name='eliminartematica'),
 ]

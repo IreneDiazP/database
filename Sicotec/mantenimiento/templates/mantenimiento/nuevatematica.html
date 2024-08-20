@@ -1,0 +1,220 @@
+{% extends "core/base.html" %} {% load static %} 
+{% block title %} Temáticas {% endblock title %} 
+{% block head %} {% endblock %} 
+{% block contenido %}
+<div class="main-content d-flex flex-column mx-3 my-4">
+  <div class="tab-content shadow rounded px-4 py-5">
+    <div
+      class="tab-pane fade show active"
+      id="list-home"
+      role="tabpanel"
+      aria-labelledby="list-home-list"
+    >
+      <div class="d-flex justify-content-between mb-3">
+        <h2 class="fs-2 fw-semibold d-md-block d-none">
+          Lista de Temáticas
+        </h2>
+        <h2 class="fs-5 fw-semibold d-md-none d-block">
+          Lista de Temáticas
+        </h2>
+        <button
+          id="BtnAgregarTematicas"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#modalEditarTematica"
+          data-bs-whatever="Editar"
+        >
+          Agregar Temática
+        </button>
+      </div>
+
+      <!--TABLA-->
+      <div class="table-responsive">
+        <hr />
+        <table
+          id="tblTematicas"
+          class="table table-hover display shadow rounded"
+          style="width: 100%"
+        >
+          <thead class="table-dark">
+            <tr>
+              <th class="text-center">Nombre Temática</th>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody class="text-rigth">
+            {% for tem in tematicas %}
+
+            <tr id="{{tem.id}}">
+              <th>{{tem.cArea_tematica}}</th>
+              <th class="">
+                <div class="d-flex gap-2 justify-content-center">
+                  <button
+                    type="button"
+                    class="btn btn-success editBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEditarTematica"
+                    data-bs-whatever="Editar"
+                  >
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger trashBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEliminarTematica"
+                    data-bs-whatever="Eliminar"
+                    >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </th>
+            </tr>
+            {% endfor %}
+          </tbody>
+
+          <tfoot>
+            <th class="text-center">Tematica</th>
+            <th class="text-center"></th>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--MODAL PARA EDITAR EVENTO-->
+<div
+  class="modal fade"
+  id="modalEditarTematica"
+  tabindex="-1"
+  aria-labelledby="modalEditarTematicaLabel"
+  aria-hidden="true"
+  >
+  <div
+    class="modal-dialog m-auto modal-dialog-centered mt-3"
+    style="--bs-modal-width: 1382px"
+  >
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="fs-2 fw-semibold d-md-block d-none"
+          >Edición de la Tematica</span
+        >
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="row px-3">
+        <form
+          action=""
+          id="formEditarTematica"
+          class="shadow px-3 rounded"
+          method="POST"
+        >
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="d-flex gap-3 flex-column justify-content-center">
+              <input
+                type="hidden"
+                class="form-control"
+                id="txtIdModalEditarTematica"
+                name="txtIdModalEditarTematica"
+                value=""
+                readonly
+              />
+              <!--formulario de ingreso datos-->
+              <div class="row g-3 px-3">
+                <!-- Aviso de campos obligatorios  -->
+                <div class="d-flex">
+                  <span class="text-danger ms-2">* Campos obligatorios</span>
+                </div>
+                <span class="fw-bold fs-6"
+                  >Datos generales de la Tematica</span
+                >
+                <!------   ----------------------------- -->
+                <!--NOMBRE TEMTICA-->
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="txtNombreTematica"
+                      name="txtNombreTematica"
+                      required
+                      maxlength="150"
+                      oninput="convertToUppercase(this)"
+                    />
+                    <label for="txtNombreTematica"
+                      >Nombre Temática<span class="text-danger ms-2">*</span></label
+                    >
+                  </div>
+                </div>
+
+                <!------   ----------------------------- -->
+              </div>
+            </div>
+          </div>
+          <!-- Botones Guardar y Cancelar -->
+          <div class="modal-footer">
+            <button
+              class="btn btn-danger shadow text-light fs-6 btnForm"
+              type="submit"
+            >
+              <i class="fas fa-save"></i>
+              &nbsp;Guardar datos
+            </button>
+            <button
+              class="btn btn-secondary text-white shadow fs-6"
+              type="button"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal eliminar INSTITUCION -->
+<div class="modal fade" id="modalEliminarTematica" tabindex="-1" aria-labelledby="EliminarTematicaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="EliminarTematicaLabel">Eliminar institución</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="formEliminarTematica" action="">
+        <div class="modal-body">
+          <input type="hidden" class="form-control" id="txtIdModalEliminarTematica" name="txtIdModalEliminarTematica" value="" readonly>
+          <div class="mensaje-aviso d-flex gap-2">
+            <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel">¿Está seguro de eliminar la institución?</h1>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i> Eliminar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+  {% endblock contenido %} 
+  {% block script %}
+  <script>
+    function convertToUppercase(input) {
+      input.value = input.value.toUpperCase();
+    }
+  </script>
+
+  <!-- Custom JS -->
+
+  <script src="{% static 'core/js/mantenimiento/nuevatematica.js' %}"></script>
+
+  {% endblock %}
