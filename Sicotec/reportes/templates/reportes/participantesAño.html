@@ -26,14 +26,11 @@
 </body>
 </html> -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <title>Document</title>
     <style>
         * {
@@ -73,13 +70,29 @@
         .header .area {
             margin-top: 10px;
         }
-        .container-table{
-          width: 100%;
-          padding: 10px;
+        .container-table {
+            width: 100%;
+            padding: 10px;
         }
-        .tabla-capacitacion{
-          width: 100%;
-          
+        .tabla-capacitacion {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .custom-thead {
+            border-bottom: 2px solid rgb(0, 0, 0); 
+            border-top: 2px solid rgb(0, 0, 0); /* Borde solo en la parte inferior */
+        }
+        .custom-thead th {
+            border-bottom: none; 
+            border-top: none;
+            border-left: none; 
+            border-right: none; 
+            padding: 10px; 
+            text-align: center;
+        }
+        tbody th {
+            padding: 10px; 
+            text-align: left; 
         }
     </style>
 </head>
@@ -90,7 +103,7 @@
                 <td style="width: 100px;">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcizVg6CO7Hd_xCwzi3buwc7qVN6MnPUciSw&s" alt="Logo">
                 </td>
-                <td class="title ">
+                <td class="title">
                     <h1>CAPACITACION POR AREA - 2024</h1>
                     <h3>Oficina de Cooperacion Técnica y Asuntos Internacionales</h3>
                 </td>
@@ -104,34 +117,44 @@
         <div class="area">
             <p>Área: <strong>AREA DE ALIMENTARIAS</strong></p>
         </div>
-
-
     </div>
 
     <div class="container-table">
-      <table class="tabla-capacitacion">
-        <thead>
-          <tr>
-            <th> Inicio</th>
-            <th> Termino</th>
-            <th> Evento</th>
-            <th> PAis</th>
-            <th> Fte.FFto</th>
-            <th> Autorizacion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th> 17-04-52</th>
-            <th> 12-04-20</th>
-            <th> EVENTO DE PRUEBASASAS</th>
-            <th> Peru</th>
-            <th> OIEA</th>
-            <th> Carta oeiea me lasasasasa</th>
-          </tr>
-        </tbody>
-      </table>
+        <table class="tabla-capacitacion">
+            <thead class="custom-thead">
+                <tr>
+                    <th>Inicio</th>
+                    <th>Término</th>
+                    <th>Evento</th>
+                    <th>País</th>
+                    <th>Fte. Fto</th>
+                    <th>Autorización</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for p in datosparticipante %}
+              <tr>
+                <td colspan="6"> {{ p.nombres }} </td>
+              </tr>
+              <tr>
+                <th>17-04-52</th>
+                <th>12-04-20</th>
+                <th>
+                  {% for evento in p.eventos %}
+                    {{ evento }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </th>
+                <th>{{ p.pais }}</th>
+                <th>OIEA</th>
+                <th>Carta oeiea me lasasasasa</th>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 </body>
 </html>
+
+
+
