@@ -1,5 +1,5 @@
 {% extends "core/base.html" %} {% load static %} 
-{% block title %} Instituciones {% endblock title %} 
+{% block title %} Entidades {% endblock title %} 
 {% block head %} {% endblock %} 
 {% block contenido %}
 <div class="main-content d-flex flex-column mx-3 my-4">
@@ -12,19 +12,19 @@
     >
       <div class="d-flex justify-content-between mb-3">
         <h2 class="fs-2 fw-semibold d-md-block d-none">
-          Lista de Instituciones
+          Lista de Entidades
         </h2>
         <h2 class="fs-5 fw-semibold d-md-none d-block">
-          Lista de Instituciones
+          Lista de Entidades
         </h2>
         <button
-          id="BtnAgregarInstitucion"
+          id="BtnAgregarEntidad"
           class="btn btn-primary"
           data-bs-toggle="modal"
-          data-bs-target="#modalEditarInstitucion"
+          data-bs-target="#modalEditarEntidad"
           data-bs-whatever="Editar"
         >
-          Agregar Institucion
+          Agregar Entidades
         </button>
       </div>
 
@@ -32,30 +32,28 @@
       <div class="table-responsive">
         <hr />
         <table
-          id="tblInstituciones"
+          id="tblEntidades"
           class="table table-hover display shadow rounded"
           style="width: 100%"
         >
           <thead class="table-dark">
             <tr>
               <th class="text-center">Nombre Entidad</th>
-              <th class="text-center">Nombre Institucion</th>
               <th class="text-center"></th>
             </tr>
           </thead>
           <tbody class="text-rigth">
-            {% for inst in instituciones %}
+            {% for ent in Entidades %}
 
-            <tr id="{{inst.id}}">
-              <th>{{inst.entidad_financiamiento.cEntFinancia}}</th>
-              <th class="">{{inst.cInstFinancia}}</th>
+            <tr id="{{ent.id}}">
+              <th>{{ent.cEntFinancia}}</th>
               <th class="">
                 <div class="d-flex gap-2 justify-content-center">
                   <button
                     type="button"
                     class="btn btn-success editBtn"
                     data-bs-toggle="modal"
-                    data-bs-target="#modalEditarInstitucion"
+                    data-bs-target="#modalEditarEntidad"
                     data-bs-whatever="Editar"
                   >
                     <i class="bi bi-pencil"></i>
@@ -64,9 +62,9 @@
                     type="button"
                     class="btn btn-danger trashBtn"
                     data-bs-toggle="modal"
-                    data-bs-target="#modalEliminarInstitucion"
+                    data-bs-target="#modalEliminarEntidad"
                     data-bs-whatever="Eliminar"
-                  >
+                    >
                     <i class="bi bi-trash"></i>
                   </button>
                 </div>
@@ -77,7 +75,6 @@
 
           <tfoot>
             <th class="text-center">Codigo</th>
-            <th class="text-center">Nombre Evento</th>
             <th class="text-center"></th>
           </tfoot>
         </table>
@@ -89,7 +86,7 @@
 <!--MODAL PARA EDITAR EVENTO-->
 <div
   class="modal fade"
-  id="modalEditarInstitucion"
+  id="modalEditarEntidad"
   tabindex="-1"
   aria-labelledby="modalEditarInstitucionLabel"
   aria-hidden="true"
@@ -123,8 +120,8 @@
               <input
                 type="hidden"
                 class="form-control"
-                id="txtIdModalEditarInstitu"
-                name="txtIdModalEditarInstitu"
+                id="txtIdModalEditarEntidad"
+                name="txtIdModalEditarEntidad"
                 value=""
                 readonly
               />
@@ -138,41 +135,19 @@
                   >Datos generales de la Institucion</span
                 >
                 <!------   ----------------------------- -->
-                <!--ENTIDAD-->
-                <div class="col-md-6">
-                  <div class="form-floating">
-                    <select
-                      class="form-select"
-                      id="cboEntidad"
-                      name="cboEntidad"
-                      required
-                    >
-                      <option selected></option>
-                      {% for entidad in Entidades %}
-                      <option value="{{entidad.id}}">
-                        {{entidad.cEntFinancia}}
-                      </option>
-                      {% endfor %}
-                    </select>
-                    <label for="cboEntidad"
-                      >Entidad<span class="text-danger ms-2">*</span></label
-                    >
-                  </div>
-                </div>
-                <!------   ----------------------------- -->
-                <!--NOMBRE Institucion-->
+                <!--NOMBRE ENTIDAD-->
                 <div class="col-md-6">
                   <div class="form-floating">
                     <input
                       type="text"
                       class="form-control"
-                      id="txtNombreInstitucion"
-                      name="txtNombreInstitucion"
+                      id="txtNombreEntidad"
+                      name="txtNombreEntidad"
                       required
                       maxlength="150"
                       oninput="convertToUppercase(this)"
                     />
-                    <label for="txtNombreInstitucion"
+                    <label for="txtNombreEntidad"
                       >Nombre<span class="text-danger ms-2">*</span></label
                     >
                   </div>
@@ -205,7 +180,7 @@
   </div>
 </div>
 <!-- Modal eliminar INSTITUCION -->
-<div class="modal fade" id="modalEliminarInstitucion" tabindex="-1" aria-labelledby="EliminarInstitucionLabel" aria-hidden="true">
+<div class="modal fade" id="modalEliminarEntidad" tabindex="-1" aria-labelledby="EliminarInstitucionLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -230,7 +205,8 @@
   </div>
 </div>
 
-  {% endblock contenido %} {% block script %}
+  {% endblock contenido %} 
+  {% block script %}
   <script>
     function convertToUppercase(input) {
       input.value = input.value.toUpperCase();
@@ -239,6 +215,6 @@
 
   <!-- Custom JS -->
 
-  <script src="{% static 'core/js/mantenimiento/nuevaInstitucion.js' %}"></script>
+  <script src="{% static 'core/js/mantenimiento/nuevaentidad.js' %}"></script>
 
   {% endblock %}
