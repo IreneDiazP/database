@@ -35,4 +35,13 @@ urlpatterns = [
     path('editartipoapoyo/',views.editartipoapoyo, name='editartipoapoyo'),
 
     path('eliminartipoapoyo/',views.eliminartipoapoyo, name='eliminartipoapoyo'),
+    
+        #CRUD TIPO PROYECTO
+    path('añadirnuevotipoproyecto/',views.añadirnuevotipoproyecto, name='añadirnuevotipoproyecto'),
+    
+    path('getTiproyecto/<int:idtipoproyecto>/',views.getTiproyecto, name='getTiproyecto'),
+    
+    path('editartipoproyecto/',views.editartipoproyecto, name='editartipoproyecto'),
+
+    path('eliminartipoproyecto/',views.eliminartipoproyecto, name='eliminartipoproyecto'),
 ]

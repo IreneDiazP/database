@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from proyectos.models import Entidad_Financiamiento, Institucion_Financiamiento, Area_Tematica, Tipo_Apoyo
+from proyectos.models import Entidad_Financiamiento, Institucion_Financiamiento, Area_Tematica, Tipo_Apoyo, Tipo_Proyecto
 
 # Create your views here.
 
@@ -309,5 +309,77 @@ def eliminartipoapoyo(request):
             tipoapoyo.delete()
 
             return JsonResponse({'success': True, 'message': 'El tipo de Apoyo fue eliminado correctamente'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+
+#crud de tipo de apoyo @login_required
+def añadirnuevotipoproyecto(request):
+    tipoProyecto = Tipo_Proyecto.objects.all().order_by('cTipoProyecto')
+
+    return render(request, 'mantenimiento/nuevotipoproyecto.html', {
+        'tipoProyecto': tipoProyecto,
+    })
+
+@login_required
+def getTiproyecto(request, idtipoproyecto):
+    try:
+        print('holi boli')
+        tipoproyecto = Tipo_Proyecto.objects.get(id=idtipoproyecto)
+        dataTipoProyecto = {
+            'nombreTipoProyecto': tipoproyecto.cTipoProyecto,
+           
+        }
+        return JsonResponse({'success': True, 'data': dataTipoProyecto})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+
+@login_required
+def editartipoproyecto(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        try:
+            idTipoProyecto = data.get('idTipoProyecto')
+            tipoproyecto = data.get('tipoproyecto')
+
+
+            if not idTipoProyecto:
+                nuevatipoProyecto = Tipo_Proyecto(
+                    cTipoProyecto=tipoproyecto,
+                )
+                nuevatipoProyecto.save()
+                message = 'El Tipo de Proyecto fue registrada exitosamente'
+            else:
+                getTipoProyecto = Tipo_Proyecto.objects.get(
+                    id=idTipoProyecto)
+                getTipoProyecto.cTipoProyecto = tipoproyecto
+                getTipoProyecto.save()
+                message = 'El Tipo de Proyecto fue modificada exitosamente'
+
+            TipoProyecto = Tipo_Proyecto.objects.all().order_by('cTipoProyecto')
+
+            TipoProyecto_list = [
+                {
+                    'id': tp.id,
+                    'tipoproyecto': tp.cTipoProyecto,
+                } for tp in TipoProyecto
+            ]
+
+            return JsonResponse({'success': True, 'message': message, 'data': TipoProyecto_list})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+        
+@login_required
+def eliminartipoproyecto(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            idTipoProyecto = data.get('idTipoProyecto')
+            tipoporyecto = Tipo_Proyecto.objects.get(
+                id=idTipoProyecto)
+            tipoporyecto.delete()
+
+            return JsonResponse({'success': True, 'message': 'El tipo de proyecto fue eliminado correctamente'})
         except Exception as e:
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
