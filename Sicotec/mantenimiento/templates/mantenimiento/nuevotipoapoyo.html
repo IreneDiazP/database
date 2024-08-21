@@ -12,19 +12,19 @@
     >
       <div class="d-flex justify-content-between mb-3">
         <h2 class="fs-2 fw-semibold d-md-block d-none">
-          Lista de Temáticas
+          Lista de Tipo Apoyo
         </h2>
         <h2 class="fs-5 fw-semibold d-md-none d-block">
-          Lista de Temáticas
+          Lista de Tipo Apoyo
         </h2>
         <button
-          id="BtnAgregarTematicas"
+          id="BtnAgregarTipoApoyo"
           class="btn btn-primary"
           data-bs-toggle="modal"
-          data-bs-target="#modalEditarTematica"
+          data-bs-target="#modalEditarTipoApoyo"
           data-bs-whatever="Editar"
         >
-          Agregar Temática
+          Agregar Tipo Apoyo
         </button>
       </div>
 
@@ -32,13 +32,13 @@
       <div class="table-responsive">
         <hr />
         <table
-          id="tblTematicas"
+          id="tblTipoApoyo"
           class="table table-hover display shadow rounded"
           style="width: 100%"
         >
           <thead class="table-dark">
             <tr>
-              <th class="text-center">Nombre Temática</th>
+              <th class="text-center">Tipo Apoyo</th>
               <th class="text-center"></th>
             </tr>
           </thead>
@@ -53,7 +53,7 @@
                     type="button"
                     class="btn btn-success editBtn"
                     data-bs-toggle="modal"
-                    data-bs-target="#modalEditarTematica"
+                    data-bs-target="#modalEditarTipoApoyo"
                     data-bs-whatever="Editar"
                   >
                     <i class="bi bi-pencil"></i>
@@ -62,7 +62,7 @@
                     type="button"
                     class="btn btn-danger trashBtn"
                     data-bs-toggle="modal"
-                    data-bs-target="#modalEliminarTematica"
+                    data-bs-target="#modalEliminarTipoApoyo"
                     data-bs-whatever="Eliminar"
                     >
                     <i class="bi bi-trash"></i>
@@ -74,7 +74,7 @@
           </tbody>
 
           <tfoot>
-            <th class="text-center">Tematica</th>
+            <th class="text-center">Tipo Apoyo</th>
             <th class="text-center"></th>
           </tfoot>
         </table>
@@ -86,19 +86,19 @@
 <!--MODAL PARA EDITAR EVENTO-->
 <div
   class="modal fade"
-  id="modalEditarTematica"
+  id="modalEditarTipoApoyo"
   tabindex="-1"
-  aria-labelledby="modalEditarTematicaLabel"
+  aria-labelledby="modalEditarTipoApoyoLabel"
   aria-hidden="true"
   >
   <div
     class="modal-dialog m-auto modal-dialog-centered mt-3"
-    style="--bs-modal-width: 1382px"
+    style="--bs-modal-width: 900px"
   >
     <div class="modal-content">
       <div class="modal-header">
         <span class="fs-2 fw-semibold d-md-block d-none"
-          >Edición de la Tematica</span
+          >Edición del Tipo de Apoyo</span
         >
         <button
           type="button"
@@ -110,7 +110,7 @@
       <div class="row px-3">
         <form
           action=""
-          id="formEditarTematica"
+          id="formEditarTipoApoyo"
           class="shadow px-3 rounded"
           method="POST"
         >
@@ -120,8 +120,8 @@
               <input
                 type="hidden"
                 class="form-control"
-                id="txtIdModalEditarTematica"
-                name="txtIdModalEditarTematica"
+                id="txtIdModalEditarTipoApoyo"
+                name="txtIdModalEditarTipoApoyo"
                 value=""
                 readonly
               />
@@ -132,23 +132,23 @@
                   <span class="text-danger ms-2">* Campos obligatorios</span>
                 </div>
                 <span class="fw-bold fs-6"
-                  >Datos generales de la Tematica</span
+                  >Datos generales del Tipo de Apoyo</span
                 >
                 <!------   ----------------------------- -->
                 <!--NOMBRE TEMTICA-->
-                <div class="col-md-6">
+                <div class="col-md-9">
                   <div class="form-floating">
                     <input
                       type="text"
                       class="form-control"
-                      id="txtNombreTematica"
-                      name="txtNombreTematica"
+                      id="txtTipoApoyo"
+                      name="txtTipoApoyo"
                       required
-                      maxlength="150"
+                      maxlength="50"
                       oninput="convertToUppercase(this)"
                     />
-                    <label for="txtNombreTematica"
-                      >Nombre Temática<span class="text-danger ms-2">*</span></label
+                    <label for="txtTipoApoyo"
+                      >Tipo de Apoyo<span class="text-danger ms-2">*</span></label
                     >
                   </div>
                 </div>
@@ -180,18 +180,18 @@
   </div>
 </div>
 <!-- Modal eliminar INSTITUCION -->
-<div class="modal fade" id="modalEliminarTematica" tabindex="-1" aria-labelledby="EliminarTematicaLabel" aria-hidden="true">
+<div class="modal fade" id="modalEliminarTipoApoyo" tabindex="-1" aria-labelledby="EliminarTipoApoyoLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="EliminarTematicaLabel">Eliminar institución</h1>
+        <h1 class="modal-title fs-5" id="EliminarTipoApoyoLabel">Eliminar institución</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="formEliminarTematica" action="">
+      <form id="formEliminarTipoApoyo" action="">
         <div class="modal-body">
-          <input type="hidden" class="form-control" id="txtIdModalEliminarTematica" name="txtIdModalEliminarTematica" value="" readonly>
+          <input type="hidden" class="form-control" id="txtIdModalEliminarTipoApoyo" name="txtIdModalEliminarTipoApoyo" value="" readonly>
           <div class="mensaje-aviso d-flex gap-2">
-            <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel">¿Está seguro de eliminar la institución?</h1>
+            <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel">¿Está seguro de eliminar el Tipo de Apoyo?</h1>
           </div>
         </div>
         <div class="modal-footer">
@@ -215,6 +215,6 @@
 
   <!-- Custom JS -->
 
-  <script src="{% static 'core/js/mantenimiento/nuevatematica.js' %}"></script>
+  <script src="{% static 'core/js/mantenimiento/nuevotipoapoyo.js' %}"></script>
 
   {% endblock %}

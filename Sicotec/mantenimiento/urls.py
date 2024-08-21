@@ -30,9 +30,9 @@ urlpatterns = [
     #CRUD TIPO APOYO
     path('añadirnuevotipoapoyo/',views.añadirnuevotipoapoyo, name='añadirnuevotipoapoyo'),
     
-    # path('getTipoApoyo/<int:idtipoapoyo>/',views.getTipoApoyo, name='getTipoApoyo'),
+    path('getTipoApoyo/<int:idtipoapoyo>/',views.getTipoApoyo, name='getTipoApoyo'),
     
-    # path('editartipoapoyo/',views.editartipoapoyo, name='editartipoapoyo'),
+    path('editartipoapoyo/',views.editartipoapoyo, name='editartipoapoyo'),
 
-    # path('eliminartipoapoyo/',views.eliminartipoapoyo, name='eliminartipoapoyo'),
+    path('eliminartipoapoyo/',views.eliminartipoapoyo, name='eliminartipoapoyo'),
 ]

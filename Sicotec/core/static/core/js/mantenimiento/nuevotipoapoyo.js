@@ -1,36 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
     document
-      .querySelector("#tblTematicas tbody")
+      .querySelector("#tblTipoApoyo tbody")
       .addEventListener("click", async function (event) {
         if (
           event.target.classList.contains("editBtn") ||
           event.target.closest(".editBtn")
         ) {
-          let idRegistroEntidad = event.target.closest("tr").getAttribute("id");
-          document.getElementById("txtIdModalEditarTematica").value =
-            idRegistroEntidad;
-          console.log("hola" + idRegistroEntidad);
-          CargardatoEntidad(idRegistroEntidad);
+          let idRegistroApoyo = event.target.closest("tr").getAttribute("id");
+          document.getElementById("txtIdModalEditarTipoApoyo").value =
+          idRegistroApoyo;
+          console.log("hola" + idRegistroApoyo);
+          CargardatoEntidad(idRegistroApoyo);
         }
       });
   
     document
-      .getElementById("BtnAgregarTematicas")
+      .getElementById("BtnAgregarTipoApoyo")
       .addEventListener("click", limpiarCampos);
   
-      document.getElementById('formEditarTematica').addEventListener('submit',function(event){
+      document.getElementById('formEditarTipoApoyo').addEventListener('submit',function(event){
         event.preventDefault()
-        idTematica = document.getElementById('txtIdModalEditarTematica').value
-        tematica = document.getElementById('txtNombreTematica').value
+        idTipoApoyo = document.getElementById('txtIdModalEditarTipoApoyo').value
+        tipoApoyo = document.getElementById('txtTipoApoyo').value
     
         data={
-          tematica,
-          idTematica,
+          tipoApoyo,
+          idTipoApoyo,
         }
   
         console.log(data)
   
-        const urlpost= '../../mantenimiento/editartematica/'
+        const urlpost= '../../mantenimiento/editartipoapoyo/'
         const csrftoken = getCookie("csrftoken");
         fetch(urlpost,{
           method: "POST",
@@ -41,24 +41,24 @@ document.addEventListener("DOMContentLoaded", function () {
           body: JSON.stringify(data),
         }).then((response) => response.json()).then((response) =>{
           if(response.success){
-            tematicas = response.data
-            console.log(tematicas)
+            tipoApoyo = response.data
+            console.log(tipoApoyo)
             NotificacionSwal("Éxito!", response.message, "success", "ok")
   
-            const tablaBody = document.querySelector("#tblTematicas tbody")
+            const tablaBody = document.querySelector("#tblTipoApoyo tbody")
             let html = ""
-            tematicas.forEach(tem => {
+            tipoApoyo.forEach(ta => {
               html += `
-                  <tr id="${tem.id}">
-                      <th>${tem.temtica}</th>
+                  <tr id="${ta.id}">
+                      <th>${ta.tipoapoyo}</th>
                       <th>
                           <div class="d-flex gap-2 justify-content-center">
                               <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
-                                  data-bs-target="#modalEditarTematica" data-bs-whatever="Editar">
+                                  data-bs-target="#modalEditarTipoApoyo" data-bs-whatever="Editar">
                                   <i class="bi bi-pencil"></i>
                               </button>
                               <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
-                                  data-bs-target="#modalEliminarTematica" data-bs-whatever="Eliminar">
+                                  data-bs-target="#modalEliminarTipoApoyo" data-bs-whatever="Eliminar">
                                   <i class="bi bi-trash"></i>
                               </button>
                           </div>
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
           });
   
           tablaBody.innerHTML = html;
-          const modalElement = document.getElementById("modalEditarTematica");
+          const modalElement = document.getElementById("modalEditarTipoApoyo");
           const modal = bootstrap.Modal.getInstance(modalElement);
           limpiarCampos()
           if (modal) {
@@ -81,32 +81,32 @@ document.addEventListener("DOMContentLoaded", function () {
   
       // Manejar clic en el botón de eliminar en la tabla
       document
-        .querySelector("#tblTematicas tbody")
+        .querySelector("#tblTipoApoyo tbody")
         .addEventListener("click", function (event) {
           if (
             event.target.classList.contains("trashBtn") ||
             event.target.closest(".trashBtn")
           ) {
             let idRegistroEliminar = event.target.closest("tr").getAttribute("id");
-            document.getElementById("txtIdModalEliminarTematica").value =idRegistroEliminar;
+            document.getElementById("txtIdModalEliminarTipoApoyo").value =idRegistroEliminar;
             console.log("El id para eliminar: " + idRegistroEliminar);
           }
         });
   
       //  Manejar el envío del formulario de eliminación
       document
-        .getElementById("formEliminarTematica")
+        .getElementById("formEliminarTipoApoyo")
         .addEventListener("submit", function (event) {
           event.preventDefault();
   
           const idRegistro = document.getElementById(
-            "txtIdModalEliminarTematica"
+            "txtIdModalEliminarTipoApoyo"
           ).value;
           const csrftoken = getCookie("csrftoken");
   
           // Ocultar el modal
           const modalElement = document.getElementById(
-            "modalEliminarTematica"
+            "modalEliminarTipoApoyo"
           );
           let modalInstance = bootstrap.Modal.getInstance(modalElement);
           if (!modalInstance) {
@@ -116,10 +116,10 @@ document.addEventListener("DOMContentLoaded", function () {
   
           // Datos a enviar
           const data = {
-            idTematica: idRegistro,
+            idTipoApoyo: idRegistro,
           };
   
-          fetch("../../mantenimiento/eliminartematica/", {
+          fetch("../../mantenimiento/eliminartipoapoyo/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (responseData.success) {
                 // Eliminar fila en la tabla
                 const row = document.querySelector(
-                  `#tblTematicas tr[id="${idRegistro}"]`
+                  `#tblTipoApoyo tr[id="${idRegistro}"]`
                 );
                 if (row) {
                   row.remove();
@@ -178,10 +178,10 @@ document.addEventListener("DOMContentLoaded", function () {
     return cookieValue;
   }
   
-  async function CargardatoEntidad(idRegistroTematica) {
+  async function CargardatoEntidad(idRegistroApoyo) {
     console.log("este es el id");
-    console.log(typeof idRegistroTematica);
-    const urlpost = `../../mantenimiento/getTematica/${idRegistroTematica}`;
+    console.log(typeof idRegistroApoyo);
+    const urlpost = `../../mantenimiento/getTipoApoyo/${idRegistroApoyo}`;
     console.log(urlpost);
     const csrftoken = getCookie("csrftoken");
     try {
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = result.data;
         console.log(data);
   
-        document.getElementById("txtNombreTematica").value = data.nombreTematica;
+        document.getElementById("txtTipoApoyo").value = data.nombreTipoApoyo;
       }
     } catch (error) {
       NotificacionSwal(
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   function limpiarCampos() {
-    const campos = ["txtNombreTematica", "txtIdModalEditarTematica"];
+    const campos = ["txtTipoApoyo", "txtIdModalEditarTipoApoyo"];
   
     campos.forEach((campo) => {
       document.getElementById(campo).value = "";

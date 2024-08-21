@@ -248,66 +248,66 @@ def añadirnuevotipoapoyo(request):
         'tipoapoyo': tipoapoyo,
     })
 
-# @login_required
-# def getTipoApoyo(request, idtipoapoyo):
-#     try:
-#         print('holi boli')
-#         tematica = Area_Tematica.objects.get(id=idtematica)
-#         dataTematica = {
-#             'nombreTematica': tematica.cArea_tematica,
+@login_required
+def getTipoApoyo(request, idtipoapoyo):
+    try:
+        print('holi boli')
+        tipoApoyo = Tipo_Apoyo.objects.get(id=idtipoapoyo)
+        dataTipoApoyo = {
+            'nombreTipoApoyo': tipoApoyo.ctipo_apoyo,
            
-#         }
-#         return JsonResponse({'success': True, 'data': dataTematica})
-#     except Exception as e:
-#         return JsonResponse({'success': False, 'message': str(e)})
+        }
+        return JsonResponse({'success': True, 'data': dataTipoApoyo})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
 
-# @login_required
-# def editartipoapoyo(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         try:
-#             idTematica = data.get('idTematica')
-#             NuevaTematica = data.get('tematica')
+@login_required
+def editartipoapoyo(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        try:
+            idTipoApoyo = data.get('idTipoApoyo')
+            tipoApoyo = data.get('tipoApoyo')
 
 
-#             if not idTematica:
-#                 nuevatemtica = Area_Tematica(
-#                     cArea_tematica=NuevaTematica,
-#                 )
-#                 nuevatemtica.save()
-#                 message = 'La Temática fue registrada exitosamente'
-#             else:
-#                 gettematica = Area_Tematica.objects.get(
-#                     id=idTematica)
-#                 gettematica.cArea_tematica = NuevaTematica
-#                 gettematica.save()
-#                 message = 'La Temática fue modificada exitosamente'
+            if not idTipoApoyo:
+                nuevatipoApoyo = Tipo_Apoyo(
+                    ctipo_apoyo=tipoApoyo,
+                )
+                nuevatipoApoyo.save()
+                message = 'El Tipo de Apoyo fue registrada exitosamente'
+            else:
+                getTipoApoyo = Tipo_Apoyo.objects.get(
+                    id=idTipoApoyo)
+                getTipoApoyo.ctipo_apoyo = tipoApoyo
+                getTipoApoyo.save()
+                message = 'El Tipo de Apoyo fue modificada exitosamente'
 
-#             tematicas = Area_Tematica.objects.all().order_by('cArea_tematica')
+            TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
 
-#             tematicas_list = [
-#                 {
-#                     'id': tem.id,
-#                     'temtica': tem.cArea_tematica,
-#                 } for tem in tematicas
-#             ]
+            TipodeApoyo_list = [
+                {
+                    'id': ta.id,
+                    'tipoapoyo': ta.ctipo_apoyo,
+                } for ta in TipoApoyo
+            ]
 
-#             return JsonResponse({'success': True, 'message': message, 'data': tematicas_list})
+            return JsonResponse({'success': True, 'message': message, 'data': TipodeApoyo_list})
 
-#         except Exception as e:
-#             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
         
         
-# @login_required
-# def eliminartipoapoyo(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body)
-#             idTematica = data.get('idTematica')
-#             tematica = Area_Tematica.objects.get(
-#                 id=idTematica)
-#             tematica.delete()
+@login_required
+def eliminartipoapoyo(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            idTipoApoyo = data.get('idTipoApoyo')
+            tipoapoyo = Tipo_Apoyo.objects.get(
+                id=idTipoApoyo)
+            tipoapoyo.delete()
 
-#             return JsonResponse({'success': True, 'message': 'Area Temática eliminado correctamente'})
-#         except Exception as e:
-#             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+            return JsonResponse({'success': True, 'message': 'El tipo de Apoyo fue eliminado correctamente'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
