@@ -1,7 +1,9 @@
-{% extends "core/base.html" %} {% load static %} 
-{% block title %} Nuevo Usuario{% endblock title %} 
-{% block head %} {% endblock %}
- {% block contenido %}
+{% extends "core/base.html" %}
+{% load static %} 
+{% block title %} Nuevo Usuario{% endblock title %}
+{% block head %} 
+{% endblock %} 
+{% block contenido %}
 <div class="main-content d-flex flex-column mx-3 my-4">
   <div class="tab-content shadow rounded px-4 py-5">
     <div
@@ -38,6 +40,7 @@
               <th class="text-center">Apellido</th>
               <th class="text-center">Area</th>
               <th class="text-center">Usuario</th>
+              <th class="text-center">Estado</th>
               <th class="text-center"></th>
             </tr>
           </thead>
@@ -49,6 +52,13 @@
               <th class="">{{us.apellido}}</th>
               <th class="">{{us.area}}</th>
               <th class="">{{us.user.username}}</th>
+              <th>
+                {% if us.user.is_active %}
+                <span class="badge bg-success">Activo</span>
+                {% else %}
+                <span class="badge bg-danger">Inactivo</span>
+                {% endif %}
+              </th>
               <th class="">
                 <div class="d-flex gap-2 justify-content-center">
                   <button
@@ -80,6 +90,7 @@
             <th class="text-center">Apellido</th>
             <th class="text-center">Area</th>
             <th class="text-center">Usuario</th>
+            <th class="text-center">Estado</th>
             <th class="text-center"></th>
           </tfoot>
         </table>
@@ -122,13 +133,13 @@
           {% csrf_token %}
           <div class="d-flex gap-3 flex-column">
             <input
-            type="hidden"
-            class="form-control"
-            id="txtIdModalEditarUsuario"
-            name="txtIdModalEditarUsuario"
-            value=""
-            readonly
-          />
+              type="hidden"
+              class="form-control"
+              id="txtIdModalEditarUsuario"
+              name="txtIdModalEditarUsuario"
+              value=""
+              readonly
+            />
             <div class="col-12">
               <div class="d-flex">
                 <span class="text-danger ms-2">* Campos obligatorios</span>
@@ -198,6 +209,27 @@
                   </div>
                 </div>
                 <!------   ----------------------------- -->
+
+                <!-- ACTIVO/INACTIVO -->
+                <div class="col-md-3">
+                  <div class="form-check mb-3">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      id="isActiveCheckbox"
+                      name="is_active"
+                      {%
+                      if
+                      profile_form.instance.user.is_active
+                      %}checked{%
+                      endif
+                      %}
+                    />
+                    <label class="form-check-label" for="isActiveCheckbox"
+                      >Activo</label
+                    >
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -231,7 +263,7 @@
   tabindex="-1"
   aria-labelledby="EliminarInstitucionLabel"
   aria-hidden="true"
-  >
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -281,7 +313,8 @@
   </div>
 </div>
 
-{% endblock contenido %} {% block script %}
+{% endblock contenido %} 
+{% block script %}
 <script>
   function convertToUppercase(input) {
     input.value = input.value.toUpperCase();

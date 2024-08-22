@@ -23,85 +23,120 @@ document.addEventListener("DOMContentLoaded", function () {
       usernameInput.value = "";
     }
   }
-
-  document
-    .getElementById("formAgregarUsuario")
-    .addEventListener("submit", function (event) {
-      event.preventDefault();
-      const nombre = document.getElementById("txtNombres").value;
-      const apellido = document.getElementById("txtApellidos").value;
-      const area = document.getElementById("txtarea").value;
-      const email = document.getElementById("txtEmail").value;
-      const username = document.getElementById("txtUsername").value;
-      const password = document.getElementById("txtContraseña").value;
-      console.log("nombre" + nombre);
-
-      const data = {
-        nombre,
-        apellido,
-        area,
-        email,
-        username,
-        password,
-      };
-      console.log(data);
-      const url = "../../usuario/agregarusuario/";
-      const csrftoken = getCookie("csrftoken");
-
-      fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrftoken,
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.success) {
-            NotificacionSwal("Éxito!", response.message, "success", "ok");
-            LimpiarCampos();
-            usuarios = response.data;
-            console.log("los usuarios");
-            console.log(usuarios);
-
-            const tablaBody = document.querySelector("#tblUsuarios tbody");
-            let html = "";
-            usuarios.forEach((us) => {
-              html += `
-                  <tr id="${us.id}">
-                    <th>${us.nombre}</th>
-                    <th>${us.apellido}</th>
-                    <th>${us.area}</th>
-                    <th>${us.usuario}</th>
-                      <th>
-                          <div class="d-flex gap-2 justify-content-center">
-                              <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
-                                  data-bs-target="#modalEditarUsuario" data-bs-whatever="Editar">
-                                  <i class="bi bi-pencil"></i>
-                              </button>
-                              <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
-                                  data-bs-target="#modalEliminarUsuario" data-bs-whatever="Eliminar">
-                                  <i class="bi bi-trash"></i>
-                              </button>
-                          </div>
-                      </th>
-                  </tr>
-              `;
-            });
-
-            tablaBody.innerHTML = html;
-            const modalElement = document.getElementById("modalEditarUsuario");
-            const modal = bootstrap.Modal.getInstance(modalElement);
-            if (modal) {
-              modal.hide();
-            }
-          } else {
-            NotificacionSwal("Error!", response.message, "error", "ok");
-          }
-        });
-    });
 });
+
+document
+  .getElementById("BtnAgregarUsuario")
+  .addEventListener("click", LimpiarCampos);
+
+//para ediar al usuario
+document
+  .querySelector("#tblUsuarios tbody")
+  .addEventListener("click", async function (event) {
+    if (
+      event.target.classList.contains("editBtn") ||
+      event.target.closest(".editBtn")
+    ) {
+      let idRegistroUsuario = event.target.closest("tr").getAttribute("id");
+      document.getElementById("txtIdModalEditarUsuario").value =
+        idRegistroUsuario;
+      CargardatoEventos(idRegistroUsuario);
+    }
+  });
+
+document
+  .getElementById("formAgregarUsuario")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const nombre = document.getElementById("txtNombres").value;
+    const apellido = document.getElementById("txtApellidos").value;
+    const area = document.getElementById("txtarea").value;
+    const email = document.getElementById("txtEmail").value;
+    const username = document.getElementById("txtUsername").value;
+    const password = document.getElementById("txtContraseña").value;
+    const idusuario = document.getElementById("txtIdModalEditarUsuario").value;
+    // Usar el ID correcto para el checkbox
+    const isActiveCheckbox = document.getElementById("isActiveCheckbox");
+    const isActive = isActiveCheckbox ? isActiveCheckbox.checked : false;
+
+    console.log("nombre: " + nombre);
+
+    const data = {
+      idusuario,
+      nombre,
+      apellido,
+      area,
+      email,
+      username,
+      password,
+      is_active: isActive, // Incluir el estado activo en los datos enviados
+    };
+
+    console.log(data);
+
+    const url = "../../usuario/agregarusuario/";
+    const csrftoken = getCookie("csrftoken");
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success) {
+          NotificacionSwal("Éxito!", response.message, "success", "ok");
+          LimpiarCampos();
+          usuarioss = response.data;
+          console.log("los usuarios");
+          console.log(usuarioss);
+
+          const tablaBody = document.querySelector("#tblUsuarios tbody");
+          let html = "";
+          usuarioss.forEach((us) => {
+            html += `
+                <tr id="${us.id}">
+                <th>${us.nombre}</th>
+                <th>${us.apellido}</th>
+                <th>${us.area}</th>
+                <th>${us.usuario}</th>
+                <th>
+                    ${us.is_active
+                        ? '<span class="badge bg-success">Activo</span>'
+                        : '<span class="badge bg-danger">Inactivo</span>'
+                    }
+                </th>
+                <th>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
+                            data-bs-target="#modalEditarUsuario" data-bs-whatever="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
+                            data-bs-target="#modalEliminarUsuario" data-bs-whatever="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </th>
+            </tr>
+                `;
+          });
+
+          tablaBody.innerHTML = html;
+          const modalElement = document.getElementById("modalEditarUsuario");
+          const modal = bootstrap.Modal.getInstance(modalElement);
+          if (modal) {
+            modal.hide();
+          }
+        } else {
+          NotificacionSwal("Error!", response.message, "error", "ok");
+        }
+      });
+  });
 
 //cookies
 function getCookie(name) {
@@ -127,6 +162,7 @@ function LimpiarCampos() {
     "txtEmail",
     "txtUsername",
     "txtContraseña",
+    "txtIdModalEditarUsuario",
   ];
   ids.forEach(function (id) {
     const campo = document.getElementById(id);
@@ -134,4 +170,40 @@ function LimpiarCampos() {
       campo.value = "";
     }
   });
+}
+
+async function CargardatoEventos(idRegistroUsuario) {
+  const url = `../../usuario/getusuario/${idRegistroUsuario}`;
+  const csrftoken = getCookie("csrftoken");
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "X-CSRFToken": csrftoken,
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      NotificacionSwal("Error!", errorData.message, "error", "ok");
+    } else {
+      const result = await response.json();
+      const data = result.data;
+      console.log(data);
+
+      document.getElementById("txtNombres").value = data.nombre;
+      document.getElementById("txtApellidos").value = data.apellido;
+      document.getElementById("txtarea").value = data.area;
+      document.getElementById("txtEmail").value = data.email;
+      document.getElementById("txtUsername").value = data.usuario;
+      document.getElementById("txtContraseña").value = "";
+    }
+  } catch (error) {
+    NotificacionSwal(
+      "Error!",
+      "Hubo un problema al procesar la solicitud",
+      "error",
+      "ok"
+    );
+  }
 }
