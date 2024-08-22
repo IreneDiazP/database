@@ -4,9 +4,6 @@ Usuario{% endblock title %} {% block contenido %}
   <div
     class="formulario d-flex flex-column gap-4 mt-4 align-self-center mx-5 mb-md-0 mb-5"
   >
-    {% if mensaje_error %}
-    <p style="color: red">{{ mensaje_error }}</p>
-    {% endif %}
     <div>
       <form
         action="#"
@@ -124,17 +121,25 @@ Usuario{% endblock title %} {% block contenido %}
 </div>
 {% endblock contenido %} {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static 'core/js/notificacion-Swal.js' %}"></script>
 
 <script>
   {% if messages %}
     {% for message in messages %}
-      NotificacionSwal(
-        "Éxito!",
-        "{{ message }}",
-        "success",
-        "ok"
-      );
+      {% if message.tags == "success" %}
+        NotificacionSwal(
+          "Éxito!",
+          "{{ message }}",
+          "success",
+          "ok"
+        );
+      {% elif message.tags == "error" %}
+        NotificacionSwal(
+          "Error!",
+          "{{ message }}",
+          "error",
+          "ok"
+        );
+      {% endif %}
     {% endfor %}
   {% endif %}
 </script>

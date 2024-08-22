@@ -32,3 +32,7 @@ class UserProfileForm(forms.ModelForm):
         attrs={'id': 'txtUsername','class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'id': 'txtContraseña', 'class': 'form-control form-usuario'}))
+    
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.fields['correo_institucional'].required = False
