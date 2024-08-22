@@ -1,4 +1,6 @@
+import json
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -8,41 +10,55 @@ from .forms import UserProfileForm
 
 @login_required
 def nuevo_usuario(request):
+    usuario = UserProfile.objects.all().order_by('-created')
+    print(usuario)
+    form = UserProfileForm()
+    return render(request, 'usuarios/nuevousuario.html',{
+        'usuario':usuario,
+        'profile_form': form
+    })
+
+def agregarusuario(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            try:
-                with transaction.atomic():
-                    # Obtener los datos del formulario
-                    username = form.cleaned_data['username']
-                    password = form.cleaned_data['password']
-                    nombre = form.cleaned_data['nombre']
-                    apellido = form.cleaned_data['apellido']
-                    area = form.cleaned_data['area']
-                    correo_institucional = form.cleaned_data['correo_institucional']
-
-                    # Crear el usuario
-                    user = User.objects.create_user(username=username, password=password)
-
-                    # Crear el perfil del usuario
-                    profile = UserProfile(
-                        user=user,
-                        nombre=nombre,
-                        apellido=apellido,
-                        area=area,
-                        correo_institucional=correo_institucional if correo_institucional else None,
-                        created_by=request.user
+        data= json.loads(request.body)
+        nombre=data.get('nombre')
+        apellido=data.get('apellido')
+        area=data.get('area')
+        email=data.get('email')
+        username=data.get('username')
+        password=data.get('password')
+        try:
+            with transaction.atomic():
+            
+                user = User.objects.create_user(username=username, password=password)
+                profile = UserProfile(
+                    user=user,
+                    nombre=nombre,
+                    apellido=apellido,
+                    area=area,
+                    correo_institucional= email if email else None,
+                    created_by=request.user
                     )
-                    profile.save()
+                profile.save()
+                
 
-                    messages.success(request, 'Usuario creado exitosamente')
-                    return redirect('nuevoUsuario')
-            except Exception as e:
-                messages.error(request, f'Hubo un problema al crear el usuario: {str(e)}')
-        else:
-            messages.error(request, 'Formulario inválido. Por favor, revise los datos ingresados.')
-    else:
-        form = UserProfileForm()
+                usuarios = UserProfile.objects.all().order_by('-created')
+                usuarios_list = [
+                    {
+                        'id':u.id,
+                        'nombre': u.nombre,
+                        'apellido': u.apellido,
+                        'area': u.area,
+                        'usuario': u.user.username
+                    }
+                    for u in usuarios
+                ]
 
-    return render(request, 'usuarios/nuevousuario.html', {'profile_form': form})
+
+                return JsonResponse({'success': True, 'message': 'Usuario creado exitosamente' , 'data':usuarios_list})
+            
+         
+        except Exception as e:
+                return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+
 
