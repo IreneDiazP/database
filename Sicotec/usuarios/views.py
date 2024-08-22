@@ -1,7 +1,7 @@
 import json
 from django.contrib import messages
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -53,7 +53,7 @@ def agregarusuario(request):
                 if not idusuario:
                     # Crear un nuevo usuario
                     user = User.objects.create_user(username=username, password=password)
-                    user.is_active = is_active  # Establecer si el usuario está activo o no
+                    user.is_active = is_active 
                     user.save()
                     
                     profile = UserProfile(
@@ -69,13 +69,13 @@ def agregarusuario(request):
                 else:
                     # Actualizar un usuario existente
                     profile = UserProfile.objects.get(id=idusuario)
-                    user = profile.user  # Obtener el usuario asociado al perfil
+                    user = profile.user  
 
                     if username:
                         user.username = username
                     if password:
-                        user.set_password(password)  # Cambiar la contraseña
-                    user.is_active = is_active  # Actualizar el estado activo del usuario
+                        user.set_password(password)  
+                    user.is_active = is_active 
                     user.save()
 
                     profile.nombre = nombre
@@ -106,3 +106,22 @@ def agregarusuario(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
 
+
+def cambioestado(request):
+    try:
+        data = json.loads(request.body)
+        user_id = data.get('user_id')
+        print('User ID:', user_id)
+        user_profile = get_object_or_404(UserProfile, id=user_id)
+        estatususer=user_profile.user.is_active
+        nuevo = not estatususer
+        print(estatususer)
+        print(nuevo)
+        user_profile.user.is_active = nuevo
+        user_profile.user.save()
+
+
+
+        return JsonResponse({'success': True, 'message': 'Estado actualizado exitosamente'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)}, status=400)

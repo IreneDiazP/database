@@ -67,7 +67,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#modalEditarUsuario"
                     data-bs-whatever="Editar"
-                  >
+                    >
                     <i class="bi bi-pencil"></i>
                   </button>
                   <button
@@ -76,8 +76,21 @@
                     data-bs-toggle="modal"
                     data-bs-target="#modalEliminarUsuario"
                     data-bs-whatever="Eliminar"
-                  >
+                    >
                     <i class="bi bi-trash"></i>
+                  </button>
+                  <button
+                  type="button"
+                 class="btn toggleBtn {{ us.user.is_active|yesno:"btn-success,btn-danger" }}"
+                  data-is-active="{{ us.user.is_active }}"
+                  
+                   >
+                  {% if us.user.is_active %}
+                  <i class="bi bi-check-circle "></i> 
+                  {% else %}
+                  <i class="bi bi-x-circle "></i> <!-- Ícono para inactivo -->
+                  {% endif %}
+                  active
                   </button>
                 </div>
               </th>

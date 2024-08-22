@@ -44,6 +44,48 @@ document
     }
   });
 
+  document
+  .querySelector("#tblUsuarios tbody")
+  .addEventListener("click", async function (event) {
+    if (event.target.classList.contains("toggleBtn") || event.target.closest(".toggleBtn")) {
+      const button = event.target.closest("tr");
+      const userId = button.getAttribute("id");
+
+      try {
+        const response = await fetch('../../usuario/cambioestado/', { // Cambia esta URL a la de tu vista Django
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Obtén el CSRF token si lo estás usando
+          },
+          body: JSON.stringify({
+            user_id: userId,
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+        NotificacionSwal("Éxito!", result.message, "success", "ok");
+
+        //   // Actualizar el botón basado en el nuevo estado
+        //   button.classList.toggle('btn-success', newStatus);
+        //   button.classList.toggle('btn-danger', !newStatus);
+        //   button.querySelector('i').className = newStatus ? 'bi bi-check-circle' : 'bi bi-x-circle';
+        //   button.setAttribute('data-is-active', newStatus);
+        //   console.log('Estado actualizado correctamente');
+
+
+        } else {
+          console.error('Error al actualizar el estado:', result.message);
+        }
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+      }
+    }
+  });
+
+
 document
   .getElementById("formAgregarUsuario")
   .addEventListener("submit", function (event) {
@@ -105,7 +147,8 @@ document
                 <th>${us.area}</th>
                 <th>${us.usuario}</th>
                 <th>
-                    ${us.is_active
+                    ${
+                      us.is_active
                         ? '<span class="badge bg-success">Activo</span>'
                         : '<span class="badge bg-danger">Inactivo</span>'
                     }
@@ -206,4 +249,22 @@ async function CargardatoEventos(idRegistroUsuario) {
       "ok"
     );
   }
+}
+
+
+function toggleStatus(button) {
+    const isActive = button.getAttribute('data-is-active') === 'true';
+
+    // Cambiar las clases del botón basado en el estado actual
+    if (isActive) {
+        button.classList.remove('btn-success');
+        button.classList.add('btn-danger');
+        button.querySelector('i').className = 'bi bi-x-circle'; // Cambiar ícono a inactivo
+        button.setAttribute('data-is-active', 'false');
+    } else {
+        button.classList.remove('btn-danger');
+        button.classList.add('btn-success');
+        button.querySelector('i').className = 'bi bi-check-circle'; // Cambiar ícono a activo
+        button.setAttribute('data-is-active', 'true');
+    }
 }
