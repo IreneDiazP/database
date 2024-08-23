@@ -20,18 +20,8 @@
         <table id="tblProyectos" class="table table-hover display shadow rounded" style="width:100%;">
           <thead class="table-dark">
             <tr>
-              {% comment %} <th class="text-center ">Tipo</th> {% endcomment %}
               <th class="text-center">Codigo </th>
               <th class="text-center">Nombre Proyecto </th>
-              {% comment %} <th class="text-center">Descripción Proyecto</th> {% endcomment %}
-              {% comment %} <th class="text-center">Pais</th>
-              <th class="text-center">Tipo Apoyo</th>
-              <th class="text-center">Entidad Financiamiento</th>
-              <th class="text-center">Insitucion Financiamiento</th>
-              <th class="text-center">Tipo Moneda</th>
-              <th class="text-center">Monto</th>
-              <th class="text-center">Total soles</th>
-              <th class="text-center">Responsable</th> {% endcomment %}
               <th class="text-center">Responsable Entidad</th>
               <th class="text-center">Area tematica</th>
               <th class="text-center">Fecha inicio</th>
@@ -43,18 +33,10 @@
             {% for pr in tproyectos %}
 
             <tr id="{{pr.id}}">
-              {% comment %} <th class="text-center">{{pr.cTipo_proyecto}}</th> {% endcomment %}
+            
               <th class="text-center">{{pr.codigoProyecto}} </th>
               <th>{{pr.nomProyecto}} </th>
-              {% comment %} <th>{{pr.DescProyecto}}</th> {% endcomment %}
-              {% comment %} <th class="text-center">{{pr.cpais}}</th>
-              <th class="text-center"> {{pr.cTipoApoyo}}</th>
-              <th>{{pr.cEntFinan}}</th>
-              <th>{{pr.cInstFinanc}}</th>
-              <th class="text-center">{{pr.cTipo_Moneda}}</th>
-              <th class="text-center">{{pr.monto}}</th>
-              <th class="text-center">{{pr.totalsoles}}</th>
-              <th class="text-center">{{pr.responsable}}</th> {% endcomment %}
+
               <th class="text-center">{{pr.responsableEnt}}</th>
               <th class="text-center">{{pr.cAreaTem}}</th>
               <th class="text-center">{{pr.fechaInicio}}</th>
@@ -77,18 +59,10 @@
           </tbody>
 
           <tfoot>
-              {% comment %} <th class="text-center ">Tipo</th> {% endcomment %}
+            
               <th class="text-center">Codigo </th>
               <th class="text-center">Nombre Proyecto </th>
-              {% comment %} <th class="text-center">Descripción Proyecto</th> {% endcomment %}
-              {% comment %} <th class="text-center">Pais</th>
-              <th class="text-center">Tipo Apoyo</th>
-              <th class="text-center">Entidad Financiamiento</th>
-              <th class="text-center">Insitucion Financiamiento</th>
-              <th class="text-center">Tipo Moneda</th>
-              <th class="text-center">Monto</th>
-              <th class="text-center">Total soles</th>
-              <th class="text-center">Responsable</th> {% endcomment %}
+
               <th class="text-center">Responsable Entidad</th>
               <th class="text-center">Area tematica</th>
               <th class="text-center">Fecha inicio</th>

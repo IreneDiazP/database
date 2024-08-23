@@ -74,11 +74,11 @@ $(document).ready(function () {
           },
         },
         lengthMenu: [
-          [10, 25, 50, -1],
-          ['Mostrar 10 filas', 'Mostrar 25 filas', 'Mostrar 50 filas', 'Mostrar todo']
+          [5,10, 25, 50, -1],
+          ['Mostrar 5 filas','Mostrar 10 filas', 'Mostrar 25 filas', 'Mostrar 50 filas', 'Mostrar todo']
         ],
         "ordering": true,
-        "order": [[0, 'asc']],
+        "order": [[0, 'desc']],
     });
     table
       .columns()

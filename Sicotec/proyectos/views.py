@@ -165,10 +165,26 @@ def todosProyectos(request):
     TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
     AreaTem = Area_Tematica.objects.all().order_by('cArea_tematica')
     for pr in tproyectos:
-        pr.fechaInicio = pr.fechaInicio.strftime('%d/%m/%Y')
-        pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
-        pr.totalsoles=pr.tipo_Cambio*pr.monto
+        if pr.fechaInicio:
+            pr.fechaInicio = pr.fechaInicio.strftime('%d/%m/%Y')
+        else:
+            pr.fechaInicio = 'No especificada' 
             
+        if pr.fechaFin:
+            pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
+        else:
+            pr.fechaFin = 'No especificada'  
+
+        if pr.monto and pr.tipo_Cambio:
+            pr.totalsoles = pr.tipo_Cambio * pr.monto
+        else:
+            pr.totalsoles = 0  
+            
+        if pr.responsableEnt:
+            pr.responsable = pr.responsableEnt
+        else:
+            pr.responsableEnt=''
+        
     return render(request, 'proyectos/todosProyectos.html', {
         'tproyectos': tproyectos,
         'tipoProyec':tipoProyec,
