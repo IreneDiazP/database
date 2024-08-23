@@ -37,7 +37,7 @@ def getusuario(request, idusuario):
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)})
 
-
+@login_required
 def agregarusuario(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -65,6 +65,7 @@ def agregarusuario(request):
                         apellido=apellido,
                         area=area,
                         correo_institucional=email if email else None,
+                        debe_cambiar_contraseña=True,
                         created_by=request.user
                     )
                     profile.save()
@@ -85,6 +86,7 @@ def agregarusuario(request):
                     profile.apellido = apellido
                     profile.area = area
                     profile.correo_institucional = email if email else None
+                    profile.debe_cambiar_contraseña=True
                     profile.updated_by = request.user
                     profile.save()
 

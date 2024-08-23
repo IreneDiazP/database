@@ -8,6 +8,41 @@
 {% endblock %}
 
 {% block contenido %}
+<!-- Modal -->
+<div class="modal fade" id="cambiarContraseñaModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="cambiarContraseñaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="cambiarContraseñaModalLabel">Cambiar Contraseña</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <form id="cambiarContraseñaForm" method="POST">
+                  {% csrf_token %}
+                  <input
+                  type="hidden"
+                  class="form-control"
+                  id="estadocontraseña"
+                  name="estadocontraseña"
+                  value="{{ usuario.debe_cambiar_contraseña }}"
+                  readonly
+                />
+                  <div class="mb-3">
+                      <label for="new_password" class="form-label">Nueva Contraseña:</label>
+                      <input type="password" class="form-control" id="new_password" name="new_password" required autocomplete>
+                  </div>
+                  <div class="mb-3">
+                      <label for="confirm_password" class="form-label">Confirmar Nueva Contraseña:</label>
+                      <input type="password" class="form-control" id="confirm_password" name="confirm_password" required autocomplete>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+
 <section class="content h-100 d-flex align-items-center mt-md-0 mt-3">
   <div
     class="formulario d-md-flex gap-md-4 align-self-center py-0 col-7 m-auto bg-white rounded-4"
@@ -44,4 +79,11 @@
     </div>
   </div>
 </section>
+
+
 {% endblock contenido %}
+{% block script %}
+<!-- Custom JS -->
+<script src="{% static 'core/js/validarestadocontraseña/validarestadopassword.js' %}"></script>
+
+{% endblock %}

@@ -8,6 +8,7 @@ class UserProfile(models.Model):
     apellido = models.CharField(max_length=150, verbose_name='Apellido')
     area = models.CharField(max_length=100, verbose_name='area')
     correo_institucional = models.EmailField(max_length=254, unique=True, verbose_name='Correo Institucional', null=True,  blank=True)
+    debe_cambiar_contraseña = models.BooleanField(default=True)
     created_by = models.ForeignKey(User, related_name='userprofiles_created', on_delete=models.PROTECT, verbose_name="Creado por")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated_by = models.ForeignKey(User, related_name='userprofiles_updated', on_delete=models.PROTECT, verbose_name="Modificado por", null=True)
