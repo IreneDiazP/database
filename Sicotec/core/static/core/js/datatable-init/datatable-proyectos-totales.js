@@ -3,13 +3,13 @@ $(document).ready(function () {
       if (index < $("#tblProyectos thead th").length - 1) {
         var title = $("#tblProyectos thead th").eq(index).text();
         var inputHTML = '<input  type="text" placeholder="' + title + '"';
-        if (index === 0 ||  index === 4 || index === 5) {
+        if (index === 1 ||  index === 5 || index === 6) {
           inputHTML += ' style="max-width: 134px; text-align: center;"';
         }
-        if (index === 1 ) {
+        if (index === 2 ) {
           inputHTML += ' style="width: 300px !important; text-align: center;"';
         }
-        if (index === 2 ||  index === 3) {
+        if (index === 3 ||  index === 4) {
           inputHTML += ' style= "text-align: center;"';
         }
 
@@ -20,7 +20,7 @@ $(document).ready(function () {
   
     var table = $("#tblProyectos").DataTable({
       scrollX: true,
-      dom: "Bfrltip",
+      dom: "frltip",
       buttons: [
         {
           extend: "excelHtml5",
@@ -79,6 +79,9 @@ $(document).ready(function () {
         ],
         "ordering": true,
         "order": [[0, 'desc']],
+        "columnDefs": [
+          { "targets": [0], "visible": false, "searchable": false }  // Oculta la columna del ID
+      ]
     });
     table
       .columns()

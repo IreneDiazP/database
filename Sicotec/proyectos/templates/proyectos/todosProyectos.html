@@ -20,6 +20,7 @@
         <table id="tblProyectos" class="table table-hover display shadow rounded" style="width:100%;">
           <thead class="table-dark">
             <tr>
+              <th class="d-none">ID (Oculto)</th>
               <th class="text-center">Codigo </th>
               <th class="text-center">Nombre Proyecto </th>
               <th class="text-center">Responsable Entidad</th>
@@ -33,10 +34,9 @@
             {% for pr in tproyectos %}
 
             <tr id="{{pr.id}}">
-            
+              <td class="d-none">{{pr.id}}</td> <!-- Columna oculta con el ID -->
               <th class="text-center">{{pr.codigoProyecto}} </th>
               <th>{{pr.nomProyecto}} </th>
-
               <th class="text-center">{{pr.responsableEnt}}</th>
               <th class="text-center">{{pr.cAreaTem}}</th>
               <th class="text-center">{{pr.fechaInicio}}</th>
@@ -59,10 +59,9 @@
           </tbody>
 
           <tfoot>
-            
+              <th class="d-none">ID (Oculto)</th>
               <th class="text-center">Codigo </th>
               <th class="text-center">Nombre Proyecto </th>
-
               <th class="text-center">Responsable Entidad</th>
               <th class="text-center">Area tematica</th>
               <th class="text-center">Fecha inicio</th>
