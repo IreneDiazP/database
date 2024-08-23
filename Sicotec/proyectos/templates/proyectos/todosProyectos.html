@@ -84,10 +84,6 @@
         <span class="fs-2 fw-semibold d-md-block d-none">Edición de proyecto</span>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="row  px-3">
-        <div id="alerta" class="alert alert-danger mb-0" style="display: none" role="alert">Solo se permiten 30
-          caracteres como máximo en el campo de Teléfono.</div>
-      </div>
       <form action="" id="formEditarProyecto" class="shadow px-3 rounded" method="POST">
         {% csrf_token %}
         <div class="modal-body">
@@ -135,9 +131,9 @@
               <div class="col-md-9">
                 <div class="form-floating">
                   <input type="hidden" id="txtidDescripcion" />
-                  <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
+                  <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" 
                     maxlength="300" oninput="convertToUppercase(this)" />
-                  <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
+                  <label for="txtDescripcion">Descripción</label>
                 </div>
               </div>
               <!--PAIS-->
@@ -156,39 +152,39 @@
               <!--TIPO DE APOYO-->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" required>
+                  <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" >
                     <option selected></option>
 
                     {% for Ta in TipoApoyo %}
                     <option value="{{Ta.id}}">{{Ta.ctipo_apoyo}}</option>
                     {% endfor %}
                   </select>
-                  <label for="cboTipoApoyo">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
+                  <label for="cboTipoApoyo">Tipo de Apoyo</label>
                 </div>
               </div>
               <!------   ----------------------------- -->
               <!--FINANCIAMIENTO POR-->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" required>
+                  <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" >
                     <option selected></option>
                     {% for Ef in EntFinan %}
                     <option value="{{Ef.id}}">{{Ef.cEntFinancia}}</option>
                     {% endfor %}
                   </select>
                   <label for="cboTipoEnFinanciamiento">
-                    Entidad Financiamiento<span class="text-danger ms-2">*</span>
+                    Entidad Financiamiento
                   </label>
                 </div>
               </div>
 
               <div class="col-md-3">
                 <div class="form-floating">
-                  <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
+                  <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" >
                     <option selected></option>
                   </select>
                   <label for="cboTipoInsFinanciamiento">
-                    Institución Financiamiento<span class="text-danger ms-2">*</span>
+                    Institución Financiamiento
                   </label>
                 </div>
               </div>
@@ -197,7 +193,7 @@
               <!--TIPO DE MONEDA -->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
+                  <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" >
                     <option selected></option>
 
                     {% for Tm in TipoMoneda %}
@@ -205,17 +201,16 @@
                     {% endfor %}
                   </select>
                   <label for="cboTipoMOneda">
-                    Tipo de Moneda<span class="text-danger ms-2">*</span></label>
+                    Tipo de Moneda</label>
                 </div>
               </div>
               <!------   ----------------------------- -->
               <!--MONTO-->
               <div class="col-md-2">
                 <div class="form-floating">
-                  <input type="hidden" id="txtidMonto" />
-                  <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
+                  <input type="text" class="form-control" id="txtMonto" name="txtMonto" 
                     pattern="^\d+(\.\d{1,4})?$" />
-                  <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
+                  <label for="txtMonto">monto</label>
                 </div>
               </div>
 
@@ -224,9 +219,9 @@
               <div class="col-md-2">
                 <div class="form-floating">
                   <input type="hidden" id="txtidtCambio" />
-                  <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required
+                  <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" 
                     maxlength="15" pattern="^\d+(\.\d{1,4})?$" />
-                  <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
+                  <label for="txttipoCambio">Tipo de Cambio</label>
                 </div>
               </div>
 
@@ -245,8 +240,7 @@
               <!--REPONSABLE IPEN-->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <input type="hidden" id="txtidResponsableIpen" />
-                  <input type="text" class="form-control" id="txtRespIpen" name="txtRespIpen" maxlength="100"
+                  <input type="text" class="form-control" id="txtRespIpen" name="txtRespIpen" maxlength="100" required
                     oninput="convertToUppercase(this)" />
                   <label for="txtRespIpen">Responsable IPEN<span class="text-danger ms-2">*</span></label>
                 </div>
@@ -256,10 +250,9 @@
               <!--REPONSABLE ENTIDAD-->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <input type="hidden" id="txtidResponsableEnt" />
                   <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
                     oninput="convertToUppercase(this)" />
-                  <label for="txtRespEnt">Responsable Entidad<span class="text-danger ms-2">*</span></label>
+                  <label for="txtRespEnt">Responsable Entidad</label>
                 </div>
               </div>
 
@@ -283,8 +276,8 @@
               <!--FECHA-->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <input type="date" class="form-control" id="txtFechaInicio" name="txtFechaInicio" required />
-                  <label for="txtFechaInicio">Fecha Inicio<span class="text-danger ms-2">*</span></label>
+                  <input type="date" class="form-control" id="txtFechaInicio" name="txtFechaInicio"  />
+                  <label for="txtFechaInicio">Fecha Inicio</label>
                 </div>
               </div>
 
@@ -292,8 +285,8 @@
               <!--FECHA-->
               <div class="col-md-3">
                 <div class="form-floating">
-                  <input type="date" class="form-control" id="txtFechaFin" name="txtFechaFin" required />
-                  <label for="txtFechaFin">Fecha Fin<span class="text-danger ms-2">*</span></label>
+                  <input type="date" class="form-control" id="txtFechaFin" name="txtFechaFin"  />
+                  <label for="txtFechaFin">Fecha Fin</label>
                 </div>
               </div>
 
@@ -365,9 +358,9 @@
   
 </script>
 
+<script src="{% static 'core/js/datatable-init/datatable-proyectos-totales.js' %}"></script>
 
 <!-- Custom JS -->
 <script src="{% static 'core/js/inicializador/inicializador.js' %}"></script>
 <script src="{% static 'core/js/proyectos/todoslosProyectos.js' %}" type="module"></script>
-<script src="{% static 'core/js/datatable-init/datatable-proyectos-totales.js' %}"></script>
 {% endblock %}

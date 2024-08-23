@@ -122,29 +122,29 @@ def editarproyecto(request,idProyecto):
                 # Obtener instancias de modelos relacionados
                 tipoProyecto = Tipo_Proyecto.objects.get(id=tipoProyecto_id)
                 paisProyecto = Pais.objects.get(id=PaisProyecto_id)
-                tipoApoyoProyecto = Tipo_Apoyo.objects.get(id=TipoApoyoProyecto_id)
-                entFinanProyecto = Entidad_Financiamiento.objects.get(id=EntFinanProyecto_id)
-                instProyecto = Institucion_Financiamiento.objects.get(id=InstProyecto_id)
-                tipoMonedaProyecto = Tipo_Moneda.objects.get(id=TipomonedaProyecto_id)
+                tipoApoyoProyecto = Tipo_Apoyo.objects.get(id=TipoApoyoProyecto_id) if TipoApoyoProyecto_id else None
+                entFinanProyecto = Entidad_Financiamiento.objects.get(id=EntFinanProyecto_id) if EntFinanProyecto_id else None
+                instProyecto = Institucion_Financiamiento.objects.get(id=InstProyecto_id) if InstProyecto_id else None
+                tipoMonedaProyecto = Tipo_Moneda.objects.get(id=TipomonedaProyecto_id) if TipomonedaProyecto_id else None
                 areaTemProyecto = Area_Tematica.objects.get(id=AreaTemProyecto_id)
 
                 # Asignar valores al objeto Proyecto
                 ProyectoEditado.cTipo_proyecto = tipoProyecto
                 ProyectoEditado.codigoProyecto = codigoProyecto
                 ProyectoEditado.nomProyecto = NombreProyecto
-                ProyectoEditado.DescProyecto = DescProyecto
+                ProyectoEditado.DescProyecto = DescProyecto if DescProyecto else None
                 ProyectoEditado.cpais = paisProyecto
                 ProyectoEditado.cTipoApoyo = tipoApoyoProyecto
                 ProyectoEditado.cEntFinan = entFinanProyecto
                 ProyectoEditado.cInstFinanc = instProyecto
                 ProyectoEditado.cTipo_Moneda = tipoMonedaProyecto
-                ProyectoEditado.monto = MontoProyecto
-                ProyectoEditado.tipo_Cambio = TipoCambioProyecto
+                ProyectoEditado.monto = MontoProyecto if MontoProyecto else None
+                ProyectoEditado.tipo_Cambio = TipoCambioProyecto if TipoCambioProyecto else None
                 ProyectoEditado.responsable = RespIpenProyecto
-                ProyectoEditado.responsableEnt = RespEntidadoProyecto
+                ProyectoEditado.responsableEnt = RespEntidadoProyecto if RespEntidadoProyecto else None
                 ProyectoEditado.cAreaTem = areaTemProyecto
-                ProyectoEditado.fechaInicio = FechaInicProyecto
-                ProyectoEditado.fechaFin = FechaFinProyecto
+                ProyectoEditado.fechaInicio = FechaInicProyecto if FechaInicProyecto else None
+                ProyectoEditado.fechaFin = FechaFinProyecto if FechaFinProyecto else None
                 ProyectoEditado.updated_by = updated_by
                 ProyectoEditado.updated = fecha_actual
                 
@@ -174,11 +174,6 @@ def todosProyectos(request):
             pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
         else:
             pr.fechaFin = 'No especificada'  
-
-        if pr.monto and pr.tipo_Cambio:
-            pr.totalsoles = pr.tipo_Cambio * pr.monto
-        else:
-            pr.totalsoles = 0  
             
         if pr.responsableEnt:
             pr.responsable = pr.responsableEnt
