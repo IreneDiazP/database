@@ -52,11 +52,11 @@ document
       const userId = button.getAttribute("id");
 
       try {
-        const response = await fetch('../../usuario/cambioestado/', { // Cambia esta URL a la de tu vista Django
+        const response = await fetch('../../usuario/cambioestado/', { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken') // Obtén el CSRF token si lo estás usando
+            'X-CSRFToken': getCookie('csrftoken') 
           },
           body: JSON.stringify({
             user_id: userId,
@@ -108,7 +108,7 @@ document
     const username = document.getElementById("txtUsername").value;
     const password = document.getElementById("txtContraseña").value;
     const idusuario = document.getElementById("txtIdModalEditarUsuario").value;
-    // Usar el ID correcto para el checkbox
+    
     const isActiveCheckbox = document.getElementById("isActiveCheckbox");
     const isActive = isActiveCheckbox ? isActiveCheckbox.checked : false;
 
@@ -122,7 +122,7 @@ document
       email,
       username,
       password,
-      is_active: isActive, // Incluir el estado activo en los datos enviados
+      is_active: isActive, 
     };
 
     console.log(data);
@@ -264,19 +264,3 @@ async function CargardatoUsuario(idRegistroUsuario) {
 }
 
 
-function toggleStatus(button) {
-    const isActive = button.getAttribute('data-is-active') === 'true';
-
-    // Cambiar las clases del botón basado en el estado actual
-    if (isActive) {
-        button.classList.remove('btn-success');
-        button.classList.add('btn-danger');
-        button.querySelector('i').className = 'bi bi-x-circle'; // Cambiar ícono a inactivo
-        button.setAttribute('data-is-active', 'false');
-    } else {
-        button.classList.remove('btn-danger');
-        button.classList.add('btn-success');
-        button.querySelector('i').className = 'bi bi-check-circle'; // Cambiar ícono a activo
-        button.setAttribute('data-is-active', 'true');
-    }
-}
