@@ -40,7 +40,7 @@ document
       let idRegistroUsuario = event.target.closest("tr").getAttribute("id");
       document.getElementById("txtIdModalEditarUsuario").value =
         idRegistroUsuario;
-      CargardatoEventos(idRegistroUsuario);
+        CargardatoUsuario(idRegistroUsuario);
     }
   });
 
@@ -66,14 +66,24 @@ document
         const result = await response.json();
 
         if (result.success) {
-        NotificacionSwal("Éxito!", result.message, "success", "ok");
+            data=result.data
+        const row = document.querySelector(`#tblUsuarios tr[id="${userId}"]`);
+        if (row) {
+                      // Actualiza los datos en la fila
+            row.querySelector('th:nth-child(1)').textContent = data.nombre;
+            row.querySelector('th:nth-child(2)').textContent = data.apellido;
+            row.querySelector('th:nth-child(3)').textContent = data.area;
+            row.querySelector('th:nth-child(4)').textContent = data.usuario;
 
-        //   // Actualizar el botón basado en el nuevo estado
-        //   button.classList.toggle('btn-success', newStatus);
-        //   button.classList.toggle('btn-danger', !newStatus);
-        //   button.querySelector('i').className = newStatus ? 'bi bi-check-circle' : 'bi bi-x-circle';
-        //   button.setAttribute('data-is-active', newStatus);
-        //   console.log('Estado actualizado correctamente');
+            const statusBtn = row.querySelector('.toggleBtn');
+            if (statusBtn) {
+              statusBtn.classList.toggle('btn-success', data.is_active);
+              statusBtn.classList.toggle('btn-danger', !data.is_active);
+              statusBtn.querySelector('i').className = data.is_active ? 'bi bi-check-circle' : 'bi bi-x-circle';
+              statusBtn.innerHTML = `${data.is_active ? '<i class="bi bi-check-circle"></i> Active' : '<i class="bi bi-x-circle"></i> Inactive'}`;
+              statusBtn.setAttribute('data-is-active', data.is_active);
+            }
+          }
 
 
         } else {
@@ -145,13 +155,15 @@ document
                 <th>${us.nombre}</th>
                 <th>${us.apellido}</th>
                 <th>${us.area}</th>
-                <th>${us.usuario}</th>
-                <th>
-                    ${
-                      us.is_active
-                        ? '<span class="badge bg-success">Activo</span>'
-                        : '<span class="badge bg-danger">Inactivo</span>'
-                    }
+                <th class ="text-center" >${us.usuario}</th>
+                <th class ="text-center">
+                <button
+                    type="button"
+                    class="btn toggleBtn ${us.is_active ? 'btn-success' : 'btn-danger'}"
+                    data-is-active="${us.is_active}"
+                >
+                    ${us.is_active ? '<i class="bi bi-check-circle"></i> Active' : '<i class="bi bi-x-circle"></i> Inactive'}
+                </button>
                 </th>
                 <th>
                     <div class="d-flex gap-2 justify-content-center">
@@ -215,7 +227,7 @@ function LimpiarCampos() {
   });
 }
 
-async function CargardatoEventos(idRegistroUsuario) {
+async function CargardatoUsuario(idRegistroUsuario) {
   const url = `../../usuario/getusuario/${idRegistroUsuario}`;
   const csrftoken = getCookie("csrftoken");
   try {

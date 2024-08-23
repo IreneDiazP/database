@@ -119,9 +119,18 @@ def cambioestado(request):
         print(nuevo)
         user_profile.user.is_active = nuevo
         user_profile.user.save()
+        
+        user_profile = UserProfile.objects.get(id = user_id)
+        datauser={
+            'id': user_profile.id,
+            'nombre': user_profile.nombre,
+            'apellido': user_profile.apellido,
+            'area': user_profile.area,
+            'usuario': user_profile.user.username,
+            'is_active': user_profile.user.is_active
+        }
 
 
-
-        return JsonResponse({'success': True, 'message': 'Estado actualizado exitosamente'})
+        return JsonResponse({'success': True, 'data':datauser})
     except Exception as e:
         return JsonResponse({'success': False, 'message': str(e)}, status=400)

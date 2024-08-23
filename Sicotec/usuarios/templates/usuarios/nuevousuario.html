@@ -51,13 +51,24 @@
               <th>{{us.nombre}}</th>
               <th class="">{{us.apellido}}</th>
               <th class="">{{us.area}}</th>
-              <th class="">{{us.user.username}}</th>
-              <th>
-                {% if us.user.is_active %}
-                <span class="badge bg-success">Activo</span>
-                {% else %}
-                <span class="badge bg-danger">Inactivo</span>
-                {% endif %}
+              <th class ="text-center">{{us.user.username}}</th>
+              <th  class ="text-center">
+              </button>
+              <button
+              type="button"
+             class="btn toggleBtn {{ us.user.is_active|yesno:"btn-success,btn-danger" }}"
+              data-is-active="{{ us.user.is_active }}"
+              
+               >
+              {% if us.user.is_active %}
+              <i class="bi bi-check-circle "></i> 
+              active
+              {% else %}
+              <i class="bi bi-x-circle "></i> <!-- Ícono para inactivo -->
+              inactive
+              {% endif %}
+              
+              </button>
               </th>
               <th class="">
                 <div class="d-flex gap-2 justify-content-center">
@@ -78,20 +89,7 @@
                     data-bs-whatever="Eliminar"
                     >
                     <i class="bi bi-trash"></i>
-                  </button>
-                  <button
-                  type="button"
-                 class="btn toggleBtn {{ us.user.is_active|yesno:"btn-success,btn-danger" }}"
-                  data-is-active="{{ us.user.is_active }}"
-                  
-                   >
-                  {% if us.user.is_active %}
-                  <i class="bi bi-check-circle "></i> 
-                  {% else %}
-                  <i class="bi bi-x-circle "></i> <!-- Ícono para inactivo -->
-                  {% endif %}
-                  active
-                  </button>
+
                 </div>
               </th>
             </tr>
