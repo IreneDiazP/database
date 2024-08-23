@@ -54,31 +54,31 @@ def registrarProyecto(request):
 
             tipo_proyec_instance = Tipo_Proyecto.objects.get(id=x_tipo_proyec)
             pais_instance = Pais.objects.get(id=x_pais)
-            tipo_apoyo_instance = Tipo_Apoyo.objects.get(id=x_tipo_apoyo)
+            tipo_apoyo_instance = Tipo_Apoyo.objects.get(id=x_tipo_apoyo) if x_tipo_apoyo else None
             entfinan_instance = Entidad_Financiamiento.objects.get(
-                id=x_entfinan)
+                id=x_entfinan) if x_entfinan else None
             instfinan_instance = Institucion_Financiamiento.objects.get(
-                id=x_instfinan)
-            tipo_moneda_instance = Tipo_Moneda.objects.get(id=x_tipo_moneda)
+                id=x_instfinan) if x_instfinan else None
+            tipo_moneda_instance = Tipo_Moneda.objects.get(id=x_tipo_moneda) if x_tipo_moneda else None
             area_tem_instance = Area_Tematica.objects.get(id=x_area_tem)
 
             proyectonuevo = Proyecto(
                 cTipo_proyecto=tipo_proyec_instance,
                 codigoProyecto=x_cod_proyec,
                 nomProyecto=x_nom_proyect,
-                DescProyecto=x_des_proyect,
+                DescProyecto=x_des_proyect if x_des_proyect else None ,
                 cpais=pais_instance,
                 cTipoApoyo=tipo_apoyo_instance,
                 cEntFinan=entfinan_instance,
                 cInstFinanc=instfinan_instance,
                 cTipo_Moneda=tipo_moneda_instance,
-                monto=x_monto,
-                tipo_Cambio=x_tipo_cambio,
+                monto=x_monto if x_monto else  None ,
+                tipo_Cambio=x_tipo_cambio if x_tipo_cambio else None,
                 responsable=x_respIpen,
-                responsableEnt=x_respEnt,
+                responsableEnt=x_respEnt if x_respEnt else None,
                 cAreaTem=area_tem_instance,
-                fechaInicio=x_fechaIn,
-                fechaFin=x_fechaFin,
+                fechaInicio=x_fechaIn if x_fechaIn else None,
+                fechaFin=x_fechaFin if x_fechaFin else None,
                 created_by=x_created_by
             )
 
