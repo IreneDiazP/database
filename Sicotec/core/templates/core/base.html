@@ -53,7 +53,7 @@
           <img src="{% static 'core/images/login.png' %}" alt="" class="img-login rounded-circle" />
           <p class="mb-0 text-light fw-bold">
             {% if user.is_authenticated %} {{ user.userprofile.nombre }}
-            {{user.userprofile.apellido }} {% else %} Invitado {% endif %}
+             {% else %} Invitado {% endif %}
           </p>
           <div class="dropdown me-4">
             <button class="btn btn-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
@@ -62,7 +62,9 @@
             </button>
             <!-- Menú desplegable -->
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+              {% if request.user.is_staff or request.user.is_superuser %}
               <li><a class="dropdown-item" href="#">Administrador</a></li>
+              {% endif %}              
               <li>
                 <a class="dropdown-item" href="#" onclick="CerrarSesion()">Cerrar sesión</a>
               </li>
@@ -272,7 +274,7 @@
           <img src="{% static 'core/images/login.png' %}" alt="" class="img-login rounded-circle" />
           <p class="mb-0  text-light fw-bold">
             {% if user.is_authenticated %}
-            {{ user.userprofile.nombre }} {{ user.userprofile.apellido }}
+            {{ user.userprofile.nombre }}
             {% else %}
             Invitado
             {% endif %}
@@ -284,7 +286,9 @@
             </button>
             <!-- Menú desplegable -->
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+              {% if request.user.is_staff or request.user.is_superuser %}
               <li><a class="dropdown-item" href="#">Administrador</a></li>
+              {% endif %}
               <li>
                 <a class="dropdown-item" href="#" onclick="CerrarSesion()">Cerrar sesión</a>
               </li>
