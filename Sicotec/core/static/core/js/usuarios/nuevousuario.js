@@ -40,61 +40,80 @@ document
       let idRegistroUsuario = event.target.closest("tr").getAttribute("id");
       document.getElementById("txtIdModalEditarUsuario").value =
         idRegistroUsuario;
-        CargardatoUsuario(idRegistroUsuario);
+      CargardatoUsuario(idRegistroUsuario);
     }
   });
 
-  document
+document
   .querySelector("#tblUsuarios tbody")
   .addEventListener("click", async function (event) {
-    if (event.target.classList.contains("toggleBtn") || event.target.closest(".toggleBtn")) {
+    if (
+      event.target.classList.contains("toggleBtn") ||
+      event.target.closest(".toggleBtn")
+    ) {
       const button = event.target.closest("tr");
       const userId = button.getAttribute("id");
 
       try {
-        const response = await fetch('../../usuario/cambioestado/', { 
-          method: 'POST',
+        const response = await fetch("../../usuario/cambioestado/", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken') 
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
           },
           body: JSON.stringify({
             user_id: userId,
-          })
+          }),
         });
 
         const result = await response.json();
 
         if (result.success) {
-            data=result.data
-        const row = document.querySelector(`#tblUsuarios tr[id="${userId}"]`);
-        if (row) {
-                      // Actualiza los datos en la fila
-            row.querySelector('th:nth-child(1)').textContent = data.nombre;
-            row.querySelector('th:nth-child(2)').textContent = data.apellido;
-            row.querySelector('th:nth-child(3)').textContent = data.area;
-            row.querySelector('th:nth-child(4)').textContent = data.usuario;
+          data = result.data;
+          const row = document.querySelector(`#tblUsuarios tr[id="${userId}"]`);
+          if (row) {
+            // Actualiza los datos en la fila
+            row.querySelector("th:nth-child(1)").textContent = data.nombre;
+            row.querySelector("th:nth-child(2)").textContent = data.apellido;
+            row.querySelector("th:nth-child(3)").textContent = data.area;
+            row.querySelector("th:nth-child(4)").textContent = data.usuario;
 
-            const statusBtn = row.querySelector('.toggleBtn');
+            const statusBtn = row.querySelector(".toggleBtn");
             if (statusBtn) {
-              statusBtn.classList.toggle('btn-success', data.is_active);
-              statusBtn.classList.toggle('btn-danger', !data.is_active);
-              statusBtn.querySelector('i').className = data.is_active ? 'bi bi-check-circle' : 'bi bi-x-circle';
-              statusBtn.innerHTML = `${data.is_active ? '<i class="bi bi-check-circle"></i> Active' : '<i class="bi bi-x-circle"></i> Inactive'}`;
-              statusBtn.setAttribute('data-is-active', data.is_active);
+              statusBtn.classList.toggle("btn-success", data.is_active);
+              statusBtn.classList.toggle("btn-danger", !data.is_active);
+              statusBtn.querySelector("i").className = data.is_active
+                ? "bi bi-check-circle"
+                : "bi bi-x-circle";
+              statusBtn.innerHTML = `${
+                data.is_active
+                  ? '<i class="bi bi-check-circle"></i> Active'
+                  : '<i class="bi bi-x-circle"></i> Inactive'
+              }`;
+              statusBtn.setAttribute("data-is-active", data.is_active);
             }
           }
-
-
         } else {
-          console.error('Error al actualizar el estado:', result.message);
+          console.error("Error al actualizar el estado:", result.message);
         }
       } catch (error) {
-        console.error('Error en la solicitud:', error);
+        console.error("Error en la solicitud:", error);
       }
     }
   });
 
+document
+  .querySelector("#tblUsuarios  tbody")
+  .addEventListener("click", function (event) {
+    if (
+      event.target.classList.contains("trashBtn") ||
+      event.target.closest(".trashBtn")
+    ) {
+      let idregistoeliminar = event.target.closest("tr").getAttribute("id");
+      document.getElementById("txtIdProyectoModalEliminarUsuario").value =
+        idregistoeliminar;
+    }
+  });
 
 document
   .getElementById("formAgregarUsuario")
@@ -108,7 +127,7 @@ document
     const username = document.getElementById("txtUsername").value;
     const password = document.getElementById("txtContraseña").value;
     const idusuario = document.getElementById("txtIdModalEditarUsuario").value;
-    
+
     const isActiveCheckbox = document.getElementById("isActiveCheckbox");
     const isActive = isActiveCheckbox ? isActiveCheckbox.checked : false;
 
@@ -122,7 +141,7 @@ document
       email,
       username,
       password,
-      is_active: isActive, 
+      is_active: isActive,
     };
 
     console.log(data);
@@ -159,10 +178,16 @@ document
                 <th class ="text-center">
                 <button
                     type="button"
-                    class="btn toggleBtn ${us.is_active ? 'btn-success' : 'btn-danger'}"
+                    class="btn toggleBtn ${
+                      us.is_active ? "btn-success" : "btn-danger"
+                    }"
                     data-is-active="${us.is_active}"
                 >
-                    ${us.is_active ? '<i class="bi bi-check-circle"></i> Active' : '<i class="bi bi-x-circle"></i> Inactive'}
+                    ${
+                      us.is_active
+                        ? '<i class="bi bi-check-circle"></i> Active'
+                        : '<i class="bi bi-x-circle"></i> Inactive'
+                    }
                 </button>
                 </th>
                 <th>
@@ -190,6 +215,56 @@ document
         } else {
           NotificacionSwal("Error!", response.message, "error", "ok");
         }
+      });
+  });
+
+//eliminar evento
+document
+  .getElementById("formEliminarUsuario")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const idregistro = document.getElementById(
+      "txtIdProyectoModalEliminarUsuario"
+    ).value;
+
+    const csrftoken = getCookie("csrftoken");
+
+    // Ocultar el modal
+    const modalElement = document.getElementById("modalEliminarUsuario");
+    let modalInstance = bootstrap.Modal.getInstance(modalElement);
+    if (!modalInstance) {
+      modalInstance = new bootstrap.Modal(modalElement);
+    }
+    modalInstance.hide();
+
+    console.log(idregistro);
+
+    fetch("../../usuario/eliminarusuario/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify({
+        idRegistro: idregistro,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.success === true) {
+          const row = document.querySelector(
+            `#tblUsuarios tr[id="${idregistro}"]`
+          );
+          if (row) {
+            row.remove();
+          }
+          NotificacionSwal("Éxito!", response.message, "success", "ok");
+        } else {
+          NotificacionSwal("Error!", response.message, "error", "ok");
+        }
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
       });
   });
 
@@ -252,6 +327,7 @@ async function CargardatoUsuario(idRegistroUsuario) {
       document.getElementById("txtEmail").value = data.email;
       document.getElementById("txtUsername").value = data.usuario;
       document.getElementById("txtContraseña").value = "";
+      document.getElementById("isActiveCheckbox").checked = data.is_active;
     }
   } catch (error) {
     NotificacionSwal(
@@ -262,5 +338,3 @@ async function CargardatoUsuario(idRegistroUsuario) {
     );
   }
 }
-
-
