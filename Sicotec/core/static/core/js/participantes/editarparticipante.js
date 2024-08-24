@@ -820,8 +820,8 @@ document
           1
         );
 
-        document.getElementById("txtFechaInicioP").value = data.FechaInicio;
-        document.getElementById("txtFechaFinP").value = data.FechaFin;
+        document.getElementById("txtFechaInicioP").value = data.FechaInicio || "";
+        document.getElementById("txtFechaFinP").value = data.FechaFin || "";
         document.getElementById("txtIdProyectoModalEditarProyecto").value =
           data.idproyecto;
       }
@@ -1213,3 +1213,69 @@ document
         );
       });
   });
+
+
+function verificarTipoMoneda(tipoMoneda, ids) {
+  const tipo = tipoMoneda.toLowerCase();
+  const esSoles = tipo === "soles";
+
+  const tipoCambioInput = document.getElementById(ids.tipoCambio);
+  const montoInput = document.getElementById(ids.monto);
+  const montosolesInput = document.getElementById(ids.montosoles);
+
+  tipoCambioInput.disabled = esSoles;
+  tipoCambioInput.value = esSoles ? "1" : "";
+  montoInput.value = "";
+  montosolesInput.value = "";
+}
+
+function calcularTotal(ids) {
+  const tipoMoneda = document.getElementById(ids.tipoMoneda).value;
+  const esSoles = tipoMoneda.toLowerCase() === "soles";
+
+  const monto = parseFloat(document.getElementById(ids.monto).value) || 0;
+  const tipoCambio = parseFloat(document.getElementById(ids.tipoCambio).value) || 1;
+  const total = esSoles ? monto : monto * tipoCambio;
+
+  document.getElementById(ids.montosoles).value = total;
+}
+
+const config1 = {
+  tipoMoneda: "cboTipoMOnedaP",
+  tipoCambio: "txtidtCambioP",
+  monto: "txtidMontop",
+  montosoles: "txtMontosolesP"
+};
+
+const config2 = {
+  tipoMoneda: "cboTipoMOneda",
+  tipoCambio: "txttipoCambio",
+  monto: "txtMonto",
+  montosoles: "txtMontosoles"
+};
+
+document.getElementById(config1.tipoMoneda).addEventListener("change", function() {
+  verificarTipoMoneda(this.options[this.selectedIndex].text, config1);
+  calcularTotal(config1); // Recalcular cuando se cambie el tipo de moneda
+});
+
+document.getElementById(config1.monto).addEventListener("input", function() {
+  calcularTotal(config1);
+});
+
+document.getElementById(config1.tipoCambio).addEventListener("input", function() {
+  calcularTotal(config1);
+});
+
+document.getElementById(config2.tipoMoneda).addEventListener("change", function() {
+  verificarTipoMoneda(this.options[this.selectedIndex].text, config2);
+  calcularTotal(config2); 
+});
+
+document.getElementById(config2.monto).addEventListener("input", function() {
+  calcularTotal(config2);
+});
+
+document.getElementById(config2.tipoCambio).addEventListener("input", function() {
+  calcularTotal(config2);
+});

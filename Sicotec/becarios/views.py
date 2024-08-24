@@ -181,6 +181,22 @@ def editarparticipante(request,idparticipante):
     proyectos = participante.proyectos.all()
     eventos = participante.eventos.all()
     
+    for pr in proyectos:
+        if pr.fechaInicio:
+            pr.fechaInicio = pr.fechaInicio.strftime('%d/%m/%Y')
+        else:
+            pr.fechaInicio = 'No especificada' 
+            
+        if pr.fechaFin:
+            pr.fechaFin = pr.fechaFin.strftime('%d/%m/%Y')
+        else:
+            pr.fechaFin = 'No especificada'  
+            
+        if pr.responsableEnt:
+            pr.responsable = pr.responsableEnt
+        else:
+            pr.responsableEnt=''
+    
 
     return render(request,'becarios/editarparticipante.html',{
         'tipo_participante_choices': tipo_participante_choices,
@@ -724,23 +740,24 @@ def añadirproyectoparticipante(request):
                 #OBTENEMOS EL PROYECTO
                 editproyecto = Proyecto.objects.get(id = x_idproyecto)
                 #AHORA CAMBIAREMOS SUS VALORES
-                editproyecto.cTipo_proyecto=x_tipoProyecto_instance
-                editproyecto.codigoProyecto=x_CodigoProyecto
-                editproyecto.nomProyecto=x_NombreProyecto
-                editproyecto.DescProyecto=x_descripcionProyecto
-                editproyecto.cpais=x_pais_instance
-                editproyecto.cTipoApoyo=x_tipoApoyo_instance
-                editproyecto.cEntFinan=x_EntidadFinanciamiento_instance
-                editproyecto.cInstFinanc=x_InstittucionFinanciamiento_instance
-                editproyecto.cTipo_Moneda=x_tipoMoneda_instance
-                editproyecto.monto=x_Monto
-                editproyecto.tipo_Cambio=x_TipoCambio
-                editproyecto.responsable=x_responsableIpen
-                editproyecto.responsableEnt=x_responsableEntidad
-                editproyecto.cAreaTem=x_areaTematica_instance
-                editproyecto.fechaInicio=x_fechaInicio
-                editproyecto.fechaFin=x_fechaFin
-                editproyecto.updated_by=updated_by
+                editproyecto.cTipo_proyecto = x_tipoProyecto_instance
+                editproyecto.codigoProyecto = x_CodigoProyecto
+                editproyecto.nomProyecto = x_NombreProyecto
+                editproyecto.DescProyecto = x_descripcionProyecto or None
+                editproyecto.cpais = x_pais_instance
+                editproyecto.cTipoApoyo = x_tipoApoyo_instance
+                editproyecto.cEntFinan = x_EntidadFinanciamiento_instance
+                editproyecto.cInstFinanc = x_InstittucionFinanciamiento_instance
+                editproyecto.cTipo_Moneda = x_tipoMoneda_instance
+                editproyecto.monto = x_Monto or None
+                editproyecto.tipo_Cambio = x_TipoCambio or None
+                editproyecto.responsable = x_responsableIpen
+                editproyecto.responsableEnt = x_responsableEntidad or None
+                editproyecto.cAreaTem = x_areaTematica_instance
+                editproyecto.fechaInicio = x_fechaInicio or None
+                editproyecto.fechaFin = x_fechaFin or None
+                editproyecto.updated_by = updated_by
+
 
                 
                 
@@ -795,10 +812,10 @@ def añadirproyectoparticipante(request):
                         'id': proyecto.id,
                         'codigoProyecto': proyecto.codigoProyecto,
                         'nomProyecto': proyecto.nomProyecto,
-                        'responsableEnt': proyecto.responsableEnt , # Cambiado a ID
-                        'cAreaTem': proyecto.cAreaTem.cArea_tematica, 
-                        'fechaInicio': proyecto.fechaInicio, 
-                        'fechaFin': proyecto.fechaFin, 
+                        'responsableEnt': proyecto.responsableEnt if proyecto.responsableEnt else 'n',  # Cambiado a ID
+                        'cAreaTem': proyecto.cAreaTem.cArea_tematica ,
+                        'fechaInicio': proyecto.fechaInicio.strftime('%Y-%m-%d') if proyecto.fechaInicio else 'no especifico',
+                        'fechaFin': proyecto.fechaFin.strftime('%Y-%m-%d') if proyecto.fechaFin else 'no especifico',
 
                     })
 
@@ -832,15 +849,15 @@ def editarproyectoparticipante(request,idproyecto,idparticipante):
                 'nombreproyecto':proyectoparticipante.nomProyecto,
                 'descripcionProyecto':proyectoparticipante.DescProyecto,
                 'pais':proyectoparticipante.cpais.id,
-                'tipoApoyo':proyectoparticipante.cTipoApoyo.id,
-                'EntiFinanciamiento':proyectoparticipante.cEntFinan.id,
-                'InstiFinanciamiento':proyectoparticipante.cInstFinanc.id,
-                'tipoMoneda':proyectoparticipante.cTipo_Moneda.id,
+                'tipoApoyo':proyectoparticipante.cTipoApoyo.id if proyectoparticipante.cTipoApoyo else None ,
+                'EntiFinanciamiento':proyectoparticipante.cEntFinan.id if proyectoparticipante.cEntFinan else None,
+                'InstiFinanciamiento':proyectoparticipante.cInstFinanc.id if proyectoparticipante.cInstFinanc else None,
+                'tipoMoneda':proyectoparticipante.cTipo_Moneda.id if proyectoparticipante.cTipo_Moneda else None,
                 'monto':str(proyectoparticipante.monto),
                 'tipoCambio':str(proyectoparticipante.tipo_Cambio),
                 'ResponsableIpen':proyectoparticipante.responsable,
                 'Responsableentidad':proyectoparticipante.responsableEnt,
-                'areatematica': str(proyectoparticipante.cAreaTem.id),
+                'areatematica': str(proyectoparticipante.cAreaTem.id) if proyectoparticipante.cAreaTem else None,
                 'fechainicio':proyectoparticipante.fechaInicio,
                 'fechafin':proyectoparticipante.fechaFin,
                 'codautorizacion': detalleproyectoparticipante.Cod_autorizacion if detalleproyectoparticipante else None,
