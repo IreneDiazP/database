@@ -26,7 +26,7 @@
         >
           <thead class="table-dark">
             <tr>
-              <th class="d-none">ID (Oculto)</th>
+              <th class="d-none">ID</th>
               <th class="text-center">Codigo</th>
               <th class="text-center">Nombre Evento</th>
               <th class="text-center">Area tematica</th>
@@ -74,7 +74,7 @@
           </tbody>
 
           <tfoot>
-            <th class="d-none">ID (Oculto)</th>
+            <th class="d-none">ID </th>
             <th class="text-center">Codigo</th>
             <th class="text-center">Nombre Evento</th>
             <th class="text-center">Area tematica</th>
@@ -239,12 +239,11 @@
                     class="form-control"
                     id="txtDescripcion"
                     name="txtDescripcion"
-                    required
                     maxlength="300"
                     oninput="convertToUppercase(this)"
                   />
                   <label for="txtDescripcion"
-                    >Descripción<span class="text-danger ms-2">*</span></label
+                    >Descripción</label
                   >
                 </div>
               </div>
@@ -295,10 +294,9 @@
                     class="form-control"
                     id="txtFechafin"
                     name="txtFechafin"
-                    required
                   />
                   <label for="txtFechafin"
-                    >Fecha Fin<span class="text-danger ms-2">*</span></label
+                    >Fecha Fin</label
                   >
                 </div>
               </div>
@@ -337,7 +335,7 @@
                   class="form-select"
                   id="cboTipoApoyo"
                   name="cboTipoApoyo"
-                  required
+                  
                 >
                   <option selected></option>
 
@@ -346,7 +344,7 @@
                   {% endfor %}
                 </select>
                 <label for="cboTipoApoyo"
-                  >Tipo de Apoyo<span class="text-danger ms-2">*</span></label
+                  >Tipo de Apoyo</label
                 >
               </div>
             </div>
@@ -358,7 +356,6 @@
                   class="form-select"
                   id="cboTipoEnFinanciamiento"
                   name="cboTipoEnFinanciamiento"
-                  required
                 >
                   <option selected></option>
 
@@ -367,10 +364,7 @@
                   {% endfor %}
                 </select>
                 <label for="cboTipoEnFinanciamiento">
-                  Entidad Financiamiento<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
+                  Entidad Financiamiento</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -381,15 +375,11 @@
                   class="form-select"
                   id="cboTipoInsFinanciamiento"
                   name="cboTipoInsFinanciamiento"
-                  required
                 >
                   <option selected></option>
                 </select>
                 <label for="cboTipoInsFinanciamiento">
-                  Institucion Financinaniento<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
+                  Institucion Financinaniento</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -407,7 +397,7 @@
                   class="form-select"
                   id="cboTipoMOneda"
                   name="cboTipoMOneda"
-                  required
+                  
                 >
                   <option selected></option>
                   {% for tm in TipoMoneda %}
@@ -415,8 +405,7 @@
                   {% endfor %}
                 </select>
                 <label for="cboTipoMOneda">
-                  Tipo de Moneda<span class="text-danger ms-2">*</span></label
-                >
+                  Tipo de Moneda</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -429,11 +418,11 @@
                   class="form-control"
                   id="txtMonto"
                   name="txtMonto"
-                  required
+                  
                   pattern="^\d+(\.\d{1,4})?$"
                 />
                 <label for="txtMonto"
-                  >Monto (S/)<span class="text-danger ms-2">*</span></label
+                  >Monto</label
                 >
               </div>
             </div>
@@ -448,13 +437,12 @@
                   class="form-control"
                   id="txttipoCambio"
                   name="txttipoCambio"
-                  required
+                  
                   maxlength="15"
                   pattern="^\d+(\.\d{1,4})?$"
                 />
                 <label for="txttipoCambio"
-                  >Tipo de Cambio<span class="text-danger ms-2">*</span></label
-                >
+                  >Tipo de Cambio</label>
               </div>
             </div>
 

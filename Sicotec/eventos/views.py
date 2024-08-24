@@ -112,6 +112,8 @@ def editarevento(request,idEvento):
                 Entifin_id = request.POST.get('cboTipoEnFinanciamiento')
                 Insntifin_id = request.POST.get('cboTipoInsFinanciamiento')
                 tipomoneda_id = request.POST.get('cboTipoMOneda')
+                x_resIpen = request.POST.get('txtRespIpen')
+                x_resEntidad = request.POST.get('txtRespEnt')
                 monto=request.POST.get('txtMonto')
                 tipocambio=request.POST.get('txttipoCambio')
                 updated_by = request.user
@@ -121,26 +123,28 @@ def editarevento(request,idEvento):
                 x_tipoevento_instance=Tipo_Evento.objects.get(id=tipoevento_id)
                 x_areatema_instance=Area_Tematica.objects.get(id=aretematica_id)
                 x_pais_instance=Pais.objects.get(id=pais_id)
-                x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=tipoapoyo_id)
-                x_Entifina_instance=Entidad_Financiamiento.objects.get(id=Entifin_id)
-                x_institufina_instance=Institucion_Financiamiento.objects.get(id=Insntifin_id)
-                x_tipomoneda_instance=Tipo_Moneda.objects.get(id=tipomoneda_id)
+                x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=tipoapoyo_id) if tipoapoyo_id else None
+                x_Entifina_instance=Entidad_Financiamiento.objects.get(id=Entifin_id) if Entifin_id else None
+                x_institufina_instance=Institucion_Financiamiento.objects.get(id=Insntifin_id) if Insntifin_id else None
+                x_tipomoneda_instance=Tipo_Moneda.objects.get(id=tipomoneda_id) if tipomoneda_id else None
                 
                 
                 eventoeditado.codigoEvento = codigoevento
                 eventoeditado.nomEvento = nombrevento
                 eventoeditado.cTipoEvento = x_tipoevento_instance
                 eventoeditado.cAreaTem = x_areatema_instance
-                eventoeditado.DescEvento = descripcionevento
+                eventoeditado.DescEvento = descripcionevento if descripcionevento else None
                 eventoeditado.cpais = x_pais_instance
                 eventoeditado.fechaInicio = FechaInicio
-                eventoeditado.fechaFin = FechaFin
+                eventoeditado.fechaFin = FechaFin if FechaFin else None
+                eventoeditado.responsable = x_resIpen
+                eventoeditado.responsableEnt = x_resEntidad if x_resEntidad else None
                 eventoeditado.cTipoApoyo = x_tipoapoyo_instance
                 eventoeditado.cEntFinan = x_Entifina_instance
                 eventoeditado.cInstFinanc = x_institufina_instance
                 eventoeditado.cTipo_Moneda = x_tipomoneda_instance
-                eventoeditado.monto = monto
-                eventoeditado.tipo_Cambio = tipocambio
+                eventoeditado.monto = monto if monto else None
+                eventoeditado.tipo_Cambio = tipocambio if tipocambio else None
                 eventoeditado.updated_by = updated_by
                 eventoeditado.updated = fecha_actual
                 

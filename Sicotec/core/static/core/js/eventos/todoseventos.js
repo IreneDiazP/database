@@ -87,6 +87,18 @@ document
     cargarInstitucionesFinanciamiento(this.value);
   });
 
+  function formatDecimal(value) {
+    let numericValue = parseFloat(value);
+    if (isNaN(numericValue)) {
+      return ''; 
+    }
+  
+    let formattedValue = numericValue.toString();
+    formattedValue = formattedValue.replace(/(\.[0-9]*[1-9])0+$|\.0*$/, '$1');
+    return formattedValue;
+  }
+
+
 async function CargardatoEventos(idRegistroEvento) {
   const rutaeditar = `../../eventos/editarevento/${idRegistroEvento}`;
   document
@@ -109,7 +121,6 @@ async function CargardatoEventos(idRegistroEvento) {
     } else {
       const result = await response.json();
       const data = result.data;
-      console.log(data);
 
       document.getElementById("txtCodigoEvento").value =
         data.codigoEvento;
@@ -140,10 +151,12 @@ async function CargardatoEventos(idRegistroEvento) {
         data.cTipo_Moneda_id;
       document.getElementById('txtRespIpen').value = data.RespIPEN
       document.getElementById('txtRespEnt').value = data.RespEntidad
-      document.getElementById("txtMonto").value = data.monto;
-      document.getElementById("txttipoCambio").value =
-        data.tipo_Cambio;
-        clickmonto(data.monto)
+      document.getElementById("txtMonto").value =  formatDecimal(parseFloat(data.monto))
+      document.getElementById("txttipoCambio").value =  formatDecimal(parseFloat(data.tipo_Cambio))
+      let monto = parseFloat(data.monto);
+      let tipoCambio = parseFloat(data.tipo_Cambio);
+      let montoEnSoles = monto * tipoCambio;
+      document.getElementById("txtMontosoles").value = isNaN(montoEnSoles) ? '' : formatDecimal(montoEnSoles);
 
     }
   } catch (error) {
