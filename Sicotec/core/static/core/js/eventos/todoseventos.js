@@ -109,6 +109,7 @@ async function CargardatoEventos(idRegistroEvento) {
     } else {
       const result = await response.json();
       const data = result.data;
+      console.log(data);
 
       document.getElementById("txtCodigoEvento").value =
         data.codigoEvento;
@@ -137,6 +138,8 @@ async function CargardatoEventos(idRegistroEvento) {
 
       document.getElementById("cboTipoMOneda").value =
         data.cTipo_Moneda_id;
+      document.getElementById('txtRespIpen').value = data.RespIPEN
+      document.getElementById('txtRespEnt').value = data.RespEntidad
       document.getElementById("txtMonto").value = data.monto;
       document.getElementById("txttipoCambio").value =
         data.tipo_Cambio;

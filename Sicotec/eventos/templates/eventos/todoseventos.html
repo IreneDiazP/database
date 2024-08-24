@@ -1,14 +1,16 @@
 {% extends "core/base.html" %}
-{% load static %}
-{% block title %} Eventos {% endblock title %}
-{% block head %}
-
-{% endblock %}
-
+{% load static %} 
+{% block title %} Eventos {% endblock title %} 
+{% block head %} {% endblock %} 
 {% block contenido %}
-<div class="main-content d-flex flex-column mx-3 my-4 ">
-  <div class="tab-content shadow  rounded px-4 py-5">
-    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+<div class="main-content d-flex flex-column mx-3 my-4">
+  <div class="tab-content shadow rounded px-4 py-5">
+    <div
+      class="tab-pane fade show active"
+      id="list-home"
+      role="tabpanel"
+      aria-labelledby="list-home-list"
+    >
       <div class="d-flex justify-content-between mb-3">
         <h2 class="fs-2 fw-semibold d-md-block d-none">Lista de Eventos</h2>
         <h2 class="fs-5 fw-semibold d-md-none d-block">Lista de Eventos</h2>
@@ -17,14 +19,18 @@
       <!--TABLA-->
       <div class="table-responsive">
         <hr />
-        <table id="tblEventos" class="table table-hover display shadow rounded" style="width:100%;">
+        <table
+          id="tblEventos"
+          class="table table-hover display shadow rounded"
+          style="width: 100%"
+        >
           <thead class="table-dark">
             <tr>
               <th class="d-none">ID (Oculto)</th>
-              <th class="text-center ">Codigo</th>
-              <th class="text-center">Nombre Evento </th>
-              <th class="text-center">Tipo Evento</th>
+              <th class="text-center">Codigo</th>
+              <th class="text-center">Nombre Evento</th>
               <th class="text-center">Area tematica</th>
+              <th class="text-center">Responsabel Entidad</th>
               <th class="text-center">Fecha inicio</th>
               <th class="text-center">Fecha Fin</th>
               <th class="text-center"></th>
@@ -34,36 +40,45 @@
             {% for te in todoeventos %}
 
             <tr id="{{te.id}}">
-              <th class="d-none">{{te.id}}</th> 
-              <th >{{te.codigoEvento}}</th>
-              <th >{{te.nomEvento}} </th>
-              <th>{{te.cTipoEvento}} </th>
+              <th class="d-none">{{te.id}}</th>
+              <th>{{te.codigoEvento}}</th>
+              <th>{{te.nomEvento}}</th>
               <th>{{te.cAreaTem}}</th>
-              <th class="text-center" >{{te.fechaInicio}}</th>
-              <th class="text-center" >{{te.fechaFin}}</th>
+              <th>{{te.responsableEnt}}</th>
+              <th class="text-center">{{te.fechaInicio}}</th>
+              <th class="text-center">{{te.fechaFin}}</th>
               <th class="text-center">
                 <div class="d-flex gap-2 justify-content-center">
-                  <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
-                    data-bs-target="#modalEditarEvento" data-bs-whatever="Editar">
+                  <button
+                    type="button"
+                    class="btn btn-success editBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEditarEvento"
+                    data-bs-whatever="Editar"
+                  >
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
-                    data-bs-target="#modalEliminarEvento" data-bs-whatever="Eliminar">
+                  <button
+                    type="button"
+                    class="btn btn-danger trashBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEliminarEvento"
+                    data-bs-whatever="Eliminar"
+                  >
                     <i class="bi bi-trash"></i>
                   </button>
                 </div>
               </th>
             </tr>
             {% endfor %}
-
           </tbody>
 
           <tfoot>
             <th class="d-none">ID (Oculto)</th>
-            <th class="text-center ">Codigo</th>
-            <th class="text-center">Nombre Evento </th>
-            <th class="text-center">Tipo Evento</th>
+            <th class="text-center">Codigo</th>
+            <th class="text-center">Nombre Evento</th>
             <th class="text-center">Area tematica</th>
+            <th class="text-center">Responsabel Entidad</th>
             <th class="text-center">Fecha inicio</th>
             <th class="text-center">Fecha Fin</th>
             <th class="text-center"></th>
@@ -74,150 +89,277 @@
   </div>
 </div>
 
-
 <!--MODAL PARA EDITAR EVENTO-->
-<div class="modal fade" id="modalEditarEvento" tabindex="-1" aria-labelledby="modalEditarEventoLabel"
-  aria-hidden="true">
-  <div class="modal-dialog m-auto modal-dialog-centered mt-3" style="--bs-modal-width: 1382px">
+<div
+  class="modal fade"
+  id="modalEditarEvento"
+  tabindex="-1"
+  aria-labelledby="modalEditarEventoLabel"
+  aria-hidden="true"
+>
+  <div
+    class="modal-dialog m-auto modal-dialog-centered mt-3"
+    style="--bs-modal-width: 1382px"
+  >
     <div class="modal-content">
       <div class="modal-header">
-        <span class="fs-2 fw-semibold d-md-block d-none">Edición de proyecto</span>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <span class="fs-2 fw-semibold d-md-block d-none"
+          >Edición de proyecto</span
+        >
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-      <div class="row  px-3">
-        <div id="alerta" class="alert alert-danger mb-0" style="display: none" role="alert">Solo se permiten 30
-          caracteres como máximo en el campo de Teléfono.</div>
+      <div class="row px-3">
+        <div
+          id="alerta"
+          class="alert alert-danger mb-0"
+          style="display: none"
+          role="alert"
+        >
+          Solo se permiten 30 caracteres como máximo en el campo de Teléfono.
+        </div>
       </div>
-      <form action="" id="formEditarEvento" class="shadow px-3 rounded" method="POST">
+      <form
+        action=""
+        id="formEditarEvento"
+        class="shadow px-3 rounded"
+        method="POST"
+      >
         {% csrf_token %}
         <div class="modal-body">
           <div class="d-flex gap-3 flex-column justify-content-center">
-            <input type="hidden" class="form-control" id="txtIdProyectoModalEditarEvento"
-              name="txtIdProyectoModalEditarEvento" value="" readonly>
-          <!--formulario de ingreso datos-->
-          <div class="row g-3 px-3">
-            <!-- Aviso de campos obligatorios  -->
-            <div class="d-flex">
-              <span class="text-danger ms-2">* Campos obligatorios</span>
-            </div>
-            <span class="fw-bold fs-6">Datos generales del Evento</span>
+            <input
+              type="hidden"
+              class="form-control"
+              id="txtIdProyectoModalEditarEvento"
+              name="txtIdProyectoModalEditarEvento"
+              value=""
+              readonly
+            />
+            <!--formulario de ingreso datos-->
+            <div class="row g-3 px-3">
+              <!-- Aviso de campos obligatorios  -->
+              <div class="d-flex">
+                <span class="text-danger ms-2">* Campos obligatorios</span>
+              </div>
+              <span class="fw-bold fs-6">Datos generales del Evento</span>
 
-            <!------   ----------------------------- -->
-            <!--CODIGO DE EVENTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidCodigoevento" />
-                <input type="text" class="form-control" id="txtCodigoEvento" name="txtCodigoEvento" required
-                  maxlength="150" />
-                <label for="txtCodigoEvento">Codigo evento<span class="text-danger ms-2">*</span></label>
+              <!------   ----------------------------- -->
+              <!--CODIGO DE EVENTO-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidCodigoevento" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="txtCodigoEvento"
+                    name="txtCodigoEvento"
+                    required
+                    maxlength="150"
+                  />
+                  <label for="txtCodigoEvento"
+                    >Codigo evento<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+              <!--NOMBRE Evento-->
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidNombreevento" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="txtNombreEvento"
+                    name="txtNombreEvento"
+                    required
+                    maxlength="150"
+                    oninput="convertToUppercase(this)"
+                  />
+                  <label for="txtNombreEvento"
+                    >Nombre<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--TIPO DE EVENTO-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select
+                    class="form-select"
+                    id="cboTipoEvento"
+                    name="cboTipoEvento"
+                    required
+                  >
+                    <option selected></option>
+                    {% for te in Tipo_Eventos %}
+                    <option value="{{te.id}}">{{te.cTipoEvento}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboTipoEvento"
+                    >Tipo de Evento<span class="text-danger ms-2"
+                      >*</span
+                    ></label
+                  >
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--AREA TEMATICA-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select
+                    class="form-select"
+                    id="cboAreaTematica"
+                    name="cboAreaTematica"
+                    required
+                  >
+                    <option selected></option>
+
+                    {% for At in AreaTem %}
+                    <option value="{{At.id}}">{{At.cArea_tematica}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboAreaTematica"
+                    >Area Tematica<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+              <!--DESCRIPCIÓN-->
+              <div class="col-md-9">
+                <div class="form-floating">
+                  <input type="hidden" id="txtidDescripcion" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="txtDescripcion"
+                    name="txtDescripcion"
+                    required
+                    maxlength="300"
+                    oninput="convertToUppercase(this)"
+                  />
+                  <label for="txtDescripcion"
+                    >Descripción<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+
+              <!--PAIS-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <select
+                    class="form-select"
+                    id="cboPais"
+                    name="cboPais"
+                    required
+                  >
+                    <option selected></option>
+                    {% for p in pais %}
+                    <option value="{{p.id}}">{{p.cpais}}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="cboPais"
+                    >Pais<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+              <!------   ----------------------------- -->
+
+              <!--FECHA-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="txtFechainicio"
+                    name="txtFechainicio"
+                    required
+                  />
+                  <label for="txtFechainicio"
+                    >Fecha Inicio<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--FECHA FIN-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="txtFechafin"
+                    name="txtFechafin"
+                    required
+                  />
+                  <label for="txtFechafin"
+                    >Fecha Fin<span class="text-danger ms-2">*</span></label
+                  >
+                </div>
+              </div>
+
+              <!------   ----------------------------- -->
+              <!--REPONSABLE IPEN-->
+              <div class="col-md-3">
+                <div class="form-floating">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="txtRespIpen"
+                    name="txtRespIpen"
+                    maxlength="100"
+                    required
+                    oninput="convertToUppercase(this)"
+                  />
+                  <label for="txtRespIpen"
+                    >Responsable IPEN<span class="text-danger ms-2"
+                      >*</span
+                    ></label
+                  >
+                </div>
               </div>
             </div>
-            <!------   ----------------------------- -->
-            <!--NOMBRE Evento-->
-            <div class="col-md-6">
-              <div class="form-floating">
-                <input type="hidden" id="txtidNombreevento" />
-                <input type="text" class="form-control" id="txtNombreEvento" name="txtNombreEvento" required
-                  maxlength="150" oninput="convertToUppercase(this)"  />
-                <label for="txtNombreEvento">Nombre<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--TIPO DE EVENTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select class="form-select" id="cboTipoEvento" name="cboTipoEvento" required>
-                  <option selected></option>
-                  {% for te in Tipo_Eventos %}
-                  <option value="{{te.id}}">{{te.cTipoEvento}}</option>
-                  {% endfor %}
-                </select>
-                <label for="cboTipoEvento">Tipo de Evento<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--AREA TEMATICA-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select class="form-select" id="cboAreaTematica" name="cboAreaTematica" required>
-                  <option selected></option>
-
-                  {% for At in AreaTem %}
-                  <option value="{{At.id}}">{{At.cArea_tematica}}</option>
-                  {% endfor %}
-                </select>
-                <label for="cboAreaTematica">Area Tematica<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-            <!--DESCRIPCIÓN-->
-            <div class="col-md-9">
-              <div class="form-floating">
-                <input type="hidden" id="txtidDescripcion" />
-                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
-                  maxlength="300" oninput="convertToUppercase(this)"  />
-                <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-
-            <!--PAIS-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select class="form-select" id="cboPais" name="cboPais" required>
-                  <option selected></option>
-                  {% for p in pais %}
-                  <option value="{{p.id}}">{{p.cpais}}</option>
-                  {% endfor %}
-                </select>
-                <label for="cboPais">Pais<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-
-            <!--FECHA-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="date" class="form-control" id="txtFechainicio" name="txtFechainicio" required />
-                <label for="txtFechainicio">Fecha Inicio<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
-            <!--FECHA FIN-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="date" class="form-control" id="txtFechafin" name="txtFechafin" required />
-                <label for="txtFechafin">Fecha Fin<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div>
-
-            <!------   ----------------------------- -->
           </div>
-          <hr>
+          <hr />
           <!--formulario de ingreso datos-->
           <div class="row g-3 px-3">
-
             <span class="fw-bold fs-6">Datos financiamiento del Evento</span>
             <!------   ----------------------------- -->
             <!--TIPO DE APOYO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" required>
+                <select
+                  class="form-select"
+                  id="cboTipoApoyo"
+                  name="cboTipoApoyo"
+                  required
+                >
                   <option selected></option>
 
                   {% for ta in TipoApoyo %}
                   <option value="{{ta.id}}">{{ta.ctipo_apoyo}}</option>
                   {% endfor %}
                 </select>
-                <label for="cboTipoApoyo">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
+                <label for="cboTipoApoyo"
+                  >Tipo de Apoyo<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--FINANCIAMIENTO POR-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" required>
+                <select
+                  class="form-select"
+                  id="cboTipoEnFinanciamiento"
+                  name="cboTipoEnFinanciamiento"
+                  required
+                >
                   <option selected></option>
 
                   {% for Etf in EntFinan %}
@@ -225,34 +367,56 @@
                   {% endfor %}
                 </select>
                 <label for="cboTipoEnFinanciamiento">
-                 Entidad Financiamiento<span class="text-danger ms-2">*</span></label>
+                  Entidad Financiamiento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--Institucion FINANCIAMIENTO FINANCIAMIENTO -->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
+                <select
+                  class="form-select"
+                  id="cboTipoInsFinanciamiento"
+                  name="cboTipoInsFinanciamiento"
+                  required
+                >
                   <option selected></option>
-
-
                 </select>
                 <label for="cboTipoInsFinanciamiento">
-                  Institucion Financinaniento<span class="text-danger ms-2">*</span></label>
+                  Institucion Financinaniento<span class="text-danger ms-2"
+                    >*</span
+                  ></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
+            <div class="col-md-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
+                  oninput="convertToUppercase(this)" />
+                <label for="txtRespEnt">Responsable Entidad</label>
+              </div>
+            </div>
             <!--TIPO DE MONEDA -->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
+                <select
+                  class="form-select"
+                  id="cboTipoMOneda"
+                  name="cboTipoMOneda"
+                  required
+                >
                   <option selected></option>
                   {% for tm in TipoMoneda %}
                   <option value="{{tm.id}}">{{tm.cTipo_moneda}}</option>
                   {% endfor %}
                 </select>
                 <label for="cboTipoMOneda">
-                  Tipo de Moneda<span class="text-danger ms-2">*</span></label>
+                  Tipo de Moneda<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -260,9 +424,17 @@
             <div class="col-md-2">
               <div class="form-floating">
                 <input type="hidden" id="txtidMonto" />
-                <input type="text" class="form-control" id="txtMonto" name="txtMonto" required
-                  pattern="^\d+(\.\d{1,4})?$" />
-                <label for="txtMonto">Monto (S/)<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtMonto"
+                  name="txtMonto"
+                  required
+                  pattern="^\d+(\.\d{1,4})?$"
+                />
+                <label for="txtMonto"
+                  >Monto (S/)<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
 
@@ -271,9 +443,18 @@
             <div class="col-md-2">
               <div class="form-floating">
                 <input type="hidden" id="txtidtCambio" />
-                <input type="text" class="form-control" id="txttipoCambio" name="txttipoCambio" required
-                  maxlength="15" pattern="^\d+(\.\d{1,4})?$" />
-                <label for="txttipoCambio">Tipo de Cambio<span class="text-danger ms-2">*</span></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txttipoCambio"
+                  name="txttipoCambio"
+                  required
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,4})?$"
+                />
+                <label for="txttipoCambio"
+                  >Tipo de Cambio<span class="text-danger ms-2">*</span></label
+                >
               </div>
             </div>
 
@@ -282,23 +463,37 @@
             <div class="col-md-3">
               <div class="form-floating">
                 <input type="hidden" id="txtidMontosoles" />
-                <input type="text" class="form-control" disabled  id="txtMontosoles" name="txtMontosoles" maxlength="15"
-                  pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
+                <input
+                  type="text"
+                  class="form-control"
+                  disabled
+                  id="txtMontosoles"
+                  name="txtMontosoles"
+                  maxlength="15"
+                  pattern="^\d+(\.\d{1,2})?$"
+                  title="Ingrese un monto válido con hasta dos decimales"
+                />
                 <label for="txtMontosoles">Equivalente Soles</label>
               </div>
             </div>
           </div>
-
-          </div>
         </div>
         <!-- Botones Guardar y Cancelar -->
         <div class="modal-footer">
-          <button class="btn btn-danger shadow text-light fs-6 btnForm" type="submit">
+          <button
+            class="btn btn-danger shadow text-light fs-6 btnForm"
+            type="submit"
+          >
             <i class="fas fa-save"></i>
             &nbsp;Guardar datos
           </button>
-          <button class="btn btn-secondary text-white shadow fs-6" type="button"
-            data-bs-dismiss="modal">Cancelar</button>
+          <button
+            class="btn btn-secondary text-white shadow fs-6"
+            type="button"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
         </div>
       </form>
     </div>
@@ -306,36 +501,55 @@
 </div>
 
 <!-- Modal eliminar EVENTO-->
-<div class="modal fade"
-     id="modalEliminarEvento"
-     tabindex="-1"
-     aria-labelledby="eliminarEventoLabel"
-     aria-hidden="true">
+<div
+  class="modal fade"
+  id="modalEliminarEvento"
+  tabindex="-1"
+  aria-labelledby="eliminarEventoLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="eliminarEventoLabel">Eliminar proyecto</h1>
-        <button type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="eliminarEventoLabel">
+          Eliminar proyecto
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <form id="formEliminarEvento" action="">
         <div class="modal-body">
-          <input type="hidden"
-                 class="form-control"
-                 id="txtIdProyectoModalEliminarEvento"
-                 name="txtIdProyectoModalEliminarEvento"
-                 value=""
-                 readonly>
+          <input
+            type="hidden"
+            class="form-control"
+            id="txtIdProyectoModalEliminarEvento"
+            name="txtIdProyectoModalEliminarEvento"
+            value=""
+            readonly
+          />
           <div class="mensaje-aviso d-flex gap-2">
-            <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel ">¿Está seguro de eliminar al Proyecto?</h1>
+            <h1
+              class="modal-title fs-6 text-center mb-2"
+              id="staticBackdropLabel "
+            >
+              ¿Está seguro de eliminar al Proyecto?
+            </h1>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
           <button type="submit" class="btn btn-danger">
-            <i class="fas fa-trash-alt"></i>  Eliminar
+            <i class="fas fa-trash-alt"></i> Eliminar
           </button>
         </div>
       </form>
@@ -343,18 +557,12 @@
   </div>
 </div>
 
-
-{% endblock contenido %}
-
-{% block script %}
+{% endblock contenido %} {% block script %}
 <script>
-
   function convertToUppercase(input) {
     input.value = input.value.toUpperCase();
   }
-  
 </script>
-
 
 <!-- Custom JS -->
 <script src="{% static 'core/js/inicializador/inicializador.js' %}"></script>

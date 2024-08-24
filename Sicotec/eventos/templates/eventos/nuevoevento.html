@@ -1,6 +1,6 @@
 {% extends "core/base.html" %} 
 {% load static %} 
-{% block title %}Nuevo Evento {% endblock title %} 
+{% block title %}Nuevo Evento{% endblock title %} 
 {% block contenido %}
 <div class="main-content d-flex flex-column py-0 mb-md-5">
   <div
@@ -273,8 +273,14 @@
             <!------   ----------------------------- -->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
-                  oninput="convertToUppercase(this)" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtRespEnt"
+                  name="txtRespEnt"
+                  maxlength="100"
+                  oninput="convertToUppercase(this)"
+                />
                 <label for="txtRespEnt">Responsable Entidad</label>
               </div>
             </div>

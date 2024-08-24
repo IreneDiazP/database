@@ -186,6 +186,10 @@ def todosEventos(request):
         else:
             te.fechaFin = 'No especificó'
                 
+        if te.responsableEnt:
+            te.responsableEnt = te.responsableEnt
+        else:
+           te.responsableEnt = ''
  
     return render(request,'eventos/todoseventos.html',{
         'todoeventos':todoeventos,
@@ -215,6 +219,8 @@ def get_Evento(request,idEvento):
             'cTipoApoyo_id': eventorequerido.cTipoApoyo_id,
             'cEntFinan_id': eventorequerido.cEntFinan_id,
             'cInstFinanc_id': eventorequerido.cInstFinanc_id,
+            'RespIPEN': eventorequerido.responsable,
+            'RespEntidad': eventorequerido.responsableEnt,
             'cTipo_Moneda_id': eventorequerido.cTipo_Moneda_id,
             'monto': eventorequerido.monto,
             'tipo_Cambio': eventorequerido.tipo_Cambio,
