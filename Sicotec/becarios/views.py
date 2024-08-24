@@ -304,6 +304,8 @@ def get_Evento(request,idEvento):
             'cTipo_Moneda_id': eventorequerido.cTipo_Moneda_id,
             'monto': eventorequerido.monto,
             'tipo_Cambio': eventorequerido.tipo_Cambio,
+            'responsableIpen': eventorequerido.responsable,
+            'responsableentidad': eventorequerido.responsableEnt,
             'created': eventorequerido.created,
             'created_by_id': eventorequerido.created_by_id,
             'updated': eventorequerido.updated,
@@ -349,6 +351,8 @@ def añadireventoproyecto(request):
                 x_Actividad = data.get('Actividad')
                 x_idparticipante = data.get('idparticipante')
                 x_iddetalleeventoproyecto = data.get('iddetalleeventoproyecto')
+                x_resIpen = data.get('responsableipen')
+                x_resEntidad = data.get('responsableentidad')
 
                 
                 updated_by = request.user
@@ -360,10 +364,10 @@ def añadireventoproyecto(request):
                 x_tipoevento_instance = Tipo_Evento.objects.get(id=x_TipoEvento)
                 x_areatema_instance = Area_Tematica.objects.get(id=x_AreaTematica)
                 x_pais_instance = Pais.objects.get(id=x_PaisEvento)
-                x_tipoapoyo_instance = Tipo_Apoyo.objects.get(id=x_TipoApoyo)
-                x_Entifina_instance = Entidad_Financiamiento.objects.get(id=x_TipoEnFinanciamiento)
-                x_institufina_instance = Institucion_Financiamiento.objects.get(id=TipoInsFinanciamiento)
-                x_tipomoneda_instance = Tipo_Moneda.objects.get(id=x_TipoMOneda)
+                x_tipoapoyo_instance = Tipo_Apoyo.objects.get(id=x_TipoApoyo) if x_TipoApoyo else None
+                x_Entifina_instance = Entidad_Financiamiento.objects.get(id=x_TipoEnFinanciamiento) if x_TipoEnFinanciamiento else None
+                x_institufina_instance = Institucion_Financiamiento.objects.get(id=TipoInsFinanciamiento) if TipoInsFinanciamiento else None
+                x_tipomoneda_instance = Tipo_Moneda.objects.get(id=x_TipoMOneda) if x_TipoMOneda else None
                 
                 x_idproyecto_instance = Proyecto.objects.get(id=x_idproyecto) if x_idproyecto else None
                 x_idparticipante_instance = Participante.objects.get(id=x_idparticipante) if x_idparticipante else None
@@ -373,16 +377,18 @@ def añadireventoproyecto(request):
                 eventoeditado.nomEvento = x_NombreEvento
                 eventoeditado.cTipoEvento = x_tipoevento_instance
                 eventoeditado.cAreaTem = x_areatema_instance
-                eventoeditado.DescEvento = x_DescripcionEvento
+                eventoeditado.DescEvento = x_DescripcionEvento  if x_DescripcionEvento else None
                 eventoeditado.cpais = x_pais_instance
                 eventoeditado.fechaInicio = x_Fechainicio
-                eventoeditado.fechaFin = x_Fechafin
+                eventoeditado.fechaFin = x_Fechafin if x_Fechafin else None
+                eventoeditado.responsable = x_resIpen
+                eventoeditado.responsableEnt = x_resEntidad if x_resEntidad else None
                 eventoeditado.cTipoApoyo = x_tipoapoyo_instance
                 eventoeditado.cEntFinan = x_Entifina_instance
                 eventoeditado.cInstFinanc = x_institufina_instance
                 eventoeditado.cTipo_Moneda = x_tipomoneda_instance
-                eventoeditado.monto = x_Monto
-                eventoeditado.tipo_Cambio = x_TipoCambio
+                eventoeditado.monto = x_Monto if x_Monto else None
+                eventoeditado.tipo_Cambio = x_TipoCambio if x_TipoCambio else None
                 eventoeditado.updated_by = updated_by
                 eventoeditado.updated = fecha_actual
                 
@@ -555,7 +561,9 @@ def modificarparticipante(request, idparticipante):
                     'institucion': participante.sede.institucion_financiamiento.id if participante.sede else None,
                     'sede': participante.sede.nombre_sede if participante.sede else None,
                     'direccion': participante.sede.direccion_sede if participante.sede else None,
-                    'oficina': participante.sede.oficina_sede if participante.sede else None
+                    'oficina': participante.sede.oficina_sede if participante.sede else None,
+                    'idsede': participante.sede.id,
+
                 }
                 return JsonResponse({'success': True, 'message': 'Los datos del participante fueron actualizados correctamente', 'data': participante_data})
         except Exception as e:
@@ -571,7 +579,7 @@ def editareventoparticipante(request, idevento,idparticipante):
                 eventoparticipante=Evento.objects.get(id =idevento)
                 
                 try:
-                    detalleeventoparticipante = Det_EventoProyecto.objects.get(participante_id = idparticipante, evento_id=idevento)
+                    detalleeventoparticipante = Det_EventoProyecto.objects.get(participante_id=idparticipante, evento_id=idevento)                
                 except Det_EventoProyecto.DoesNotExist:
                     detalleeventoparticipante = None
                 
@@ -581,16 +589,18 @@ def editareventoparticipante(request, idevento,idparticipante):
                 'nombrevento':eventoparticipante.nomEvento,
                 'tipoevento':eventoparticipante.cTipoEvento.id,
                 'areatematica':eventoparticipante.cAreaTem.id,
-                'descripcion':eventoparticipante.DescEvento,
+                'descripcion':eventoparticipante.DescEvento if eventoparticipante else None ,
                 'pais':eventoparticipante.cpais.id,
                 'fechainicio':eventoparticipante.fechaInicio,
-                'fechafin':eventoparticipante.fechaFin,
-                'tipoapoyo':eventoparticipante.cTipoApoyo.id,
-                'entidadfinanciamiento':eventoparticipante.cEntFinan.id,
-                'institucionfinanciamiento':eventoparticipante.cInstFinanc.id,
-                'tipomoneda':eventoparticipante.cTipo_Moneda.id,
-                'monto': str(eventoparticipante.monto),  # Serializar Decimal como cadena
-                'tipocambio': str(eventoparticipante.tipo_Cambio),
+                'fechafin':eventoparticipante.fechaFin if eventoparticipante else None,
+                'responsableIpen': eventoparticipante.responsable,
+                'responsableentidad': eventoparticipante.responsableEnt,
+                'tipoapoyo':eventoparticipante.cTipoApoyo.id if eventoparticipante.cTipoApoyo else None,
+                'entidadfinanciamiento':eventoparticipante.cEntFinan.id if eventoparticipante.cEntFinan else None ,
+                'institucionfinanciamiento':eventoparticipante.cInstFinanc.id if eventoparticipante.cInstFinanc else None,
+                'tipomoneda':eventoparticipante.cTipo_Moneda.id if eventoparticipante.cTipo_Moneda else None,
+                'monto': str(eventoparticipante.monto) if eventoparticipante else None,  # Serializar Decimal como cadena
+                'tipocambio': str(eventoparticipante.tipo_Cambio) if eventoparticipante else None,
                 'iddetalle':detalleeventoparticipante.id if detalleeventoparticipante else None,
                 'codigoautorizacion':detalleeventoparticipante.Cod_autorizacion if detalleeventoparticipante else None,
                 'codigoacta':detalleeventoparticipante.Cod_acta if detalleeventoparticipante else None,

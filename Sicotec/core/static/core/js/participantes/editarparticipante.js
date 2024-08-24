@@ -264,6 +264,9 @@ document
           urlget,
           0
         );
+        document.getElementById("txtRespIpenn").value = data.responsableIpen;
+        document.getElementById("txtRespEntt").value = data.responsableentidad;
+
 
         document.getElementById("cboTipoMOneda").value = data.cTipo_Moneda_id;
         document.getElementById("txtMonto").value = data.monto;
@@ -340,6 +343,8 @@ document
     iddetalleeventoproyecto = document.getElementById(
       "iddetalleeventoproyecto"
     ).value;
+    responsableipen = document.getElementById("txtRespIpenn").value;
+    responsableentidad = document.getElementById("txtRespEntt").value;
     let idparticipante = participanteidId;
 
     data = {
@@ -368,6 +373,8 @@ document
       Actividad,
       idparticipante,
       iddetalleeventoproyecto,
+      responsableipen,
+      responsableentidad,
     };
 
     urleditarevento = "../../añadireventoproyecto/";
@@ -589,6 +596,8 @@ document
           document.getElementById("txtObservacion").value = data.observacion;
           document.getElementById("txtActividad").value = data.actividad;
           document.getElementById("ideventousuario").value = data.idevento;
+          document.getElementById("txtRespIpenn").value = data.responsableIpen;
+          document.getElementById("txtRespEntt").value = data.responsableentidad;
           document.getElementById("iddetalleeventoproyecto").value =
             data.iddetalle;
         } else {

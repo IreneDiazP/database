@@ -105,6 +105,7 @@ fetch(urlmodificarparticipante,{
         document.getElementById("txtNombreSede").value = data.sede;
         document.getElementById("txtDireccionSede").value = data.direccion;
         document.getElementById("txtOficinasede").value = data.oficina;
+        document.getElementById("idsede").value = data.idsede
     }else{
         NotificacionSwal("Error!", responseData.message, "error", "ok");
     }

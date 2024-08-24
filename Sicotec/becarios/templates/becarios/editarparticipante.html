@@ -759,15 +759,12 @@ Participante{% endblock title %} {% block contenido %}
                           class="form-control"
                           id="txtDescripcion"
                           name="txtDescripcion"
-                          required
+                          
                           maxlength="300"
                           oninput="convertToUppercase(this)"
                         />
                         <label for="txtDescripcion"
-                          >Descripción<span class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          >Descripción</label>
                       </div>
                     </div>
 
@@ -819,17 +816,34 @@ Participante{% endblock title %} {% block contenido %}
                           class="form-control"
                           id="txtFechafin"
                           name="txtFechafin"
-                          required
+                          
                         />
                         <label for="txtFechafin"
-                          >Fecha Fin<span class="text-danger ms-2"
+                          >Fecha Fin</label>
+                      </div>
+                    </div>
+
+                    <!------   ----------------------------- -->
+
+                    <!--REPONSABLE IPEN-->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtRespIpenn"
+                          name="txtRespIpenn"
+                          maxlength="100"
+                          required
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtRespIpenn"
+                          >Responsable IPEN<span class="text-danger ms-2"
                             >*</span
                           ></label
                         >
                       </div>
                     </div>
-
-                    <!------   ----------------------------- -->
                   </div>
                   <hr />
                   <!--formulario de ingreso datos-->
@@ -845,7 +859,7 @@ Participante{% endblock title %} {% block contenido %}
                           class="form-select"
                           id="cboTipoApoyo"
                           name="cboTipoApoyo"
-                          required
+                          
                         >
                           <option selected></option>
 
@@ -854,10 +868,7 @@ Participante{% endblock title %} {% block contenido %}
                           {% endfor %}
                         </select>
                         <label for="cboTipoApoyo"
-                          >Tipo de Apoyo<span class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          >Tipo de Apoyo</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -868,7 +879,7 @@ Participante{% endblock title %} {% block contenido %}
                           class="form-select"
                           id="cboTipoEnFinanciamiento"
                           name="cboTipoEnFinanciamiento"
-                          required
+                          
                         >
                           <option selected></option>
 
@@ -879,10 +890,7 @@ Participante{% endblock title %} {% block contenido %}
                           {% endfor %}
                         </select>
                         <label for="cboTipoEnFinanciamiento">
-                          Entidad Financiamiento<span class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          Entidad Financiamiento</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -893,19 +901,29 @@ Participante{% endblock title %} {% block contenido %}
                           class="form-select"
                           id="cboTipoInsFinanciamiento"
                           name="cboTipoInsFinanciamiento"
-                          required
+                          
                         >
                           <option selected></option>
                         </select>
                         <label for="cboTipoInsFinanciamiento">
-                          Institucion Financinaniento<span
-                            class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          Institucion Financinaniento</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
+                    <div class="col-md-3">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtRespEntt"
+                          name="txtRespEntt"
+                          maxlength="100"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtRespEntt">Responsable Entidad</label>
+                      </div>
+                    </div>
+
                     <!--TIPO DE MONEDA -->
                     <div class="col-md-3">
                       <div class="form-floating">
@@ -913,7 +931,7 @@ Participante{% endblock title %} {% block contenido %}
                           class="form-select"
                           id="cboTipoMOneda"
                           name="cboTipoMOneda"
-                          required
+                          
                         >
                           <option selected></option>
                           {% for tm in TipoMoneda %}
@@ -921,30 +939,22 @@ Participante{% endblock title %} {% block contenido %}
                           {% endfor %}
                         </select>
                         <label for="cboTipoMOneda">
-                          Tipo de Moneda<span class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          Tipo de Moneda</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--MONTO-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidMonto" />
                         <input
                           type="text"
                           class="form-control"
                           id="txtMonto"
                           name="txtMonto"
-                          required
                           pattern="^\d+(\.\d{1,4})?$"
                         />
                         <label for="txtMonto"
-                          >Monto (S/)<span class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          >Monto</label>
                       </div>
                     </div>
 
@@ -952,21 +962,17 @@ Participante{% endblock title %} {% block contenido %}
                     <!--TIPO DE CAMBIO-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="hidden" id="txtidtCambio" />
                         <input
                           type="text"
                           class="form-control"
                           id="txttipoCambio"
                           name="txttipoCambio"
-                          required
+                          
                           maxlength="15"
                           pattern="^\d+(\.\d{1,4})?$"
                         />
                         <label for="txttipoCambio"
-                          >Tipo de Cambio<span class="text-danger ms-2"
-                            >*</span
-                          ></label
-                        >
+                          >Tipo de Cambio</label>
                       </div>
                     </div>
 
