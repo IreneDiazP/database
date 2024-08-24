@@ -37,7 +37,7 @@ def registrarEvento(request):
         try:
             data = json.loads(request.body.decode('utf-8'))
             
-            print(data)
+           
             
             x_codigoevento = data.get('codigoevento')
             x_nomevento = data.get('nombreevento')
@@ -59,26 +59,26 @@ def registrarEvento(request):
             x_tipoevento_instance=Tipo_Evento.objects.get(id=x_tipoevento)
             x_areatema_instance=Area_Tematica.objects.get(id=x_areatem)
             x_pais_instance=Pais.objects.get(id=x_pais)
-            x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=x_tipoapoyo)
-            x_Entifina_instance=Entidad_Financiamiento.objects.get(id=x_entifinan)
-            x_institufina_instance=Institucion_Financiamiento.objects.get(id=x_instifinan)
-            x_tipomoneda_instance=Tipo_Moneda.objects.get(id=x_tipomoneda)
+            x_tipoapoyo_instance=Tipo_Apoyo.objects.get(id=x_tipoapoyo) if x_tipoapoyo else None
+            x_Entifina_instance=Entidad_Financiamiento.objects.get(id=x_entifinan) if x_entifinan else None
+            x_institufina_instance=Institucion_Financiamiento.objects.get(id=x_instifinan) if x_instifinan else None
+            x_tipomoneda_instance=Tipo_Moneda.objects.get(id=x_tipomoneda) if x_tipomoneda else None 
 
             eventonuevo=Evento(
                 codigoEvento = x_codigoevento,
                 nomEvento = x_nomevento,
                 cTipoEvento = x_tipoevento_instance,
                 cAreaTem = x_areatema_instance,
-                DescEvento = x_descrevento,
+                DescEvento = x_descrevento if x_descrevento else None ,
                 cpais = x_pais_instance,
                 fechaInicio = x_fechainicio,
-                fechaFin = x_fechafin,
+                fechaFin = x_fechafin if x_fechafin else None ,
                 cTipoApoyo = x_tipoapoyo_instance,
                 cEntFinan = x_Entifina_instance,
                 cInstFinanc = x_institufina_instance,
                 cTipo_Moneda = x_tipomoneda_instance,
-                monto = x_monto,
-                tipo_Cambio = x_tipocamnbio,
+                monto = x_monto  if x_monto else None,
+                tipo_Cambio = x_tipocamnbio  if x_tipocamnbio else None ,
                 created_by=x_created_by
                 
             )
@@ -91,7 +91,7 @@ def registrarEvento(request):
 
 
 def editarevento(request,idEvento):
-    print('hola de editar')
+   
     try:
         with transaction.atomic():
             if request.method == 'POST':
@@ -151,16 +151,11 @@ def eliminarEvento(request):
     try:
         if request.method == 'POST':
             data = json.loads(request.body)
-            idregistro = data.get('idRegistro')
+            idregistro = data.get('idRegistro') 
             with transaction.atomic():
                 
-
-                print('holaaaaa')
-                print(idregistro)
                 evento = Evento.objects.get(id = idregistro)
-                print(evento.id)
                 evento.delete()
-
                 
                 return JsonResponse({'success':True, 'message': 'Registro eliminado correctamente'})
     except Exception as e:
@@ -177,12 +172,17 @@ def todosEventos(request):
     TipoMoneda = Tipo_Moneda.objects.all().order_by('cTipo_moneda')
     AreaTem = Area_Tematica.objects.all().order_by('cArea_tematica')
     for te in todoeventos:
-        te.fechaInicio = te.fechaInicio.strftime('%d/%m/%Y')
-        te.fechaFin = te.fechaFin.strftime('%d/%m/%Y')
-        
-    print(todoeventos)
-    
-    print('holaaaa')
+        if te.fechaInicio:
+            te.fechaInicio = te.fechaInicio.strftime('%d/%m/%Y')
+        else:
+            te.fechaInicio = 'No especificó'
+            
+        if te.fechaFin:
+            te.fechaFin = te.fechaFin.strftime('%d/%m/%Y')
+        else:
+            te.fechaFin = 'No especificó'
+                
+ 
     return render(request,'eventos/todoseventos.html',{
         'todoeventos':todoeventos,
         'Tipo_Eventos':Tipo_Eventos,
@@ -197,7 +197,7 @@ def todosEventos(request):
 @login_required   
 def get_Evento(request,idEvento):
     try:
-        print('llegue a get evento')
+        
         eventorequerido = Evento.objects.get(id=idEvento)
         data = {
             'codigoEvento': eventorequerido.codigoEvento,
