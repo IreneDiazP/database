@@ -33,6 +33,9 @@ document.getElementById("formAgregarEvento").addEventListener("submit",function(
     let tipo_moneda = document.getElementById("cboTipoMOneda").value;
     let monto = document.getElementById("txtMonto").value;
     let tipo_cambio = document.getElementById("txttipoCambio").value;
+    let responsableIpen = document.getElementById("txtRespIpen").value;
+    let responsableEntidad = document.getElementById("txtRespEnt").value;
+
     const csrftoken = getCookie("csrftoken");
 
     console.log(nombreevento)
@@ -51,7 +54,9 @@ document.getElementById("formAgregarEvento").addEventListener("submit",function(
         instfinan,
         tipo_moneda,
         monto,
-        tipo_cambio
+        tipo_cambio,
+        responsableIpen,
+        responsableEntidad
     }
 
     console.log(data)
@@ -99,6 +104,8 @@ function limpiarCampos() {
       "cboTipoInsFinanciamiento",
       "cboTipoMOneda",
       "txtMonto",
+      "txtRespEnt",
+      "txtRespIpen",
       "txttipoCambio",
       'txtMontosoles'
     ];

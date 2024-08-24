@@ -19,6 +19,8 @@ class Evento(models.Model):
     cpais = models.ForeignKey(Pais, on_delete=models.PROTECT, verbose_name="País_Eventos", related_name='Eventos')
     fechaInicio = models.DateField(verbose_name='Fecha_Inicio_Evento')
     fechaFin = models.DateField(verbose_name='Fecha_Fin_Evento', null=True , blank=True)
+    responsable = models.CharField(max_length=100, verbose_name='Responsable IPEN' )
+    responsableEnt = models.CharField(max_length=100, verbose_name='Responsable Entidad', null=True , blank=True)
     cTipoApoyo = models.ForeignKey(Tipo_Apoyo, on_delete=models.PROTECT, verbose_name="Tipo_Apoyo", related_name='Eventos' , null=True , blank=True)
     cEntFinan = models.ForeignKey(Entidad_Financiamiento, on_delete=models.PROTECT, verbose_name="Entidad_Financiamiento", related_name='Eventos' , null=True , blank=True)
     cInstFinanc = models.ForeignKey(Institucion_Financiamiento, on_delete=models.PROTECT, verbose_name="Institución_Financiamiento", related_name='Eventos' , null=True , blank=True)

@@ -53,6 +53,8 @@ def registrarEvento(request):
             x_tipomoneda = data.get('tipo_moneda')
             x_monto = data.get('monto')
             x_tipocamnbio = data.get('tipo_cambio')
+            x_responsableipen=data.get('responsableIpen')
+            x_responsableEntidad=data.get('responsableEntidad')
             x_created_by = request.user
             
             #instancias
@@ -79,6 +81,8 @@ def registrarEvento(request):
                 cTipo_Moneda = x_tipomoneda_instance,
                 monto = x_monto  if x_monto else None,
                 tipo_Cambio = x_tipocamnbio  if x_tipocamnbio else None ,
+                responsable= x_responsableipen,
+                responsableEnt = x_responsableEntidad if x_responsableEntidad else None,
                 created_by=x_created_by
                 
             )
