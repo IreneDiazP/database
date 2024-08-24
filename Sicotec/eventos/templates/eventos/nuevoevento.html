@@ -32,9 +32,8 @@ Evento{% endblock title %} {% block contenido %}
             <!--CODIGO DE EVENTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidCodigoevento" />
                 <input type="text" class="form-control" id="txtCodigoEvento" name="txtCodigoEvento" required
-                  maxlength="150" />
+                  maxlength="100" />
                 <label for="txtCodigoEvento">Codigo evento<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
@@ -42,9 +41,8 @@ Evento{% endblock title %} {% block contenido %}
             <!--NOMBRE Evento-->
             <div class="col-md-6">
               <div class="form-floating">
-                <input type="hidden" id="txtidNombreevento" />
                 <input type="text" class="form-control" id="txtNombreEvento" name="txtNombreEvento" required
-                  maxlength="150" oninput="convertToUppercase(this)"  />
+                  maxlength="100" oninput="convertToUppercase(this)"  />
                 <label for="txtNombreEvento">Nombre<span class="text-danger ms-2">*</span></label>
               </div>
             </div>
@@ -80,10 +78,9 @@ Evento{% endblock title %} {% block contenido %}
             <!--DESCRIPCIÓN-->
             <div class="col-md-9">
               <div class="form-floating">
-                <input type="hidden" id="txtidDescripcion" />
-                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion" required
+                <input type="text" class="form-control" id="txtDescripcion" name="txtDescripcion"
                   maxlength="300" oninput="convertToUppercase(this)"  />
-                <label for="txtDescripcion">Descripción<span class="text-danger ms-2">*</span></label>
+                <label for="txtDescripcion">Descripción</label>
               </div>
             </div>
 
@@ -113,8 +110,8 @@ Evento{% endblock title %} {% block contenido %}
             <!--FECHA FIN-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="date" class="form-control" id="txtFechafin" name="txtFechafin" required />
-                <label for="txtFechafin">Fecha Fin<span class="text-danger ms-2">*</span></label>
+                <input type="date" class="form-control" id="txtFechafin" name="txtFechafin"  />
+                <label for="txtFechafin">Fecha Fin</label>
               </div>
             </div>
 
@@ -129,21 +126,21 @@ Evento{% endblock title %} {% block contenido %}
             <!--TIPO DE APOYO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" required>
+                <select class="form-select" id="cboTipoApoyo" name="cboTipoApoyo" >
                   <option selected></option>
 
                   {% for ta in TipoApoyo %}
                   <option value="{{ta.id}}">{{ta.ctipo_apoyo}}</option>
                   {% endfor %}
                 </select>
-                <label for="cboTipoApoyo">Tipo de Apoyo<span class="text-danger ms-2">*</span></label>
+                <label for="cboTipoApoyo">Tipo de Apoyo</label>
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--FINANCIAMIENTO POR-->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" required>
+                <select class="form-select" id="cboTipoEnFinanciamiento" name="cboTipoEnFinanciamiento" >
                   <option selected></option>
 
                   {% for Etf in EntFinan %}
@@ -151,41 +148,40 @@ Evento{% endblock title %} {% block contenido %}
                   {% endfor %}
                 </select>
                 <label for="cboTipoEnFinanciamiento">
-                 Entidad Financiamiento<span class="text-danger ms-2">*</span></label>
+                 Entidad Financiamiento</label>
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--Institucion FINANCIAMIENTO FINANCIAMIENTO -->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" required>
+                <select class="form-select" id="cboTipoInsFinanciamiento" name="cboTipoInsFinanciamiento" >
                   <option selected></option>
 
 
                 </select>
                 <label for="cboTipoInsFinanciamiento">
-                  Institucion Financinaniento<span class="text-danger ms-2">*</span></label>
+                  Institucion Financinaniento</label>
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--TIPO DE MONEDA -->
             <div class="col-md-3">
               <div class="form-floating">
-                <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" required>
+                <select class="form-select" id="cboTipoMOneda" name="cboTipoMOneda" >
                   <option selected></option>
                   {% for tm in TipoMoneda %}
                   <option value="{{tm.id}}">{{tm.cTipo_moneda}}</option>
                   {% endfor %}
                 </select>
                 <label for="cboTipoMOneda">
-                  Tipo de Moneda<span class="text-danger ms-2">*</span></label>
+                  Tipo de Moneda</label>
               </div>
             </div>
             <!------   ----------------------------- -->
             <!--MONTO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidMonto" />
                 <input type="text" class="form-control" id="txtMonto" name="txtMonto" maxlength="15"
                   pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
                 <label for="txtMonto">Monto</label>
@@ -196,7 +192,6 @@ Evento{% endblock title %} {% block contenido %}
             <!--TIPO DE CAMBIO-->
             <div class="col-md-3">
               <div class="form-floating">
-                <input type="hidden" id="txtidTipocambio" />
                 <input type="text" class="form-control"  id="txttipoCambio" name="txttipoCambio" maxlength="15"
                   pattern="^\d+(\.\d{1,2})?$" title="Ingrese un monto válido con hasta dos decimales" />
                 <label for="txttipoCambio">Tipo de Cambio</label>
