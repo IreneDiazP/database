@@ -43,6 +43,7 @@ document.getElementById("formAgregarParticpante").addEventListener("submit", fun
     sede=document.getElementById("txtNombreSede").value
     direccion=document.getElementById("txtDireccionSede").value
     oficina=document.getElementById("txtOficinasede").value
+    idsede=document.getElementById("idsede").value
 
     data = {
         tipoparticipante,
@@ -63,7 +64,8 @@ document.getElementById("formAgregarParticpante").addEventListener("submit", fun
         institucion,
         sede,
         direccion,
-        oficina
+        oficina,
+        idsede
     }
 console.log('la data es')
 console.log(data)

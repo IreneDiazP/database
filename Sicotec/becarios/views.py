@@ -68,7 +68,7 @@ def registrarParticpante(request):
             
                 # Instancias
             tipodocumento_instancia = Tipo_Documento.objects.get(id=x_tipoDocumento)
-            formacionacademica_instancia = FormacionAcademica.objects.get(id=x_formacionAcademica)
+            formacionacademica_instancia = FormacionAcademica.objects.get(id=x_formacionAcademica) if  x_formacionAcademica else None
             pais_instancia = Pais.objects.get(id=x_pais)
             
             # Manejar campos nulos o vacíos
@@ -79,9 +79,9 @@ def registrarParticpante(request):
             
             
             regisrarsede, created = Sede.objects.get_or_create(
-                nombre_sede=x_sede, 
-                direccion_sede=x_direccionSede,
-                oficina_sede=x_oficina,
+                nombre_sede=x_sede if x_sede else None, 
+                direccion_sede=x_direccionSede if x_direccionSede else None,
+                oficina_sede=x_oficina if x_oficina else None,
                 institucion_financiamiento=institucion_instancia
             )
             
@@ -91,10 +91,10 @@ def registrarParticpante(request):
                 nom_participante = x_nombres,
                 apellPate_participante = x_apellidoPaterno,
                 apellMate_participante = x_apellidoMaterno,
-                email = x_email,
+                email = x_email if x_email else None ,
                 cTipo_Documento = tipodocumento_instancia,
                 numero_documento = x_documento,
-                telefono = x_telefono,
+                telefono = x_telefono if x_telefono else None,
                 cFormacion_academica = formacionacademica_instancia,
                 cpais = pais_instancia,
                 cdepartamento = departamento_instancia,
@@ -226,7 +226,8 @@ def getdatosparticipante(request):
             'nombre_sede': participante.sede.nombre_sede,
             'direccion_sede': participante.sede.direccion_sede,
             'oficina_sede': participante.sede.oficina_sede,
-            'institucion_financiamiento':participante.sede.institucion_financiamiento.id
+            'institucion_financiamiento':participante.sede.institucion_financiamiento.id,
+            'idparticipantesede':participante.sede.id
             }
         
         
@@ -470,8 +471,11 @@ def modificarparticipante(request, idparticipante):
         x_sede = data.get('sede')
         x_direccion = data.get('direccion')
         x_oficina = data.get('oficina')
+        idsede = data.get('idsede')
         updated_by = request.user
         fecha_actual = timezone.now()
+        
+        print(x_sede)
         
         try:
             with transaction.atomic():
@@ -505,20 +509,22 @@ def modificarparticipante(request, idparticipante):
                 participante.updated = fecha_actual
                 
                 
-                if x_sede:
+                if idsede:
                     try:
-                        sede_instance = Sede.objects.get(id=participante.sede.id)
-                        sede_instance.nombre_sede = x_sede
-                        sede_instance.direccion_sede = x_direccion
-                        sede_instance.oficina_sede = x_oficina
-                        sede_instance.institucion_financiamiento = x_institucion_instance
-                        sede_instance.save()
+                        if participante.sede:
+                            sede_instance = Sede.objects.get(id=participante.sede.id)
+                            sede_instance.nombre_sede = x_sede if x_sede else None
+                            sede_instance.direccion_sede = x_direccion if x_direccion else None
+                            sede_instance.oficina_sede = x_oficina if x_oficina else None
+                            sede_instance.institucion_financiamiento = x_institucion_instance
+                            sede_instance.save()
+                        else:
+                            raise Sede.DoesNotExist
                     except Sede.DoesNotExist:
-                        
                         sede_instance = Sede(
-                            nombre_sede=x_sede,
-                            direccion_sede=x_direccion,
-                            oficina_sede=x_oficina,
+                            nombre_sede=x_sede if x_sede else None,
+                            direccion_sede=x_direccion if x_direccion else None,
+                            oficina_sede=x_oficina if x_oficina else None,
                             institucion_financiamiento=x_institucion_instance
                         )
                         sede_instance.save()
@@ -526,6 +532,8 @@ def modificarparticipante(request, idparticipante):
                     participante.sede = sede_instance
                 
                 participante.save()
+                
+                    
                 
                 participante_data = {
                     'id': participante.id,

@@ -1,6 +1,5 @@
-{% extends "core/base.html" %} {% load static %} 
-{% block title %}Nuevo Participante{% endblock title %} 
-{% block contenido %}
+{% extends "core/base.html" %} {% load static %} {% block title %}Nuevo
+Participante{% endblock title %} {% block contenido %}
 
 <div class="mt-3 mx-3">
   <ul class="nav nav-tabs">
@@ -79,8 +78,10 @@
                   <div class="d-flex">
                     <span class="text-danger ms-2">* Campos obligatorios</span>
                   </div>
-                  <span class="fw-bold fs-6">Datos generales del Particpante</span>
-      
+                  <span class="fw-bold fs-6"
+                    >Datos generales del Particpante</span
+                  >
+
                   <!--TIPO DE PARTICIPANTE (experto o participante)-->
                   <div class="col-md-3">
                     <div class="form-floating">
@@ -90,13 +91,15 @@
                         name="cboTipoParticipacion"
                         required
                       >
-                      <option selected></option>
-                      {% for value, display in tipo_participante_choices %}
-                          <option value="{{ value }}">{{ display }}</option>
-                      {% endfor %}
+                        <option selected></option>
+                        {% for value, display in tipo_participante_choices %}
+                        <option value="{{ value }}">{{ display }}</option>
+                        {% endfor %}
                       </select>
                       <label for="cboTipoParticipacion"
-                        >Participante<span class="text-danger ms-2">*</span></label
+                        >Participante<span class="text-danger ms-2"
+                          >*</span
+                        ></label
                       >
                     </div>
                   </div>
@@ -110,13 +113,15 @@
                         name="cboTipoProcedencia"
                         required
                       >
-                      <option selected></option>
-                      {% for value, display in procedencia_choices %}
-                          <option value="{{ value }}">{{ display }}</option>
-                      {% endfor %}
+                        <option selected></option>
+                        {% for value, display in procedencia_choices %}
+                        <option value="{{ value }}">{{ display }}</option>
+                        {% endfor %}
                       </select>
                       <label for="cboTipoProcedencia"
-                        >Procedencia<span class="text-danger ms-2">*</span></label
+                        >Procedencia<span class="text-danger ms-2"
+                          >*</span
+                        ></label
                       >
                     </div>
                   </div>
@@ -131,7 +136,7 @@
                         name="txtNombreParticpante"
                         required
                         maxlength="150"
-                        oninput="convertToUppercase(this)" 
+                        oninput="convertToUppercase(this)"
                       />
                       <label for="txtNombreParticpante"
                         >Nombres<span class="text-danger ms-2">*</span></label
@@ -148,7 +153,7 @@
                         name="txtApellidoPaterno"
                         required
                         maxlength="150"
-                        oninput="convertToUppercase(this)" 
+                        oninput="convertToUppercase(this)"
                       />
                       <label for="txtApellidoPaterno"
                         >Apellido Paterno<span class="text-danger ms-2"
@@ -167,7 +172,7 @@
                         name="txtApellidoMaterno"
                         required
                         maxlength="150"
-                        oninput="convertToUppercase(this)" 
+                        oninput="convertToUppercase(this)"
                       />
                       <label for="txtApellidoMaterno"
                         >Apellido Materno<span class="text-danger ms-2"
@@ -186,13 +191,11 @@
                         name="txtCorreo"
                         maxlength="150"
                       />
-                      <label for="txtCorreo"
-                        >Correo Electronico</label
-                      >
+                      <label for="txtCorreo">Correo Electronico</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
-      
+
                   <!--TIPO DOCUMENTO-->
                   <div class="col-md-3">
                     <div class="form-floating">
@@ -204,7 +207,9 @@
                       >
                         <option selected></option>
                         {% for tipo in tipoDocumento %}
-                        <option value="{{ tipo.id }}" {% if tipo.id == participante.tipo_documento_id %} selected {% endif %}>{{ tipo.Tipo_documento }}  </option>{% endfor %}
+                        <option value="{{ tipo.id }}" {% if tipo.id == participante.tipo_documento_id %} selected {% endif %}> 
+                          {{ tipo.Tipo_documento }}  </option>
+                        {% endfor %}
                       </select>
                       <label for="cboTipoDocumento"
                         >Tipo de documento<span class="text-danger ms-2"
@@ -233,7 +238,7 @@
                       >
                     </div>
                   </div>
-      
+
                   <!------   ----------------------------- -->
                   <!--TELEFONO -->
                   <div class="col-md-3">
@@ -245,9 +250,7 @@
                         name="txtTelefono"
                         maxlength="15"
                       />
-                      <label for="txtTelefono"
-                        >Telefono</label
-                      >
+                      <label for="txtTelefono">Telefono</label>
                     </div>
                   </div>
                   <!--FORMACION ACADEMICA-->
@@ -260,9 +263,11 @@
                         required
                       >
                         <option selected></option>
-      
-                        {% for fa in formacionacademica  %}
-                        <option value="{{fa.id}}">{{fa.nombre_formacionacademica}}</option>
+
+                        {% for fa in formacionacademica %}
+                        <option value="{{fa.id}}">
+                          {{fa.nombre_formacionacademica}}
+                        </option>
                         {% endfor %}
                       </select>
                       <label for="cboTiformacionacademica"
@@ -275,37 +280,45 @@
                 <hr />
                 <!--formulario de ingreso datos DOMICILIO DEL PARTICIPANTE-->
                 <div class="row g-3 px-3">
-                  <span class="fw-bold fs-6">Datos domicilio del Participante</span>
+                  <span class="fw-bold fs-6"
+                    >Datos domicilio del Participante</span
+                  >
                   <!------   ----------------------------- -->
                   <!--PAIS-->
                   <div class="col-md-3">
                     <div class="form-floating">
-                      <select class="form-select" id="cboPais" name="cboPais" required>
+                      <select
+                        class="form-select"
+                        id="cboPais"
+                        name="cboPais"
+                        required
+                      >
                         <option value="" selected></option>
                         {% for P in pais %}
                         <option value="{{P.id}}">{{P.cpais}}</option>
                         {% endfor %}
                       </select>
-                      <label for="cboPais">Pais<span class="text-danger ms-2">*</span></label>
+                      <label for="cboPais"
+                        >Pais<span class="text-danger ms-2">*</span></label
+                      >
                     </div>
                   </div>
-      
+
                   <!--CIUDAD-->
                   <div class="col-md-3 d-none" id="inputciudad">
                     <div class="form-floating">
-                   
                       <input
                         type="text"
                         class="form-control"
                         id="txtCiudad"
                         name="txtCiudad"
                         maxlength="150"
-                        oninput="convertToUppercase(this)" 
+                        oninput="convertToUppercase(this)"
                       />
                       <label for="txtCiudad">Ciudad</label>
                     </div>
                   </div>
-      
+
                   <!--DEPARTAMENTO-->
                   <div class="col-md-3 d-none" id="inputdepartamento">
                     <div class="form-floating">
@@ -315,7 +328,7 @@
                         name="cboDepartamento"
                       >
                         <option selected></option>
-      
+
                         {% for dep in departamentos %}
                         <option value="{{dep.id}}">{{dep.departamento}}</option>
                         {% endfor %}
@@ -339,9 +352,11 @@
                   <!--DISTRITO-->
                   <div class="col-md-3 d-none" id="inputdistrito">
                     <div class="form-floating">
-                      <select class="form-select" id="cboDistrito" name="cboDistrito">
-      
-                      </select>
+                      <select
+                        class="form-select"
+                        id="cboDistrito"
+                        name="cboDistrito"
+                      ></select>
                       <label for="cboDistrito">Distrito</label>
                     </div>
                   </div>
@@ -349,8 +364,11 @@
                 <hr />
                 <!--formulario de ingreso datos LABORALES DEL PARTICIPANTE-->
                 <div class="row g-3 px-3">
-                  <span class="fw-bold fs-6">Datos Laborales del Participante</span>
-      
+                  <span class="fw-bold fs-6"
+                    >Datos Laborales del Participante</span
+                  >
+
+                  <input type="hidden" name="idsede" id="idsede">
                   <!------   ----------------------------- -->
                   <!--INSTITUCION-->
                   <div class="col-md-3">
@@ -363,11 +381,15 @@
                       >
                         <option selected></option>
                         {% for ins in institucion %}
-                        <option value="{{ins.id}}">{{ins.cInstFinancia}}</option>
+                        <option value="{{ins.id}}">
+                          {{ins.cInstFinancia}}
+                        </option>
                         {% endfor %}
                       </select>
                       <label for="cdboInstitucion"
-                        >Institucion<span class="text-danger ms-2">*</span></label
+                        >Institucion<span class="text-danger ms-2"
+                          >*</span
+                        ></label
                       >
                     </div>
                   </div>
@@ -379,17 +401,14 @@
                         class="form-control"
                         id="txtNombreSede"
                         name="txtNombreSede"
-                        required
-                        maxlength="150"
+                        maxlength="100"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtNombreSede"
-                        >Sede<span class="text-danger ms-2">*</span></label
-                      >
+                      <label for="txtNombreSede">Sede</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
-      
+
                   <!--DIRECCION-->
                   <div class="col-md-3">
                     <div class="form-floating">
@@ -398,13 +417,10 @@
                         class="form-control"
                         id="txtDireccionSede"
                         name="txtDireccionSede"
-                        required
-                        maxlength="150"
+                        maxlength="200"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtDireccionSede"
-                        >Direccion<span class="text-danger ms-2">*</span></label
-                      >
+                      <label for="txtDireccionSede">Direccion</label>
                     </div>
                   </div>
                   <!--OFICINA-->
@@ -415,17 +431,14 @@
                         class="form-control"
                         id="txtOficinasede"
                         name="txtOficinasede"
-                        required
-                        maxlength="150"
+                        maxlength="200"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtOficinasede"
-                        >Oficina<span class="text-danger ms-2">*</span></label
-                      >
+                      <label for="txtOficinasede">Oficina</label>
                     </div>
                   </div>
                 </div>
-      
+
                 <!-- Botones -->
                 <div class="row g-3 px-3">
                   <hr />
@@ -453,7 +466,7 @@
             id="list-home"
             role="tabpanel"
             aria-labelledby="list-home-list"
-            >
+          >
             <div class="d-flex justify-content-between mb-3">
               <h2 class="fs-2 fw-semibold d-md-block d-none">
                 Eventos del participante
@@ -461,9 +474,15 @@
               <h2 class="fs-5 fw-semibold d-md-none d-block">
                 Eventos del participante
               </h2>
-              <button id="BtnAgregarEventos" class="btn btn-primary" data-bs-toggle="modal"
-              data-bs-target="#modalEditarParticipantes"
-              data-bs-whatever="Editar">Agregar eventos</button>
+              <button
+                id="BtnAgregarEventos"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalEditarParticipantes"
+                data-bs-whatever="Editar"
+              >
+                Agregar eventos
+              </button>
               <!--Comentario-->
             </div>
             <!--TABLA-->
@@ -473,7 +492,7 @@
                 id="tblParticipantesEventos"
                 class="table table-hover display shadow rounded"
                 style="width: 100%"
-                >
+              >
                 <thead class="table-dark">
                   <tr>
                     <th class="text-center">Codigo Evento</th>
@@ -483,10 +502,9 @@
                   </tr>
                 </thead>
                 <tbody class="text-rigth">
-
                   {% for Even in eventos %}
                   <tr id="{{Even.id}}">
-                    <th class="text-center"> {{Even.codigoEvento}}</th>
+                    <th class="text-center">{{Even.codigoEvento}}</th>
                     <th class="text-center">{{Even.cTipoEvento}}</th>
                     <th class="text-center">{{Even.nomEvento}}</th>
                     <th class="text-center">
@@ -534,18 +552,18 @@
         tabindex="-1"
         aria-labelledby="modalEditarParticipanteLabel"
         aria-hidden="true"
-        >
+      >
         <div
           class="modal-dialog m-auto modal-dialog-centered mt-3"
           style="--bs-modal-width: 1382px"
-          >
+        >
           <div class="modal-content">
             <div class="modal-header">
               <span class="fs-2 fw-semibold d-md-block d-none"
                 >Agregar evento al Participante</span
               >
               <button
-              id="closebuttoneventoparticipante"
+                id="closebuttoneventoparticipante"
                 type="button"
                 class="btn-close"
                 data-bs-dismiss="modal"
@@ -553,77 +571,76 @@
               ></button>
             </div>
 
-            <div class="d-flex mx-3 mt-5  " id="opcionBuscarEvento">
-              <div class=" p-3 rounded w-100">
-
-                  <div class="row g-4 justify-content-between align-items-center">
-                    <div class="row col-md-9">
-                      <!--TIPO DE EVENTO-->
-                      <div class="col-md-6">
-                        <div class="form-floating">
-                          <select
-                            class="form-select"
-                            id="cboTipoEventobuscar"
-                            name="cboTipoEventobuscar"
-                            required
-                          >
-                            <option selected></option>
-                            {% for teventos in todosEventos %}
-                            <option value="{{teventos.id}}">{{teventos.codigoEvento}}</option>
-                            {% endfor %}
-                          </select>
-                          <label for="cboTipoEventobuscar"
-                            >Codigo Evento<span class="text-danger ms-2"
-                              >*</span
-                            ></label
-                          >
-                        </div>
-                      </div>
-
-
-                      <!--NOMBRES DE EVENTO-->
-                      <div class="col-md-6">
-                        <div class="form-floating">
-                          <select
-                            class="form-select"
-                            id="cboNombreeventobuscar"
-                            name="cboNombreeventobuscar"
-                            required
-                            >
-                            <option selected></option>
-                            {% for teventos in todosEventos %}
-                            <option value="{{teventos.id}}">{{teventos.nomEvento}}</option>
-                            {% endfor %}
-                          </select>
-                          <label for="cboNombreeventobuscar"
-                            >Nombre Evento<span class="text-danger ms-2"
-                              >*</span
-                            ></label
-                          >
-                        </div>
+            <div class="d-flex mx-3 mt-5" id="opcionBuscarEvento">
+              <div class="p-3 rounded w-100">
+                <div class="row g-4 justify-content-between align-items-center">
+                  <div class="row col-md-9">
+                    <!--TIPO DE EVENTO-->
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <select
+                          class="form-select"
+                          id="cboTipoEventobuscar"
+                          name="cboTipoEventobuscar"
+                          required
+                        >
+                          <option selected></option>
+                          {% for teventos in todosEventos %}
+                          <option value="{{teventos.id}}">
+                            {{teventos.codigoEvento}}
+                          </option>
+                          {% endfor %}
+                        </select>
+                        <label for="cboTipoEventobuscar"
+                          >Codigo Evento<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
                     </div>
-                      <div class="col-md-3 mt-0">
-                        <button
-                        id="btnagregareventoparticipante"
-                        class="btn btn-danger shadow text-light fs-6 btnForm"
+
+                    <!--NOMBRES DE EVENTO-->
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <select
+                          class="form-select"
+                          id="cboNombreeventobuscar"
+                          name="cboNombreeventobuscar"
+                          required
                         >
-                        Agregar Evento
-                      </button>
+                          <option selected></option>
+                          {% for teventos in todosEventos %}
+                          <option value="{{teventos.id}}">
+                            {{teventos.nomEvento}}
+                          </option>
+                          {% endfor %}
+                        </select>
+                        <label for="cboNombreeventobuscar"
+                          >Nombre Evento<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
+                    </div>
                   </div>
-
-                </div> 
+                  <div class="col-md-3 mt-0">
+                    <button
+                      id="btnagregareventoparticipante"
+                      class="btn btn-danger shadow text-light fs-6 btnForm"
+                    >
+                      Agregar Evento
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-
-
 
             <form
               action=""
               id="formEditarañadirEvento"
               class="shadow px-3 rounded"
               method="POST"
-              >
+            >
               {% csrf_token %}
               <div class="modal-body">
                 <div class="d-flex gap-3 flex-column justify-content-center">
@@ -645,8 +662,8 @@
                     </div>
                     <span class="fw-bold fs-6">Datos generales del Evento</span>
 
-                    <input type="hidden" id="ideventousuario">
-                    <input type="hidden" id="idproyectousuario">
+                    <input type="hidden" id="ideventousuario" />
+                    <input type="hidden" id="idproyectousuario" />
                     <!------   ----------------------------- -->
                     <!--CODIGO DE EVENTO-->
                     <div class="col-md-3">
@@ -976,12 +993,10 @@
                   <hr />
                   <!--formulario de ingreso datos-->
                   <div class="row g-3 px-3">
-                    <span class="fw-bold fs-6"
-                      >Detalles del Evento</span
-                    >
+                    <span class="fw-bold fs-6">Detalles del Evento</span>
 
-                    <input type="hidden" id='iddetalleeventoproyecto'>
-                    
+                    <input type="hidden" id="iddetalleeventoproyecto" />
+
                     <!------   ----------------------------- -->
                     <!--CODIGO AUTORIZACION-->
                     <div class="col-md-3">
@@ -991,7 +1006,6 @@
                           class="form-control"
                           id="txtCodigoAutorizacion"
                           name="txtCodigoAutorizacion"
-                  
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
@@ -1009,13 +1023,10 @@
                           class="form-control"
                           id="txtCodigoActa"
                           name="txtCodigoActa"
-                          
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
-                        <label for="txtCodigoActa"
-                          >Codigo Acta</label
-                        >
+                        <label for="txtCodigoActa">Codigo Acta</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -1027,13 +1038,10 @@
                           class="form-control"
                           id="txtCompromiso"
                           name="txtCompromiso"
-                          
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
-                        <label for="txtCompromiso"
-                          >Compromiso</label
-                        >
+                        <label for="txtCompromiso">Compromiso</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -1045,13 +1053,10 @@
                           class="form-control"
                           id="txtObjetivo"
                           name="txtObjetivo"
-                          
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
-                        <label for="txtObjetivo"
-                          >Objetivo</label
-                        >
+                        <label for="txtObjetivo">Objetivo</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -1063,13 +1068,10 @@
                           class="form-control"
                           id="txtInforme"
                           name="txtInforme"
-                          
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
-                        <label for="txtInforme"
-                          >Informe</label
-                        >
+                        <label for="txtInforme">Informe</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
@@ -1081,13 +1083,10 @@
                           class="form-control"
                           id="txtObservacion"
                           name="txtObservacion"
-                          
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
-                        <label for="txtObservacion"
-                          >Observacion</label
-                        >
+                        <label for="txtObservacion">Observacion</label>
                       </div>
                     </div>
 
@@ -1100,19 +1099,15 @@
                           class="form-control"
                           id="txtActividad"
                           name="txtActividad"
-                          
                           maxlength="150"
                           oninput="convertToUppercase(this)"
                         />
-                        <label for="txtActividad"
-                          >Actividad</label
-                        >
+                        <label for="txtActividad">Actividad</label>
                       </div>
                     </div>
 
                     <!------   ----------------------------- -->
                   </div>
-
                 </div>
               </div>
               <!-- Botones Guardar y Cancelar -->
@@ -1134,7 +1129,6 @@
                 </button>
               </div>
             </form>
-
           </div>
         </div>
       </div>
@@ -1146,7 +1140,7 @@
         tabindex="-1"
         aria-labelledby="eliminarProyectoLabel"
         aria-hidden="true"
-       >
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -1175,7 +1169,8 @@
                     class="modal-title fs-6 text-center mb-2"
                     id="staticBackdropLabel "
                   >
-                    ¿Está seguro de eliminar el evento vinculado al participante?
+                    ¿Está seguro de eliminar el evento vinculado al
+                    participante?
                   </h1>
                 </div>
               </div>
@@ -1195,29 +1190,46 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="tab-pane show inactive" id="tablaproyectosparticipante">
-      <div class="main-content d-flex flex-column mx-3 my-4 ">
-        <div class="tab-content shadow  rounded px-4 py-5">
-          <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+      <div class="main-content d-flex flex-column mx-3 my-4">
+        <div class="tab-content shadow rounded px-4 py-5">
+          <div
+            class="tab-pane fade show active"
+            id="list-home"
+            role="tabpanel"
+            aria-labelledby="list-home-list"
+          >
             <div class="d-flex justify-content-between mb-3">
-              <h2 class="fs-2 fw-semibold d-md-block d-none">Lista de Proyectos</h2>
-              <h2 class="fs-5 fw-semibold d-md-none d-block">Lista de Proyectos</h2>
-              <button id="BtnAgregarEventos" class="btn btn-primary" data-bs-toggle="modal"
-              data-bs-target="#modalEditarProyecto"
-              data-bs-whatever="Editar">Agregar proyectos</button>
+              <h2 class="fs-2 fw-semibold d-md-block d-none">
+                Lista de Proyectos
+              </h2>
+              <h2 class="fs-5 fw-semibold d-md-none d-block">
+                Lista de Proyectos
+              </h2>
+              <button
+                id="BtnAgregarEventos"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalEditarProyecto"
+                data-bs-whatever="Editar"
+              >
+                Agregar proyectos
+              </button>
               <!--Comentario-->
             </div>
             <!--TABLA-->
             <div class="table-responsive">
               <hr />
-              <table id="tblProyectos" class="table table-hover display shadow rounded" style="width:100%;">
+              <table
+                id="tblProyectos"
+                class="table table-hover display shadow rounded"
+                style="width: 100%"
+              >
                 <thead class="table-dark">
                   <tr>
-
-                    <th class="text-center">Codigo </th>
-                    <th class="text-center">Nombre Proyecto </th>
+                    <th class="text-center">Codigo</th>
+                    <th class="text-center">Nombre Proyecto</th>
                     <th class="text-center">Responsable Entidad</th>
                     <th class="text-center">Area tematica</th>
                     <th class="text-center">Fecha inicio</th>
@@ -1227,188 +1239,273 @@
                 </thead>
                 <tbody class="text-rigth">
                   {% for pr in proyectos %}
-      
+
                   <tr id="{{pr.id}}">
-                    <th class="text-center">{{pr.codigoProyecto}} </th>
-                    <th>{{pr.nomProyecto}} </th>
+                    <th class="text-center">{{pr.codigoProyecto}}</th>
+                    <th>{{pr.nomProyecto}}</th>
                     <th class="text-center">{{pr.responsableEnt}}</th>
                     <th class="text-center">{{pr.cAreaTem}}</th>
                     <th class="text-center">{{pr.fechaInicio}}</th>
                     <th class="text-center">{{pr.fechaFin}}</th>
                     <th class="text-center">
                       <div class="d-flex gap-2 justify-content-center">
-                        <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
-                          data-bs-target="#modalEditarProyecto" data-bs-whatever="Editar">
+                        <button
+                          type="button"
+                          class="btn btn-success editBtn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalEditarProyecto"
+                          data-bs-whatever="Editar"
+                        >
                           <i class="bi bi-pencil"></i>
                         </button>
-                        <button type="button" class="btn btn-danger trashBtn" data-bs-toggle="modal"
-                          data-bs-target="#modalEliminarProyecto" data-bs-whatever="Eliminar">
+                        <button
+                          type="button"
+                          class="btn btn-danger trashBtn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalEliminarProyecto"
+                          data-bs-whatever="Eliminar"
+                        >
                           <i class="bi bi-trash"></i>
                         </button>
                       </div>
                     </th>
                   </tr>
                   {% endfor %}
-      
                 </tbody>
-      
+
                 <tfoot>
-                    <th class="text-center">Codigo </th>
-                    <th class="text-center">Nombre Proyecto </th>
-                    <th class="text-center">Responsable Entidad</th>
-                    <th class="text-center">Area tematica</th>
-                    <th class="text-center">Fecha inicio</th>
-                    <th class="text-center">Fecha Fin</th>
-                    <th class="text-center"></th>
+                  <th class="text-center">Codigo</th>
+                  <th class="text-center">Nombre Proyecto</th>
+                  <th class="text-center">Responsable Entidad</th>
+                  <th class="text-center">Area tematica</th>
+                  <th class="text-center">Fecha inicio</th>
+                  <th class="text-center">Fecha Fin</th>
+                  <th class="text-center"></th>
                 </tfoot>
               </table>
             </div>
           </div>
         </div>
       </div>
-      
-      
+
       <!--MODAL PARA EDITAR PROYECTOS-->
-      <div class="modal fade" id="modalEditarProyecto" tabindex="-1" aria-labelledby="modalEditarProyectoLabel"
-        aria-hidden="true">
-        <div class="modal-dialog m-auto modal-dialog-centered mt-3" style="--bs-modal-width: 1382px">
+      <div
+        class="modal fade"
+        id="modalEditarProyecto"
+        tabindex="-1"
+        aria-labelledby="modalEditarProyectoLabel"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog m-auto modal-dialog-centered mt-3"
+          style="--bs-modal-width: 1382px"
+        >
           <div class="modal-content">
             <div class="modal-header">
-              <span class="fs-2 fw-semibold d-md-block d-none">Edición de proyecto</span>
-              <button type="button" id="closebuttonProyectoparticipante" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <span class="fs-2 fw-semibold d-md-block d-none"
+                >Edición de proyecto</span
+              >
+              <button
+                type="button"
+                id="closebuttonProyectoparticipante"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-            <div class="d-flex mx-3 mt-5  " id="opcionBuscarProyecto">
-              <div class=" p-3 rounded w-100">
-
-                  <div class="row g-4 justify-content-between align-items-center">
-                    <div class="row col-md-9">
-                      <!--CODIGO DE PROYECTO-->
-                      <div class="col-md-6">
-                        <div class="form-floating">
-                          <select
-                            class="form-select"
-                            id="cboTipoProyectobuscar"
-                            name="cboTipoProyectobuscar"
-                            required
-                          >
-                            <option selected></option>
-                            {% for tproy in TodoProyectos %}
-                            <option value="{{tproy.id}}">{{tproy.codigoProyecto}}</option>
-                            {% endfor %}
-                          </select>
-                          <label for="cboTipoProyectobuscar"
-                            >Codigo Proyecto<span class="text-danger ms-2"
-                              >*</span
-                            ></label
-                          >
-                        </div>
-                      </div>
-
-
-                      <!--NOMBRES DE EVENTO BUSCAR-->
-                      <div class="col-md-6">
-                        <div class="form-floating">
-                          <select
-                            class="form-select"
-                            id="cboNombreProyectobuscar"
-                            name="cboNombreProyectobuscar"
-                            required
-                            >
-                            <option selected></option>
-                            {% for tproy in TodoProyectos %}
-                            <option value="{{tproy.id}}">{{tproy.nomProyecto}}</option>
-                            {% endfor %}
-                          </select>
-                          <label for="cboNombreProyectobuscar"
-                            >Nombre Proyecto<span class="text-danger ms-2"
-                              >*</span
-                            ></label
-                          >
-                        </div>
+            <div class="d-flex mx-3 mt-5" id="opcionBuscarProyecto">
+              <div class="p-3 rounded w-100">
+                <div class="row g-4 justify-content-between align-items-center">
+                  <div class="row col-md-9">
+                    <!--CODIGO DE PROYECTO-->
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <select
+                          class="form-select"
+                          id="cboTipoProyectobuscar"
+                          name="cboTipoProyectobuscar"
+                          required
+                        >
+                          <option selected></option>
+                          {% for tproy in TodoProyectos %}
+                          <option value="{{tproy.id}}">
+                            {{tproy.codigoProyecto}}
+                          </option>
+                          {% endfor %}
+                        </select>
+                        <label for="cboTipoProyectobuscar"
+                          >Codigo Proyecto<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
                     </div>
-                      <div class="col-md-3 mt-0">
-                        <button
-                        id="btnagregarproyectoparticipante"
-                        class="btn btn-danger shadow text-light fs-6 btnForm"
-                        >
-                        Agregar Proyecto
-                      </button>
-                      </div>
-                  </div>
 
-                </div> 
+                    <!--NOMBRES DE EVENTO BUSCAR-->
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <select
+                          class="form-select"
+                          id="cboNombreProyectobuscar"
+                          name="cboNombreProyectobuscar"
+                          required
+                        >
+                          <option selected></option>
+                          {% for tproy in TodoProyectos %}
+                          <option value="{{tproy.id}}">
+                            {{tproy.nomProyecto}}
+                          </option>
+                          {% endfor %}
+                        </select>
+                        <label for="cboNombreProyectobuscar"
+                          >Nombre Proyecto<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 mt-0">
+                    <button
+                      id="btnagregarproyectoparticipante"
+                      class="btn btn-danger shadow text-light fs-6 btnForm"
+                    >
+                      Agregar Proyecto
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <form action="" id="formEditarProyecto" class="shadow px-3 rounded" method="POST">
+            <form
+              action=""
+              id="formEditarProyecto"
+              class="shadow px-3 rounded"
+              method="POST"
+            >
               {% csrf_token %}
               <div class="modal-body">
                 <div class="d-flex gap-3 flex-column justify-content-center">
-                  <input type="hidden" class="form-control" id="txtIdProyectoModalEditarProyecto"
-                    name="txtIdProyectoModalEditarProyecto" value="" readonly>
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    id="txtIdProyectoModalEditarProyecto"
+                    name="txtIdProyectoModalEditarProyecto"
+                    value=""
+                    readonly
+                  />
                   <div class="row g-3 px-3">
                     <!-- Aviso de campos obligatorios  -->
                     <div class="d-flex">
-                      <span class="text-danger ms-2">* Campos obligatorios</span>
+                      <span class="text-danger ms-2"
+                        >* Campos obligatorios</span
+                      >
                     </div>
                     <!--TIPO DE PROYECTO-->
 
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoProyecto" name="cboTipoProyecto" required>
+                        <select
+                          class="form-select"
+                          id="cboTipoProyecto"
+                          name="cboTipoProyecto"
+                          required
+                        >
                           <option selected></option>
                           {% for tp in tipoProyecto %}
-                          <option value="{{tp.id}}">{{tp.cTipoProyecto}}</option>
+                          <option value="{{tp.id}}">
+                            {{tp.cTipoProyecto}}
+                          </option>
                           {% endfor %}
                         </select>
-                        <label for="cboTipoProyecto">Tipo de Proyecto<span class="text-danger ms-2">*</span></label>
+                        <label for="cboTipoProyecto"
+                          >Tipo de Proyecto<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--CODIGO PROYECTO-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtCodigoProyecto" name="txtCodigoProyecto" required
-                          maxlength="20" />
-                        <label for="txtNombreProyecto">Codigo del proyecto<span class="text-danger ms-2">*</span></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtCodigoProyecto"
+                          name="txtCodigoProyecto"
+                          required
+                          maxlength="20"
+                        />
+                        <label for="txtNombreProyecto"
+                          >Codigo del proyecto<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--NOMBRE PROYECTO-->
                     <div class="col-md-6">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtNombreProyecto" name="txtNombreProyecto" required
-                          maxlength="100" oninput="convertToUppercase(this)" />
-                        <label for="txtNombreProyecto">Nombre<span class="text-danger ms-2">*</span></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtNombreProyecto"
+                          name="txtNombreProyecto"
+                          required
+                          maxlength="100"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtNombreProyecto"
+                          >Nombre<span class="text-danger ms-2">*</span></label
+                        >
                       </div>
                     </div>
                     <!--DESCRIPCIÓN-->
                     <div class="col-md-9">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtDescripcionP" name="txtDescripcionP" 
-                          maxlength="300" oninput="convertToUppercase(this)" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtDescripcionP"
+                          name="txtDescripcionP"
+                          maxlength="300"
+                          oninput="convertToUppercase(this)"
+                        />
                         <label for="txtDescripcionP">Descripción</label>
                       </div>
                     </div>
                     <!--PAIS-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboPaisP" name="cboPais" required>
+                        <select
+                          class="form-select"
+                          id="cboPaisP"
+                          name="cboPais"
+                          required
+                        >
                           <option selected></option>
                           {% for p in pais %}
                           <option value="{{p.id}}">{{p.cpais}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboPais">Pais<span class="text-danger ms-2">*</span></label>
+                        <label for="cboPais"
+                          >Pais<span class="text-danger ms-2">*</span></label
+                        >
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--TIPO DE APOYO-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoApoyoP" name="cboTipoApoyoP" >
+                        <select
+                          class="form-select"
+                          id="cboTipoApoyoP"
+                          name="cboTipoApoyoP"
+                        >
                           <option selected></option>
-      
+
                           {% for Ta in TipoApoyo %}
                           <option value="{{Ta.id}}">{{Ta.ctipo_apoyo}}</option>
                           {% endfor %}
@@ -1420,7 +1517,11 @@
                     <!--FINANCIAMIENTO POR-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoEnFinanciamientoP" name="cboTipoEnFinanciamientoP" >
+                        <select
+                          class="form-select"
+                          id="cboTipoEnFinanciamientoP"
+                          name="cboTipoEnFinanciamientoP"
+                        >
                           <option selected></option>
                           {% for Ef in EntFinan %}
                           <option value="{{Ef.id}}">{{Ef.cEntFinancia}}</option>
@@ -1431,10 +1532,14 @@
                         </label>
                       </div>
                     </div>
-      
+
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoInsFinanciamientoP" name="cboTipoInsFinanciamientoP" >
+                        <select
+                          class="form-select"
+                          id="cboTipoInsFinanciamientoP"
+                          name="cboTipoInsFinanciamientoP"
+                        >
                           <option selected></option>
                         </select>
                         <label for="cboTipoInsFinanciamientoP">
@@ -1442,108 +1547,166 @@
                         </label>
                       </div>
                     </div>
-      
+
                     <!------   ----------------------------- -->
                     <!--TIPO DE MONEDA -->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboTipoMOnedaP" name="cboTipoMOnedaP" >
+                        <select
+                          class="form-select"
+                          id="cboTipoMOnedaP"
+                          name="cboTipoMOnedaP"
+                        >
                           <option selected></option>
-      
+
                           {% for Tm in TipoMoneda %}
                           <option value="{{Tm.id}}">{{Tm.cTipo_moneda}}</option>
                           {% endfor %}
                         </select>
-                        <label for="cboTipoMOnedaP">
-                          Tipo de Moneda</label>
+                        <label for="cboTipoMOnedaP"> Tipo de Moneda</label>
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--MONTO-->
                     <div class="col-md-2">
                       <div class="form-floating">
-
-                        <input type="text" class="form-control" id="txtidMontop" name="txtidMontop" 
-                          pattern="^\d+(\.\d{1,4})?$" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtidMontop"
+                          name="txtidMontop"
+                          pattern="^\d+(\.\d{1,4})?$"
+                        />
                         <label for="txtidMontop">Monto</label>
                       </div>
                     </div>
-      
+
                     <!------   ----------------------------- -->
                     <!--TIPO DE CAMBIO-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtidtCambioP" name="txtidtCambioP" 
-                          maxlength="15" pattern="^\d+(\.\d{1,4})?$" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtidtCambioP"
+                          name="txtidtCambioP"
+                          maxlength="15"
+                          pattern="^\d+(\.\d{1,4})?$"
+                        />
                         <label for="txtidtCambioP">Tipo de Cambio</label>
                       </div>
                     </div>
-      
+
                     <!------   ----------------------------- -->
                     <!--MONTO SOLES-->
                     <div class="col-md-2">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtMontosolesP" disabled name="txtMontosolesP"
-                          maxlength="15" pattern="^\d+(\.\d{1,2})?$"
-                          title="Ingrese un monto válido con hasta dos decimales" />
-                        <label for="txtMontosolesP">Equivalente Soles (S/)</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtMontosolesP"
+                          disabled
+                          name="txtMontosolesP"
+                          maxlength="15"
+                          pattern="^\d+(\.\d{1,2})?$"
+                          title="Ingrese un monto válido con hasta dos decimales"
+                        />
+                        <label for="txtMontosolesP"
+                          >Equivalente Soles (S/)</label
+                        >
                       </div>
                     </div>
                     <!------   ----------------------------- -->
                     <!--REPONSABLE IPEN-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtRespIpen" name="txtRespIpen" maxlength="100"
-                          oninput="convertToUppercase(this)" />
-                        <label for="txtRespIpen">Responsable IPEN<span class="text-danger ms-2">*</span></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtRespIpen"
+                          name="txtRespIpen"
+                          maxlength="100"
+                          oninput="convertToUppercase(this)"
+                        />
+                        <label for="txtRespIpen"
+                          >Responsable IPEN<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
                     </div>
-      
+
                     <!------   ----------------------------- -->
                     <!--REPONSABLE ENTIDAD-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="text" class="form-control" id="txtRespEnt" name="txtRespEnt" maxlength="100"
-                          oninput="convertToUppercase(this)" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="txtRespEnt"
+                          name="txtRespEnt"
+                          maxlength="100"
+                          oninput="convertToUppercase(this)"
+                        />
                         <label for="txtRespEnt">Responsable Entidad</label>
                       </div>
                     </div>
-      
+
                     <!------   ----------------------------- -->
                     <!--AREA TEMATICA-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <select class="form-select" id="cboAreaTematicaP" name="cboAreaTematicaP"
-                          oninput="convertToUppercase(this)" required>
+                        <select
+                          class="form-select"
+                          id="cboAreaTematicaP"
+                          name="cboAreaTematicaP"
+                          oninput="convertToUppercase(this)"
+                          required
+                        >
                           <option selected></option>
-      
+
                           {% for At in AreaTem %}
-                          <option value="{{At.id}}">{{At.cArea_tematica}}</option>
+                          <option value="{{At.id}}">
+                            {{At.cArea_tematica}}
+                          </option>
                           {% endfor %}
                         </select>
-                        <label for="cboAreaTematicaP">Area Tematica<span class="text-danger ms-2">*</span></label>
+                        <label for="cboAreaTematicaP"
+                          >Area Tematica<span class="text-danger ms-2"
+                            >*</span
+                          ></label
+                        >
                       </div>
                     </div>
                     <!------   ----------------------------- -->
-      
+
                     <!--FECHA-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="date" class="form-control" id="txtFechaInicioP" name="txtFechaInicioP"  />
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="txtFechaInicioP"
+                          name="txtFechaInicioP"
+                        />
                         <label for="txtFechaInicioP">Fecha Inicio</label>
                       </div>
                     </div>
-      
+
                     <!------   ----------------------------- -->
                     <!--FECHA-->
                     <div class="col-md-3">
                       <div class="form-floating">
-                        <input type="date" class="form-control" id="txtFechaFinP" name="txtFechaFinP"  />
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="txtFechaFinP"
+                          name="txtFechaFinP"
+                        />
                         <label for="txtFechaFinP">Fecha Fin</label>
                       </div>
                     </div>
 
-      
                     <!------   ----------------------------- -->
                   </div>
                 </div>
@@ -1551,13 +1714,10 @@
                 <hr />
                 <!--formulario de ingreso datos-->
                 <div class="row g-3 px-3">
-                  <span class="fw-bold fs-6"
-                    >Detalles del Proyecto</span
-                  >
+                  <span class="fw-bold fs-6">Detalles del Proyecto</span>
 
+                  <input type="hidden" id="iddetalleproyectoparticipoante" />
 
-                  <input type="hidden" id='iddetalleproyectoparticipoante'>
-                  
                   <!------   ----------------------------- -->
                   <!--CODIGO AUTORIZACION-->
                   <div class="col-md-3">
@@ -1587,9 +1747,7 @@
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtCodigoActap"
-                        >Codigo Acta</label
-                      >
+                      <label for="txtCodigoActap">Codigo Acta</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
@@ -1604,9 +1762,7 @@
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtCompromisop"
-                        >Compromiso</label
-                      >
+                      <label for="txtCompromisop">Compromiso</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
@@ -1621,9 +1777,7 @@
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtObjetivop"
-                        >Objetivo</label
-                      >
+                      <label for="txtObjetivop">Objetivo</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
@@ -1638,9 +1792,7 @@
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtInformep"
-                        >Informe</label
-                      >
+                      <label for="txtInformep">Informe</label>
                     </div>
                   </div>
                   <!------   ----------------------------- -->
@@ -1655,9 +1807,7 @@
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtObservacionp"
-                        >Observacion</label
-                      >
+                      <label for="txtObservacionp">Observacion</label>
                     </div>
                   </div>
 
@@ -1673,83 +1823,103 @@
                         maxlength="150"
                         oninput="convertToUppercase(this)"
                       />
-                      <label for="txtActividadp"
-                        >Actividad</label
-                      >
+                      <label for="txtActividadp">Actividad</label>
                     </div>
                   </div>
 
                   <!------   ----------------------------- -->
                 </div>
               </div>
-              
+
               <!-- Botones Guardar y Cancelar -->
               <div class="modal-footer">
-                <button class="btn btn-danger shadow text-light fs-6 btnForm" type="submit">
+                <button
+                  class="btn btn-danger shadow text-light fs-6 btnForm"
+                  type="submit"
+                >
                   <i class="fas fa-save"></i>
                   &nbsp;Guardar datos
                 </button>
-                <button class="btn btn-secondary text-white shadow fs-6" id="botoncancelarProyectoparticipante" type="button"
-                  data-bs-dismiss="modal">Cancelar</button>
+                <button
+                  class="btn btn-secondary text-white shadow fs-6"
+                  id="botoncancelarProyectoparticipante"
+                  type="button"
+                  data-bs-dismiss="modal"
+                >
+                  Cancelar
+                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      
+
       <!-- Modal eliminar Proyecto-->
-      <div class="modal fade"
-           id="modalEliminarProyecto"
-           tabindex="-1"
-           aria-labelledby="eliminarProyectoLabel"
-           aria-hidden="true">
+      <div
+        class="modal fade"
+        id="modalEliminarProyecto"
+        tabindex="-1"
+        aria-labelledby="eliminarProyectoLabel"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="eliminarProyectoLabel">Eliminar proyecto</h1>
-              <button type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"></button>
+              <h1 class="modal-title fs-5" id="eliminarProyectoLabel">
+                Eliminar proyecto
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <form id="formEliminarProyectodetalle" action="">
               <div class="modal-body">
-                <input type="hidden"
-                       class="form-control"
-                       id="txtIdProyectoModalEliminarProyecto"
-                       name="txtIdProyectoModalEliminarProyecto"
-                       value=""
-                       readonly>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  id="txtIdProyectoModalEliminarProyecto"
+                  name="txtIdProyectoModalEliminarProyecto"
+                  value=""
+                  readonly
+                />
                 <div class="mensaje-aviso d-flex gap-2">
-                  <h1 class="modal-title fs-6 text-center mb-2" id="staticBackdropLabel ">¿Está seguro de eliminar al Proyecto?</h1>
+                  <h1
+                    class="modal-title fs-6 text-center mb-2"
+                    id="staticBackdropLabel "
+                  >
+                    ¿Está seguro de eliminar al Proyecto?
+                  </h1>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancelar
+                </button>
                 <button type="submit" class="btn btn-danger">
-                  <i class="fas fa-trash-alt"></i>  Eliminar
+                  <i class="fas fa-trash-alt"></i> Eliminar
                 </button>
               </div>
             </form>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 </div>
 
-{% endblock contenido %} 
-
-
-
-{% block script %} 
+{% endblock contenido %} {% block script %}
 
 <script>
-
   function convertToUppercase(input) {
     input.value = input.value.toUpperCase();
   }
-
 </script>
 
 <script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>
@@ -1759,6 +1929,5 @@
 <script src="{% static 'core/js/participantes/editarparticipante.js' %}"></script>
 
 <script src="{% static 'core/js/participantes/modificarparticipante.js' %}"></script>
-
 
 {% endblock %}

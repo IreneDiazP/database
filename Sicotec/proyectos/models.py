@@ -60,9 +60,9 @@ class Tipo_Moneda(models.Model):
         return self.cTipo_moneda
     
 class Sede(models.Model):
-    nombre_sede=models.CharField(max_length=100, verbose_name='nombre sede')
-    direccion_sede=models.CharField(max_length=200, verbose_name='direccion sede')
-    oficina_sede=models.CharField(max_length=200, verbose_name='oficina sede')
+    nombre_sede=models.CharField(max_length=100, verbose_name='nombre sede' , null=True , blank=True)
+    direccion_sede=models.CharField(max_length=200, verbose_name='direccion sede' , null=True , blank=True)
+    oficina_sede=models.CharField(max_length=200, verbose_name='oficina sede' , null=True , blank=True)
     institucion_financiamiento= models.ForeignKey(Institucion_Financiamiento,on_delete=models.PROTECT,verbose_name="institucion financiamiento", related_name="sede")
     def __str__(self):
         return self.nombre_sede

@@ -1,7 +1,6 @@
 {% extends "core/base.html" %} 
-{% load static %}
- {% block title %}Nuevo Participante{% endblock title %}
- 
+{% load static %} 
+{% block title %}Nuevo Participante {% endblock title %} 
 {% block contenido %}
 <div class="main-content d-flex flex-column py-0 mb-md-5">
   <div
@@ -27,17 +26,6 @@
               >Registro de datos del Participante</span
             >
             <hr />
-            <div class="row px-3">
-              <div
-                id="alerta"
-                class="alert alert-danger mb-0"
-                style="display: none"
-                role="alert"
-              >
-                Solo se permiten 30 caracteres como máximo en el campo de
-                Teléfono.
-              </div>
-            </div>
           </div>
           <!--formulario de ingreso datos-->
           <div class="row g-3 px-3">
@@ -56,10 +44,10 @@
                   name="cboTipoParticipacion"
                   required
                 >
-                <option selected></option>
-                {% for value, display in tipo_participante_choices %}
-                    <option value="{{ value }}">{{ display }}</option>
-                {% endfor %}
+                  <option selected></option>
+                  {% for value, display in tipo_participante_choices %}
+                  <option value="{{ value }}">{{ display }}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboTipoParticipacion"
                   >Participante<span class="text-danger ms-2">*</span></label
@@ -76,10 +64,10 @@
                   name="cboTipoProcedencia"
                   required
                 >
-                <option selected></option>
-                {% for value, display in procedencia_choices %}
-                    <option value="{{ value }}">{{ display }}</option>
-                {% endfor %}
+                  <option selected></option>
+                  {% for value, display in procedencia_choices %}
+                  <option value="{{ value }}">{{ display }}</option>
+                  {% endfor %}
                 </select>
                 <label for="cboTipoProcedencia"
                   >Procedencia<span class="text-danger ms-2">*</span></label
@@ -97,7 +85,7 @@
                   name="txtNombreParticpante"
                   required
                   maxlength="150"
-                  oninput="convertToUppercase(this)" 
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtNombreParticpante"
                   >Nombres<span class="text-danger ms-2">*</span></label
@@ -115,7 +103,7 @@
                   name="txtApellidoPaterno"
                   required
                   maxlength="150"
-                  oninput="convertToUppercase(this)" 
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtApellidoPaterno"
                   >Apellido Paterno<span class="text-danger ms-2"
@@ -134,7 +122,7 @@
                   name="txtApellidoMaterno"
                   required
                   maxlength="150"
-                  oninput="convertToUppercase(this)" 
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtApellidoMaterno"
                   >Apellido Materno<span class="text-danger ms-2"
@@ -153,9 +141,7 @@
                   name="txtCorreo"
                   maxlength="150"
                 />
-                <label for="txtCorreo"
-                  >Correo Electronico</label
-                >
+                <label for="txtCorreo">Correo Electronico</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -170,7 +156,7 @@
                   required
                 >
                   <option selected></option>
-                  {% for td in tipoDocumento  %}
+                  {% for td in tipoDocumento %}
                   <option value="{{td.id}}">{{td.Tipo_documento}}</option>
                   {% endfor %}
                 </select>
@@ -213,9 +199,7 @@
                   name="txtTelefono"
                   maxlength="15"
                 />
-                <label for="txtTelefono"
-                  >Telefono</label
-                >
+                <label for="txtTelefono">Telefono</label>
               </div>
             </div>
             <!--FORMACION ACADEMICA-->
@@ -225,17 +209,17 @@
                   class="form-select"
                   id="cboTiformacionacademica"
                   name="cboTiformacionacademica"
-                  required
+                  
                 >
                   <option selected></option>
 
-                  {% for fa in formacionacademica  %}
-                  <option value="{{fa.id}}">{{fa.nombre_formacionacademica}}</option>
+                  {% for fa in formacionacademica %}
+                  <option value="{{fa.id}}">
+                    {{fa.nombre_formacionacademica}}
+                  </option>
                   {% endfor %}
                 </select>
-                <label for="cboTiformacionacademica"
-                  >Formacion Académica</label
-                >
+                <label for="cboTiformacionacademica">Formacion Académica</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -275,7 +259,7 @@
                   id="txtCiudad"
                   name="txtCiudad"
                   maxlength="150"
-                  oninput="convertToUppercase(this)" 
+                  oninput="convertToUppercase(this)"
                 />
                 <label for="txtCiudad">Ciudad</label>
               </div>
@@ -314,9 +298,11 @@
             <!--DISTRITO-->
             <div class="col-md-3 d-none" id="inputdistrito">
               <div class="form-floating">
-                <select class="form-select" id="cboDistrito" name="cboDistrito">
-
-                </select>
+                <select
+                  class="form-select"
+                  id="cboDistrito"
+                  name="cboDistrito"
+                ></select>
                 <label for="cboDistrito">Distrito</label>
               </div>
             </div>
@@ -354,13 +340,10 @@
                   class="form-control"
                   id="txtNombreSede"
                   name="txtNombreSede"
-                  required
                   maxlength="150"
                   oninput="convertToUppercase(this)"
                 />
-                <label for="txtNombreSede"
-                  >Sede<span class="text-danger ms-2">*</span></label
-                >
+                <label for="txtNombreSede">Sede</label>
               </div>
             </div>
             <!------   ----------------------------- -->
@@ -373,13 +356,10 @@
                   class="form-control"
                   id="txtDireccionSede"
                   name="txtDireccionSede"
-                  required
                   maxlength="150"
                   oninput="convertToUppercase(this)"
                 />
-                <label for="txtDireccionSede"
-                  >Direccion<span class="text-danger ms-2">*</span></label
-                >
+                <label for="txtDireccionSede">Direccion</label>
               </div>
             </div>
             <!--OFICINA-->
@@ -390,179 +370,13 @@
                   class="form-control"
                   id="txtOficinasede"
                   name="txtOficinasede"
-                  required
                   maxlength="150"
                   oninput="convertToUppercase(this)"
                 />
-                <label for="txtOficinasede"
-                  >Oficina<span class="text-danger ms-2">*</span></label
-                >
+                <label for="txtOficinasede">Oficina</label>
               </div>
             </div>
           </div>
-          {% comment %}
-          <hr />
-          <!--formulario de ingreso datos-->
-          <div class="row g-3 px-3">
-            <span class="fw-bold fs-6"
-              >Datos evento o proyecto del participante</span
-            >
-
-            <!------   ----------------------------- -->
-            <!--TIPO DE EVENTO-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoEvento"
-                  name="cboTipoEvento"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Tipo de Evento</option>
-                </select>
-                <label for="cboTipoEvento"
-                  >Tipo de Evento<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-            <!--CODIGO DE EVENTO-->
-            <div class="col-md-6">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboCodigoEvento"
-                  name="cboCodigoEvento"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Codigo - nombre de Evento</option>
-                </select>
-                <label for="cboCodigoEvento"
-                  >Codigo - Nombre de Evento<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-
-            <!--Tipo de Proyecto-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboTipoProyecto"
-                  name="cboTipoProyecto"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Tipo de Proyecto</option>
-                </select>
-                <label for="cboTipoProyecto"
-                  >Tipo de Proyecto<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-            <!--Codigo - Nombre de Proyecto-->
-            <div class="col-md-6">
-              <div class="form-floating">
-                <select
-                  class="form-select"
-                  id="cboCodigoProyecto"
-                  name="cboCodigoProyecto"
-                  required
-                >
-                  <option selected></option>
-
-                  <option value="1">Codigo - nombre de Proyecto</option>
-                </select>
-                <label for="cboCodigoProyecto"
-                  >Codigo - Nombre de Proyecto<span class="text-danger ms-2"
-                    >*</span
-                  ></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-            <!--Codigo de Autorizacion-->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidCodigoAutorizacion" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtCodigoAutorizacion"
-                  name="txtCodigoAutorizacion"
-                  required
-                  maxlength="150"
-                />
-                <label for="txtCodigoAutorizacion"
-                  >Autorizacion<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-            <!-- SUBIR AUTORIZACION -->
-            <!-- <div class="col-md-3">
-              <div class="form-floating">
-                <input type="file" class="form-control" id="fileDocumento" name="fileDocumento" required />
-                <label for="fileDocumento">Subir Documento<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div> -->
-            <!------   ----------------------------- -->
-            <!--ACTA -->
-            <div class="col-md-3">
-              <div class="form-floating">
-                <input type="hidden" id="txtidCodigoAutorizacion" />
-                <input
-                  type="text"
-                  class="form-control"
-                  id="txtCodigoAutorizacion"
-                  name="txtCodigoAutorizacion"
-                  required
-                  maxlength="150"
-                />
-                <label for="txtCodigoAutorizacion"
-                  >Acta<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-            <!------   ----------------------------- -->
-            <!-- SUBIR ACTA  -->
-            <!-- <div class="col-md-3">
-              <div class="form-floating">
-                <input type="file" class="form-control" id="fileDocumento" name="fileDocumento" required />
-                <label for="fileDocumento">Subir Acta<span class="text-danger ms-2">*</span></label>
-              </div>
-            </div> -->
-            <!--Compromiso-->
-
-            <div class="col-md-12">
-              <div class="form-floating">
-                <input type="hidden" id="txtidCompromiso" />
-                <textarea
-                  class="form-control"
-                  id="txtCompromiso"
-                  name="txtCompromiso"
-                  required
-                  maxlength="300"
-                  rows="4"
-                ></textarea>
-                <label for="txtCompromiso"
-                  >Compromiso<span class="text-danger ms-2">*</span></label
-                >
-              </div>
-            </div>
-          </div>
-          {% endcomment %}
 
           <!-- Botones -->
           <div class="row g-3 px-3">
@@ -582,14 +396,13 @@
     </div>
   </div>
 </div>
-{% endblock contenido %} {% block script %}
+{% endblock contenido %} 
+{% block script %}
 
 <script>
-
   function convertToUppercase(input) {
     input.value = input.value.toUpperCase();
   }
-
 </script>
 
 <script src="{% static 'core/js/inicializador/inicializador_ubicacion.js' %}"></script>

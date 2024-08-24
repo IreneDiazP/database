@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
           data.data.cFormacion_academica;
         document.getElementById("cboPais").value = data.data.cpais;
         document.getElementById("txtCiudad").value = data.data.ciudad;
+
         actualizarVisibilidadCampos();
         // Cargar datos de departamento y provincia
         const departamentoId = data.data.cdepartamento;
@@ -99,6 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Cargar datos de sede
         if (data.data.sede) {
+          document.getElementById("idsede").value =
+          data.data.sede.idparticipantesede;
           document.getElementById("cdboInstitucion").value =
             data.data.sede.institucion_financiamiento;
           document.getElementById("txtNombreSede").value =
