@@ -20,19 +20,13 @@
         <table id="tblEventos" class="table table-hover display shadow rounded" style="width:100%;">
           <thead class="table-dark">
             <tr>
+              <th class="d-none">ID (Oculto)</th>
               <th class="text-center ">Codigo</th>
               <th class="text-center">Nombre Evento </th>
               <th class="text-center">Tipo Evento</th>
               <th class="text-center">Area tematica</th>
-              <th class="text-center">Descripción Evento</th>
-              <th class="text-center">Pais</th>
               <th class="text-center">Fecha inicio</th>
               <th class="text-center">Fecha Fin</th>
-              <th class="text-center">Tipo Apoyo</th>
-              <th class="text-center">Entidad Financiamiento</th>
-              <th class="text-center">Insitucion Financiamiento</th>
-              <th class="text-center">Tipo Moneda</th>
-              <th class="text-center">Monto</th>
               <th class="text-center"></th>
             </tr>
           </thead>
@@ -40,20 +34,13 @@
             {% for te in todoeventos %}
 
             <tr id="{{te.id}}">
-              <th class="text-center">{{te.codigoEvento}}</th>
+              <th class="d-none">{{te.id}}</th> 
+              <th >{{te.codigoEvento}}</th>
               <th >{{te.nomEvento}} </th>
               <th>{{te.cTipoEvento}} </th>
               <th>{{te.cAreaTem}}</th>
-              <th class="text-center">{{te.DescEvento}}</th>
-              <th class="text-center"> {{te.cpais}}</th>
               <th class="text-center" >{{te.fechaInicio}}</th>
               <th class="text-center" >{{te.fechaFin}}</th>
-              <th class="text-center">{{te.cTipoApoyo}}</th>
-              <th class="text-center">{{te.cEntFinan}}</th>
-              <th class="text-center">{{te.cInstFinanc}}</th>
-              <th class="text-center">{{te.cTipo_Moneda}}</th>
-              <th class="text-center">{{te.monto}}</th>
-
               <th class="text-center">
                 <div class="d-flex gap-2 justify-content-center">
                   <button type="button" class="btn btn-success editBtn" data-bs-toggle="modal"
@@ -72,19 +59,13 @@
           </tbody>
 
           <tfoot>
+            <th class="d-none">ID (Oculto)</th>
             <th class="text-center ">Codigo</th>
             <th class="text-center">Nombre Evento </th>
             <th class="text-center">Tipo Evento</th>
             <th class="text-center">Area tematica</th>
-            <th class="text-center">Descripción Evento</th>
-            <th class="text-center">Pais</th>
             <th class="text-center">Fecha inicio</th>
             <th class="text-center">Fecha Fin</th>
-            <th class="text-center">Tipo Apoyo</th>
-            <th class="text-center">Entidad Financiamiento</th>
-            <th class="text-center">Insitucion Financiamiento</th>
-            <th class="text-center">Tipo Moneda</th>
-            <th class="text-center">Monto</th>
             <th class="text-center"></th>
           </tfoot>
         </table>

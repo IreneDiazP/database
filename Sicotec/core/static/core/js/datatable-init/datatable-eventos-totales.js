@@ -14,30 +14,19 @@ $(document).ready(function () {
       
       // Aplicar estilos basados en el índice
       switch(index) {
-        case 0:
         case 5:
         case 6:
-        case 7:
-        case 11:
-        case 12:
           inputElement.style.maxWidth = "134px";
           inputElement.style.textAlign = "center";
           break;
         case 1:
-        case 2:
         case 3:
-        case 8:
-        case 9:
-        case 10:
           inputElement.style.maxWidth = "250px";
           inputElement.style.textAlign = "center";
           break;
+        case 2:
         case 4:
           inputElement.style.width = "450px";
-          inputElement.style.textAlign = "center";
-          break;
-        case 8:
-          inputElement.style.maxWidth = "160px";
           inputElement.style.textAlign = "center";
           break;
       }
