@@ -44,4 +44,13 @@ urlpatterns = [
     path('editartipoproyecto/',views.editartipoproyecto, name='editartipoproyecto'),
 
     path('eliminartipoproyecto/',views.eliminartipoproyecto, name='eliminartipoproyecto'),
+    
+    #CRUD TIPO EVENTO
+    path('añadirnuevotipoevento/',views.añadirnuevotipoevento, name='añadirnuevotipoevento'),
+    
+    path('getTievento/<int:idtipoevento>/',views.getTievento, name='getTievento'),
+    
+    path('editartipoevento/',views.editartipoevento, name='editartipoevento'),
+
+    path('eliminartipoevento/',views.eliminartipoevento, name='eliminartipoevento'),
 ]

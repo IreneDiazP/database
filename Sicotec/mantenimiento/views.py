@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from proyectos.models import Entidad_Financiamiento, Institucion_Financiamiento, Area_Tematica, Tipo_Apoyo, Tipo_Proyecto
+from eventos.models import Tipo_Evento
 
 # Create your views here.
 
@@ -240,7 +241,8 @@ def eliminartematica(request):
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
 
 
-#crud de tipo de apoyo @login_required
+#crud de tipo de apoyo 
+@login_required
 def añadirnuevotipoapoyo(request):
     tipoapoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
 
@@ -312,7 +314,10 @@ def eliminartipoapoyo(request):
         except Exception as e:
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
 
-#crud de tipo de apoyo @login_required
+
+
+#crud de tipo de apoyo 
+@login_required
 def añadirnuevotipoproyecto(request):
     tipoProyecto = Tipo_Proyecto.objects.all().order_by('cTipoProyecto')
 
@@ -381,5 +386,81 @@ def eliminartipoproyecto(request):
             tipoporyecto.delete()
 
             return JsonResponse({'success': True, 'message': 'El tipo de proyecto fue eliminado correctamente'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+
+
+#CRUD DE TIPO EVENTO
+
+
+@login_required
+def añadirnuevotipoevento(request):
+    tipoEvento =Tipo_Evento .objects.all().order_by('id')
+
+    return render(request, 'mantenimiento/nuevotipoEvento.html', {
+        'tipoEvento': tipoEvento,
+    })
+
+@login_required
+def getTievento(request, idtipoevento):
+    try:
+
+        tipoevento = Tipo_Evento.objects.get(id=idtipoevento)
+        dataTipoEvento = {
+            'nombreTipoEvento': tipoevento.cTipoEvento,
+           
+        }
+        return JsonResponse({'success': True, 'data': dataTipoEvento})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})
+
+@login_required
+def editartipoevento(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        try:
+            idTipoEvento = data.get('idTipoEvento')
+            tipoevento = data.get('tipoEvento')
+
+
+            if not idTipoEvento:
+                nuevatipoEvento = Tipo_Evento(
+                    cTipoEvento=tipoevento,
+                )
+                nuevatipoEvento.save()
+                message = 'El Tipo de Evento fue registrada exitosamente'
+            else:
+                getTipoEvento = Tipo_Evento.objects.get(
+                    id=idTipoEvento)
+                getTipoEvento.cTipoEvento = tipoevento
+                getTipoEvento.save()
+                message = 'El Tipo de Evento fue modificada exitosamente'
+
+            TipoEvento = Tipo_Evento.objects.all().order_by('-id')
+
+            TipoEvento_list = [
+                {
+                    'id': tp.id,
+                    'tipoevento': tp.cTipoEvento,
+                } for tp in TipoEvento
+            ]
+
+            return JsonResponse({'success': True, 'message': message, 'data': TipoEvento_list})
+
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
+        
+        
+@login_required
+def eliminartipoevento(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            idTipoEvento = data.get('idTipoEvento')
+            tipoEvento = Tipo_Evento.objects.get(
+                id=idTipoEvento)
+            tipoEvento.delete()
+
+            return JsonResponse({'success': True, 'message': 'El tipo de Evento fue eliminado correctamente'})
         except Exception as e:
             return JsonResponse({'success': False, 'message': f'Error en los datos recibidos: {str(e)}'}, status=400)
