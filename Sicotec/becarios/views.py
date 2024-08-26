@@ -169,7 +169,7 @@ def editarparticipante(request,idparticipante):
     procedencia_choices = Participante.PROCEDENCIA_CHOICES
     tipoDocumento = Tipo_Documento.objects.all().order_by('Tipo_documento')
     
-    TodoProyectos = Proyecto.objects.all()
+    TodoProyectos = Proyecto.objects.all().order_by('nomProyecto')
     tipoProyecto = Tipo_Proyecto.objects.all()
     formacionacademica=FormacionAcademica.objects.all().order_by('nombre_formacionacademica')
     pais=Pais.objects.all().order_by('cpais')
