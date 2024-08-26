@@ -234,6 +234,7 @@ document
       });
       if (!response.ok) {
         const errorData = await response.json();
+        Limpiarcamposbutton()
         NotificacionSwal("Error!", errorData.message, "error", "ok");
       } else {
         const result = await response.json();
@@ -278,9 +279,10 @@ document
           : formatDecimal(montoEnSoles);
       }
     } catch (error) {
+      Limpiarcamposbutton()
       NotificacionSwal(
         "Error!",
-        "Hubo un problema al procesar la solicitud",
+        "Hubo un problema al procesar la solicitud por favor selecciona una opción",
         "error",
         "ok"
       );
@@ -777,6 +779,7 @@ document
       });
       if (!response.ok) {
         const errorData = await response.json();
+        LimpiarcamposProyectobutton()
         NotificacionSwal("Error!", errorData.message, "error", "ok");
       } else {
         const result = await response.json();
@@ -826,9 +829,10 @@ document
           data.idproyecto;
       }
     } catch (error) {
+      LimpiarcamposProyectobutton()
       NotificacionSwal(
         "Error!",
-        "Hubo un problema al procesar la solicitud",
+        "Hubo un problema al procesar la solicitud por favor selecciona una opción!!!",
         "error",
         "ok"
       );

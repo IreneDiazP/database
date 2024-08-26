@@ -812,7 +812,7 @@ def añadirproyectoparticipante(request):
                         'id': proyecto.id,
                         'codigoProyecto': proyecto.codigoProyecto,
                         'nomProyecto': proyecto.nomProyecto,
-                        'responsableEnt': proyecto.responsableEnt if proyecto.responsableEnt else 'n',  # Cambiado a ID
+                        'responsableEnt': proyecto.responsableEnt if proyecto.responsableEnt else '',  # Cambiado a ID
                         'cAreaTem': proyecto.cAreaTem.cArea_tematica ,
                         'fechaInicio': proyecto.fechaInicio.strftime('%Y-%m-%d') if proyecto.fechaInicio else 'no especifico',
                         'fechaFin': proyecto.fechaFin.strftime('%Y-%m-%d') if proyecto.fechaFin else 'no especifico',
