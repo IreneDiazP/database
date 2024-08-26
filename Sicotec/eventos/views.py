@@ -172,7 +172,7 @@ def eliminarEvento(request):
 @login_required
 def todosEventos(request):
     todoeventos=Evento.objects.all().order_by('-id')
-    Tipo_Eventos=Evento.objects.all().order_by('cTipoEvento')
+    Tipo_Eventos=Tipo_Evento.objects.all().order_by('cTipoEvento')
     pais = Pais.objects.all().order_by('cpais')
     TipoApoyo = Tipo_Apoyo.objects.all().order_by('ctipo_apoyo')
     EntFinan = Entidad_Financiamiento.objects.all().order_by('cEntFinancia')

@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let idRegistroEvento = event.target.closest("tr").getAttribute("id");
         document.getElementById("txtIdProyectoModalEditarEvento").value =
         idRegistroEvento;
+        console.log('el id es :'+ idRegistroEvento)
         CargardatoEventos(idRegistroEvento);
+
       }
     });
 
@@ -121,6 +123,8 @@ async function CargardatoEventos(idRegistroEvento) {
     } else {
       const result = await response.json();
       const data = result.data;
+      console.log('la data para eventos es:')
+      console.log(data)
 
       document.getElementById("txtCodigoEvento").value =
         data.codigoEvento;
