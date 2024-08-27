@@ -18,6 +18,6 @@ class ParticipanteAdmin(admin.ModelAdmin):
 
 admin.site.register(Tipo_Documento)
 admin.site.register(FormacionAcademica)
-admin.site.register(Participante, ParticipanteAdmin)
+# admin.site.register(Participante, ParticipanteAdmin)
 admin.site.register(Det_EventoProyecto)
 

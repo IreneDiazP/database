@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from usuarios.models import UserProfile
+from proyectos.views import Area_Tematica
 
 
 def login_view(request):
@@ -21,6 +22,15 @@ def login_view(request):
             return render(request,'core/login.html')
     else:
         return render(request,'core/login.html')
+
+
+@login_required
+def getareas(request):
+    areatematicas = list(Area_Tematica.objects.values())  # Convertir a una lista de diccionarios
+    response_data = {
+        'data': areatematicas
+    }
+    return JsonResponse(response_data)
     
 @login_required
 def home(request):

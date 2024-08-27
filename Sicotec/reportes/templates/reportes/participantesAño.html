@@ -78,16 +78,23 @@
             width: 100%;
             border-collapse: collapse;
         }
+        .tabla-capacitacion th,
+        .tabla-capacitacion td {
+            padding: 8px; /* Ajusta el valor para el espacio deseado */
+            border: 1px solid #ddd; /* Opcional: agrega un borde sutil para mayor claridad */
+        }
+        .tabla-capacitacion th {
+            background-color: #f2f2f2; /* Opcional: color de fondo para los encabezados */
+        }
+
         .custom-thead {
             border-bottom: 2px solid rgb(0, 0, 0); 
             border-top: 2px solid rgb(0, 0, 0); /* Borde solo en la parte inferior */
         }
         .custom-thead th {
-            border-bottom: none; 
-            border-top: none;
-            border-left: none; 
-            border-right: none; 
-            padding: 10px; 
+            border-bottom: 2px solid rgb(0, 0, 0); 
+            border-top: 2px solid rgb(0, 0, 0); /* Borde superior e inferior */
+            padding: 10px; /* Espacio en los encabezados */
             text-align: center;
         }
         tbody th {
@@ -132,24 +139,22 @@
                 </tr>
             </thead>
             <tbody>
-              {% for p in datosparticipante %}
-              <tr>
-                <td colspan="6"> {{ p.nombres }} </td>
-              </tr>
-              <tr>
-                <th>17-04-52</th>
-                <th>12-04-20</th>
-                <th>
-                  {% for evento in p.eventos %}
-                    {{ evento }}{% if not forloop.last %}, {% endif %}
+                {% for p in datosparticipante %}
+                  <tr>
+                    <td class="fw-bold" colspan="6"> {{ p.NOMBRE }} {{ p.APELLIDO_PATERNO }} {{ p.APELLIDO_MATERNO }} </td>
+                  </tr>
+                  {% for proyecto in p.proyectos %}
+                  <tr>
+                    <td>{{ proyecto.FECHA_INICIO }}</td>
+                    <td>{{ proyecto.FECHA_FIN }}</td>
+                    <td>{{ proyecto.NOMBRE_PROYECTO }}</td>
+                    <td>{{ p.PAIS }}</td>
+                    <td>{{ p.FUENTE_FINANCIAMIENTO }}</td>
+                    <td>{{ proyecto.AUTORIZACION }}</td>
+                  </tr>
                   {% endfor %}
-                </th>
-                <th>{{ p.pais }}</th>
-                <th>OIEA</th>
-                <th>Carta oeiea me lasasasasa</th>
-              </tr>
-              {% endfor %}
-            </tbody>
+                {% endfor %}
+              </tbody>
         </table>
     </div>
 
