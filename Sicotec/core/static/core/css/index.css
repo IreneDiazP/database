@@ -16,7 +16,7 @@
   width: 50px;
   height: 50px;
 }
-.img-canvas-logo{
+.img-canvas-logo {
   width: 160px;
   height: 50px;
   margin-left: 20px;
@@ -28,112 +28,63 @@
 }
 
 main {
-  min-height: calc(100vh - 76px); /* Establece el tamaño mínimo */
-  height: auto; /* Permite que el tamaño crezca según el contenido */
+  min-height: calc(100vh - 76px); 
+  height: auto;
 }
 .table-responsive {
   overflow-x: hidden;
 }
 
-#tblProyectos_wrapper{
+.dataTables_scroll {
+  grid-column: 1 / 3;
+  grid-row: 3;
+}
+
+#tblProyectos_wrapper,
+#tblEventos_wrapper,
+#tblParticipantes_wrapper,
+#tblTipoEventos_wrapper,
+#tblUsuarios_wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
-  gap: 10px; 
-}
-.dt-buttons{
-  grid-column: 1 / 3; 
-  grid-row: 1;
+  gap: 10px;
 }
 
-#tblProyectos_filter{
-  grid-column: 2; 
-  grid-row: 2; 
+#tblProyectos_filter,
+#tblEventos_filter,
+#tblParticipantes_filter,
+#tblTipoEventos_filter,
+#tblUsuarios_filter{
+  grid-column: 2;
+  grid-row: 2;
   display: flex;
   justify-content: end;
 }
-#tblProyectos_length{
+
+#tblProyectos_length,
+#tblEventos_length,
+#tblParticipantes_length,
+#tblTipoEventos_length,
+#tblUsuarios_length  {
   grid-column: 1;
-  grid-row: 2; 
+  grid-row: 2;
 }
-.dataTables_scroll{
-  grid-column: 1 / 3; 
-  grid-row: 3; 
-}
-#tblProyectos_info{
+
+#tblProyectos_info,
+#tblEventos_info,
+#tblParticipantes_info,
+#tblTipoEventos_info,
+#tblUsuarios_info  {
   grid-column: 1 / 3;
-  grid-row: 4; 
+  grid-row: 4;
 }
-#tblProyectos_paginate{
+
+#tblProyectos_paginate,
+#tblEventos_paginate,
+#tblParticipantes_paginate,
+#tblTipoEventos_paginate,
+#tblUsuarios_paginate {
   grid-column: 1 / 3;
-  grid-row: 5; 
+  grid-row: 5;
 }
-
-
-#tblEventos_wrapper{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 10px; 
-}
-
-#tblEventos_filter{
-  grid-column: 2; 
-  grid-row: 2; 
-  display: flex;
-  justify-content: end;
-}
-#tblEventos_length{
-  grid-column: 1;
-  grid-row: 2; 
-}
-#tblEventos_info{
-  grid-column: 1 / 3;
-  grid-row: 4; 
-}
-#tblEventos_paginate{
-  grid-column: 1 / 3;
-  grid-row: 5; 
-}
-
-
-#tblParticipantes_wrapper{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 10px; 
-}
-
-#tblParticipantes_filter{
-  grid-column: 2; 
-  grid-row: 2; 
-  display: flex;
-  justify-content: end;
-}
-#tblParticipantes_length{
-  grid-column: 1;
-  grid-row: 2; 
-}
-#tblParticipantes_info{
-  grid-column: 1 / 3;
-  grid-row: 4; 
-}
-#tblParticipantes_paginate{
-  grid-column: 1 / 3;
-  grid-row: 5; 
-}
-
-
-
-/* .active-label {
-  color: green;
-}
-
-.inactive-label {
-  color: red; 
-}
-
-
-input[type="radio"]:checked + label {
-  font-weight: bold; 
-} */

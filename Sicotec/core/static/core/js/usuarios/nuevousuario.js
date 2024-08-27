@@ -73,10 +73,11 @@ document
           const row = document.querySelector(`#tblUsuarios tr[id="${userId}"]`);
           if (row) {
             // Actualiza los datos en la fila
-            row.querySelector("th:nth-child(1)").textContent = data.nombre;
-            row.querySelector("th:nth-child(2)").textContent = data.apellido;
-            row.querySelector("th:nth-child(3)").textContent = data.area;
-            row.querySelector("th:nth-child(4)").textContent = data.usuario;
+            row.querySelector("th:nth-child(1)").textContent = data.id;
+            row.querySelector("th:nth-child(2)").textContent = data.nombre;
+            row.querySelector("th:nth-child(3)").textContent = data.apellido;
+            row.querySelector("th:nth-child(4)").textContent = data.area;
+            row.querySelector("th:nth-child(5)").textContent = data.usuario;
 
             const statusBtn = row.querySelector(".toggleBtn");
             if (statusBtn) {

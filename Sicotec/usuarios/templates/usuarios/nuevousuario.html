@@ -36,7 +36,8 @@
         >
           <thead class="table-dark">
             <tr>
-              <th class="text-center">Nombre</th>
+              <th class="d-none">id</th>
+              <th class="text-center" >Nombre</th>
               <th class="text-center">Apellido</th>
               <th class="text-center">Area</th>
               <th class="text-center">Usuario</th>
@@ -48,6 +49,7 @@
             {% for us in usuario %}
 
             <tr id="{{us.id}}">
+              <th class="d-none">{{us.id}}</th>
               <th>{{us.nombre}}</th>
               <th class="">{{us.apellido}}</th>
               <th class="">{{us.area}}</th>
@@ -97,7 +99,8 @@
           </tbody>
 
           <tfoot>
-            <th class="text-center">Nombre</th>
+            <th class="d-none">id</th>
+            <th class="text-center" >Nombre</th>
             <th class="text-center">Apellido</th>
             <th class="text-center">Area</th>
             <th class="text-center">Usuario</th>
@@ -333,7 +336,7 @@
 </script>
 
 <!-- Custom JS -->
-
+<script src="{% static 'core/js/datatable-init/datatableUsuarios.js' %}"></script>
 <script src="{% static 'core/js/usuarios/nuevousuario.js' %}"></script>
 
 {% endblock %}
