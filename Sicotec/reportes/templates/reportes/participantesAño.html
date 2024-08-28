@@ -39,11 +39,11 @@
             margin: 0;
         }
         body {
-            font-size: 12px; /* Tamaño de fuente base */
+            font-size: 12px; 
         }
         .header {
             width: 100%;
-            background-color: #dc3545;
+            background-color: #1ab2ee;
             color: white;
             padding: 10px;
         }
@@ -55,11 +55,11 @@
             width: 100px;
             height: 100px;
         }
-        .header h1, .header h3, .header p {
-            margin: 0;
-        }
         .header .title {
             text-align: center;
+        }
+        .header h1, .header h3, .header p {
+            margin: 0;
         }
         .header .dates {
             text-align: right;
@@ -70,36 +70,49 @@
         .header .area {
             margin-top: 10px;
         }
+        
+        /* ---------------------------------- */
         .container-table {
             width: 100%;
-            padding: 10px;
         }
         .tabla-capacitacion {
             width: 100%;
             border-collapse: collapse;
         }
-        .tabla-capacitacion th,
-        .tabla-capacitacion td {
-            padding: 8px; /* Ajusta el valor para el espacio deseado */
-            border: 1px solid #ddd; /* Opcional: agrega un borde sutil para mayor claridad */
-        }
-        .tabla-capacitacion th {
-            background-color: #f2f2f2; /* Opcional: color de fondo para los encabezados */
-        }
-
         .custom-thead {
             border-bottom: 2px solid rgb(0, 0, 0); 
             border-top: 2px solid rgb(0, 0, 0); /* Borde solo en la parte inferior */
         }
         .custom-thead th {
-            border-bottom: 2px solid rgb(0, 0, 0); 
-            border-top: 2px solid rgb(0, 0, 0); /* Borde superior e inferior */
-            padding: 10px; /* Espacio en los encabezados */
-            text-align: center;
-        }
-        tbody th {
+            border: none;
             padding: 10px; 
-            text-align: left; 
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600 ;
+        }
+        .custo__body-nombre td{
+            padding: 10px 0 5px 30px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: underline;
+        }
+        .custo__body-proyeto td {
+            padding: 10px;
+            font-size: 10px;
+          }
+        .custo__body-proyeto :nth-child(1),
+        .custo__body-proyeto :nth-child(2){
+        width: 10%;
+        }
+        .custo__body-proyeto :nth-child(3){
+            width: 30%;
+        }
+        .custo__body-proyeto :nth-child(4){
+            width: 10%;
+        }
+        .custo__body-proyeto :nth-child(5),
+        .custo__body-proyeto :nth-child(6){
+        width: 20%;
         }
     </style>
 </head>
@@ -132,19 +145,19 @@
                 <tr>
                     <th>Inicio</th>
                     <th>Término</th>
-                    <th>Evento</th>
+                    <th>Proyecto</th>
                     <th>País</th>
                     <th>Fte. Fto</th>
                     <th>Autorización</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="custom-body"  >
                 {% for p in datosparticipante %}
-                  <tr>
+                  <tr class="custo__body-nombre">
                     <td class="fw-bold" colspan="6"> {{ p.NOMBRE }} {{ p.APELLIDO_PATERNO }} {{ p.APELLIDO_MATERNO }} </td>
                   </tr>
                   {% for proyecto in p.proyectos %}
-                  <tr>
+                  <tr class="custo__body-proyeto">
                     <td>{{ proyecto.FECHA_INICIO }}</td>
                     <td>{{ proyecto.FECHA_FIN }}</td>
                     <td>{{ proyecto.NOMBRE_PROYECTO }}</td>

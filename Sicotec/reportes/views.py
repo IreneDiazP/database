@@ -17,6 +17,7 @@ def reporteparticipante(request):
         cursor.callproc('sp_report_proy_area', [x_fecha, x_area_tem])
         results = cursor.fetchall()
     
+    print (results)
     # Agrupar los datos
     datosparticipante = defaultdict(lambda: {'proyectos': []})
     
