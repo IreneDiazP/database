@@ -1,0 +1,78 @@
+{% extends "core/base.html" %} {% load static %} 
+{% block title %} Tipo Proyecto{% endblock title %} 
+{% block head %} {% endblock %} 
+{% block contenido %}
+<div
+  class="modal fade"
+  id="ReporteAreaModal"
+  tabindex="-1"
+  aria-labelledby="ReporteAreaModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ReporteAreaModalLabel">Reporte Area</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="formReportArea" method="POST">
+          {% csrf_token %}
+
+          <!--Año-->
+
+          <div class="mb-3">
+            <div class="form-floating">
+              <input
+                type="number"
+                class="form-control"
+                id="Año"
+                name="Año"
+                min="1900"
+                max="2100"
+                step="1"
+              />
+              <label for="Año">Año</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating">
+              <select class="form-select" id="cboAreaTematica" name="cboAreaTematica"
+                oninput="convertToUppercase(this)" >
+                <option selected></option>
+          
+                {% for At in areas %}
+                <option value="{{At.id}}">{{At.cArea_tematica}}</option>
+                {% endfor %}
+              </select>
+              <label for="cboAreaTematica">Area Tematica<span class="text-danger ms-2">*</span></label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Generar Reporte</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock contenido %} {% block script %}
+<script>
+  function convertToUppercase(input) {
+    input.value = input.value.toUpperCase();
+  }
+</script>
+
+<!-- Custom JS -->
+
+<script src="{% static 'core/js/reportes/reporteproyectos.js' %}"></script>
+
+{% endblock %}

@@ -1,3 +1,9 @@
+document.addEventListener('DOMContentLoaded',function(){
+    
+    new bootstrap.Modal(document.getElementById('ReporteAreaModal')).show();
+
+
+})
 // document
 //   .getElementById("RCapacitacionArea")
 //   .addEventListener("click", function (event) {
@@ -59,3 +65,4 @@
 //     }
 //     return cookieValue;
 //   }
+

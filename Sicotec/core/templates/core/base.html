@@ -33,7 +33,7 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg " style="background-color: #0D6EFD">
+    <nav class="navbar navbar-expand-xl " style="background-color: #0D6EFD">
       <div class="container-fluid">
 
         <!--PARA EL LOGO-->
@@ -49,7 +49,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <!--IMAGEN DE PERFIL-->
-        <div class="d-flex gap-3 align-items-center d-lg-none ">
+        <div class="d-flex gap-3 align-items-center d-xl-none ">
           <img src="{% static 'core/images/login.png' %}" alt="" class="img-login rounded-circle" />
           <p class="mb-0 text-light fw-bold">
             {% if user.is_authenticated %} {{ user.userprofile.nombre }}
@@ -166,7 +166,7 @@
                 <li>
                   <a id="RCapacitacionArea"
                     class=" dropdown-item link-dark link-opacity-75 link-opacity-100-hover link-offset-2 link-underline link-underline-opacity-0 "
-                    href="{% url 'reporteparticipante' %}">
+                    href="{% url 'reportepracticipanteproyecto' %}">
 
                     <i class="nav-link__icon bi bi-filetype-pdf fs-5"></i> Capacitacion por Area
                   </a>
@@ -250,7 +250,7 @@
         </div>
 
         <!--IMAGEN DE PERFIL-->
-        <div class="d-flex gap-3 align-items-center d-none d-lg-flex">
+        <div class="d-flex gap-3 align-items-center d-none d-xl-flex">
           <img src="{% static 'core/images/login.png' %}" alt="" class="img-login rounded-circle" />
           <p class="mb-0  text-light fw-bold">
             {% if user.is_authenticated %}
@@ -280,42 +280,6 @@
       </div>
     </nav>
 
-     <div class="modal fade" id="ReporteAreaModal"  tabindex="-1" aria-labelledby="ReporteAreaModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="ReporteAreaModalLabel">Reporte Area</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <form id="formReportArea" method="POST">
-                      {% csrf_token %}
-
-                      <!--Año-->
-
-                      <div class="mb-3">
-                        <div class="form-floating">
-                            <input type="number" class="form-control" id="Año" name="Año" min="1900" max="2100" step="1" />
-                            <label for="Año">Año</label>
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-12 mb-3">
-                        <div class="form-floating">
-                          <select class="form-select" id="cboArea" name="cboArea" >
-
-                          </select>
-                          <label for="cboArea">Entidad</label>
-                        </div>
-                      </div>
-
-                      <button type="submit" class="btn btn-primary">Generar Reporte</button>
-                  </form>
-              </div>
-          </div>
-      </div>
-    </div> 
 
 
   </header>
@@ -359,7 +323,6 @@
   <!-- SweetAlert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{% static 'core/js/notificacion-Swal.js' %}"></script>
-  <script src="{% static 'core/js/reportes/reportes.js' %}"></script>
 
 
   {% block script %} {% endblock %}

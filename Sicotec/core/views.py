@@ -24,13 +24,7 @@ def login_view(request):
         return render(request,'core/login.html')
 
 
-@login_required
-def getareas(request):
-    areatematicas = list(Area_Tematica.objects.values())  # Convertir a una lista de diccionarios
-    response_data = {
-        'data': areatematicas
-    }
-    return JsonResponse(response_data)
+
     
 @login_required
 def home(request):
