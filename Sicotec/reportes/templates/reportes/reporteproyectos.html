@@ -1,5 +1,5 @@
 {% extends "core/base.html" %} {% load static %} 
-{% block title %} Tipo Proyecto{% endblock title %} 
+{% block title %} Reporte Proyecto{% endblock title %} 
 {% block head %} 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
@@ -9,7 +9,7 @@
 {% block contenido %}
 
 
-<div class="btn-group position-absolute end-0  z-100 invisible" role="group" id="contenedor__buttons" >
+<div class="btn-group mt-1 position-absolute end-0  z-100 invisible" role="group" id="contenedor__buttons" >
   <button type="button" id="button_Exportar" class="btn btn-danger">Exportar PDF</button>
   <button type="button" id="button_NuevoReporte" class="btn btn-warning">Nuevo Reporte</button>
 </div>
@@ -24,7 +24,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="formReportArea" method="POST" action="{% url 'generar_reporte_area' %}">
+        <form id="formReportArea"   method="POST" action="{% url 'generar_reporte_area' %}">
           {% csrf_token %}
           <div class="mb-3">
             <div class="form-floating">
@@ -41,11 +41,11 @@
                 <option value="{{ At.id }}">{{ At.cArea_tematica }}</option>
                 {% endfor %}
               </select>
-              <label for="cboAreaTematica">Area Tematica<span class="text-danger ms-2">*</span></label>
+              <label for="cboAreaTematica">Area Tematica</label>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary">Generar Reporte</button>
+          <button type="submit" class="btn btn-primary mt-3 ">Generar Vista Previa</button>
         </form>
       </div>
     </div>

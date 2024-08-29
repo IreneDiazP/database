@@ -3,36 +3,54 @@
 -- =========================================================================
 --REPORTE PARA PROYECTOS
 
-DELIMITER //
-DROP PROCEDURE IF EXISTS sp_report_proy_area //
-CREATE PROCEDURE sp_report_proy_area ( IN x_fecha VARCHAR(4), IN x_area_tem BIGINT)
+DELIMITER $$
+DROP PROCEDURE IF EXISTS sp_report_proy_area $$
+CREATE PROCEDURE sp_report_proy_area (
+    IN x_area_tem INT,
+    IN x_fecha INT
+)
 BEGIN
-	SELECT  PATE.cArea_tematica AS AREA,
-			BPA.apellPate_participante AS APELLIDO_PATERNO,
-			BPA.apellMate_participante AS APELLIDO_MATERNO,
-			BPA.nom_participante AS NOMBRE,
-			PPR.fechaInicio AS FECHA_INICIO,
-			PPR.fechaFin AS FECHA_FIN,
-			PPR.nomProyecto AS NOMBRE_PROYECTO,
-			PPA.cpais AS PAIS,
-			PIFI.cInstFinancia AS FUENTE_FINANCIAMIENTO,
-			BDEV.Cod_autorizacion AS AUTORIZACION
-            
-	FROM   becarios_participante BPA
-	JOIN   becarios_det_eventoproyecto BDEV
-		   ON BDEV.participante_id = BPA.id
-	JOIN   proyectos_proyecto PPR
-		   ON BDEV.proyecto_id = PPR.id
-	JOIN   proyectos_pais PPA
-		   ON PPR.cpais_id = PPA.id
-	JOIN   proyectos_institucion_financiamiento PIFI
-		   ON PPR.cInstFinanc_id = PIFI.id
-	JOIN   proyectos_area_tematica PATE
-		   ON PPR.cAreaTem_id = PATE.id
-           
-	WHERE  YEAR(PPR.fechaInicio) = x_fecha
-		   AND BPA.estado = 1
-		   AND PATE.id = x_area_tem
-	ORDER BY PATE.cArea_tematica;
-END //
+
+    SET @sql = 'SELECT 
+					PAT.cArea_tematica AS AREA,
+					BP.id AS id_PARTICIPANTE,
+					BP.apellPate_participante AS APELLIDO_PATERNO,
+					BP.apellMate_participante AS APELLIDO_MATERNO,
+					BP.nom_participante AS NOMBRE,
+					PP.fechaInicio AS FECHA_INICIO,
+					PP.fechaFin AS FECHA_FIN,
+					PP.nomProyecto AS NOMBRE_PROYECTO,
+					PAIS.cpais AS PAIS,
+					PIFI.cInstFinancia AS FUENTE_FINANCIAMIENTO, 
+					BEP.Cod_autorizacion AS AUTORIZACION
+
+				FROM proyectos_area_tematica PAT
+				JOIN proyectos_proyecto PP
+					ON PAT.id = PP.cAreaTem_id
+				JOIN becarios_det_eventoproyecto BEP
+					ON BEP.proyecto_id = PP.id
+				JOIN becarios_participante BP
+					ON BP.id = BEP.participante_id
+				JOIN proyectos_pais PAIS
+					ON PP.cpais_id = PAIS.id
+				LEFT JOIN proyectos_institucion_financiamiento PIFI
+					ON PP.cInstFinanc_id = PIFI.id 
+                WHERE BP.estado = 1'; 
+
+    
+    IF x_area_tem IS NOT NULL THEN
+        SET @sql = CONCAT(@sql, ' AND PAT.id = ', x_area_tem);
+    END IF;
+
+    IF x_fecha IS NOT NULL THEN
+        SET @sql = CONCAT(@sql, ' AND YEAR(PP.fechaInicio) = ', x_fecha);
+    END IF;
+
+	SET @sql = CONCAT(@sql, ' ORDER BY PP.fechaInicio ASC');
+
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+
+END $$
 DELIMITER ;

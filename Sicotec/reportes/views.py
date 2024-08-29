@@ -16,54 +16,57 @@ def reporteproyecto(request):
 
 def generar_reporte_area(request):
     if request.method == 'POST':
-        # año = request.POST.get('Año')
-        # area_tematica = request.POST.get('cboAreaTematica')
-        año = '2024'
-        area_tematica = 1
+        año = request.POST.get('Año')
+        area_tematica = request.POST.get('cboAreaTematica')
 
-        # Ejecutar el procedimiento almacenado
+        año = año if año else None
+        area_tematica = area_tematica if area_tematica else None
+        print(f"Año: {año}, Área Temática: {area_tematica}")
+
+
         with connection.cursor() as cursor:
-            cursor.callproc('sp_report_proy_area', [año, area_tematica])
+            cursor.callproc('sp_report_proy_area', [area_tematica,año])
             results = cursor.fetchall()
-
-        # Procesar los resultados
+ 
+        
         datosparticipante = defaultdict(lambda: {'proyectos': []})
+
         for row in results:
-            participante_key = (row[3], row[1], row[2])  # (Nombre, Apellido Paterno, Apellido Materno)
-            if participante_key not in datosparticipante:
-                datosparticipante[participante_key].update({
-                    'NOMBRE': row[3],
-                    'APELLIDO_PATERNO': row[1],
-                    'APELLIDO_MATERNO': row[2],
-                    'PAIS': row[7],
-                    'FUENTE_FINANCIAMIENTO': row[8],
+            participante_id = row[1]  
+            if participante_id not in datosparticipante:
+
+                datosparticipante[participante_id].update({
+                    'NOMBRE': row[4],
+                    'APELLIDO_PATERNO': row[2],
+                    'APELLIDO_MATERNO': row[3],
+                    'PAIS': row[8],
+                    'FUENTE_FINANCIAMIENTO': row[9],
                     'proyectos': []
                 })
-            fecha_inicio = row[4].strftime('%d/%m/%Y') if row[4] else ''
-            fecha_fin = row[5].strftime('%d/%m/%Y') if row[5] else ''
-            datosparticipante[participante_key]['proyectos'].append({
+            
+            fecha_inicio = row[5].strftime('%d/%m/%Y') if row[5] else ''
+            fecha_fin = row[6].strftime('%d/%m/%Y') if row[6] else ''
+
+            datosparticipante[participante_id]['proyectos'].append({
                 'FECHA_INICIO': fecha_inicio,
                 'FECHA_FIN': fecha_fin,
-                'NOMBRE_PROYECTO': row[6],
-                'AUTORIZACION': row[9]
+                'NOMBRE_PROYECTO': row[7],
+                'AUTORIZACION': row[10]
             })
 
-        # Convertir el defaultdict a una lista para el template
         datosparticipante = [
             {
-                'NOMBRE': key[0],
-                'APELLIDO_PATERNO': key[1],
-                'APELLIDO_MATERNO': key[2],
+                'ID': participante_id,
+                'NOMBRE': data['NOMBRE'],
+                'APELLIDO_PATERNO': data['APELLIDO_PATERNO'],
+                'APELLIDO_MATERNO': data['APELLIDO_MATERNO'],
                 'PAIS': data['PAIS'],
                 'FUENTE_FINANCIAMIENTO': data['FUENTE_FINANCIAMIENTO'],
                 'proyectos': data['proyectos']
             }
-            for key, data in datosparticipante.items()
+            for participante_id, data in datosparticipante.items()
         ]
 
-        # Renderizar el template de vista previa con los datos
-        html_string = render(request, 'reportes/participantesAñocopy.html', {'datosparticipante': datosparticipante})
+        html_string = render(request, 'reportes/reporteproyectos-pdf.html', {'datosparticipante': datosparticipante})
 
         return JsonResponse({'html': html_string.content.decode('utf-8')})
-
-    return JsonResponse({'error': 'Invalid request'}, status=400)
