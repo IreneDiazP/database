@@ -18,6 +18,13 @@ def generar_reporte_area(request):
     if request.method == 'POST':
         año = request.POST.get('Año')
         area_tematica = request.POST.get('cboAreaTematica')
+        
+        if  area_tematica :
+            nombrearetematica=Area_Tematica.objects.get(id=area_tematica)
+            print(nombrearetematica.cArea_tematica)
+            lista_area_tematica = [nombrearetematica.cArea_tematica]
+        else:
+            lista_area_tematica = []
 
         año = año if año else None
         area_tematica = area_tematica if area_tematica else None
@@ -66,7 +73,9 @@ def generar_reporte_area(request):
             }
             for participante_id, data in datosparticipante.items()
         ]
+        
+        
 
-        html_string = render(request, 'reportes/reporteproyectos-pdf.html', {'datosparticipante': datosparticipante})
+        html_string = render(request, 'reportes/reporteproyectos-pdf.html', {'datosparticipante': datosparticipante, 'lista_area_tematica':lista_area_tematica})
 
         return JsonResponse({'html': html_string.content.decode('utf-8')})
