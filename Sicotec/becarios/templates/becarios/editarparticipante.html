@@ -1301,7 +1301,7 @@ Participante{% endblock title %} {% block contenido %}
         tabindex="-1"
         aria-labelledby="modalEditarProyectoLabel"
         aria-hidden="true"
-      >
+        >
         <div
           class="modal-dialog m-auto modal-dialog-centered mt-3"
           style="--bs-modal-width: 1382px"
@@ -1388,7 +1388,7 @@ Participante{% endblock title %} {% block contenido %}
               id="formEditarProyecto"
               class="shadow px-3 rounded"
               method="POST"
-            >
+              >
               {% csrf_token %}
               <div class="modal-body">
                 <div class="d-flex gap-3 flex-column justify-content-center">

@@ -80,3 +80,9 @@ def generar_reporte_area(request):
                              'datosparticipante': datosparticipante, 'lista_area_tematica': lista_area_tematica, 'fecha_actual': fecha_actual, 'hora_actual': hora_actual})
 
         return JsonResponse({'html': html_string.content.decode('utf-8')})
+    
+def reporteevento(request):
+    areas = Area_Tematica.objects.all().order_by('cArea_tematica')
+    return render(request, 'reportes/reporteproyectos.html', {
+        'areas': areas
+    })

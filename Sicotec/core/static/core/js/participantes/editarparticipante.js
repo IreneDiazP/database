@@ -234,7 +234,7 @@ document
       });
       if (!response.ok) {
         const errorData = await response.json();
-        Limpiarcamposbutton()
+        Limpiarcamposbutton();
         NotificacionSwal("Error!", errorData.message, "error", "ok");
       } else {
         const result = await response.json();
@@ -279,7 +279,7 @@ document
           : formatDecimal(montoEnSoles);
       }
     } catch (error) {
-      Limpiarcamposbutton()
+      Limpiarcamposbutton();
       NotificacionSwal(
         "Error!",
         "Hubo un problema al procesar la solicitud por favor selecciona una opción",
@@ -779,7 +779,7 @@ document
       });
       if (!response.ok) {
         const errorData = await response.json();
-        LimpiarcamposProyectobutton()
+        LimpiarcamposProyectobutton();
         NotificacionSwal("Error!", errorData.message, "error", "ok");
       } else {
         const result = await response.json();
@@ -823,13 +823,14 @@ document
           1
         );
 
-        document.getElementById("txtFechaInicioP").value = data.FechaInicio || "";
+        document.getElementById("txtFechaInicioP").value =
+          data.FechaInicio || "";
         document.getElementById("txtFechaFinP").value = data.FechaFin || "";
         document.getElementById("txtIdProyectoModalEditarProyecto").value =
           data.idproyecto;
       }
     } catch (error) {
-      LimpiarcamposProyectobutton()
+      LimpiarcamposProyectobutton();
       NotificacionSwal(
         "Error!",
         "Hubo un problema al procesar la solicitud por favor selecciona una opción!!!",
@@ -991,7 +992,7 @@ document
           contenedorbuscar.classList.remove("d-none");
           const modalElement = document.getElementById("modalEditarProyecto");
           const modal = bootstrap.Modal.getInstance(modalElement);
-          limpiarCamposProyectos();
+          LimpiarcamposProyectobutton();
           if (modal) {
             modal.hide();
           }
@@ -1218,7 +1219,6 @@ document
       });
   });
 
-
 function verificarTipoMoneda(tipoMoneda, ids) {
   const tipo = tipoMoneda.toLowerCase();
   const esSoles = tipo === "soles";
@@ -1238,7 +1238,8 @@ function calcularTotal(ids) {
   const esSoles = tipoMoneda.toLowerCase() === "soles";
 
   const monto = parseFloat(document.getElementById(ids.monto).value) || 0;
-  const tipoCambio = parseFloat(document.getElementById(ids.tipoCambio).value) || 1;
+  const tipoCambio =
+    parseFloat(document.getElementById(ids.tipoCambio).value) || 1;
   const total = esSoles ? monto : monto * tipoCambio;
 
   document.getElementById(ids.montosoles).value = total;
@@ -1248,38 +1249,46 @@ const config1 = {
   tipoMoneda: "cboTipoMOnedaP",
   tipoCambio: "txtidtCambioP",
   monto: "txtidMontop",
-  montosoles: "txtMontosolesP"
+  montosoles: "txtMontosolesP",
 };
 
 const config2 = {
   tipoMoneda: "cboTipoMOneda",
   tipoCambio: "txttipoCambio",
   monto: "txtMonto",
-  montosoles: "txtMontosoles"
+  montosoles: "txtMontosoles",
 };
 
-document.getElementById(config1.tipoMoneda).addEventListener("change", function() {
-  verificarTipoMoneda(this.options[this.selectedIndex].text, config1);
-  calcularTotal(config1); // Recalcular cuando se cambie el tipo de moneda
-});
+document
+  .getElementById(config1.tipoMoneda)
+  .addEventListener("change", function () {
+    verificarTipoMoneda(this.options[this.selectedIndex].text, config1);
+    calcularTotal(config1); // Recalcular cuando se cambie el tipo de moneda
+  });
 
-document.getElementById(config1.monto).addEventListener("input", function() {
+document.getElementById(config1.monto).addEventListener("input", function () {
   calcularTotal(config1);
 });
 
-document.getElementById(config1.tipoCambio).addEventListener("input", function() {
-  calcularTotal(config1);
-});
+document
+  .getElementById(config1.tipoCambio)
+  .addEventListener("input", function () {
+    calcularTotal(config1);
+  });
 
-document.getElementById(config2.tipoMoneda).addEventListener("change", function() {
-  verificarTipoMoneda(this.options[this.selectedIndex].text, config2);
-  calcularTotal(config2); 
-});
+document
+  .getElementById(config2.tipoMoneda)
+  .addEventListener("change", function () {
+    verificarTipoMoneda(this.options[this.selectedIndex].text, config2);
+    calcularTotal(config2);
+  });
 
-document.getElementById(config2.monto).addEventListener("input", function() {
+document.getElementById(config2.monto).addEventListener("input", function () {
   calcularTotal(config2);
 });
 
-document.getElementById(config2.tipoCambio).addEventListener("input", function() {
-  calcularTotal(config2);
-});
+document
+  .getElementById(config2.tipoCambio)
+  .addEventListener("input", function () {
+    calcularTotal(config2);
+  });
