@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,11 +35,11 @@
       .header p {
         margin: 0;
       }
-      .title h1{
+      .title h1 {
         font-size: 22px;
         font-weight: 900;
       }
-      .title h3{
+      .title h3 {
         font-size: 14px;
         font-weight: 600;
       }
@@ -67,7 +68,7 @@
       .custom-thead th {
         border: none;
         padding: 10px;
-        text-align: center;
+        text-align: left;
         font-size: 12px;
         font-weight: 600;
       }
@@ -98,70 +99,68 @@
     </style>
   </head>
   <body>
-    <div class="header">
-      <table>
-        <tr>
-          <td style="width: 100px">
-            <img
-              src="https://www.ipen.gob.pe/media/k2/items/cache/32827062d398c3bcebce44c02ac4fa3f_XL.jpg"
-              alt="Logo"
-            />
-          </td>
-          <td class="title">
-            <h1>CAPACITACION POR AREA - 2024</h1>
-            <h3>Oficina de Cooperacion Técnica y Asuntos Internacionales</h3>
-          </td>
-          <td class="dates" style="width: 150px">
-            <p>Fecha: 24/04/2024</p>
-            <p>Hora: 11:58</p>
-            <p>Página: 1 - 13</p>
-          </td>
-        </tr>
-      </table>
-      <div class="area">
-        <p>Área: 
-
-          {% for area in lista_area_tematica %}
-          <strong>{{ area }}</strong>
-
-          {% endfor %}
-         
-        
-        </p>
-      </div>
-    </div>
-
-    <div class="container-table">
-      <table class="tabla-capacitacion">
-        <thead class="custom-thead">
+    <div id="contenidopdf">
+      <div class="header">
+        <table>
           <tr>
-            <th>Inicio</th>
-            <th>Término</th>
-            <th>Proyecto</th>
-            <th>País</th>
-            <th>Fte. Fto</th>
-            <th>Autorización</th>
-          </tr>
-        </thead>
-        <tbody class="custom-body">
-          {% for p in datosparticipante %}
-          <tr class="custo__body-nombre">
-            <td class="fw-bold" colspan="6">
-              {{ p.NOMBRE }} {{ p.APELLIDO_PATERNO }} {{ p.APELLIDO_MATERNO }}
+            <td style="width: 100px">
+              <img src="{% static 'core/images/logo_ipen.jpg' %}" alt="Logo" />
+            </td>
+            <td class="title">
+              <h1>CAPACITACION POR AREA - 2024</h1>
+              <h3>Oficina de Cooperacion Técnica y Asuntos Internacionales</h3>
+            </td>
+            <td class="dates" style="width: 150px">
+              <p>Fecha: {{ fecha_actual }}</p>
+              <p>Hora: {{ hora_actual }}</p>
+              <p id="page-count"></p>
             </td>
           </tr>
-          {% for proyecto in p.proyectos %}
-          <tr class="custo__body-proyeto">
-            <td>{{ proyecto.FECHA_INICIO }}</td>
-            <td>{{ proyecto.FECHA_FIN }}</td>
-            <td>{{ proyecto.NOMBRE_PROYECTO }}</td>
-            <td>{{ p.PAIS }}</td>
-            <td>{{ p.FUENTE_FINANCIAMIENTO }}</td>
-            <td>{{ proyecto.AUTORIZACION }}</td>
-          </tr>
-          {% endfor %} {% endfor %}
-        </tbody>
-      </table>
+        </table>
+        <div class="area">
+          <p>
+            Área: {% for area in lista_area_tematica %}
+            <strong>{{ area }}</strong>
+
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+
+      <div class="container-table">
+        <table class="tabla-capacitacion">
+          <thead class="custom-thead">
+            <tr>
+              <th>Inicio</th>
+              <th>Término</th>
+              <th>Proyecto</th>
+              <th>País</th>
+              <th>Fte. Fto</th>
+              <th>Autorización</th>
+            </tr>
+          </thead>
+          <tbody class="custom-body">
+            {% for p in datosparticipante %}
+            <tr class="custo__body-nombre">
+              <td class="fw-bold" colspan="6">
+                {{ p.NOMBRE }} {{ p.APELLIDO_PATERNO }} {{ p.APELLIDO_MATERNO }}
+              </td>
+            </tr>
+            {% for proyecto in p.proyectos %}
+            <tr class="custo__body-proyeto">
+              <td>{{ proyecto.FECHA_INICIO }}</td>
+              <td>{{ proyecto.FECHA_FIN }}</td>
+              <td>{{ proyecto.NOMBRE_PROYECTO }}</td>
+              <td>{{ p.PAIS }}</td>
+              <td>{{ p.FUENTE_FINANCIAMIENTO }}</td>
+              <td>{{ proyecto.AUTORIZACION }}</td>
+            </tr>
+            {% endfor %}
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </body>
 </html>
