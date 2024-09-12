@@ -15,8 +15,7 @@
       }
       .header {
         width: 100%;
-        background-color: #1ab2ee;
-        color: white;
+        color: #000;
         padding: 10px;
       }
       .header table {
@@ -34,6 +33,14 @@
       .header h3,
       .header p {
         margin: 0;
+      }
+      .title h1{
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .title h3{
+        font-size: 14px;
+        font-weight: 600;
       }
       .header .dates {
         text-align: right;
@@ -96,7 +103,7 @@
         <tr>
           <td style="width: 100px">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcizVg6CO7Hd_xCwzi3buwc7qVN6MnPUciSw&s"
+              src="https://www.ipen.gob.pe/media/k2/items/cache/32827062d398c3bcebce44c02ac4fa3f_XL.jpg"
               alt="Logo"
             />
           </td>
@@ -112,7 +119,15 @@
         </tr>
       </table>
       <div class="area">
-        <p>Área: <strong>AREA DE ALIMENTARIAS</strong></p>
+        <p>Área: 
+
+          {% for area in lista_area_tematica %}
+          <strong>{{ area }}</strong>
+
+          {% endfor %}
+         
+        
+        </p>
       </div>
     </div>
 
