@@ -24,7 +24,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="formReportArea"   method="POST" action="{% url 'generar_reporte_area' %}">
+        <form id="formReportArea"   method="POST" action="{% url 'generar_reporte_evento' %}">
           {% csrf_token %}
           <div class="mb-3">
             <div class="form-floating">
@@ -64,6 +64,6 @@
 
 <!-- Custom JS -->
 
-{% comment %} <script src="{% static 'core/js/reportes/reporteproyectos.js' %}"></script> {% endcomment %}
+<script src="{% static 'core/js/reportes/reporteeventos.js' %}"></script>
 
 {% endblock %}

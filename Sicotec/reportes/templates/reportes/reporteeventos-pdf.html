@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        font-size: 12px;
+      }
+      .header {
+        width: 100%;
+        color: #000;
+        padding: 10px;
+      }
+      .header table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .header img {
+        width: 100px;
+        height: 100px;
+      }
+      .header .title {
+        text-align: center;
+      }
+      .header h1,
+      .header h3,
+      .header p {
+        margin: 0;
+      }
+      .title h1 {
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .title h3 {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .header .dates {
+        text-align: right;
+      }
+      .header .dates p {
+        margin: 2px 0;
+      }
+      .header .area {
+        margin-top: 10px;
+      }
+
+      /* ---------------------------------- */
+      .container-table {
+        width: 100%;
+      }
+      .tabla-capacitacion {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .custom-thead {
+        border-bottom: 2px solid rgb(0, 0, 0);
+        border-top: 2px solid rgb(0, 0, 0); /* Borde solo en la parte inferior */
+      }
+      .custom-thead th {
+        border: none;
+        padding: 10px;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .custo__body-nombre td {
+        padding: 10px 0 5px 30px;
+        font-size: 11px;
+        font-weight: 700;
+        text-decoration: underline;
+      }
+      .custo__body-proyeto td {
+        padding: 10px;
+        font-size: 10px;
+      }
+      .custo__body-proyeto :nth-child(1),
+      .custo__body-proyeto :nth-child(2) {
+        width: 10%;
+      }
+      .custo__body-proyeto :nth-child(3) {
+        width: 30%;
+      }
+      .custo__body-proyeto :nth-child(4) {
+        width: 10%;
+      }
+      .custo__body-proyeto :nth-child(5),
+      .custo__body-proyeto :nth-child(6) {
+        width: 20%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="contenidopdf">
+      <div class="header">
+        <table>
+          <tr>
+            <td style="width: 100px">
+              <img src="{% static 'core/images/logo_ipen.jpg' %}" alt="Logo" />
+            </td>
+            <td class="title">
+              <h1>CAPACITACION POR AREA - 2024</h1>
+              <h3>Oficina de Cooperacion Técnica y Asuntos Internacionales</h3>
+            </td>
+            <td class="dates" style="width: 150px">
+              <p>Fecha: {{ fecha_actual }}</p>
+              <p>Hora: {{ hora_actual }}</p>
+              <p id="page-count"></p>
+            </td>
+          </tr>
+        </table>
+        <div class="area">
+          <p>
+            Área: {% for area in lista_area_tematica %}
+            <strong>{{ area }}</strong>
+
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+
+      <div class="container-table">
+        <table class="tabla-capacitacion">
+          <thead class="custom-thead">
+            <tr>
+              <th>Inicio</th>
+              <th>Término</th>
+              <th>Evento</th>
+              <th>País</th>
+              <th>Fte. Fto</th>
+              <th>Autorización</th>
+            </tr>
+          </thead>
+          <tbody class="custom-body">
+            {% for p in datosparticipante %}
+            <tr class="custo__body-nombre">
+              <td class="fw-bold" colspan="6">
+                {{ p.NOMBRE }} {{ p.APELLIDO_PATERNO }} {{ p.APELLIDO_MATERNO }}
+              </td>
+            </tr>
+            {% for evento in p.eventos %}
+            <tr class="custo__body-proyeto">
+              <td>{{ evento.FECHA_INICIO }}</td>
+              <td>{{ evento.FECHA_FIN }}</td>
+              <td>{{ evento.NOMBRE_EVENTO }}</td>
+              <td>{{ p.PAIS }}</td>
+              <td>{{ p.FUENTE_FINANCIAMIENTO }}</td>
+              <td>{{ evento.AUTORIZACION }}</td>
+            </tr>
+            {% endfor %}
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
